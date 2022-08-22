@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import * as Icons from "react-icons/fa";
 import "./Navbar.css";
 import Button from "./Button";
 import { navItems } from "./NavItems.js";
+import { faTimes, faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Navbar() {
   const [mobile, setMobile] = useState(false);
@@ -57,12 +58,12 @@ function Navbar() {
         {mobile && (
           <div className="sidebar-toggle">
             {sidebar ? (
-              <Icons.FaTimes
+                <FontAwesomeIcon icon={faTimes}
                 className="sidebar-toggle-logo"
                 onClick={() => setSidebar(!sidebar)}
               />
             ) : (
-              <Icons.FaBars
+                <FontAwesomeIcon icon={faBars}
                 className="sidebar-toggle-logo"
                 onClick={() => setSidebar(!sidebar)}
               />

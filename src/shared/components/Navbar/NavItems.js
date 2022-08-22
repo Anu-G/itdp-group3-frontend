@@ -1,5 +1,6 @@
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import * as Icons from "react-icons/fa";
+import React from 'react';
 
 export const navItems = [
   {
@@ -8,7 +9,7 @@ export const navItems = [
     path: "./",
     nName: "nav-item",
     sName: "sidebar-item",
-    // icon: <Icons.FaHome />,
+    icon: <FontAwesomeIcon icon={faHome} />,
   },
   {
     id: 2,
@@ -16,7 +17,7 @@ export const navItems = [
     path: "./page1",
     nName: "nav-item",
     sName: "sidebar-item",
-    // icon: <Icons.FaBriefcase />,
+    icon: <FontAwesomeIcon icon={faHome} />,
   },
   {
     id: 3,
@@ -24,7 +25,7 @@ export const navItems = [
     path: "./page2",
     nName: "nav-item",
     sName: "sidebar-item",
-    // icon: <Icons.FaCartArrowDown />,
+    icon: <FontAwesomeIcon icon={faHome} />,
   },
   {
     id: 4,
@@ -32,6 +33,6 @@ export const navItems = [
     path: "./page3",
     nName: "nav-item",
     sName: "sidebar-item",
-    // icon: <Icons.FaPhone />,
+    icon: <FontAwesomeIcon icon={faHome} />,
   },
 ];

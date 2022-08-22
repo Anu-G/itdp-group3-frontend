@@ -11,12 +11,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: whitesmoke;
+    color:  #FFFFFF;
     font-family: 'Kirang Haerang', sans-serif;
   }
 
   .btn:hover {
-    background: whitesmoke;
+    background: #FFFFFF;
     color: #FED154;
   }
   
