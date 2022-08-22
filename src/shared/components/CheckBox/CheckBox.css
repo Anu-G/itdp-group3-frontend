@@ -1,0 +1,37 @@
+.custom-checkbox{
+
+    height: 60px;
+    width: 840px;
+    margin: 20px;
+
+    color: #F4F4F4;
+    font-size: 32px;
+
+    display: flex;
+    gap: 20px;
+}
+
+input[type="checkbox"]{
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.checkbox{
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    border-radius: 5px;
+
+    background-color: #b9b9b9;
+
+    margin-right: 30px;
+}
+
+.checkbox--active{
+    
+}
