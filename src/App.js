@@ -1,14 +1,11 @@
 import './App.css';
-import { AddPost } from './shared/components/AddPost/AddPost';
-import { CategoryLabel } from './shared/components/CategoryLabel/CategoryLabel';
-import { CheckBox } from './shared/components/CheckBox/CheckBox';
-import { CommentColomn } from './shared/components/CommentColomn/CommentColomn';
-import { CustomDropdown } from './shared/components/Dropdown/Dropdown';
+import { Login } from './pages/Login/Login';
+import { Title2Blue, Title2White, Title3White, TitleWhite } from './shared/components/Label/Label';
+
 
 const App = _ => {
   return (
     <div className='app'>
-      <AddPost/>
     </div>
   )
 }
