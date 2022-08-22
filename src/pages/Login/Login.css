@@ -1,3 +1,38 @@
 .login-wrp{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-ctn{
     color: #f4f4f4;
+    background-color: #849EB0;
+
+    width: 450px;
+    max-height: 560px;
+    border-radius: 20px;
+    padding: 20px;
+    padding-bottom: 32px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.sign-up-ctn{
+    display: flex;
+    flex-direction: row;
+
+    gap: 8px;
+
+    cursor: default;
+}
+
+.pointer {
+    cursor: pointer;
 }

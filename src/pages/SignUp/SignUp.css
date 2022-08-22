@@ -1,0 +1,13 @@
+.sign-up-wrp{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-up-ctn{
+    color: #F4F4F4;
+    
+}
