@@ -1,11 +1,12 @@
 import './App.css';
 import { ForgotPassword } from './pages/ForgotPassword/ForgotPassword';
+import { SignUp } from './pages/SignUp/SignUp';
 
 
 const App = _ => {
   return (
     <div className='app'>
-      <ForgotPassword/>
+      <SignUp/>
     </div>
   )
 }
