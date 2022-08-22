@@ -1,12 +1,11 @@
 import './App.css';
-import { SignUp } from './pages/SignUp/SignUp';
-import { Title2Blue, Title2White, Title3White, TitleWhite } from './shared/components/Label/Label';
+import { ForgotPassword } from './pages/ForgotPassword/ForgotPassword';
 
 
 const App = _ => {
   return (
     <div className='app'>
-      <SignUp/>
+      <ForgotPassword/>
     </div>
   )
 }

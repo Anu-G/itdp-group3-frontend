@@ -29,7 +29,7 @@ export const InputTextLabelLg = ({ id, label, handleOnChange, value }) => (
 export const InputPasswordLabelMd = ({ id, label, handleOnChange, value, }) => {
    const [showIcon, setShowIcon] = useState(false);
    return (
-      <div className="input-class input-lg">
+      <div className="input-class input-md">
          <div className="icon-eye">
             {showIcon ? <FontAwesomeIcon icon={EyeSolid} onClick={_ => showPass(document, showIcon, setShowIcon)} /> :
                <FontAwesomeIcon icon={EyeRegular} onClick={_ => showPass(document, showIcon, setShowIcon)} />}
