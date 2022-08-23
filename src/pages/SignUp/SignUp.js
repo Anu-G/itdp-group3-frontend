@@ -2,7 +2,7 @@ import './SignUp.css'
 
 import React, { useEffect, useState } from 'react'
 import { SubtitleWhite, SubtitleYellow, Title2White } from '../../shared/components/Label/Label'
-import { InputPasswordLabelMd, InputTextLabelMd } from '../../shared/components/InputWithLabel/InputWithLabel'
+import { InputPasswordLabelMd, InputPasswordLabelSmTest, InputTextLabelMd } from '../../shared/components/InputWithLabel/InputWithLabel'
 import { ButtonComponent } from '../../shared/components/Button/Button'
 import { ErrorForm } from '../../shared/components/ErrorForm/ErrorForm'
 
@@ -23,7 +23,6 @@ export const SignUp = () => {
         const mail = String(address)
 
         const result = mail.toLowerCase().match(re);
-        console.log(result)
 
         if (!result){
             setEmailError('E-mail is invalid!');
@@ -33,24 +32,44 @@ export const SignUp = () => {
     }
 
     const checkConfirmPassword = () => {
-        if (password != verifyPassword){
-            setVerifyPasswordError('Password missmatch')
-        } else if (!verifyPassword){
-            setVerifyPasswordError('')
+        if (verifyPassword.length == 0){
+            setVerifyPasswordError('Cannot be empty')
         } else if (verifyPassword == password){
+            setVerifyPasswordError('')
+        }else if (password != verifyPassword){
+            setVerifyPasswordError('Password missmatch')
+        } else {
             setVerifyPasswordError('')
         }
     }
 
     useEffect(()=>{
-        if (!username && !email && !password && !verifyPassword){
+        if (username.length==0 && email.length==0  && password.length==0  && verifyPassword.length==0 ){
             setIsActive(false)
-        } else if (emailError && password && verifyPassword) {
+            if(email.length == 0){
+                setEmailError('')
+            } 
+            if (password.length == 0){
+                setPasswordError('')
+            }
+            if (verifyPassword.length == 0){
+                setVerifyPasswordError('')
+            }
+        } else if (emailError.length != 0 && password.length != 0 && verifyPassword.length != 0) {
             setIsActive(false)
         } else {
             setIsActive(true)
         }
-    }, [email,password, verifyPassword])
+
+        if(verifyPassword){
+            checkConfirmPassword();
+            if(verifyPassword == password){
+                setVerifyPasswordError('')
+            }
+        }
+    })
+
+    
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value)
@@ -63,8 +82,8 @@ export const SignUp = () => {
         setPassword(event.target.value)
     }
     const handleVerifyPasswordChange = (event) => {
-        setVerifyPassword(event.target.value)
-        checkConfirmPassword()
+        setVerifyPassword(event.target.value);
+        checkConfirmPassword();
     }
     const handleSignUpClick = () => {
         console.log('Ceritanya SignUp')
@@ -80,7 +99,7 @@ export const SignUp = () => {
 
             <InputTextLabelMd handleOnChange={handleUsernameChange} id={'username'} label='Username' value={username}/>
 
-            <InputTextLabelMd handleOnChange={handleEmailChange} id={'email'} label='e-mail' value={email}/>
+            <InputTextLabelMd handleOnChange={handleEmailChange} id={'email'} label='E-mail' value={email}/>
             <ErrorForm message={emailError}/>
 
             <InputPasswordLabelMd handleOnChange={handlePasswordChange} id='password' label={'Password'} value={password}/>
@@ -98,6 +117,7 @@ export const SignUp = () => {
                     <SubtitleWhite subtitle={'Sign In'}/>
                 </div>   
             </div>
+
         </div>
     </div>
   )
