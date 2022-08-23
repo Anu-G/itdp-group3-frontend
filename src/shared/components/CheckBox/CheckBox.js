@@ -5,16 +5,15 @@ import './CheckBox.css';
 //used only in profile.
 export const CheckBox = () => {
 
-    const [checked, setChecked] = useState(true)
+    const [checked, setChecked] = useState(false)
 
     const handleOnChecked = () => {
         setChecked(!checked);
-        console.log(checked)
     }
 
 
   return (
-    <div className='custom-checkbox' >
+    <div className={`custom-checkbox ${checked ? "" : "custom-checkbox-inactive"}`}>
         <label>
             <input type={'checkbox'} onChange={handleOnChecked}/>
 
@@ -25,11 +24,11 @@ export const CheckBox = () => {
             
 
         </label>
-        <CustomDropdown label={'Select One'} items={["item 1", "item 2", "item 3", "item 4", "item 5"]}/>
+        <CustomDropdown label={'Select One'} items={["item 1", "item 2", "item 3", "item 4", "item 5"]} locked={!checked}/>
             
         to
 
-        <CustomDropdown label={'Select One'} items={["item 1", "item 2", "item 3", "item 4", "item 5"]}/>
+        <CustomDropdown label={'Select One'} items={["item 1", "item 2", "item 3", "item 4", "item 5"]} locked={!checked}/>
     </div>
   )
 }
