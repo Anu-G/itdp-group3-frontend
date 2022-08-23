@@ -1,0 +1,25 @@
+.categorize-page{
+    color: #f4f4f4;
+    margin: 36px;
+}
+
+.category-label-btn{
+    width: 900px;
+}
+
+/* .category-label-btn:hover{
+    opacity: 0.8;
+} */
+
+.category-label-btn-wrp{
+    width: 900px;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.content-ctn{
+    width: 100%;
+    min-height: 320px;
+    background-color: #3B4046;
+}

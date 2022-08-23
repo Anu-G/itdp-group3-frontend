@@ -1,0 +1,43 @@
+.profile-page{
+    color: #F4F4F4;
+    margin: 36px;
+}
+
+.head-profile{
+    display: flex;
+    flex-direction: row;
+}
+
+.head-profile-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.image-ctn {
+    background-color: #FE5454;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin: 0 36px 0 0;
+}
+
+.profile-text-head{
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+}
+
+.open-hour{
+    margin-top: 16px;
+}
+
+.top-profile{
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}

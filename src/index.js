@@ -12,6 +12,7 @@ import AppRouter from './apps/Router';
 import ApiFactory from './shared/factory/ApiFactory';
 import AxiosClient from './apps/Client';
 import ServiceFactory from './shared/factory/ServiceFactory';
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const { store, persistor } = Store();
@@ -21,13 +22,14 @@ const service = ServiceFactory(apiClient);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Provider store={store}>
+      {/* <Provider store={store}>
         <PersistGate persistor={persistor}>
           <DepProvider service={service}>
             <AppRouter />
           </DepProvider>
         </PersistGate>
-      </Provider>
+      </Provider> */}
+      <App/>
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -6,7 +6,7 @@
     border-radius: 20px 20px 0 0;
 
     padding: 10px 10px 50px 30px;
-
+    cursor: default;
 }
 
 .label{
@@ -23,4 +23,9 @@
     background-color: #475264;
     
     color: #A3A8B2;
+}
+
+.inactive:hover{
+    opacity: 0.8;
+    cursor: pointer;
 }
