@@ -9,7 +9,6 @@ export const CommentColomn = () => {
 
     const handleChange = (event) =>{
         setText(event.target.value)
-        console.log(event.target.value.length)
         setCharLength(event.target.value.length)
     }
 

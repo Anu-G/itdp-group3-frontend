@@ -52,7 +52,7 @@ input:focus + .input-label {
    display: flex;
    align-self: flex-end;
    margin-right: 16px;
-   margin-bottom: 12px;
+   margin-bottom: 16px;
    cursor: pointer;
    color: #3B4046;
    position: absolute;

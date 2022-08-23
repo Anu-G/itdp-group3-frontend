@@ -1,8 +1,22 @@
-.button-component {
+.button-component{
    height: 60px;
    width: 260px;
    border-radius: 0px;
    background-color: #FED154;
+   border: none;
+   border-radius: 20px;
+   font-size: 34px;
+   font-weight: 400;
+   line-height: 43px;
+   text-align: center;
+   color: #f4f4f4;
+}
+
+.button-component-disable{
+   height: 60px;
+   width: 260px;
+   border-radius: 0px;
+   background-color: #E3CD8E;
    border: none;
    border-radius: 20px;
    font-size: 34px;

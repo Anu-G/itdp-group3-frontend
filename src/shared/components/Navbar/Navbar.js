@@ -15,7 +15,7 @@ function Navbar() {
     <>
       <div className="navbar">
         <Link to="#" className="nav-menu-icon" onClick={showSidebar}>
-          <FontAwesomeIcon icon={faBars}/>
+          <FontAwesomeIcon icon={faBars} />
         </Link>
         <button to="#" className="btn btn-warning " type="submit">
           <FontAwesomeIcon icon={faUser} />
@@ -28,10 +28,10 @@ function Navbar() {
           <li className="sidebar-toggle">
             <Link to="#" className="nav-menu-icon" onClick={showSidebar}>
               <div>
-              <img src="/logo-toktok.png" width="185.08" height="60" className="d-inline-block align-top" alt="logo-toktok"/>
-              <span>
-              <FontAwesomeIcon icon={faBars}/>
-              </span>
+                <img src="/logo-toktok.png" width="185.08" height="60" className="d-inline-block align-top" alt="logo-toktok" />
+                <span>
+                  <FontAwesomeIcon icon={faBars} />
+                </span>
               </div>
             </Link>
           </li>

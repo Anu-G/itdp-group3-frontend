@@ -1,4 +1,4 @@
-# TOKTOK Frontedn
+# TOKTOK Frontend
 
 ## Available Scripts
 
