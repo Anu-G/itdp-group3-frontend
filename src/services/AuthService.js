@@ -13,7 +13,7 @@ const AuthService = ({ doPost, doGet }) => {
    const doRegister = async (newUser) => {
       try {
          return await doPost({
-            url: 'auth/register',
+            url: '/auth/register',
             data: newUser
          });
       } catch (err) {
@@ -21,7 +21,17 @@ const AuthService = ({ doPost, doGet }) => {
       }
    }
 
-   return { doLogin, doRegister };
+   const doLogout = async _ => {
+      try {
+         return await doPost({
+            url: '/auth/logout'
+         });
+      } catch (err) {
+         throw (err);
+      }
+   }
+
+   return { doLogin, doRegister, doLogout };
 }
 
 export default AuthService;

@@ -4,7 +4,7 @@
     background-color: #3B4046;
     height: 10vh;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     font-family: 'Kirang Haerang', sans-serif;
   }
@@ -75,4 +75,8 @@
   
   span {
     padding-left: 1rem;
+  }
+
+  .btn-profile {
+    margin-right: 32px;
   }

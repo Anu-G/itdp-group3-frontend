@@ -2,7 +2,7 @@ import "./InputWithLabel.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye as EyeRegular } from "@fortawesome/free-regular-svg-icons";
 import { faEye as EyeSolid } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 export const InputTextLabelSm = ({ id, label, handleOnChange, value }) => (
