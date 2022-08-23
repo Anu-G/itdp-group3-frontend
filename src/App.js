@@ -2,8 +2,7 @@ import './App.css';
 
 const App = _ => {
   return (
-    <div>
-
+    <div className='app'>
     </div>
   )
 }
