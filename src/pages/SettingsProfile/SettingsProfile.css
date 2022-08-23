@@ -1,0 +1,95 @@
+.wrapper{
+    background-color: #1E2329;
+}
+
+.settings-profile-card{
+    display: flex;
+    flex-direction: column;
+    max-width: 1080px;
+    max-height: 1484px;
+    border-radius: 20px;
+    color: white;
+    background-color: #3B4046;
+    padding: 36px;
+    margin-left: 324px;
+}
+
+.profile-bio{
+    display: flex;
+    align-items: flex-start;
+    width: 964px;
+    height: 240px;
+}
+
+.profile-card{
+    width: 240px;
+    height: 240px;
+    background-color: #849EB9;
+    margin-right: 36px;
+    border-radius: 20px;
+}
+
+.bio-column{
+    width: 688px;
+    height: 116px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.char-length{
+    color: #849EB9;
+}
+
+.settings-category{
+    display: flex;
+    flex-direction: row;
+    margin-top: 36px;
+    align-items: center;
+}
+
+.category-text{
+    margin-right: 36px;
+}
+
+.open-hours{
+    display: flex;
+    flex-direction: column;
+    margin-top: 36px;
+}
+
+.open-hours-day{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.address-link-gmaps{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 484px;
+}
+
+.textarea-address{
+    width: 484px;
+    height: 116px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 36px;
+}
+
+.address-right{
+    margin-left: 36px;
+}
+
+.shopee-link{
+    margin-top: 10px;
+    margin-bottom: 45px;
+}
+.button-save{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 36px;
+}
