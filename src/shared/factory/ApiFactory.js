@@ -10,7 +10,7 @@ const ApiFactory = (client) => {
 
    const doGet = async ({ url }) => {
       try {
-         const response = await client.get(url, params);
+         const response = await client.get(url);
          return response;
       } catch (err) {
          throw err;

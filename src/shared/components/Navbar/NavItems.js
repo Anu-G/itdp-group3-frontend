@@ -28,11 +28,10 @@ export const navItems = [
     icon: <FontAwesomeIcon icon={faHome} />,
   },
   {
-    id: 4,
-    title: "Page3",
-    path: "./page3",
+    id: 'logout',
+    title: "Logout",
+    path: "/auth/login",
     nName: "nav-item",
     sName: "sidebar-item",
-    icon: <FontAwesomeIcon icon={faHome} />,
   },
 ];
