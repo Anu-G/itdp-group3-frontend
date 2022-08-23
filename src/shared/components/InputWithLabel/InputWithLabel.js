@@ -26,44 +26,36 @@ export const InputTextLabelLg = ({ id, label, handleOnChange, value }) => (
    </div>
 );
 
-export const InputPasswordLabelMd = ({ id, label, handleOnChange, value, }) => {
-   const [showIcon, setShowIcon] = useState(false);
-   let passwordArea = undefined;
-   useEffect(_ => {
-      passwordArea = document.querySelector(`#${id}`);
-   }, [showIcon]);
-   return (
-      <div className="input-class input-md">
-         <div className="icon-eye">
-            {showIcon ? <FontAwesomeIcon icon={EyeSolid} onClick={_ => showPass(passwordArea, showIcon, setShowIcon)} /> :
-               <FontAwesomeIcon icon={EyeRegular} onClick={_ => showPass(passwordArea, showIcon, setShowIcon)} />}
-         </div>
-         <input className="input-area" type={"password"} id={id} onChange={handleOnChange} value={value} />
-         <label className="input-label" for={id}>{label}</label>
-      </div>
-   );
-}
-
 export const InputPasswordLabelSm = ({ id, label, handleOnChange, value, }) => {
    const [showIcon, setShowIcon] = useState(false);
-   let passwordArea = undefined;
-   useEffect(_ => {
-      passwordArea = document.querySelector(`#${id}`);
-   }, [showIcon]);
+   const handleShowIcon = () => {
+      setShowIcon(!showIcon)
+   }
    return (
       <div className="input-class input-sm">
-         <div className="icon-eye">
-            {showIcon ? <FontAwesomeIcon icon={EyeSolid} onClick={_ => showPass(passwordArea, showIcon, setShowIcon)} /> :
-               <FontAwesomeIcon icon={EyeRegular} onClick={_ => showPass(passwordArea, showIcon, setShowIcon)} />}
+         <div className="icon-eye" onClick={handleShowIcon}>
+            {showIcon ? <FontAwesomeIcon icon={EyeSolid} /> :
+               <FontAwesomeIcon icon={EyeRegular} />}
          </div>
-         <input className="input-area" type={"password"} id={id} onChange={handleOnChange} value={value} />
+         <input className="input-area" type={showIcon ? "text" : "password"} id={id} onChange={handleOnChange} value={value} />
          <label className="input-label" for={id}>{label}</label>
       </div>
    );
 }
 
-function showPass(passwordArea, showIcon, setShowIcon) {
-   const passwordType = passwordArea.getAttribute('type') === 'password' ? 'text' : 'password';
-   passwordArea.setAttribute('type', passwordType);
-   setShowIcon(!showIcon);
+export const InputPasswordLabelMd = ({ id, label, handleOnChange, value, }) => {
+   const [showIcon, setShowIcon] = useState(false);
+   const handleShowIcon = () => {
+      setShowIcon(!showIcon)
+   }
+   return (
+      <div className="input-class input-md">
+         <div className="icon-eye" onClick={handleShowIcon}>
+            {showIcon ? <FontAwesomeIcon icon={EyeSolid} /> :
+               <FontAwesomeIcon icon={EyeRegular} />}
+         </div>
+         <input className="input-area" type={showIcon ? "text" : "password"} id={id} onChange={handleOnChange} value={value} />
+         <label className="input-label" for={id}>{label}</label>
+      </div>
+   );
 }

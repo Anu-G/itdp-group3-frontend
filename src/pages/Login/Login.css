@@ -12,7 +12,7 @@
     background-color: #849EB0;
 
     width: 450px;
-    max-height: 560px;
+    max-height: 620px;
     border-radius: 20px;
     padding: 20px;
     padding-bottom: 32px;
@@ -21,14 +21,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 28px;
 }
 
-.sign-up-ctn{
+.sign-up2-ctn{
     display: flex;
     flex-direction: row;
-
-    gap: 8px;
 
     cursor: default;
 }
