@@ -1,4 +1,7 @@
 .wrapper{
+    position: relative;
+    width: 1440px;
+    height: 1024px;
     background-color: #1E2329;
 }
 
@@ -6,12 +9,11 @@
     display: flex;
     flex-direction: column;
     max-width: 1080px;
-    max-height: 1484px;
+    max-height: auto;
     border-radius: 20px;
     color: white;
     background-color: #3B4046;
     padding: 36px;
-    margin-left: 324px;
 }
 
 .profile-bio{

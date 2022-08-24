@@ -1,5 +1,5 @@
 import { Button } from 'bootstrap';
-import React, { useState, useForm } from 'react';
+import React, { useState} from 'react';
 import { BioColomn } from '../../shared/components/BioColomn/BioColomn';
 import { ButtonComponent } from '../../shared/components/Button/Button';
 import { CheckBox } from '../../shared/components/CheckBox/CheckBox';
@@ -8,16 +8,18 @@ import { CustomDropdown } from '../../shared/components/Dropdown/Dropdown';
 import { InputTextLabelLg } from '../../shared/components/InputWithLabel/InputWithLabel';
 import { Title2White, Title3White } from '../../shared/components/Label/Label';
 import './SettingsProfile.css';
+import { useForm } from 'react-hook-form';
+
 
 export const SettingsProfile = () => {
-    // const{selectedCategory, setSelectedCategory} = useState("Food & Beverage");
-    // const { editProfile, handleSubmit } = useForm();
-    // const onSubmit = (data, e) => console.log(data, e);
-    // const onError = (errors, e) => console.log(errors, e);
+    const{selectedCategory, setSelectedCategory} = useState("Food & Beverage");
+    const { editProfile, handleSubmit } = useForm();
+    const onSubmit = (data, e) => console.log(data, e);
+    const onError = (errors, e) => console.log(errors, e);
 
   return (
      <div className='wrapper'>
-        {/* <form onSubmit={handleSubmit(onSubmit, onError)}> */}
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
             <div className='settings-profile-card'>
                 <div className='profile-bio'>
                     <div className='profile-card'>
@@ -74,7 +76,7 @@ export const SettingsProfile = () => {
                     <ButtonComponent label={"Save"}/>
                 </div>
             </div>
-        {/* </form> */}
+        </form>
     </div> 
   )
   }
