@@ -4,6 +4,7 @@ import { ForgotPassword } from './pages/ForgotPassword/ForgotPassword';
 import { Login } from './pages/Login/Login';
 import { Profile } from './pages/Profile/Profile';
 import { SignUp } from './pages/SignUp/SignUp';
+import { ImagesViewProfile } from './shared/components/ImagesViewProfile/ImagesViewProfile';
 
 const App = _ => {
   return (
@@ -13,6 +14,7 @@ const App = _ => {
       {/* <Login /> */}
       <Profile/>
       {/* <CategorizePage/> */}
+      
     </div >
   )
 }

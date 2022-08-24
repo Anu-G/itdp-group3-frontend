@@ -1,0 +1,11 @@
+.img-vw-ctn{
+    height: 224px;
+    width: 320px;
+    border-radius: 20px;
+}
+
+.img-vw-profile{
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+}

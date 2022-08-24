@@ -22,9 +22,6 @@ export const Login = () => {
             setIsActive(false)
             setPasswordError('')
         }
-        if(emailError.length == 0 && passwordError.length==0){
-            setIsActive(true)
-        }
     }
 
     const checkEmail = (address) => {

@@ -55,3 +55,18 @@ export const Title2Yellow = ({title}) => {
     )
 }
 
+export const Text32Yellow = ({text}) => {
+    return (
+        <div className='text32 yellow'>
+            {text}
+        </div>
+    )
+}
+
+export const Text32White = ({text}) => {
+    return (
+        <div className='text32 white'>
+            {text}
+        </div>
+    )
+}
