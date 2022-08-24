@@ -56,11 +56,11 @@ function Navbar() {
               <li
                 key={sidebaritem.id}
                 className={sidebaritem.sName}
-                onClick={_ => showSidebar()}
+                onClick={sidebaritem.id === 'logout' ? onLogout : showSidebar}
               >
                 <Link to={sidebaritem.path}>
                   {sidebaritem.icon}
-                  <span onClick={sidebaritem.id === 'logout' ? onLogout : null}>{sidebaritem.title}</span>
+                  <span>{sidebaritem.title}</span>
                 </Link>
               </li>
             );

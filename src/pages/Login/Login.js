@@ -6,6 +6,7 @@ import { ErrorForm } from '../../shared/components/ErrorForm/ErrorForm'
 import { InputPasswordLabelSm, InputTextLabelSm } from '../../shared/components/InputWithLabel/InputWithLabel'
 import { SubtitleWhite, SubtitleYellow, Title2White } from '../../shared/components/Label/Label'
 import { UseDep } from '../../shared/context/ContextDep'
+import AppError from '../../utils/AppError'
 import './Login.css'
 import { UserLoginAction } from './state/AuthAction'
 
@@ -61,7 +62,7 @@ export const Login = () => {
     const handleLoginOnClick = async () => {
         try {
             const response = await authService.doLogin({
-                user_name: email,
+                email: email,
                 password: password
             });
             if (response.status === 200) {
@@ -71,7 +72,7 @@ export const Login = () => {
                 navigate('/feeds');
             }
         } catch (err) {
-            alert(`${err.response.data.responseMessage}`);
+            AppError(err);
         }
     }
 

@@ -6,6 +6,7 @@ import { UserLogoutAction } from "../pages/Login/state/AuthAction";
 import NavTimeline from "../pages/NavTimeline/NavTimeline";
 import { SignUp } from "../pages/SignUp/SignUp";
 import { AuthSelector } from "../shared/selectors/Selectors";
+import AppError from "../utils/AppError";
 
 const AppRouter = _ => {
    const authRed = useSelector(AuthSelector);
@@ -30,7 +31,7 @@ const AppRouter = _ => {
          dispatch(UserLogoutAction());
          return <Navigate to={"/auth/login"} replace />
       } catch (err) {
-         alert(`${err.response}`);
+         AppError(err);
       }
    }
 
