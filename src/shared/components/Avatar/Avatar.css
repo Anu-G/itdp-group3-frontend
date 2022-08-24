@@ -11,3 +11,8 @@
     width: 100%;
     border-radius: 50%;
 }
+
+.small{
+    height: 124px;
+    width: 124px;
+}

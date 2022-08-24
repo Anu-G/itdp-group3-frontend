@@ -11,3 +11,13 @@ export const ImagesViewProfile = ({link}) => {
     </div>
   )
 }
+
+export const ImagesViewTimeline = ({link}) => {
+    return (
+      <div>
+          <div className='img-tl-ctn'>
+              <img className='img-vw-profile' src={link}/>
+          </div>
+      </div>
+    )
+  }

@@ -10,3 +10,13 @@ export const Avatar = ({link}) => {
     </>
   )
 }
+
+export const AvatarSmall = ({link}) => {
+  return (
+    <>
+        <div className='avatar-ctn small'>
+            <img className='avatar-profile' src={link}/>
+        </div>
+    </>
+  )
+}
