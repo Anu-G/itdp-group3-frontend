@@ -1,0 +1,28 @@
+.wrapper{
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+
+    background-color: #1E2329;
+}
+
+.settings-faq-card{
+    display: flex;
+    flex-direction: column;
+    width: 1080px;
+    height: auto;
+    background-color: #3B4046;
+    border-radius: 20px;
+    padding: 36px;
+}
+
+.button-add-faq-question-amount{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items:center;
+    margin-bottom: 36px;
+}
+
+.button-add-question{
+    margin-left: 36px;
+}
