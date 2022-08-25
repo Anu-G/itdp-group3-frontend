@@ -6,6 +6,7 @@ import { Profile } from './pages/Profile/Profile';
 import { SignUp } from './pages/SignUp/SignUp';
 import { TimelineCard } from './pages/TimelineCard/TimelineCard';
 import { ImagesViewProfile } from './shared/components/ImagesViewProfile/ImagesViewProfile';
+import { LoadingScreen } from './shared/components/LoadingScreen/LoadingScreen';
 
 const App = _ => {
   return (
@@ -15,7 +16,8 @@ const App = _ => {
       {/* <Login /> */}
       {/* <Profile/> */}
       {/* <CategorizePage/> */}
-      <TimelineCard />
+      {/* <TimelineCard /> */}
+      <LoadingScreen/>
     </div >
   )
 }
