@@ -1,22 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './CommentColomn.css'
 
-export const CommentColomn = () => {
+export const CommentColomn = ({handleChange, value, maxLength}) => {
 
-    const [text, setText] = useState('');
-    const maxLength = 100;
     const [charLength, setCharLength] = useState(0);
 
-    const handleChange = (event) =>{
-        setText(event.target.value)
-        setCharLength(event.target.value.length)
-    }
+    useEffect(() => {
+        setCharLength(value.length)
+    },[value])
 
   return (
     <div className='comment-wrp'>
-        CommentColomn
         <div className='comment-box'>
-            <textarea className='text-area' onChange={handleChange}/>
+            <textarea className='text-area' onChange={handleChange} value={value}/>
             <div className='char-length'>   
                 {charLength}/{maxLength}
             </div>

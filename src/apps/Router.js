@@ -7,3 +7,5 @@ const AppRouter = _ => {
       </Routes>
    )
 }
+
+export default AppRouter;

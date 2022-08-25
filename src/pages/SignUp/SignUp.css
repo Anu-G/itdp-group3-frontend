@@ -9,8 +9,8 @@
 
 .sign-up-ctn{
     color: #F4F4F4;
-    width: 600px;
-    max-height: 760px;
+    width: 630px;
+    max-height: 820px;
 
     padding: 20px;
     padding-bottom: 32px;
@@ -22,7 +22,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 24px;
+    gap: 28px;
 }
 
 .sign-in-ctn{

@@ -12,6 +12,10 @@
    color: #f4f4f4;
 }
 
+.button-component:hover{
+   background-color: #FEDA76;
+}
+
 .button-component-disable{
    height: 60px;
    width: 260px;

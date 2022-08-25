@@ -36,3 +36,37 @@ export const SubtitleYellow = ({subtitle}) => {
         <div className='subtitle yellow'>{subtitle}</div>
     )
 }
+
+export const Title2Green = ({title}) => {
+    return(
+        <div className='title-1 green'>{title}</div>
+    )
+}
+
+export const Title2Red = ({title}) => {
+    return(
+        <div className='title-1 red'>{title}</div>
+    )
+}
+
+export const Title2Yellow = ({title}) => {
+    return(
+        <div className='title-2 yellow'>{title}</div>
+    )
+}
+
+export const Text32Yellow = ({text}) => {
+    return (
+        <div className='text32 yellow'>
+            {text}
+        </div>
+    )
+}
+
+export const Text32White = ({text}) => {
+    return (
+        <div className='text32 white'>
+            {text}
+        </div>
+    )
+}

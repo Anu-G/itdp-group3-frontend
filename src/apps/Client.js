@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const client = axios.create({
+const AxiosClient = axios.create({
    baseURL: process.env.REACT_APP_BASE_URL,
    headers: {
       "content-type": "application/json"
@@ -8,4 +8,4 @@ const client = axios.create({
    responseType: "json"
 });
 
-export default client;
+export default AxiosClient;
