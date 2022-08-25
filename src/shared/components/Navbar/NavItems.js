@@ -30,7 +30,7 @@ export const navItems = [
   {
     id: 'logout',
     title: "Logout",
-    path: "/auth/login",
+    path: "./",
     nName: "nav-item",
     sName: "sidebar-item",
   },

@@ -7,6 +7,7 @@ import { ButtonComponent } from '../../shared/components/Button/Button'
 import { ErrorForm } from '../../shared/components/ErrorForm/ErrorForm'
 import { useNavigate } from 'react-router'
 import { UseDep } from '../../shared/context/ContextDep'
+import AppError from '../../utils/AppError'
 
 export const SignUp = () => {
     const [username, setUsername] = useState('')
@@ -48,7 +49,7 @@ export const SignUp = () => {
     }
 
     useEffect(() => {
-        if (username.length == 0 && email.length == 0 && password.length == 0 && verifyPassword.length == 0) {
+        if (username.length == 0 || email.length == 0 || password.length == 0 || verifyPassword.length == 0) {
             setIsActive(false)
             if (email.length == 0) {
                 setEmailError('')
@@ -71,7 +72,7 @@ export const SignUp = () => {
                 setVerifyPasswordError('')
             }
         }
-    })
+    }, [username, email, password, verifyPassword, emailError])
 
 
 
@@ -101,7 +102,7 @@ export const SignUp = () => {
                 navigate('/auth/login');
             }
         } catch (err) {
-            alert(`${err.response.data.responseMessage}`);
+            AppError(err);
         }
     }
     const handleSignInClick = () => {
