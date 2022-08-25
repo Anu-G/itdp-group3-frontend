@@ -1,0 +1,38 @@
+.wrapper{
+    position: relative;
+    width: 1440px;
+    height: 1228px;
+
+    background-color: #1E2329;
+}
+
+.settings-add-product-card{
+    display: flex;
+    flex-direction: column;
+    width: 1080px;
+    height: auto;
+
+    background-color: #3B4046;
+    border-radius: 20px;
+    padding: 36px;
+}
+
+.name-price{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 36px;
+}
+
+.product-name{
+    margin-right: 36px;
+}
+
+.description{
+    margin-bottom: 36px;
+}
+
+.button-upload{
+    display: flex;
+    flex-direction: row-reverse;
+}
