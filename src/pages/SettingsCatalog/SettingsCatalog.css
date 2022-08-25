@@ -1,0 +1,36 @@
+.wrapper{
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+
+    background-color: #1E2329;
+}
+
+.settings-catalog-card{
+    display: flex;
+    flex-direction: column;
+    max-width: 1080px;
+    height: auto;
+    padding: 36px;
+    background: #3B4046;
+    border-radius: 20px;
+}
+
+.add-product-button{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 36px;
+}
+.wrapper-product-catalog-card{
+    display: flex;
+    flex-direction: row;
+}
+.product-catalog-card{
+    border-radius: 20px;
+    margin-left: 36px;
+    margin-bottom: 36px;
+    width: 225px;
+    height: 200px;
+    background: #849EB9;
+}

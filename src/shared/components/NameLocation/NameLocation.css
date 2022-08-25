@@ -1,0 +1,6 @@
+.name-location-ctn{
+    height: 124px;
+    display: flex;
+    flex-direction: column;
+    
+}

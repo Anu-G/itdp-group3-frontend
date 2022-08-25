@@ -1,7 +1,14 @@
 .app {
+/* <<<<<<< HEAD */
     min-height: 100vh;
     width: 100%;
     overflow: hidden;
+/* ======= */
+    /* height: 100%;
+    width: 100vw;
+    padding-bottom: 24px; */
+
+/* >>>>>>> origin/dev-tika-5-settings-faq */
     background-color: #1E2329;
     font-family: 'Kirang Haerang', cursive;
 }
