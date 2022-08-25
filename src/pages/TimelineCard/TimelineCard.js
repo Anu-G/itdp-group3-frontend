@@ -90,7 +90,10 @@ export const TimelineCard = () => {
 
           <div className='ext-cmt' hidden={isActive}>
             <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} value={comment}/>
-            <ButtonComponent isDisable={isButtonSendActive} label={'send'} onClick={handleOnClickSend}/>
+            <div style={{display:'flex', justifyContent:'end'}}>
+              <ButtonComponent isDisable={isButtonSendActive} label={'send'} onClick={handleOnClickSend}/>
+
+            </div>
           </div>
         </div>
     </div>

@@ -71,19 +71,26 @@ export const Login = () => {
   return (
     <div className='login-wrp'>
         <div className='login-ctn'>
-            <Title2White title={"Login"}/>
-            <InputTextLabelSm id={'email'} label='E-mail' handleOnChange={handleOnChangeEmail} value={email}/>
-            <ErrorForm message={emailError}/>
 
-            <InputPasswordLabelSm id={'password'} label='Password' handleOnChange={handleOnChangePass} value={password}/>
-            <ErrorForm message={passwordError}/>
-            <ButtonComponent isDisable={!isActive} label='Login' onClick={handleLoginOnClick}/>
-            
-            <div className='sign-up2-ctn pointer' onClick={handleForgotClick}>
-                <SubtitleWhite  subtitle={'Forgot Password?'}/>
+            <Title2White title={"Login"}/>
+            <div className='login-form'>
+
+                <InputTextLabelSm id={'email'} label='E-mail' handleOnChange={handleOnChangeEmail} value={email}/>
+                <ErrorForm message={emailError}/>
+
+                <InputPasswordLabelSm id={'password'} label='Password' handleOnChange={handleOnChangePass} value={password}/>
+                <ErrorForm message={passwordError}/>
+                <ButtonComponent isDisable={!isActive} label='Login' onClick={handleLoginOnClick}/>
+                
+                <div className='sign-up2-ctn pointer' onClick={handleForgotClick}>
+                    <SubtitleWhite  subtitle={'Forgot Password?'}/>
+                </div>
+
             </div>
+            
             <div className='sign-up2-ctn'>
                 <SubtitleYellow subtitle={`Don't have an account?`}/>
+                
                 <div className='pointer' onClick={handleSignUpClick}>
                     <SubtitleWhite subtitle={'Sign Up'}/>
                 </div>   
