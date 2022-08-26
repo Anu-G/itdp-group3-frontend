@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonComponent } from '../../shared/components/Button/Button'
+import { ButtonComponent, ButtonComponentSm } from '../../shared/components/Button/Button'
 import { SubtitleWhite, Title2Blue, Title2Green, Title2Red, Title2White, Title2Yellow, TitleWhite } from '../../shared/components/Label/Label'
 import { Avatar } from '../../shared/components/Avatar/Avatar'
 import { CategorizePage } from '../CategorizePage/CategorizePage'
@@ -26,24 +26,24 @@ export const Profile = () => {
                             <div className='profile-text-item'>
                                 <div className='profile-text-head'>
                                     <TitleWhite title={name} />
-                                    {isOpen ? <Title2Green title={'OPEN'} /> : <Title2Red title={'Closed'} />}
+                                    {isOpen ? <Title2Green title={'OPEN'} /> : <Title2Red title={'CLOSED'} />}
                                 </div>
                                 <Title2Blue title={category} />
                                 <div className='open-hour'>
-                                    <Title2Yellow title={`Today's Open hour`} />
-                                    <Title2White title={`${open} - ${closed}`} />
+                                    <SubtitleWhite subtitle={`Today's Open hour`} />
+                                    <Title2Yellow title={`${open} - ${closed}`} />
                                 </div>
                             </div>
                         </div>
 
-                        <div>
+                        <div style={{maxWidth: '736px'}}>
                             <SubtitleWhite subtitle={bio} />
                         </div>
                     </div>
                     <div className='profile-buttons'>
-                        <ButtonComponent label={'Contact Us'} />
-                        <ButtonComponent label={'Visit Our Link(s)'} />
-                        <ButtonComponent label={'Visit Our Store'} />
+                        <ButtonComponentSm label={'Contact Us'} />
+                        <ButtonComponentSm label={'Our Link(s)'} />
+                        <ButtonComponentSm label={'Our Store'} />
                     </div>
                 </div>
 

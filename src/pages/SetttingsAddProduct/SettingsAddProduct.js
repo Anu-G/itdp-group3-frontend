@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { BioColomn } from '../../shared/components/BioColomn/BioColomn'
 import { ButtonComponent } from '../../shared/components/Button/Button'
 import { CommentColomn } from '../../shared/components/CommentColomn/CommentColomn'
-import { InputTextLabelLg } from '../../shared/components/InputWithLabel/InputWithLabel'
+import { InputTextLabelLg, InputTextLabelMd, InputTextLabelSm } from '../../shared/components/InputWithLabel/InputWithLabel'
 import { Title2Yellow, Title3White } from '../../shared/components/Label/Label'
 import './SettingsAddProduct.css'
 
@@ -39,19 +40,12 @@ export const SettingsAddProduct = () => {
         <Title2Yellow title={"New Product"}/>
         <div className='settings-add-product-card'>
             <div className='name-price'>
-                <div className='product-name'>
-                    <Title3White title={"Product Name"}/>
-                    <InputTextLabelLg/>
-                </div>
-                <div className='product-name'>
-                    <Title3White title={"Price"}/>
-                    <InputTextLabelLg/>
-                </div>
+                    <InputTextLabelSm label={'Name'} style={{minWidth:'254px'}}/>
+                    <InputTextLabelSm label={'Price'} style={{minWidth:'254px'}}/>
             </div>
 
             <div className='description'>
-                <Title3White title={"Description"}/><br/><br/>
-                <CommentColomn handleChange={handleDescriptionChange} maxLength={maxLength} value={description}/>
+                <CommentColomn label='Description' handleChange={handleDescriptionChange} maxLength={maxLength} value={description}/>
             </div>
 
             <div className='add-photo-video'>

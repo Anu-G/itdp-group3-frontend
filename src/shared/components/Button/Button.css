@@ -1,5 +1,5 @@
 .button-component{
-   height: 52px;
+   height: 48px;
    width: 260px;
    border-radius: 0px;
    background-color: #FED154;
@@ -17,7 +17,7 @@
 }
 
 .button-component-disable{
-   height: 52px;
+   height: 48px;
    width: 260px;
    border-radius: 0px;
    background-color: #E3CD8E;
@@ -32,4 +32,11 @@
 
 .button-component-disable:hover{
    background-color: #E3CD8E;
+}
+
+.btn-sm{
+   height: 40px;
+   width: 124px;
+   font-size: 20px;
+   line-height: 25px;
 }

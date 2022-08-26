@@ -5,12 +5,13 @@ import { ButtonComponent } from '../../shared/components/Button/Button';
 import { CheckBox } from '../../shared/components/CheckBox/CheckBox';
 import { CustomDropdown } from '../../shared/components/Dropdown/Dropdown';
 import { InputTextLabelLg, InputTextLabelSm } from '../../shared/components/InputWithLabel/InputWithLabel';
-import { Title2White, Title3White } from '../../shared/components/Label/Label';
+import { Title2White, Title3White, TitleWhite } from '../../shared/components/Label/Label';
 import './SettingsProfile.css';
 import 'react-image-crop/dist/ReactCrop.css';
 import getCroppedImg from '../../utils/CropImage';
 import Cropper from 'react-easy-crop';
 import Slider from '@mui/material/Slider';
+import { width } from '@mui/system';
 
 export const SettingsProfile = () => {
     const [totalLink, setTotalLink] = useState(5);
@@ -127,9 +128,9 @@ export const SettingsProfile = () => {
                             <input type={'file'} accept='image/*' ref={inputRef} style={{ display: "none" }} onChange={onSelectFile} />
                             <button onClick={triggerFileSelectPopup} style={{ borderRadius: "8px" }}>Choose Image</button>
                         </div>
-                        <div className='bio'>
-                            <Title2White title={"Free Coffee"} /><br />
-                            <BioColomn />
+                        <div className='bio-column'>
+                            <TitleWhite title={"Free Coffee"} />
+                            <BioColomn label={"Bio:"}/>
                         </div>
                     </div>
 
@@ -149,21 +150,20 @@ export const SettingsProfile = () => {
 
                     <div className='address-link-gmaps'>
                         <div className='address-left'>
-                            <Title3White title={"Address: "} />
-                            <textarea className='textarea-address' />
+                            <BioColomn label={'Address'}/>
                         </div>
                         <div className='address-right'>
-                            <InputTextLabelLg id={"gmaps"} label={"Google Maps Link"} />
+                            <InputTextLabelSm id={"gmaps"} label={"Google Maps Link"} />
                         </div>
                     </div>
                     <div className='website-link'>
                         <div className='address-left'>
                             {linkFormId.map(val =>
-                                <InputTextLabelSm id={val} label={`nama website ${val}`} style={{ marginTop: "12px" }} />)}
+                                <InputTextLabelSm id={val} label={`nama website ${val}`} style={{ marginTop: "12px", width:'200px'}} />)}
                         </div>
                         <div className='address-right'>
                             {linkFormId.map(val =>
-                                <InputTextLabelSm id={val} label={`link website ${val}`} style={{ marginTop: "12px", width: "600px" }} />)}
+                                <InputTextLabelSm id={val} label={`link website ${val}`} style={{ marginTop: "12px" , width:'440px'}} />)}
                         </div>
                     </div>
 

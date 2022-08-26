@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './CommentColomn.css'
 
-export const CommentColomn = ({handleChange, value, maxLength}) => {
+export const CommentColomn = ({label='',handleChange, value, maxLength=280}) => {
 
     const [charLength, setCharLength] = useState(0);
 
