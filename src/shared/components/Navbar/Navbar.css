@@ -4,9 +4,13 @@
     background-color: #3B4046;
     height: 10vh;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     font-family: 'Kirang Haerang', sans-serif;
+    padding-left: 32px;
+    padding-right: 32px;
+    position: fixed;
+    width: 100vw;
   }
   
   .nav-menu-icon {
@@ -19,8 +23,10 @@
   
   .sidebar-container {
     background-color: #3B4046;
-    width: 20rem;
-    height: 100vh;
+    width: 320px;
+    margin-left: 160px;
+    margin-top: 10vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     position: fixed;
@@ -36,11 +42,9 @@
   
   .sidebar-item {
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-    height: 5rem;
+    height: 60px;
     list-style: none;
-    padding: 35px 0px 8px 16px;
     font-family: 'Kirang Haerang', sans-serif;
   }
   
@@ -52,11 +56,15 @@
     width: 90%;
     display: flex;
     align-items: center;
-    padding: 0 1.5rem;
     border-radius: 4px;
   }
   
   .sidebar-item a:hover {
+    background-color:#1E2329;
+    color:  #FED154;
+  }
+
+  .sidebar-item-active a {
     background-color:#1E2329;
     color:  #FED154;
   }
@@ -75,4 +83,15 @@
   
   span {
     padding-left: 1rem;
+  }
+
+  .sidebar-btn {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .web-logo{
+    cursor: pointer;
   }

@@ -1,9 +1,9 @@
 .dropdown-wrp{
     min-width: 100px;
-    max-width: 280px;
+    width: 280px;
     height: 60px;
 
-    position: relative;
+    /* position: relative; */
 
     color: #f4f4f4;
     font-size: 34px;
@@ -46,7 +46,7 @@
 
     -ms-overflow-style: none;
     scrollbar-width: none;
-
+    z-index: 10;
 }
 
 .dropdown-ctn > * {
@@ -69,4 +69,8 @@
 
 .icon {
     margin: 8px 8px 15px 10px;
+}
+
+.overlay {
+    height: 60px;
 }
