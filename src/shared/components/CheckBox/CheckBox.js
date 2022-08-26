@@ -3,7 +3,7 @@ import { CustomDropdown } from '../Dropdown/Dropdown';
 import './CheckBox.css';
 
 //used only in profile.
-export const CheckBox = () => {
+export const CheckBox = ({ label, items }) => {
 
     const [checked, setChecked] = useState(false)
 
@@ -12,25 +12,27 @@ export const CheckBox = () => {
     }
 
 
-  return (
-    <div className={`custom-checkbox ${checked ? "" : "custom-checkbox-inactive"}`}>
-        <label>
-            <input type={'checkbox'} onChange={handleOnChecked}/>
+    return (
+        <div className={`custom-checkbox mt-2 ${checked ? "" : "custom-checkbox-inactive"}`}>
+            <label>
+                <input type={'checkbox'} onChange={handleOnChecked} />
 
-            <svg className={`checkbox ${checked ? "checkbox--active" : ""}`} aria-hidden="true" viewBox='0 2 15 6' fill='none'>
-                <path d="M2 4.5L6 9L13 0" strokeWidth="3" stroke={checked ? "#1E2329" : "#B9B9B9"} />
-            </svg>
-            Sunday 
-            
+                <svg className={`checkbox ${checked ? "checkbox--active" : ""}`} aria-hidden="true" viewBox='0 2 15 6' fill='none'>
+                    <path d="M2 4.5L6 9L13 0" strokeWidth="3" stroke={checked ? "#1E2329" : "#B9B9B9"} />
+                </svg>
+                {label}
 
-        </label>
-        <CustomDropdown label={'Select One'} items={["item 1", "item 2", "item 3", "item 4", "item 5"]} locked={!checked}/>
-            
-        to
 
-        <CustomDropdown label={'Select One'} items={["item 1", "item 2", "item 3", "item 4", "item 5"]} locked={!checked}/>
-    </div>
-  )
+            </label>
+            <div className='dropdown-wrapper'>
+                <CustomDropdown label={'Select One'} items={items} locked={!checked} />
+
+                <span className='px-3'>to</span>
+
+                <CustomDropdown label={'Select One'} items={items} locked={!checked} />
+            </div>
+        </div>
+    )
 }
 
 /*

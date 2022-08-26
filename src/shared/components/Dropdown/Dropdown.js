@@ -1,4 +1,3 @@
-import React from 'react'
 import './Dropdown.css'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,12 +8,13 @@ library.add(fas)
 
 //propsnya itu list yang bakal jadi dropdown itemnya.
 // <CustomDropdown label={'Select One'} items={["item 1", "item 2", "item 3", "item 4", "item 5"]}/> 
-export const CustomDropdown = ({label, items, locked}) => {
+export const CustomDropdown = ({ label, items, locked }) => {
     const [value, setValue] = useState(label);
     const [active, setActive] = useState(false)
 
     const handleClick = (value) => {
-        setValue(value)
+        setValue(value);
+        setActive((prevActive) => !prevActive);
     }
 
     const handleDropdownActive = () => {
@@ -24,33 +24,33 @@ export const CustomDropdown = ({label, items, locked}) => {
     }
 
 
-  return (
-    <div>
+    return (
+        <div className='overlay'>
 
 
-        <div className='dropdown-wrp'>
-            <div className='dropdown-btn' onClick={()=>{handleDropdownActive()}}>
-                {value}
-                <div>
-                    <FontAwesomeIcon icon="fa-solid fa-angle-down" className='icon' />
+            <div className='dropdown-wrp'>
+                <div className='dropdown-btn' onClick={handleDropdownActive}>
+                    {value}
+                    <div>
+                        <FontAwesomeIcon icon="fa-solid fa-angle-down" className='icon' />
+                    </div>
+
                 </div>
-                
-            </div>
-            {
-                active && 
-                <div className='dropdown-ctn'>
-                    {items.map((item)=>{
-                        return(
-                            <div onClick={()=> handleClick(item)}>{item}</div>
-                        )
-                    })}
-                </div>
+                {
+                    active &&
+                    <div className='dropdown-ctn'>
+                        {items.map((item) => {
+                            return (
+                                <div onClick={() => handleClick(item)}>{item}</div>
+                            )
+                        })}
+                    </div>
                 }
-            
 
+
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 

@@ -37,15 +37,17 @@ export const Login = () => {
     }
 
     useEffect(() => {
-        if (email.length == 0) {
+        if (email.length == 0 || password.length == 0) {
+            setIsActive(false);
+            if (email.length == 0) {
+                setEmailError('')
+            }
+            if (password.length == 0) {
+                setPasswordError('')
+            }
+        } else if (emailError.length != 0 || passwordError.length != 0) {
             setIsActive(false)
-            setEmailError('')
-        }
-        if (password.length == 0) {
-            setIsActive(false)
-            setPasswordError('')
-        }
-        if (emailError.length == 0 && passwordError.length == 0) {
+        } else {
             setIsActive(true)
         }
     }, [email, password, emailError, passwordError])
@@ -85,22 +87,31 @@ export const Login = () => {
         navigate('/auth/register');
     }
 
+    //id, label, handleOnChange, value,
+
     return (
         <div className='login-wrp'>
             <div className='login-ctn'>
+
                 <Title2White title={"Login"} />
-                <InputTextLabelSm id={'email'} label='E-mail' handleOnChange={handleOnChangeEmail} value={email} />
-                <ErrorForm message={emailError} />
+                <div className='login-form'>
 
-                <InputPasswordLabelSm id={'password'} label='Password' handleOnChange={handleOnChangePass} value={password} />
-                <ErrorForm message={passwordError} />
-                <ButtonComponent isDisable={!isActive} label='Login' onClick={handleLoginOnClick} />
+                    <InputTextLabelSm id={'email'} label='E-mail' handleOnChange={handleOnChangeEmail} value={email} />
+                    <ErrorForm message={emailError} />
 
-                <div className='sign-up2-ctn pointer' onClick={handleForgotClick}>
-                    <SubtitleWhite subtitle={'Forgot Password?'} />
+                    <InputPasswordLabelSm id={'password'} label='Password' handleOnChange={handleOnChangePass} value={password} />
+                    <ErrorForm message={passwordError} />
+                    <ButtonComponent isDisable={!isActive} label='Login' onClick={handleLoginOnClick} />
+
+                    <div className='sign-up2-ctn pointer' onClick={handleForgotClick}>
+                        <SubtitleWhite subtitle={'Forgot Password?'} />
+                    </div>
+
                 </div>
+
                 <div className='sign-up2-ctn'>
                     <SubtitleYellow subtitle={`Don't have an account?`} />
+
                     <div className='pointer' onClick={handleSignUpClick}>
                         <SubtitleWhite subtitle={'Sign Up'} />
                     </div>

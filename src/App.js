@@ -5,7 +5,7 @@ const App = _ => {
   return (
     <div className='app'>
       <AppRouter />
-    </div >
+    </div>
   )
 }
 

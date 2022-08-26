@@ -1,0 +1,136 @@
+.wrapper{
+    background-color: #1E2329;
+    display: flex;
+    justify-content: center;
+    padding: 32px;
+}
+
+.settings-profile-card{
+    display: flex;
+    flex-direction: column;
+    max-width: 1080px;
+    min-height: 1484px;
+    border-radius: 20px;
+    color: white;
+    background-color: #3B4046;
+    padding: 36px;
+    margin-top: 36px;
+}
+
+.profile-bio{
+    display: flex;
+    align-items: flex-start;
+    width: 964px;
+    height: 240px;
+}
+
+.profile-card{
+    width: 240px;
+    height: 240px;
+    background-color: #849EB9;
+    margin-right: 36px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.bio-column{
+    width: 688px;
+    height: 116px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.char-length{
+    color: #849EB9;
+}
+
+.settings-category{
+    display: flex;
+    flex-direction: row;
+    margin-top: 36px;
+}
+
+.category-text{
+    margin-right: 36px;
+}
+
+.open-hours{
+    display: flex;
+    flex-direction: column;
+    margin-top: 36px;
+    width: 848px;
+}
+
+.open-hours-day{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 24px;
+}
+
+.address-link-gmaps{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 36px;
+}
+
+.textarea-address{
+    width: 484px;
+    height: 116px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 36px;
+}
+
+.address-right{
+    margin-left: 36px;
+}
+
+.shopee-link{
+    margin-top: 10px;
+    margin-bottom: 45px;
+}
+.button-save{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 36px;
+}
+
+.website-link{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.container-cropper {
+    display: flex; 
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+.slider {
+	height: 75%;
+	margin: auto;
+	width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    justify-content: end;
+}
+
+.cropper {
+	position: fixed; /* Stay in place */
+    z-index: 10; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 85%; /* Full height */
+}

@@ -1,7 +1,7 @@
 .sign-up-wrp{
     width: 100%;
     min-height: 100%;
-
+    padding: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +10,7 @@
 .sign-up-ctn{
     color: #F4F4F4;
     width: 630px;
-    max-height: 820px;
+    max-height: 720px;
 
     padding: 20px;
     padding-bottom: 32px;
@@ -22,7 +22,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 28px;
+    gap: 20px;
 }
 
 .sign-in-ctn{

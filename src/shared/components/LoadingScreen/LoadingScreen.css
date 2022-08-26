@@ -1,0 +1,32 @@
+*{
+    color: #F4F4F4;
+}
+
+.loading-wrp {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 102;
+}
+
+.loading-ctn{
+    background-color: #FED154;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 20px;
+    flex-direction: column;
+    box-shadow: 4px 4px 8px #1E2329;
+
+    pointer-events: none;
+}

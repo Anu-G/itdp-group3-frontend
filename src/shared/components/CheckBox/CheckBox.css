@@ -9,6 +9,7 @@
 
     display: flex;
     gap: 20px;
+    justify-content: space-between;
 }
 
 .custom-checkbox-inactive{
@@ -36,6 +37,8 @@ input[type="checkbox"]{
     margin-right: 30px;
 }
 
-.checkbox--active{
-    
+.dropdown-wrapper {
+    display: flex;
+    width: 512px;
+    justify-content: center;
 }

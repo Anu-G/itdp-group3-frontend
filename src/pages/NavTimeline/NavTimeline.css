@@ -1,7 +1,4 @@
-.timeline {
-    min-height: 100vh;
-    min-width: 100vh;
-    overflow: hidden;
-    background-color: #1E2329;
-    font-family: 'Kirang Haerang', cursive;
+.inner-content {
+   margin-left: 480px;
+   margin-right: 192px;
 }

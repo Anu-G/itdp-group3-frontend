@@ -12,16 +12,26 @@
     background-color: #849EB0;
 
     width: 450px;
-    max-height: 620px;
+    max-height: 720px;
     border-radius: 20px;
     padding: 20px;
     padding-bottom: 32px;
+
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 28px;
+
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
 }
 
 .sign-up2-ctn{

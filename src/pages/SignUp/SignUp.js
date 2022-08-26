@@ -60,7 +60,7 @@ export const SignUp = () => {
             if (verifyPassword.length == 0) {
                 setVerifyPasswordError('')
             }
-        } else if (emailError.length != 0 && password.length != 0 && verifyPassword.length != 0) {
+        } else if (emailError.length != 0 || passwordError.length != 0 || verifyPasswordError.length != 0) {
             setIsActive(false)
         } else {
             setIsActive(true)
@@ -72,7 +72,7 @@ export const SignUp = () => {
                 setVerifyPasswordError('')
             }
         }
-    }, [username, email, password, verifyPassword, emailError])
+    }, [username, email, password, verifyPassword, emailError, passwordError, verifyPasswordError])
 
 
 
