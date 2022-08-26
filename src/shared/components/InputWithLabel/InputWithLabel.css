@@ -18,7 +18,7 @@
 }
 
 .input-lg {
-   height: 102px;
+   height: 102px !important;
    width: 484px;
    font-size: 32px;
 }

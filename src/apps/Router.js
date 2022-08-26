@@ -1,10 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router"
+import { CategorizePage } from "../pages/CategorizePage/CategorizePage";
 import { ForgotPassword } from "../pages/ForgotPassword/ForgotPassword";
 import { Login } from "../pages/Login/Login";
 import { UserLogoutAction } from "../pages/Login/state/AuthAction";
+import NavProfileSetting from "../pages/NavProfileSetting/NavProfileSetting";
 import NavTimeline from "../pages/NavTimeline/NavTimeline";
+import { Profile } from "../pages/Profile/Profile";
+import { SettingsAccount } from "../pages/SettingsAccount/SettingsAccount";
+import { SettingsCatalog } from "../pages/SettingsCatalog/SettingsCatalog";
+import { SettingsFaq } from "../pages/SettingsFaq/SettingsFaq";
+import { SettingsPost } from "../pages/SettingsPost/SettingsPost";
+import { SettingsProfile } from "../pages/SettingsProfile/SettingsProfile";
 import { SignUp } from "../pages/SignUp/SignUp";
+import { TimelineCard } from "../pages/TimelineCard/TimelineCard";
 import { AuthSelector } from "../shared/selectors/Selectors";
 import AppError from "../utils/AppError";
 
@@ -45,7 +54,24 @@ const AppRouter = _ => {
             <RequireAuth>
                <NavTimeline />
             </RequireAuth>
-         } />
+         } >
+            <Route index element={<TimelineCard />} />
+            <Route path="category" element={<CategorizePage />} />
+            <Route path="search" element={<></>} />
+         </Route>
+         <Route path="/profile" element={
+            <RequireAuth>
+               <NavProfileSetting />
+            </RequireAuth>
+         } >
+            <Route index element={<Profile />} />
+            <Route path="settings/profile" element={<SettingsProfile />} />
+            <Route path="settings/account" element={<SettingsAccount />} />
+            <Route path="settings/catalog" element={<SettingsCatalog />} />
+            <Route path="settings/post" element={<SettingsPost />} />
+            <Route path="settings/faq" element={<SettingsFaq />} />
+         </Route>
+         <Route path="/test" element={<TimelineCard />} />
       </Routes>
    )
 }

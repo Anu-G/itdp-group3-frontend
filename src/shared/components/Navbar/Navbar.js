@@ -1,39 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
-import { navItems } from "./NavItems";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
-import { UserLogoutAction } from "../../../pages/Login/state/AuthAction";
-import { UseDep } from "../../context/ContextDep";
+import { Title3White } from "../Label/Label";
+import { ButtonComponent } from "../Button/Button";
 
-function Navbar() {
+function Navbar({ title, navItems, btnLabel, btnClick }) {
   const [sidebar, setSidebar] = useState(true);
   const showSidebar = () => {
     setSidebar(!sidebar);
   };
-  const dispatch = useDispatch();
-  const { authService } = UseDep();
+  const [active, setActive] = useState(0);
+  const showActive = (id) => {
+    setActive(id);
+  };
 
-  const onLogout = async _ => {
-    try {
-      const response = await authService.doLogout();
-      if (response.status === 200) {
-        dispatch(UserLogoutAction());
-      }
-    } catch (err) {
-      alert(`${err.response.data.responseMessage}`);
+  const navigate = useNavigate();
+
+  useEffect(_ => {
+    if (title === "Timeline") {
+      setActive(1);
     }
+  }, []);
+
+  const profileClick = _ => {
+    navigate('/profile')
+  }
+
+  const homeClick = _ => {
+    navigate('/')
   }
 
   return (
     <>
       <div className="navbar">
-        <Link to="#" className="nav-menu-icon" onClick={_ => showSidebar()}>
+        <div className="web-logo" onClick={homeClick}>
+          <img src="/logo-toktok.png" width="192" height="60" className="d-inline-block align-top" alt="logo-toktok" />
+        </div>
+        {/* <Link to="#" className="nav-menu-icon" onClick={_ => showSidebar()}>
           <FontAwesomeIcon icon={faBars} />
-        </Link>
-        <button to="#" className="btn btn-warning btn-profile" type="submit">
+        </Link> */}
+        <button className="btn btn-warning btn-profile" type="submit" onClick={profileClick}>
           <FontAwesomeIcon icon={faUser} />
         </button>
       </div>
@@ -42,29 +50,32 @@ function Navbar() {
       >
         <ul className="sidebar-items">
           <li className="sidebar-toggle">
-            <Link to="#" className="nav-menu-icon" onClick={_ => showSidebar()}>
+            {/* <Link to="#" className="nav-menu-icon" onClick={_ => showSidebar()}>
               <div>
                 <img src="/logo-toktok.png" width="185.08" height="60" className="d-inline-block align-top" alt="logo-toktok" />
                 <span>
                   <FontAwesomeIcon icon={faBars} />
                 </span>
               </div>
-            </Link>
+            </Link> */}
+            <Title3White title={title} />
           </li>
-          {navItems.map((sidebaritem) => {
+          {navItems && navItems.map((sidebaritem) => {
             return (
               <li
                 key={sidebaritem.id}
-                className={sidebaritem.sName}
-                onClick={sidebaritem.id === 'logout' ? onLogout : showSidebar}
+                className={sidebaritem.id === active ? `${sidebaritem.sName} sidebar-item-active` : `${sidebaritem.sName}`}
+                onClick={_ => showActive(sidebaritem.id)}
               >
                 <Link to={sidebaritem.path}>
-                  {sidebaritem.icon}
                   <span>{sidebaritem.title}</span>
                 </Link>
               </li>
             );
           })}
+          <li className="sidebar-btn">
+            <ButtonComponent label={btnLabel} onClick={btnClick} />
+          </li>
         </ul>
       </div>
     </>

@@ -37,15 +37,17 @@ export const Login = () => {
     }
 
     useEffect(() => {
-        if (email.length == 0) {
+        if (email.length == 0 || password.length == 0) {
+            setIsActive(false);
+            if (email.length == 0) {
+                setEmailError('')
+            }
+            if (password.length == 0) {
+                setPasswordError('')
+            }
+        } else if (emailError.length != 0 || passwordError.length != 0) {
             setIsActive(false)
-            setEmailError('')
-        }
-        if (password.length == 0) {
-            setIsActive(false)
-            setPasswordError('')
-        }
-        if (emailError.length == 0 && passwordError.length == 0) {
+        } else {
             setIsActive(true)
         }
     }, [email, password, emailError, passwordError])

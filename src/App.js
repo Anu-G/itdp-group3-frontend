@@ -1,11 +1,11 @@
 import './App.css';
-import { LoadingScreen } from './shared/components/LoadingScreen/LoadingScreen';
+import AppRouter from './apps/Router';
 
 const App = _ => {
   return (
     <div className='app'>
-      <LoadingScreen />
-    </div >
+      <AppRouter />
+    </div>
   )
 }
 
