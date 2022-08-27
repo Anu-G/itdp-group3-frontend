@@ -16,8 +16,17 @@ const ApiFactory = (client) => {
          throw err;
       }
    }
+   
+   const doPut = async ({url, data}) => {
+      try {
+         const response = await client.put(url, data);
+         return response;
+      } catch (err) {
+         throw err;
+      }
+   }
 
-   return { doPost, doGet }
+   return { doPost, doGet, doPut }
 }
 
 export default ApiFactory;
