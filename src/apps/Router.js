@@ -12,6 +12,7 @@ import { SettingsCatalog } from "../pages/SettingsCatalog/SettingsCatalog";
 import { SettingsFaq } from "../pages/SettingsFaq/SettingsFaq";
 import { SettingsPost } from "../pages/SettingsPost/SettingsPost";
 import { SettingsProfile } from "../pages/SettingsProfile/SettingsProfile";
+import { SettingsAddProduct } from "../pages/SetttingsAddProduct/SettingsAddProduct";
 import { SignUp } from "../pages/SignUp/SignUp";
 import { TimelineCard } from "../pages/TimelineCard/TimelineCard";
 import { TimelinePage } from "../pages/TimelinePage/TimelinePage";
@@ -72,7 +73,7 @@ const AppRouter = _ => {
             <Route path="settings/post" element={<SettingsPost />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
-         <Route path="/test" element={<TimelineCard />} />
+         <Route path="/test" element={<SettingsAddProduct />} />
       </Routes>
    )
 }
