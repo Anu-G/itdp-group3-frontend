@@ -14,6 +14,7 @@ import { SettingsPost } from "../pages/SettingsPost/SettingsPost";
 import { SettingsProfile } from "../pages/SettingsProfile/SettingsProfile";
 import { SignUp } from "../pages/SignUp/SignUp";
 import { TimelineCard } from "../pages/TimelineCard/TimelineCard";
+import { TimelinePage } from "../pages/TimelinePage/TimelinePage";
 import { AuthSelector } from "../shared/selectors/Selectors";
 import AppError from "../utils/AppError";
 
@@ -55,7 +56,7 @@ const AppRouter = _ => {
                <NavTimeline />
             </RequireAuth>
          } >
-            <Route index element={<TimelineCard />} />
+            <Route index element={<TimelinePage />} />
             <Route path="category" element={<CategorizePage />} />
             <Route path="search" element={<></>} />
          </Route>
