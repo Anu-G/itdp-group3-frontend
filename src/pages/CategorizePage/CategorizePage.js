@@ -6,6 +6,7 @@ import { ImagesViewProfile } from '../../shared/components/ImagesViewProfile/Ima
 import { ImageBasedPage } from './ImagesBasedPage/ImageBasedPage'
 import { QA } from '../../shared/components/QA/QA'
 import { FAQPages } from './FAQPages/FAQPages'
+import { CatalogPage } from './CatalogPage/CatalogPage'
 
 export const CategorizePage = () => {
 
@@ -18,6 +19,7 @@ export const CategorizePage = () => {
         'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg',
         'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg'
     ];
+
 
     const handleClick = (page) => {
         switch (page) {
@@ -47,6 +49,7 @@ export const CategorizePage = () => {
             </div>
         </div>
 
+        {isActive[1] ? <CatalogPage/> : <ImageBasedPage links={links}/>}
         {isActive[2] ? <FAQPages/> : <ImageBasedPage links={links}/>}
 
         {/* <FAQPages/>
