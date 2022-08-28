@@ -44,7 +44,7 @@ export const SettingsAccount = () => {
         event.preventDefault()
         try {
             const response = await settingAccountService.doUpdate({
-                "user_name":"heck",
+                "user_name":authRed.userName,
                 "email":email,
                 "phone_number":phoneNumber
             })
