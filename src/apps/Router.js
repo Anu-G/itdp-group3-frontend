@@ -71,7 +71,7 @@ const AppRouter = _ => {
             <Route path="settings/post" element={<SettingsPost />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
-         <Route path="/test" element={<TimelineCard />} />
+         <Route path="/test" element={<Profile/>} />
       </Routes>
    )
 }
