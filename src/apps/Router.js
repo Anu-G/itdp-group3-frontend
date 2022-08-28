@@ -14,6 +14,7 @@ import { SettingsPost } from "../pages/SettingsPost/SettingsPost";
 import { SettingsProfile } from "../pages/SettingsProfile/SettingsProfile";
 import { SignUp } from "../pages/SignUp/SignUp";
 import { TimelineCard } from "../pages/TimelineCard/TimelineCard";
+import { TimelinePage } from "../pages/TimelinePage/TimelinePage";
 import { AuthSelector } from "../shared/selectors/Selectors";
 import AppError from "../utils/AppError";
 
@@ -71,7 +72,7 @@ const AppRouter = _ => {
             <Route path="settings/post" element={<SettingsPost />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
-         <Route path="/test" element={<TimelineCard />} />
+         <Route path="/test" element={<TimelinePage/>} />
       </Routes>
    )
 }

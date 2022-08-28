@@ -71,7 +71,7 @@ export const ImagesViewTimelineMany = ({links}) => {
       </div>
 
       <div className="container-dots">
-                {Array.from({length: 5}).map((item, index) => (
+                {Array.from({length: links.length}).map((item, index) => (
                     <div 
                     onClick={() => moveDot(index + 1)}
                     className={slideIndex === index + 1 ? "dot active" : "dot"}
