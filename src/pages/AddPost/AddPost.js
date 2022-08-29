@@ -3,10 +3,13 @@ import React, { useState } from 'react'
 import { ButtonComponent } from '../../shared/components/Button/Button'
 import { CommentColomn } from '../../shared/components/CommentColomn/CommentColomn';
 import { Title2White, Title3White } from '../../shared/components/Label/Label';
+import { UseDep } from '../../shared/context/ContextDep';
+import AppError from '../../utils/AppError';
 import './AddPost.css'
 
 export const AddPost = () => {
   const maxLength = 280
+  const { addPostService } = UseDep();
 
   const [caption, setCaption] = useState('') 
   const handleCaptionChange = (event) => {
@@ -17,6 +20,22 @@ export const AddPost = () => {
  
   const togglePopup = () => {
     setIsOpen(!isOpen);
+  }
+
+  const handleUpload = async(event) => {
+    event.preventDefault()
+    try {
+        const response = await addPostService.doPost({
+          // "account_id":23,
+          "caption_post":caption,
+          // "media_links":[
+          //     "",""
+          // ]
+        })
+        console.log(response);
+    } catch (err) {
+        AppError(err)
+    }
   }
 
   const Popup = props => {
@@ -51,7 +70,7 @@ export const AddPost = () => {
         </div>
         
         <div className='button-upload'>
-        <ButtonComponent label={"Upload"}/>
+        <ButtonComponent label={"Upload"} onClick={handleUpload}/>
         </div>
         
       </>}
