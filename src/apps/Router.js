@@ -8,6 +8,7 @@ import { Login } from "../pages/Login/Login";
 import { UserLogoutAction } from "../pages/Login/state/AuthAction";
 import NavProfileSetting from "../pages/NavProfileSetting/NavProfileSetting";
 import NavTimeline from "../pages/NavTimeline/NavTimeline";
+import { OurLinks } from "../pages/OurLinks/OurLinks";
 import { Profile } from "../pages/Profile/Profile";
 import { SettingsAccount } from "../pages/SettingsAccount/SettingsAccount";
 import { SettingsCatalog } from "../pages/SettingsCatalog/SettingsCatalog";
@@ -74,7 +75,7 @@ const AppRouter = _ => {
             <Route path="settings/post" element={<SettingsPost />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
-         <Route path="/test" element={<DetailProductCard />} />
+         <Route path="/test" element={<OurLinks />} />
       </Routes>
    )
 }
