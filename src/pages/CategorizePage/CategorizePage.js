@@ -14,7 +14,7 @@ import { text } from '@fortawesome/fontawesome-svg-core'
 
 export const CategorizePage = () => {
 
-    const [isActive, setIsActive] = useState([false, false, false])
+    const [isActive, setIsActive] = useState([true, false, false])
     const [feeds, setFeeds] = useState([])
     const [links,setLinks] = useState([])
     const link = 'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg';

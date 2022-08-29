@@ -6,7 +6,7 @@ import { Profile } from './pages/Profile/Profile'
 const App = _ => {
   return (
     <div className='app'>
-      <Profile/>
+      <AppRouter/>
     </div>
   )
 }

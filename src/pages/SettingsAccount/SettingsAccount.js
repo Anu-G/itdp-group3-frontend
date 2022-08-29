@@ -11,6 +11,7 @@ import { AuthSelector } from '../../shared/selectors/Selectors';
 import { useSelector } from 'react-redux'
 
 export const SettingsAccount = () => {
+    const [userName,setUserName] = useState('')
     const [email,setEmail] = useState('');
     const [phoneNumber,setPhoneNumber] = useState('');
     const [emailError,setEmailError] = useState('');
@@ -31,6 +32,10 @@ export const SettingsAccount = () => {
         }
     }
 
+    const handleOnChangeUsername = (event) => {
+        setUserName(event.target.value)
+    }
+
     const handleOnChangeEmail = (event) => {
         setEmail(event.target.value)
         checkEmail(event.target.value)
@@ -44,7 +49,8 @@ export const SettingsAccount = () => {
         event.preventDefault()
         try {
             const response = await settingAccountService.doUpdate({
-                "user_name":authRed.userName,
+                "account_id":authRed.account_id,
+                "user_name":userName,
                 "email":email,
                 "phone_number":phoneNumber
             })
@@ -61,7 +67,7 @@ export const SettingsAccount = () => {
             <div className='username-button-change'>
                 <div className='username-account'>
                     <Title3White title={"Username"} />
-                    <InputTextLabelLg/>
+                    <InputTextLabelLg id={'userName'} value={userName} handleOnChange={handleOnChangeUsername}/>
                 </div>
                 <div className='button-change'>
                     <ButtonComponent label={"Change"}/>
