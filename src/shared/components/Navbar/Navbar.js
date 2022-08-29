@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
-import { Title3White } from "../Label/Label";
+import { SubtitleWhite, Text32White, Title3White } from "../Label/Label";
 import { ButtonComponent } from "../Button/Button";
 
 function Navbar({ title, navItems, btnLabel, btnClick }) {
@@ -58,7 +58,10 @@ function Navbar({ title, navItems, btnLabel, btnClick }) {
                 </span>
               </div>
             </Link> */}
-            <Title3White title={title} />
+            <div style={{opacity:'0.8', marginBottom:'-1rem'}}>
+              <Text32White text={title} />
+            </div>
+
           </li>
           {navItems && navItems.map((sidebaritem) => {
             return (
