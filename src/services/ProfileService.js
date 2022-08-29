@@ -21,10 +21,21 @@ export const ProfileService = ({ doPost, doGet }) => {
       }
    }
 
-   const doGetBusinessProfile = async (account) => {
+   const doGetBusinessProfile = async (user) => {
       try {
          return await doPost({
             url: '/business-profile/get/profile',
+            data: user
+         });
+      } catch (err) {
+         throw err;
+      }
+   }
+
+   const addBusinessProfile = async (account) => {
+      try {
+         return await doPost({
+            url: '/business-profile/add/profile',
             data: account
          });
       } catch (err) {
@@ -32,7 +43,7 @@ export const ProfileService = ({ doPost, doGet }) => {
       }
    }
 
-   return { doGetNonBusinessProfile, doGetBusinessProfile, addNonBusinessProfile };
+   return { doGetNonBusinessProfile, doGetBusinessProfile, addNonBusinessProfile, addBusinessProfile };
 }
 
 export const ProfileImageService = ({ doPost, doGet }) => {

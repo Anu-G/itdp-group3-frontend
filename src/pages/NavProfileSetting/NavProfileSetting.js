@@ -11,7 +11,7 @@ import { UserLogoutAction } from '../Login/state/AuthAction';
 const NavProfileSetting = _ => {
   const [buttons, setButtons] = useState([]);
   const dispatch = useDispatch();
-  const { authService } = UseDep();
+  const { authService, settingAccountService } = UseDep();
   const authRed = useSelector(AuthSelector);
 
   const onLogout = async _ => {
@@ -29,13 +29,27 @@ const NavProfileSetting = _ => {
     }
   }
 
+  const activateBusiness = async _ => {
+    try {
+      const response = await settingAccountService.doActivateBusiness({
+        account_id: authRed.account_id
+      });
+      if (response.status === 200) {
+        alert('succes, please re-login');
+        onLogout();
+      }
+    } catch (err) {
+      AppError(err);
+    }
+  }
+
   useEffect(_ => {
     if (authRed.role_id === 1) {
       setButtons([{
         id: 'applyBusiness',
         className: 'sidebar-btn',
         label: '+ Business Account',
-        onClick: null
+        onClick: activateBusiness
       }, {
         id: 'logout',
         className: 'sidebar-btn',
