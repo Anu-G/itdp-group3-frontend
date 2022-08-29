@@ -6,7 +6,8 @@ import { Login } from "../pages/Login/Login";
 import { UserLogoutAction } from "../pages/Login/state/AuthAction";
 import NavProfileSetting from "../pages/NavProfileSetting/NavProfileSetting";
 import NavTimeline from "../pages/NavTimeline/NavTimeline";
-import { Profile } from "../pages/Profile/Profile";
+import { BusinessProfile } from "../pages/Profile/BusinessProfile";
+import { NonBusinessProfile } from "../pages/Profile/NonBusinessProfile";
 import { SettingsAccount } from "../pages/SettingsAccount/SettingsAccount";
 import { SettingsCatalog } from "../pages/SettingsCatalog/SettingsCatalog";
 import { SettingsFaq } from "../pages/SettingsFaq/SettingsFaq";
@@ -67,7 +68,10 @@ const AppRouter = _ => {
                <NavProfileSetting />
             </RequireAuth>
          } >
-            <Route index element={<Profile />} />
+            {authRed.role_id === 1 ?
+               <Route index element={<NonBusinessProfile />} /> :
+               <Route index element={<BusinessProfile />} />
+            }
             {authRed.role_id === 1 ?
                <Route path="settings/profile" element={<SettingsNonBusinessProfile />} /> :
                <Route path="settings/profile" element={<SettingsBusinessProfile />} />
@@ -77,7 +81,7 @@ const AppRouter = _ => {
             <Route path="settings/post" element={<SettingsPost />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
-         <Route path="/test" element={<SettingsAddProduct />} />
+         <Route path="/test" element={<BusinessProfile />} />
       </Routes>
    )
 }

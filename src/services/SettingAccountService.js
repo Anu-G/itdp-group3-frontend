@@ -1,4 +1,4 @@
-const SettingAccountService = ({doPut}) => {
+const SettingAccountService = ({ doPut }) => {
     const doUpdate = async (accountData) => {
         try {
             return await doPut({
@@ -10,7 +10,18 @@ const SettingAccountService = ({doPut}) => {
         }
     }
 
-    return {doUpdate};
+    const doActivateBusiness = async (accountId) => {
+        try {
+            return await doPut({
+                url: '/account/activate-business',
+                data: accountId
+            });
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    return { doUpdate, doActivateBusiness };
 }
 
 export default SettingAccountService;

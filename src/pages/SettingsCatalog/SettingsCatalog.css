@@ -8,9 +8,7 @@
 
 .settings-catalog-card{
     min-width: 600px;
-    max-width: 736px;
     height: 100%;
-    padding: 2rem;
     background: #3B4046;
     border-radius: 20px;
 
@@ -24,6 +22,7 @@
     flex-direction: row-reverse;
     /* float: right; */
     margin-bottom: 36px;
+    margin: 2rem;
 }
 .wrapper-product-catalog-card{
     display: flex;

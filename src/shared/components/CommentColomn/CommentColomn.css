@@ -33,3 +33,11 @@
     color: #849EB9;
     cursor: default;
 }
+
+.warning {
+    background-color: #FE5454;
+}
+
+.comment-inside{
+    text-align: left;
+}
