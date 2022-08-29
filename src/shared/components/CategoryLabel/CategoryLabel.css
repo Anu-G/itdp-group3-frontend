@@ -1,18 +1,21 @@
 .category-label {
-    max-width: 300px;
-    height: 74px;
+    max-width: 192px;
+    height: 56px;
     background-color: #3B4046;
 
     border-radius: 20px 20px 0 0;
 
-    padding: 10px 10px 50px 30px;
     cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .label{
     font-family: 'Kirang Haerang', cursive;
     color: #F4F4F4;
-    font-size: 36px;
+    font-size: 24px;
 
     display: flex;
     align-items: center;

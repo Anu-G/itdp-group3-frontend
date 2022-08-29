@@ -7,10 +7,10 @@ import { NameLocation } from '../../shared/components/NameLocation/NameLocation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import { ImagesViewTimeline } from '../../shared/components/ImagesViewProfile/ImagesViewProfile'
+import { ImagesViewTimeline, ImagesViewTimelineMany } from '../../shared/components/ImagesViewProfile/ImagesViewProfile'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { CommentColomn } from '../../shared/components/CommentColomn/CommentColomn'
-import { ButtonComponent } from '../../shared/components/Button/Button'
+import { ButtonComponent, ButtonComponentSm } from '../../shared/components/Button/Button'
 
 
 library.add(fas)
@@ -19,6 +19,14 @@ library.add(far)
 export const TimelineCard = () => {
 
     const imgsrc = 'https://cms-assets.tutsplus.com/cdn-cgi/image/width=630/uploads/users/1223/posts/32827/image/Cafe%20Logo%20Maker%20for%20Coffee%20and%20Tea%20Designs_.jpg';
+
+    const links = [
+      'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg',
+      'https://media-assets-ggwp.s3.ap-southeast-1.amazonaws.com/2022/03/Octane-Karakter-Gesit-dan-Berbahaya-di-Apex-Legends-Mobile-2-640x360.jpg',
+      'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg',
+      'https://cdn-www.bluestacks.com/bs-images/pou-banner.jpg',
+      'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg'
+  ];
     const name = 'Cafe XYZ';
     const place = 'Ragunan, Jakarta Selatan'
     const ctnsrc = 'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg'
@@ -75,14 +83,15 @@ export const TimelineCard = () => {
 
           <>
             <div className='img-view-ctn'>
-              <ImagesViewTimeline link={ctnsrc}/>
+              {/* <ImagesViewTimeline link={ctnsrc}/> */}
+              <ImagesViewTimelineMany links={links}/>
             </div>
           </>
             
           <div className='bottom-ctn'>
             <div className='bottom-btn'  onClick={handleCommentOnClick}>
 
-              {isActive ? <FontAwesomeIcon icon="fa-regular fa-comment-dots" style={{height:'48px', color:'#F4F4F4'}}/> : <FontAwesomeIcon icon="fa-solid fa-comment-dots" style={{height:'48px', color:'#F4F4F4'}} />}
+              {isActive ? <FontAwesomeIcon icon="fa-regular fa-comment-dots" style={{height:'28px', color:'#F4F4F4'}}/> : <FontAwesomeIcon icon="fa-solid fa-comment-dots" style={{height:'28px', color:'#F4F4F4'}} />}
             </div>
 
             <Title3White title={`${time} \t\t ${date}`}/>
@@ -91,7 +100,7 @@ export const TimelineCard = () => {
           <div className='ext-cmt' hidden={isActive}>
             <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} value={comment}/>
             <div style={{display:'flex', justifyContent:'end'}}>
-              <ButtonComponent isDisable={isButtonSendActive} label={'send'} onClick={handleOnClickSend}/>
+              <ButtonComponentSm isDisable={isButtonSendActive} label={'Send'} onClick={handleOnClickSend}/>
 
             </div>
           </div>
