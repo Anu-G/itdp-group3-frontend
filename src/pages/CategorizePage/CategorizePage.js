@@ -14,7 +14,7 @@ import { text } from '@fortawesome/fontawesome-svg-core'
 
 export const CategorizePage = () => {
 
-    const [isActive, setIsActive] = useState([true, false, false])
+    const [isActive, setIsActive] = useState([false, false, false])
     const [feeds, setFeeds] = useState([])
     const [links,setLinks] = useState([])
     const link = 'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg';
@@ -22,34 +22,33 @@ export const CategorizePage = () => {
     const { accountPostService } = UseDep();
 
     useEffect(()=>{
+        setFeeds([])
         handleLoad()
-        handleImage(feeds)
     },[])
 
     useEffect(()=>{
-        handleLoad()
+        setLinks([])
         handleImage(feeds)
-    },[isActive])
+    },[feeds])
 
     const handleLoad = async () => {
         try {
             const response = await accountPostService.doGetAccount({
-                "account_id":1,
+                "account_id":3,
                 "page":1,
                 "page_lim":100
             })
             setFeeds(response.data.data)
         } catch (err) {
             AppError(err);
-            return [];
-        }
+        } 
     }
 
     const handleImage = (feeds) => {
         let linkHold = ""
         for (const feed of feeds) {
             linkHold = feed.detail_media_feeds.split(",",1)
-            const linksInput = [links,linkHold]
+            const linksInput = [...links,linkHold]
             setLinks(linksInput)
         }
     }
@@ -67,7 +66,7 @@ export const CategorizePage = () => {
                 break;
         }
     }
-    console.log(links);
+
   return (
     <div className='categorize-page'>
         <div className='category-label-btn-wrp'>
@@ -81,7 +80,6 @@ export const CategorizePage = () => {
                 {isActive[2] ? <CategoryLabelActive label={'FAQ'}/> : <CategoryLabelInactive label={'FAQ'}/>}
             </div>
         </div>
-
         {isActive[2] ? <FAQPages/> : <ImageBasedPage links={links}/>}
 
         {/* <FAQPages/>

@@ -71,7 +71,6 @@ export const SettingsAccount = () => {
             <div className='email'>
                 <Title3White title={"Email"} />
                 <InputTextLabelLg id={'email'} value={email} handleOnChange={handleOnChangeEmail}/>
-                <ErrorForm message={emailError}/>
             </div>
 
             <div className='phone-number'>
