@@ -61,6 +61,8 @@
 
 .carousel-btn{
     background-color: transparent;
+    height: 2rem;
+    width: 2rem;
     color: #f4f4f4;
     border: none;
     font-size: 34px;
@@ -71,8 +73,15 @@
     cursor: pointer;
 }
 
+
+
 .carousel-btn:hover{
     color: #FED154;
+    border-radius: 50%;
+    background-color: rgba(30,35,41,0.262);
+    box-shadow: 0px 0px 20px 0px rgba(30,35,41,0.75);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(30,35,41,0.75);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(30,35,41,0.75);
 }
 
 .left {
@@ -94,7 +103,7 @@
     transform: translateX(-50%);
     display: flex;
   }
-  .dot {
+.dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -102,6 +111,6 @@
     margin: 0 5px;
     background: #f1f1f1;
   }
-  .dot.active {
+.dot.active {
     background: rgb(32, 32, 32);
   }

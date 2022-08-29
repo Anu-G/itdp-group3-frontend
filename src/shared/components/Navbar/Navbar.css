@@ -2,7 +2,7 @@
 
 .navbar {
     background-color: #3B4046;
-    height: 64px;
+    height: 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,8 +25,8 @@
     background-color: #3B4046;
     width: 320px;
     margin-left: 160px;
-    margin-top: 64px;
-    height: 100%;
+    margin-top: 48px;
+    height: 90vh;
     display: flex;
     justify-content: center;
     position: fixed;

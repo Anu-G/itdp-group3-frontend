@@ -38,7 +38,6 @@
 .profile-hd{
     display: flex;
     float: left;
-    margin-bottom: 16px;
 
 }
 
@@ -49,6 +48,9 @@
 
 .bottom-btn{
     cursor: pointer;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
 }
 
 .bottom-ctn{
@@ -61,4 +63,18 @@
     gap: 16px;
     display: flex;
     flex-flow: column;
+}
+
+.caption-ctn{
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.comment-count-ctn{
+    opacity: 0.8;
+    cursor: default;
+}
+
+.time-date{
+    cursor: default;
 }
