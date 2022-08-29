@@ -1,26 +1,17 @@
-import React, { useState } from 'react'
-import { CustomDropdown, CustomDropdownSm } from '../Dropdown/Dropdown';
+import { CustomDropdownSm } from '../Dropdown/Dropdown';
 import './CheckBox.css';
 
 //used only in profile.
-export const CheckBox = ({ label, items }) => {
-
-    const [checked, setChecked] = useState(false)
-
-    const handleOnChecked = () => {
-        setChecked(!checked);
-    }
-
-
+export const CheckBox = ({ label, items, valueCB, onChangeCB }) => {
     return (
-        <div className={`custom-checkbox mt-2 ${checked ? "" : "custom-checkbox-inactive"}`}>
-            
+        <div className={`custom-checkbox mt-2 ${valueCB ? "" : "custom-checkbox-inactive"}`}>
+
             <label>
                 <div className='right-wrp'>
-                    <input type={'checkbox'} onChange={handleOnChecked} />
+                    <input type={'checkbox'} onChange={onChangeCB} />
 
-                    <svg className={`checkbox ${checked ? "checkbox--active" : ""}`} aria-hidden="true" viewBox='0 2 15 6' fill='none'>
-                        <path d="M2 4.5L6 9L13 0" strokeWidth="3" stroke={checked ? "#1E2329" : "#B9B9B9"} />
+                    <svg className={`checkbox ${valueCB ? "checkbox--active" : ""}`} aria-hidden="true" viewBox='0 2 15 6' fill='none'>
+                        <path d="M2 4.5L6 9L13 0" strokeWidth="3" stroke={valueCB ? "#1E2329" : "#B9B9B9"} />
                     </svg>
                     <div className='label-dd'>
                         {label}
@@ -28,16 +19,16 @@ export const CheckBox = ({ label, items }) => {
                     </div>
 
                 </div>
-                
+
 
 
             </label>
             <div className='dropdown-wrapper'>
-                <CustomDropdownSm label={'Select One'} items={items} locked={!checked} />
+                <CustomDropdownSm label={'Select One'} items={items} locked={!valueCB} />
 
                 <span className='px-3'>to</span>
 
-                <CustomDropdownSm label={'Select'} items={items} locked={!checked} />
+                <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} />
             </div>
         </div>
     )

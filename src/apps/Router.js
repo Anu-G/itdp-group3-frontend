@@ -11,7 +11,8 @@ import { SettingsAccount } from "../pages/SettingsAccount/SettingsAccount";
 import { SettingsCatalog } from "../pages/SettingsCatalog/SettingsCatalog";
 import { SettingsFaq } from "../pages/SettingsFaq/SettingsFaq";
 import { SettingsPost } from "../pages/SettingsPost/SettingsPost";
-import { SettingsProfile } from "../pages/SettingsProfile/SettingsProfile";
+import { SettingsNonBusinessProfile } from "../pages/SettingsProfile/SettingNonBusinessProfile";
+import { SettingsBusinessProfile } from "../pages/SettingsProfile/SettingsBusinessProfile";
 import { SettingsAddProduct } from "../pages/SetttingsAddProduct/SettingsAddProduct";
 import { SignUp } from "../pages/SignUp/SignUp";
 import { TimelineCard } from "../pages/TimelineCard/TimelineCard";
@@ -67,7 +68,10 @@ const AppRouter = _ => {
             </RequireAuth>
          } >
             <Route index element={<Profile />} />
-            <Route path="settings/profile" element={<SettingsProfile />} />
+            {authRed.role_id === 1 ?
+               <Route path="settings/profile" element={<SettingsNonBusinessProfile />} /> :
+               <Route path="settings/profile" element={<SettingsBusinessProfile />} />
+            }
             <Route path="settings/account" element={<SettingsAccount />} />
             <Route path="settings/catalog" element={<SettingsCatalog />} />
             <Route path="settings/post" element={<SettingsPost />} />

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ButtonComponent } from '../../shared/components/Button/Button';
-import { InputTextLabelLg } from '../../shared/components/InputWithLabel/InputWithLabel';
+import { InputTextLabelLg, InputTextLabelMd } from '../../shared/components/InputWithLabel/InputWithLabel';
 import { Title3White } from '../../shared/components/Label/Label';
 import './SettingsAccount.css';
 import { useForm } from 'react-hook-form';
@@ -11,6 +11,7 @@ import { AuthSelector } from '../../shared/selectors/Selectors';
 import { useSelector } from 'react-redux'
 
 export const SettingsAccount = () => {
+    const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -31,6 +32,10 @@ export const SettingsAccount = () => {
         }
     }
 
+    const handleOnChangeUsername = (event) => {
+        setUserName(event.target.value)
+    }
+
     const handleOnChangeEmail = (event) => {
         setEmail(event.target.value)
         checkEmail(event.target.value)
@@ -44,11 +49,13 @@ export const SettingsAccount = () => {
         event.preventDefault()
         try {
             const response = await settingAccountService.doUpdate({
-                "user_name": "heck",
+                "user_name": userName,
                 "email": email,
                 "phone_number": phoneNumber
             })
-            console.log(response);
+            if (response.status === 200) {
+                alert('success');
+            }
         } catch (err) {
             AppError(err)
         }
@@ -58,25 +65,21 @@ export const SettingsAccount = () => {
         <div className='wrapper'>
             <div className='settings-account-card'>
                 <form onSubmit={handleSubmit}>
-                    <div className='username-button-change'>
-                        <div className='username-account'>
-                            <Title3White title={"Username"} />
-                            <InputTextLabelLg />
-                        </div>
-                        <div className='button-change'>
-                            <ButtonComponent label={"Change"} />
-                        </div>
+                    <div className='item'>
+                        <InputTextLabelMd id={'userName'} label={'Username'} value={userName} handleOnChange={handleOnChangeUsername} />
                     </div>
 
-                    <div className='email'>
-                        <Title3White title={"Email"} />
-                        <InputTextLabelLg id={'email'} value={email} handleOnChange={handleOnChangeEmail} />
+                    <div className='item'>
+                        <InputTextLabelMd id={'email'} label={'E-mail'} value={email} handleOnChange={handleOnChangeEmail} />
                         <ErrorForm message={emailError} />
+                    </div >
+
+                    <div className='item'>
+                        <InputTextLabelMd id={'phoneNumber'} label={'Phone Number'} value={phoneNumber} handleOnChange={handleOnChangePhoneNumber} />
                     </div>
 
-                    <div className='phone-number'>
-                        <Title3White title={"Phone Number"} />
-                        <InputTextLabelLg id={'phoneNumber'} value={phoneNumber} handleOnChange={handleOnChangePhoneNumber} />
+                    <div className='button-change'>
+                        <ButtonComponent label={"Change"} />
                     </div>
                 </form>
             </div>

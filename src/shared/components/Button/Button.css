@@ -1,5 +1,6 @@
 .button-component{
-   height: 48px;
+   height: auto;
+   min-height: 48px;
    width: 260px;
    border-radius: 0px;
    background-color: #FED154;

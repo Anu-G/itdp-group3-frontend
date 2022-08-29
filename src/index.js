@@ -9,15 +9,17 @@ import Store from './apps/Store';
 import { PersistGate } from 'redux-persist/integration/react'
 import { DepProvider } from './shared/context/ContextDep';
 import ApiFactory from './shared/factory/ApiFactory';
-import AxiosClient from './apps/Client';
-import ServiceFactory from './shared/factory/ServiceFactory';
+import { AxiosClient, AxiosImageClient } from './apps/Client';
+import { ServiceFactory, ServiceImageFactory } from './shared/factory/ServiceFactory';
 import { InjectStore } from './shared/interceptor/AuthInterceptor';
 import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const { store, persistor } = Store();
 const apiClient = ApiFactory(AxiosClient);
+const apiImageClient = ApiFactory(AxiosImageClient);
 const service = ServiceFactory(apiClient);
+const serviceImage = ServiceImageFactory(apiImageClient);
 InjectStore(store);
 
 root.render(
@@ -25,7 +27,7 @@ root.render(
   <BrowserRouter>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <DepProvider service={service}>
+        <DepProvider service={service} serviceImage={serviceImage}>
           <App />
         </DepProvider>
       </PersistGate>

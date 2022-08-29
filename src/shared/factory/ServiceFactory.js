@@ -1,11 +1,15 @@
 import AuthService from "../../services/AuthService";
-import ProfileService from "../../services/ProfileService";
+import { CategoryService } from "../../services/CategoryService";
+import { ProfileService, ProfileImageService } from "../../services/ProfileService";
 import SettingAccountService from "../../services/SettingAccountService";
 
-const ServiceFactory = (apiClient) => ({
+export const ServiceFactory = (apiClient) => ({
    authService: AuthService(apiClient),
    profileService: ProfileService(apiClient),
-   settingAccountService: SettingAccountService(apiClient)
+   settingAccountService: SettingAccountService(apiClient),
+   categoryService: CategoryService(apiClient)
 });
 
-export default ServiceFactory;
+export const ServiceImageFactory = (apiClient) => ({
+   profileImageService: ProfileImageService(apiClient)
+});
