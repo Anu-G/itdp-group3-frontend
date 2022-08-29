@@ -67,7 +67,7 @@ export const OurLinks = ({}) => {
                     links.map((link)=>{
                         return(
                             <div>
-                                <a href={link.link}><ButtonComponent label={link.label} key={link.key}/></a>
+                                <a href={link.link} target='_blank'><ButtonComponent label={link.label} key={link.key}/></a>
                                 
                             </div>
                         )
