@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './CommentColomn.css'
-import HighlightWithinTextarea from 'react-highlight-within-textarea'
 
 export const CommentColomn = ({ placeholder, handleChange, value, maxLength, charLength, charLimitHandle }) => {
 

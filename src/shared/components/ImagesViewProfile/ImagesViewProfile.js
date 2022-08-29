@@ -3,11 +3,11 @@ import './ImagesViewProfile.css'
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export const ImagesViewProfile = ({link}) => {
+export const ImagesViewProfile = ({link,handleClick,item}) => {
   return (
     <div>
         <div className='img-vw-ctn'>
-            <img className='img-vw-profile' src={link}/>
+            <img className='img-vw-profile' src={link} onClick={()=>handleClick(item)}/>
         </div>
     </div>
   )

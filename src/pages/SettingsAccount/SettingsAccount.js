@@ -72,7 +72,6 @@ export const SettingsAccount = () => {
                         <InputTextLabelMd id={'email'} label={'E-mail'} value={email} handleOnChange={handleOnChangeEmail} />
                         <ErrorForm message={emailError} />
                     </div >
-
                     <div className='item'>
                         <InputTextLabelMd id={'phoneNumber'} label={'Phone Number'} value={phoneNumber} handleOnChange={handleOnChangePhoneNumber} />
                     </div>

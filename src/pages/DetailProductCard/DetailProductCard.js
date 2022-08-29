@@ -15,7 +15,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 library.add(fas)
 library.add(far)
 
-export const DetailProductCard = ({avatar = '', name = '', productName='', productPrice=0, caption='', links=[]}) => {
+export const DetailProductCard = ({ handleClick, product }) => {
   /*
   expected :
     avatar : link
@@ -26,27 +26,24 @@ export const DetailProductCard = ({avatar = '', name = '', productName='', produ
     links: product Image. Array of links. (yang ditampilin jdi thum image yang pertama. kalu cuman 1 brati cuman tampilin yang pertama)
 
   */
-    
-    
-    const price = new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR'
-    })
+  const avatar = product.avatar
+  const name = product.profile_name
+  const productName = product.product_name
+  const productPrice = product.price
+  const caption = product.caption
+  const links = product.detail_media_products
 
-    const [isActive, setIsActive] = useState(false)
-    const [readMore, setReadMore] = useState(true)
-
- 
-
-    const handleReadMore = () => {
-      setReadMore(!readMore)
-    }
-
-    const handleX = () => {
-      console.log('ceritanya back')
-    }
+  const price = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR'
+  })
+  const [readMore, setReadMore] = useState(true)
 
 
+
+  const handleReadMore = () => {
+    setReadMore(!readMore)
+  }
   return (
     <div className='detail-product-bg'>
       <div className='detail-product-wrp'>
@@ -54,22 +51,22 @@ export const DetailProductCard = ({avatar = '', name = '', productName='', produ
           <div>
             <div className='profile-hd'>
 
-              <AvatarSmall link={avatar}/>
+              <AvatarSmall link={avatar} />
               <div className='name-loc-ctn'>
-                  <NameLocation name={name} />
+                <NameLocation name={name} />
               </div>
 
             </div>
-            <div className='x-btn' onClick={handleX}>
-              
-            <FontAwesomeIcon icon="fa-solid fa-xmark" style={{height: '100%', color:'#FE5454'}}/>
-              
+            <div className='x-btn' onClick={handleClick}>
+
+              <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
+
             </div>
           </div>
 
           <div className='food-hd'>
-            <TitleWhite title={productName}/>
-            <Title2Yellow title={price.format(productPrice)}/>
+            <TitleWhite title={productName} />
+            <Title2Yellow title={price.format(productPrice)} />
 
           </div>
 
@@ -79,12 +76,12 @@ export const DetailProductCard = ({avatar = '', name = '', productName='', produ
 
           <>
             <div className='img-view-ctn'>
-              {typeof links !== 'string' ? <ImagesViewTimelineMany links={links}/> : <ImagesViewTimeline link={links}/> }
+              {Array.isArray(links) && links.length !== 1 ? <ImagesViewTimelineMany links={links} /> : <ImagesViewTimeline link={links} />}
             </div>
           </>
         </div>
       </div>
     </div>
-    
+
   )
 }

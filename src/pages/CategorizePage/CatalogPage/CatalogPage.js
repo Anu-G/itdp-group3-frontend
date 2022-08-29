@@ -9,8 +9,10 @@ import { DetailProductCard } from '../../DetailProductCard/DetailProductCard'
 import './CatalogPage.css'
 
 export const CatalogPage = ({ }) => {
-    const { productService } = UseDep()
+    const { settingAccountService } = UseDep()
+    const [isActive, setIsActive] = useState(false)
     const [products, setProduct] = useState([])
+    const [productOpen, setProductOpen] = useState({})
     const authRed = useSelector(AuthSelector)
 
     useEffect(() => {
@@ -19,8 +21,8 @@ export const CatalogPage = ({ }) => {
 
     const getProducts = async () => {
         try {
-            const response = await productService.doGetProductByAccount({
-                account_id: `${authRed.account_id}`
+            const response = await settingAccountService.doGetAccountProduct({
+                account_id: authRed.account_id
             })
             setProduct(prevState => response.data.data)
         } catch (err) {
@@ -33,8 +35,19 @@ export const CatalogPage = ({ }) => {
         currency: 'IDR'
     });
 
+    const handleFormClose = () => {
+        setIsActive(prevState => false)
+        setProductOpen(prevState => { })
+    }
+
+    const handleFormOpen = (value) => {
+        setIsActive(prevState => true)
+        setProductOpen(prevState => value)
+    }
+
     return (
         <>
+            {/* <<<<<<< HEAD */}
             {products.length == 0 ?
                 <div className='catalog-ctn empty'>
                     <Title2White title={'No Product Yet'} />
@@ -44,13 +57,26 @@ export const CatalogPage = ({ }) => {
                 {products.map(item => {
                     return (
                         <div key={item.product_id}>
-                            <ImagesViewProfile link={item.detail_media_products[0]} />
+                            <ImagesViewProfile link={item.detail_media_products[0]} handleClick={_ => handleFormOpen(item)} />
                             <Title3White title={item.product_name} />
                             <Text32White text={price.format(item.price)} />
                         </div>
                     )
+                    // =======
+                    //             {isActive && <DetailProductCard handleClick={handleFormClose} product={productOpen}/>}
+
+                    //             <div className='catalog-ctn'>
+                    //                 {products.map(item => {
+
+                    //                     return (<div key={item.product_id}>
+                    //                         <ImagesViewProfile item={item} link={item.detail_media_products[0]} handleClick={handleFormOpen}/>
+                    //                         <Title3White title={item.product_name} />
+                    //                         <Text32White text={price.format(item.price)} />
+                    //                     </div>)
+                    // >>>>>>> origin/dev-barkah-8-catalog_category_view
                 })}
             </div>
+            {isActive && <DetailProductCard handleClick={handleFormClose} product={productOpen} />}
         </>
     )
 }
