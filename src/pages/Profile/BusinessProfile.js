@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { ButtonComponentSm } from '../../shared/components/Button/Button'
 import { SubtitleWhite, Title2Blue, Title2Green, Title2Red, Title2White, Title2Yellow, TitleWhite } from '../../shared/components/Label/Label'
 import { Avatar } from '../../shared/components/Avatar/Avatar'
-import { CategorizePage } from '../CategorizePage/CategorizePage'
 import './Profile.css'
 import { useSelector } from 'react-redux'
 import { AuthSelector } from '../../shared/selectors/Selectors'
 import { UseDep } from '../../shared/context/ContextDep'
+import { CategorizePage } from '../CategorizePage/CategorizePageProfile'
+import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
+import { OurLinks } from '../OurLinks/OurLinks'
 
 export const BusinessProfile = () => {
     const { profileService } = UseDep()
@@ -25,7 +27,12 @@ export const BusinessProfile = () => {
     const [day, setDay] = useState()
     const [openHour, setOpenHour] = useState('')
     const [closeHour, setCloseHour] = useState('')
-    const authRed = useSelector(AuthSelector)
+    const authRed = useSelector(AuthSelector);
+    const [showOurLinks, setShowOurLinks] = useState(false);
+
+    const handleClickLinks = _ => {
+        setShowOurLinks(!showOurLinks);
+    }
 
     useEffect(() => {
         getUser()
@@ -122,13 +129,15 @@ export const BusinessProfile = () => {
                     </div>
                     <div className='profile-buttons'>
                         {profile.PhoneNumber !== '' && <ButtonComponentSm label={'Contact Us'} onClick={handleClickContact} />}
-                        <ButtonComponentSm label={'Our Link(s)'} />
+                        {profile.BusinessLinks !== '' && <ButtonComponentSm label={'Our Link(s)'} onClick={handleClickLinks} />}
                         {profile.GmapsLink !== '' && <ButtonComponentSm label={'Our Store'} onClick={handleClickGmaps} />}
                     </div>
                 </div>
 
                 <CategorizePage />
             </div>
+
+            {showOurLinks && <OurLinks handleX={handleClickLinks} links={profile.BusinessLinks} />}
         </>
 
     )

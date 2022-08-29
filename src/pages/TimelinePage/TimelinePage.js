@@ -3,37 +3,37 @@ import './TimelinePage.css'
 import React from 'react'
 import { TimelineCard } from '../TimelineCard/TimelineCard'
 
-export const TimelinePage = () => {
+export const TimelinePage = ({categoryActive=false, categoryId=''}) => {
   const timelineTest = [
-    // {
-    //   key: 1,
-    //   avatar: 'https://cms-assets.tutsplus.com/cdn-cgi/image/width=630/uploads/users/1223/posts/32827/image/Cafe%20Logo%20Maker%20for%20Coffee%20and%20Tea%20Designs_.jpg',
-    //   caption: `Updating the reference value countRef.current++ doesn't trigger component re-rendering. This is demonstrated by the fact that 'I rendered!' is logged to the console just once, at initial rendering, and no re-rendering happens when the reference is updated.Updating the reference value countRef.current++ doesn't trigger component re-rendering. This is demonstrated by the fact that 'I rendered!' is logged to the console just once, at initial rendering, and no re-rendering happens when the reference is updated.`,
-    //   date:'28/08/2022',
-    //   links:'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg',
-    //   name:'Cafe XYZ',
-    //   place:'Ragunan, Jakarta Selatan',
-    //   time:'20.11',
-    //   comments: [
-    //     {
-    //         key: 1,
-    //         user: 'Arasha',
-    //         comment_fill: 'Aku kemaren kesini'
-    //     },
-    //     {
-    //         key: 2,
-    //         user: 'Bell',
-    //         comment_fill: 'Sesuai dengan deskripsi'
-    //     },
-    //     {
-    //         key: 3,
-    //         user: 'Carl',
-    //         comment_fill: 'Seru banget'
-    //     },
+    {
+      key: 1,
+      avatar: 'https://cms-assets.tutsplus.com/cdn-cgi/image/width=630/uploads/users/1223/posts/32827/image/Cafe%20Logo%20Maker%20for%20Coffee%20and%20Tea%20Designs_.jpg',
+      caption: `Updating the reference value countRef.current++ doesn't trigger component re-rendering. This is demonstrated by the fact that 'I rendered!' is logged to the console just once, at initial rendering, and no re-rendering happens when the reference is updated.Updating the reference value countRef.current++ doesn't trigger component re-rendering. This is demonstrated by the fact that 'I rendered!' is logged to the console just once, at initial rendering, and no re-rendering happens when the reference is updated.`,
+      date:'28/08/2022',
+      links:'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg',
+      name:'Cafe XYZ',
+      place:'Ragunan, Jakarta Selatan',
+      time:'20.11',
+      comments: [
+        {
+            key: 1,
+            user: 'Arasha',
+            comment_fill: 'Aku kemaren kesini'
+        },
+        {
+            key: 2,
+            user: 'Bell',
+            comment_fill: 'Sesuai dengan deskripsi'
+        },
+        {
+            key: 3,
+            user: 'Carl',
+            comment_fill: 'Seru banget'
+        },
 
-    //   ]
+      ]
 
-    // },
+    },
     {
       key: 2,
       avatar: 'https://cms-assets.tutsplus.com/cdn-cgi/image/width=630/uploads/users/1223/posts/32827/image/Cafe%20Logo%20Maker%20for%20Coffee%20and%20Tea%20Designs_.jpg',
@@ -79,7 +79,7 @@ export const TimelinePage = () => {
 
   return (
     <div className='tl-bg'>
-        <div className='tl-lst'>
+        <div className={categoryId ? 'tl-lst ctg' : 'tl-lst'}>
           {timelineTest.map((post)=>{
             return(
               <TimelineCard

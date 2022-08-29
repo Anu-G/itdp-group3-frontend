@@ -2,15 +2,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router"
 import { AddPost } from "../pages/AddPost/AddPost";
 import { CatalogPage } from "../pages/CategorizePage/CatalogPage/CatalogPage";
-import { CategorizePage } from "../pages/CategorizePage/CategorizePage";
+import { CategorizePage } from "../pages/CategorizePage/CategorizePageProfile";
+import { CategorizePageTimeline } from "../pages/CategorizePage/CategorizePageTimeline";
+import { FAQPages } from "../pages/CategorizePage/FAQPages/FAQPages";
 import { DetailProductCard } from "../pages/DetailProductCard/DetailProductCard";
 import { ForgotPassword } from "../pages/ForgotPassword/ForgotPassword";
 import { Login } from "../pages/Login/Login";
 import { UserLogoutAction } from "../pages/Login/state/AuthAction";
 import NavProfileSetting from "../pages/NavProfileSetting/NavProfileSetting";
 import NavTimeline from "../pages/NavTimeline/NavTimeline";
+import { OurLinks } from "../pages/OurLinks/OurLinks";
 import { BusinessProfile } from "../pages/Profile/BusinessProfile";
 import { NonBusinessProfile } from "../pages/Profile/NonBusinessProfile";
+import { Search } from "../pages/Search/Search";
 import { SettingsAccount } from "../pages/SettingsAccount/SettingsAccount";
 import { SettingsCatalog } from "../pages/SettingsCatalog/SettingsCatalog";
 import { SettingsFaq } from "../pages/SettingsFaq/SettingsFaq";
@@ -63,8 +67,8 @@ const AppRouter = _ => {
             </RequireAuth>
          } >
             <Route index element={<TimelinePage />} />
-            <Route path="category" element={<CategorizePage />} />
-            <Route path="search" element={<></>} />
+            <Route path="category" element={<CategorizePageTimeline />} />
+            <Route path="search" element={<Search />} />
          </Route>
          <Route path="/profile" element={
             <RequireAuth>
@@ -84,7 +88,7 @@ const AppRouter = _ => {
             <Route path="settings/post" element={<SettingsPost />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
-         <Route path="/test" element={<AddPost />} />
+         <Route path="/test" element={<OurLinks />} />
       </Routes>
    )
 }

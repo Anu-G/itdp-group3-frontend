@@ -1,6 +1,11 @@
-.categorize-page{
+.categorize-page-profile{
     color: #f4f4f4;
     padding:2rem 0px 2rem 0px;
+}
+
+.categorize-page-timeline{
+    color: #f4f4f4;
+    padding:2rem;
 }
 
 .category-label-btn{
@@ -13,5 +18,9 @@
     display: flex;
     flex-direction: row;
     
+}
+
+.categorize-ctn{
+    margin: -2rem;
 }
 

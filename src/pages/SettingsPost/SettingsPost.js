@@ -1,24 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { UseDep } from '../../shared/context/ContextDep';
+import { AuthSelector } from '../../shared/selectors/Selectors';
 import { SettingsImageGrid } from '../SettingsImageGrid/SettingsImageGrid';
 import './SettingsPost.css';
 
 export const SettingsPost = () => {
 
-    const links = [
-        'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg',
-        'https://media-assets-ggwp.s3.ap-southeast-1.amazonaws.com/2022/03/Octane-Karakter-Gesit-dan-Berbahaya-di-Apex-Legends-Mobile-2-640x360.jpg',
-        'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg',
-        'https://cdn-www.bluestacks.com/bs-images/pou-banner.jpg',
-        'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg'
-    ];
+  const [feeds, setFeeds] = useState([])
+  const [links, setLinks] = useState([])
+  const authRed = useSelector(AuthSelector);
+  const { accountPostService } = UseDep();
+
+  useEffect(() => {
+    handleLoad()
+  }, [])
+
+  useEffect(() => {
+    handleImage(feeds)
+  }, [feeds])
+
+  const handleLoad = async () => {
+    try {
+      const response = await accountPostService.doGetAccount({
+        "account_id": authRed.account_id,
+        "page": 1,
+        "page_lim": 100
+      })
+      setFeeds(response.data.data)
+    } catch (err) {
+      console.err(err);
+    }
+  }
+
+  const handleImage = (feeds) => {
+    let linkHold = ""
+    const linksInput = []
+    for (const feed of feeds) {
+      linkHold = feed.detail_media_feeds.split(",", 1)
+      linksInput.push(linkHold)
+    }
+    setLinks(linksInput)
+  }
 
   return (
     <div className='wrapper'>
-        <div className='settings-post-card'>
-            <SettingsImageGrid links={links}/>
+      <div className='settings-post-card'>
+        <SettingsImageGrid links={links} />
 
-            
-        </div>
+
+      </div>
     </div>
   )
 }

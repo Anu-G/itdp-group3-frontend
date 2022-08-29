@@ -12,3 +12,8 @@
     flex-direction: column;
     border-radius: 20px;
 }
+
+.ctg{
+
+    border-radius: 0 20px 20px 20px;
+}

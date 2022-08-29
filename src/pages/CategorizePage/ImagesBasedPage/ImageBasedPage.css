@@ -18,3 +18,30 @@
         grid-template-columns: repeat(2,1fr);
     }
 }
+
+.empty{
+    width: 100%;
+    position: absolute;
+    display: flex;
+    grid-template-columns: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-item-cell{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 216px;
+    height: 168px;
+}
+
+
+.post-item-cell:hover{
+    border-radius: 20px;
+    box-shadow: 0px 0px 16px 4px rgba(30,35,41,0.75);
+-webkit-box-shadow: 0px 0px 16px 4px rgba(30,35,41,0.75);
+-moz-box-shadow: 0px 0px 16px 4px rgba(30,35,41,0.75);
+}
