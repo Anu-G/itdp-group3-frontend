@@ -22,7 +22,6 @@ export const CatalogPage = ({ }) => {
             const response = await productService.doGetProductByAccount({
                 account_id: `${authRed.account_id}`
             })
-            console.log(response.data);
             setProduct(prevState => response.data.data)
         } catch (err) {
             AppError(err);
@@ -36,7 +35,7 @@ export const CatalogPage = ({ }) => {
 
     return (
         <>
-            {true && <DetailProductCard />}
+            {/* {true && <DetailProductCard />} */}
 
             <div className='catalog-ctn'>
                 {products.map(item => {

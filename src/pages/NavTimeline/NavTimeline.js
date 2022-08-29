@@ -6,6 +6,7 @@ import { navItemsTimeline } from '../../shared/components/Navbar/NavItems';
 import { UseDep } from '../../shared/context/ContextDep';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import AppError from '../../utils/AppError';
+import { AddPost } from '../AddPost/AddPost';
 import './NavTimeline.css';
 
 const NavTimeline = _ => {
@@ -13,6 +14,11 @@ const NavTimeline = _ => {
   const authRed = useSelector(AuthSelector);
   const { profileService } = UseDep();
   const navigate = useNavigate();
+  const [openAddPost, setOpenAddPost] = useState(false);
+
+  const togglePopup = () => {
+    setOpenAddPost(!openAddPost);
+  }
 
   useEffect(_ => {
     (async () => {
@@ -41,18 +47,19 @@ const NavTimeline = _ => {
         id: 'addPostBtn',
         className: 'sidebar-btn',
         label: 'Add Post',
-        onClick: null
+        onClick: togglePopup
       }]);
     }
   }, []);
 
   return (
-    <div>
+    <>
       <Navbar title={"Timeline"} navItems={navItemsTimeline} buttons={buttons} />
       <div className='inner-content'>
         <Outlet />
       </div>
-    </div >
+      <AddPost isOpen={openAddPost} togglePopup={togglePopup} />
+    </>
   )
 }
 

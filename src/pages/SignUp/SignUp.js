@@ -111,8 +111,7 @@ export const SignUp = () => {
                 password: password
             });
             if (response.status === 200) {
-                alert('success create account, please login')
-                navigate('/auth/login');
+                alert('success create account, please login');
             }
         } catch (err) {
             AppError(err);

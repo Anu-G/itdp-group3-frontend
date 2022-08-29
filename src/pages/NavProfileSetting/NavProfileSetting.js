@@ -67,12 +67,12 @@ const NavProfileSetting = _ => {
   }, []);
 
   return (
-    <div>
+    <>
       <Navbar title={"Settings"} navItems={authRed.role_id === 2 ? navItemsBusinessProfile : navItemsNonBusinessProfile} buttons={buttons} />
       <div className='inner-content'>
         <Outlet />
       </div>
-    </div >
+    </>
   )
 }
 

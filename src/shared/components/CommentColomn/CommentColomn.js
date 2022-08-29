@@ -2,14 +2,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import './CommentColomn.css'
 import HighlightWithinTextarea from 'react-highlight-within-textarea'
 
-export const CommentColomn = ({ label = '', handleChange, value, maxLength = 280 }) => {
+export const CommentColomn = ({ placeholder, handleChange, value, maxLength, charLength, charLimitHandle }) => {
 
-    const [charLength, setCharLength] = useState(0);
     const [highlight, setHighlight] = useState('');
 
     useEffect(() => {
-        setCharLength(value.length)
-
         setHighlight(value.slice(maxLength + 1))
 
     }, [value])
@@ -21,7 +18,7 @@ export const CommentColomn = ({ label = '', handleChange, value, maxLength = 280
                 <HighlightWithinTextarea value={value} onChange={()=>{handleChange()}} highlight={highlight}/>
 
             </div> */}
-                <textarea placeholder='Write a comment...' className='text-area' onChange={handleChange} value={value} />
+                <textarea placeholder={placeholder} className='text-area' onChange={handleChange} value={value} onKeyDown={charLimitHandle} />
                 <div className='char-length'>
                     {charLength}/{maxLength}
                 </div>

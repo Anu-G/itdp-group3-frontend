@@ -68,7 +68,6 @@ export const SettingsAccount = () => {
                     <div className='item'>
                         <InputTextLabelMd id={'userName'} label={'Username'} value={userName} handleOnChange={handleOnChangeUsername} />
                     </div>
-
                     <div className='item'>
                         <InputTextLabelMd id={'email'} label={'E-mail'} value={email} handleOnChange={handleOnChangeEmail} />
                         <ErrorForm message={emailError} />
@@ -81,8 +80,8 @@ export const SettingsAccount = () => {
                     <div className='button-change'>
                         <ButtonComponent label={"Change"} />
                     </div>
-                </form>
-            </div>
-        </div>
+                </form >
+            </div >
+        </div >
     )
 }

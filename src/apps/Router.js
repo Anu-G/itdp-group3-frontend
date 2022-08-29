@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router"
+import { AddPost } from "../pages/AddPost/AddPost";
 import { CatalogPage } from "../pages/CategorizePage/CatalogPage/CatalogPage";
 import { CategorizePage } from "../pages/CategorizePage/CategorizePage";
 import { DetailProductCard } from "../pages/DetailProductCard/DetailProductCard";
@@ -83,7 +84,7 @@ const AppRouter = _ => {
             <Route path="settings/post" element={<SettingsPost />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
-         <Route path="/test" element={<DetailProductCard />} />
+         <Route path="/test" element={<AddPost />} />
       </Routes>
    )
 }

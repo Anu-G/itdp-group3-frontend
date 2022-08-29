@@ -1,71 +1,58 @@
 import './CategorizePage.css'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CategoryLabelActive, CategoryLabelInactive } from '../../shared/components/CategoryLabel/CategoryLabel'
 import { ImagesViewProfile } from '../../shared/components/ImagesViewProfile/ImagesViewProfile'
 import { ImageBasedPage } from './ImagesBasedPage/ImageBasedPage'
 import { QA } from '../../shared/components/QA/QA'
 import { FAQPages } from './FAQPages/FAQPages'
 import { CatalogPage } from './CatalogPage/CatalogPage'
+import { useSelector } from 'react-redux'
+import { AuthSelector } from '../../shared/selectors/Selectors'
+import { UseDep } from '../../shared/context/ContextDep'
+import AppError from '../../utils/AppError'
+import { text } from '@fortawesome/fontawesome-svg-core'
 
 export const CategorizePage = () => {
 
-    const [isActive, setIsActive] = useState([true, false, false])
-    const link = 'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg';
+    const [isActive, setIsActive] = useState([false, false, false])
+    const [feeds, setFeeds] = useState([])
+    const [links, setLinks] = useState([])
+    const authRed = useSelector(AuthSelector);
+    const { accountPostService } = UseDep();
 
-    const links = [
-        'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg',
-        'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg',
-        'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg',
-        'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg'
-    ];
+    useEffect(() => {
+        setFeeds([])
+        handleLoad()
+        handleClick();
+    }, [])
 
-    const catalogItems = [
-        {
-            key: 1,
-            link: [
-                'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg',
-            ],
-            name: 'Nasi Goreng',
-            Price: 24000
-        },
-        {
-            key: 2,
-            link:
-                ['https://media-assets-ggwp.s3.ap-southeast-1.amazonaws.com/2022/03/Octane-Karakter-Gesit-dan-Berbahaya-di-Apex-Legends-Mobile-2-640x360.jpg'],
-            name: 'All Day Ticket',
-            Price: 55000
-        },
-        {
-            key: 3,
-            link:
-                ['https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg'],
-            name: 'Premium Beef',
-            Price: 50000
-        },
-        {
-            key: 4,
-            link:
-                ['https://cdn-www.bluestacks.com/bs-images/pou-banner.jpg'],
-            name: 'Es Teh',
-            Price: 2000
-        },
-        {
-            key: 5,
-            link: [
-                'https://hips.hearstapps.com/hmg-prod/images/190403-balsamic-mushroom-skewers-123-copy-1554496167.jpeg'],
-            name: 'Kids PlayGroud',
-            Price: 10000
-        },
-        {
-            key: 6,
-            link:
-                ['https://awsimages.detik.net.id/community/media/visual/2019/08/12/71b9b8ff-01fd-4dd4-807b-428537b0e4e2_169.jpeg?w=700&q=90'],
-            name: 'Sea World',
-            Price: 100000
-        },
-    ]
+    useEffect(() => {
+        setLinks([])
+        handleImage(feeds)
+    }, [feeds])
 
+    const handleLoad = async () => {
+        try {
+            const response = await accountPostService.doGetAccount({
+                "account_id": authRed.account_id,
+                "page": 1,
+                "page_lim": 100
+            })
+            setFeeds(response.data.data)
+        } catch (err) {
+            AppError(err);
+        }
+    }
+
+    const handleImage = (feeds) => {
+        let linkHold = ""
+        for (const feed of feeds) {
+            linkHold = feed.detail_media_feeds.split(",", 1)
+            const linksInput = [...links, linkHold]
+            setLinks(linksInput)
+        }
+    }
 
     const FAQs = [
         [
@@ -114,13 +101,8 @@ export const CategorizePage = () => {
             </div>
 
             {isActive[0] ? <ImageBasedPage links={links} /> : ''}
-            {isActive[1] ? <CatalogPage catalogItems={catalogItems} /> : ''}
+            {isActive[1] ? <CatalogPage /> : ''}
             {isActive[2] ? <FAQPages FAQs={FAQs} /> : ''}
-
-            {/* <FAQPages/>
-
-        <ImageBasedPage links={links}/> */}
-
         </div >
     )
 }

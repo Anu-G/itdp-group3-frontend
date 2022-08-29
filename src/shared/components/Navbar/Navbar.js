@@ -36,7 +36,7 @@ function Navbar({ title, navItems, buttons }) {
     <>
       <div className="navbar">
         <div className="web-logo" onClick={homeClick}>
-          <img src="/logo-toktok.png" width="124px"  className="d-inline-block align-top" alt="logo-toktok" />
+          <img src="/logo-toktok.png" width="124px" className="d-inline-block align-top" alt="logo-toktok" />
         </div>
         {/* <Link to="#" className="nav-menu-icon" onClick={_ => showSidebar()}>
           <FontAwesomeIcon icon={faBars} />
@@ -58,7 +58,7 @@ function Navbar({ title, navItems, buttons }) {
                 </span>
               </div>
             </Link> */}
-            <div style={{opacity:'0.8', marginBottom:'-1rem'}}>
+            <div style={{ opacity: '0.8', marginBottom: '-1rem' }}>
               <Text32White text={title} />
             </div>
 
@@ -71,7 +71,7 @@ function Navbar({ title, navItems, buttons }) {
                 onClick={_ => showActive(sidebaritem.id)}
               >
                 <Link to={sidebaritem.path}>
-                  <span>{sidebaritem.title}</span>
+                  <span className="sidebar-item-title">{sidebaritem.title}</span>
                 </Link>
               </li>
             );
