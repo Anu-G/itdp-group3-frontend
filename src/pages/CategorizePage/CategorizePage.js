@@ -34,7 +34,7 @@ export const CategorizePage = () => {
     const handleLoad = async () => {
         try {
             const response = await accountPostService.doGetAccount({
-                "account_id":3,
+                "account_id":authRed.account_id,
                 "page":1,
                 "page_lim":100
             })
