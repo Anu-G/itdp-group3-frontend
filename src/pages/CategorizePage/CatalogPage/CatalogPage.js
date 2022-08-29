@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { ImagesViewProfile } from '../../../shared/components/ImagesViewProfile/ImagesViewProfile'
+import { Text32White, Title3White } from '../../../shared/components/Label/Label'
 import { UseDep } from '../../../shared/context/ContextDep'
 import { AuthSelector } from '../../../shared/selectors/Selectors'
 import AppError from '../../../utils/AppError'
+import { DetailProductCard } from '../../DetailProductCard/DetailProductCard'
 import './CatalogPage.css'
 
 export const CatalogPage = ({ }) => {
@@ -27,14 +29,25 @@ export const CatalogPage = ({ }) => {
         }
     }
 
+    const price = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR'
+    })
+
     return (
         <>
-            <div className='content-ctn'>
-                {products.map(product => {
-                    return <div>
-                        <ImagesViewProfile link={product.detail_media_products[0]} />
-                    </div>
+            {true && <DetailProductCard />}
+
+            <div className='catalog-ctn'>
+                {products.map(item => {
+
+                    return (<div key={item.product_id}>
+                        <ImagesViewProfile link={item.detail_media_products[0]} />
+                        <Title3White title={item.product_name} />
+                        <Text32White text={price.format(item.price)} />
+                    </div>)
                 })}
+
             </div>
         </>
     )

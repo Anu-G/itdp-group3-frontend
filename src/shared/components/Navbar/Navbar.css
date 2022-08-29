@@ -86,6 +86,7 @@
   }
 
   .sidebar-btn {
+    margin-left: -10%;
     height: 80px;
     display: flex;
     justify-content: center;
