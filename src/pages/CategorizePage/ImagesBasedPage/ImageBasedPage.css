@@ -18,3 +18,12 @@
         grid-template-columns: repeat(2,1fr);
     }
 }
+
+.empty{
+    width: 100%;
+    position: absolute;
+    display: flex;
+    grid-template-columns: none;
+    justify-content: center;
+    align-items: center;
+}

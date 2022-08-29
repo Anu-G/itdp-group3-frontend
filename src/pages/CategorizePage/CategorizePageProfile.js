@@ -7,10 +7,13 @@ import { ImageBasedPage } from './ImagesBasedPage/ImageBasedPage'
 import { QA } from '../../shared/components/QA/QA'
 import { FAQPages } from './FAQPages/FAQPages'
 import { CatalogPage } from './CatalogPage/CatalogPage'
+import { TimelinePage } from '../TimelinePage/TimelinePage'
+import { useNavigate } from 'react-router'
 
 export const CategorizePage = () => {
 
     const [isActive, setIsActive] = useState([true, false, false])
+    const navigate =useNavigate();
     const link = 'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg';
     
     const links = [
@@ -66,23 +69,22 @@ export const CategorizePage = () => {
         },
     ]
 
-
     const FAQs = [
-        [
-            1, 
-            'What is something that you learned from simply watching a stranger?', 
-            `I haven't bailed on writing. Look, I'm generating a random paragraph at this very moment in an attempt to get my writing back on track. I am making an effort. I will start writing consistently again!`
-        ],
-        [
-            2,
-            `What is something that has had a big impact on your that you observed from afar?`,
-            `It's always good to bring a slower friend with you on a hike. If you happen to come across bears, the whole group doesn't have to worry. Only the slowest in the group do. That was the lesson they were about to learn that day.`
-        ],
-        [
-            3,
-            `What's your good luck charm?`,
-            `Yes in but got you more nothing less good bubble word knock out balloon.`
-        ]
+        {
+            key: 1, 
+            question: 'What is something that you learned from simply watching a stranger?', 
+            answer: `I haven't bailed on writing. Look, I'm generating a random paragraph at this very moment in an attempt to get my writing back on track. I am making an effort. I will start writing consistently again!`
+        },
+        {
+            key: 2,
+            question: `What is something that has had a big impact on your that you ;observed from afar?`,
+            answer: `It's always good to bring a slower friend with you on a hike. If you happen to come across bears, the whole group doesn't have to worry. Only the slowest in the group do. That was the lesson they were about to learn that day.`
+        },
+        {
+            key: 3,
+            question: `What's your good luck charm?`,
+            answer: `Yes in but got you more nothing less good bubble word knock out balloon.`
+        }
     ]
 
     const handleClick = (page) => {
@@ -108,11 +110,14 @@ export const CategorizePage = () => {
             <div className='category-label-btn' onClick={()=> handleClick(1)}>
                 {isActive[1] ? <CategoryLabelActive label={'Catalog'}/> : <CategoryLabelInactive label={'Catalog'}/>}
             </div>
-            <div className='category-label-btn' onClick={()=> handleClick(2)}>
+            {FAQs ?
+                
+                <div className='category-label-btn' onClick={()=> handleClick(2)}>
                 {isActive[2] ? <CategoryLabelActive label={'FAQ'}/> : <CategoryLabelInactive label={'FAQ'}/>}
-            </div>
+                </div>    :
+                ''
+                }
         </div>
-
         {isActive[0] ? <ImageBasedPage links={links} /> : ''}
         {isActive[1] ? <CatalogPage catalogItems={catalogItems}/> : ''}
         {isActive[2] ? <FAQPages FAQs={FAQs}/> : ''}
@@ -124,3 +129,4 @@ export const CategorizePage = () => {
     </div>
   )
 }
+

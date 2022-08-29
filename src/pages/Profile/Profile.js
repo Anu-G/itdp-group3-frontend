@@ -2,7 +2,7 @@ import React from 'react'
 import { ButtonComponent, ButtonComponentSm } from '../../shared/components/Button/Button'
 import { SubtitleWhite, Title2Blue, Title2Green, Title2Red, Title2White, Title2Yellow, TitleWhite } from '../../shared/components/Label/Label'
 import { Avatar } from '../../shared/components/Avatar/Avatar'
-import { CategorizePage } from '../CategorizePage/CategorizePage'
+import { CategorizePage } from '../CategorizePage/CategorizePageProfile'
 import './Profile.css'
 
 export const Profile = () => {

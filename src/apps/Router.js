@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router"
 import { CatalogPage } from "../pages/CategorizePage/CatalogPage/CatalogPage";
-import { CategorizePage } from "../pages/CategorizePage/CategorizePage";
+import { CategorizePage } from "../pages/CategorizePage/CategorizePageProfile";
+import { CategorizePageTimeline } from "../pages/CategorizePage/CategorizePageTimeline";
+import { FAQPages } from "../pages/CategorizePage/FAQPages/FAQPages";
 import { DetailProductCard } from "../pages/DetailProductCard/DetailProductCard";
 import { ForgotPassword } from "../pages/ForgotPassword/ForgotPassword";
 import { Login } from "../pages/Login/Login";
@@ -75,7 +77,7 @@ const AppRouter = _ => {
             <Route path="settings/post" element={<SettingsPost />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
-         <Route path="/test" element={<NavProfileSetting />} />
+         <Route path="/test" element={<CategorizePageTimeline/>} />
       </Routes>
    )
 }

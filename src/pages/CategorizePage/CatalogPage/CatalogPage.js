@@ -2,9 +2,9 @@ import './CatalogPage.css'
 
 import React from 'react'
 import { ImagesViewProfile } from '../../../shared/components/ImagesViewProfile/ImagesViewProfile'
-import { Text32White, Title3White } from '../../../shared/components/Label/Label'
+import { Text32White, Title2White, Title3White } from '../../../shared/components/Label/Label'
 
-export const CatalogPage = ({catalogItems}) => {
+export const CatalogPage = ({catalogItems=[]}) => {
     /*
         expected : 
         catalogItems = {
@@ -22,7 +22,13 @@ export const CatalogPage = ({catalogItems}) => {
 
     
   return (
-    <div className='catalog-ctn'>
+    <>
+        {catalogItems.length==0 ? 
+              <div className='catalog-ctn empty'>
+              <Title2White title={'No Product Yet'}/>
+            </div>
+              : ''}
+              <div className='catalog-ctn'>
         {catalogItems.map(item => {
 
             return  (<div key={item.key}>
@@ -33,5 +39,7 @@ export const CatalogPage = ({catalogItems}) => {
         })}
 
     </div>
+    </>
+    
   )
 }
