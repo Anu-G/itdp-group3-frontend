@@ -1,31 +1,32 @@
 .timeline-wrp{
-    padding: 32px;
-    min-height: 1048px;
+    /* padding: 2rem;
+    max-width: 46rem;
+    min-height: 32rem;
     background-color: #1E2329;
-    color: #f4f4f4;
+    color: #f4f4f4; */
 
 }
 
 .timeline-ctn{
-    margin: 32px;
-    min-height: 1048px;
-    width: 1080px;
-    background-color: #3B4046;
-    border-radius: 20px;
-    padding: 36px;
+    /* margin: 32px; */
+    min-height: 100%;
+    width: 100%;
+    /* background-color: #3B4046; */
+    /* border-radius: 20px; */
+    padding: 32px;
+    border-bottom: solid #1E2329;
 
     display: flex;
     flex-direction: column;
 }
 
 .option-btn{
-    width: 49px;
-    height: 56px;
+    width: 28px;
+    height: 32px;
     margin-left: 0px;
     cursor: pointer;
 
     float: right;
-    
 }
 
 
@@ -37,16 +38,19 @@
 .profile-hd{
     display: flex;
     float: left;
-    padding-bottom: 36px;
+
 }
 
 .img-view-ctn{
-    min-height: 720px;
+    min-height: 360px;
+    
 }
 
 .bottom-btn{
-    margin-top: 32px;
     cursor: pointer;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
 }
 
 .bottom-ctn{
@@ -59,4 +63,18 @@
     gap: 16px;
     display: flex;
     flex-flow: column;
+}
+
+.caption-ctn{
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.comment-count-ctn{
+    opacity: 0.8;
+    cursor: default;
+}
+
+.time-date{
+    cursor: default;
 }

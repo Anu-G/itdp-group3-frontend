@@ -1,13 +1,14 @@
 .title-2{
-    font-size: 36px;
+    font-size: 26px;
+    line-height: 32px;
 }
 
 .title-1{
-    font-size: 44px;
+    font-size: 32px;
 }
 
 .title-3{
-    font-size: 28px;
+    font-size: 24px;
 }
 
 .subtitle{
@@ -15,7 +16,11 @@
 }
 
 .text32 {
-    font-size: 32px;
+    font-size: 18px;
+}
+
+.caption {
+    font-size: 24px;
 }
 
 .white{
@@ -36,4 +41,10 @@
 
 .red{
     color: #FE5454;
+}
+
+.read-more{
+    cursor: pointer;
+    color: #849EB0;
+    opacity: 0.8;
 }

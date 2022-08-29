@@ -1,22 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './CommentColomn.css'
 
-export const CommentColomn = ({handleChange, value, maxLength}) => {
+export const CommentColomn = ({ label = '', handleChange, value, maxLength = 280 }) => {
 
     const [charLength, setCharLength] = useState(0);
+    const [highlight, setHighlight] = useState('');
 
     useEffect(() => {
         setCharLength(value.length)
-    },[value])
 
-  return (
-    <div className='comment-wrp'>
-        <div className='comment-box'>
-            <textarea className='text-area' onChange={handleChange} value={value}/>
-            <div className='char-length'>   
-                {charLength}/{maxLength}
+        setHighlight(value.slice(maxLength + 1))
+
+    }, [value])
+
+    return (
+        <div className='comment-wrp'>
+            <div className='comment-box'>
+                {/* <div className='comment-inside'>
+                <HighlightWithinTextarea value={value} onChange={()=>{handleChange()}} highlight={highlight}/>
+
+            </div> */}
+                <textarea placeholder='Write a comment...' className='text-area' onChange={handleChange} value={value} />
+                <div className='char-length'>
+                    {charLength}/{maxLength}
+                </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }

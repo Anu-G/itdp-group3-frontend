@@ -2,34 +2,29 @@ import './TimelineCard.css'
 
 import React, { useEffect, useState } from 'react'
 import { AvatarSmall } from '../../shared/components/Avatar/Avatar'
-import { Title3White, TitleWhite } from '../../shared/components/Label/Label'
+import { Caption, Text32White, Title3White, TitleWhite } from '../../shared/components/Label/Label'
 import { NameLocation } from '../../shared/components/NameLocation/NameLocation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import { ImagesViewTimeline } from '../../shared/components/ImagesViewProfile/ImagesViewProfile'
+import { ImagesViewTimeline, ImagesViewTimelineMany } from '../../shared/components/ImagesViewProfile/ImagesViewProfile'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { CommentColomn } from '../../shared/components/CommentColomn/CommentColomn'
-import { ButtonComponent } from '../../shared/components/Button/Button'
+import { ButtonComponent, ButtonComponentSm } from '../../shared/components/Button/Button'
+import { CommentExtends } from '../../shared/components/CommentExtends/CommentExtends'
 
 
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = () => {
-
-    const imgsrc = 'https://cms-assets.tutsplus.com/cdn-cgi/image/width=630/uploads/users/1223/posts/32827/image/Cafe%20Logo%20Maker%20for%20Coffee%20and%20Tea%20Designs_.jpg';
-    const name = 'Cafe XYZ';
-    const place = 'Ragunan, Jakarta Selatan'
-    const ctnsrc = 'https://asset.kompas.com/crops/gsIqLl4O-rNNCt-MiaH40ztt5sk=/0x76:4032x2764/375x240/data/photo/2021/09/11/613c98c27631e.jpg'
-    const time = '11.30'
-    const date = '24/08/2022'
-
+export const TimelineCard = ({avatar, name, place, caption, links, time, date, comments}) => {
+    
     const maxLength = 280
 
-    const [isActive, setIsActive] = useState(true)
+    const [isActive, setIsActive] = useState(false)
     const [comment, setComment] = useState('') 
     const [isButtonSendActive, setIsButtonSendActive] = useState(false)
+    const [readMore, setReadMore] = useState(true)
 
     useEffect(()=>{
       if (comment.length == 0){
@@ -40,6 +35,10 @@ export const TimelineCard = () => {
         setIsButtonSendActive(true)
       }
     }, [comment])
+
+    const handleReadMore = () => {
+      setReadMore(!readMore)
+    }
 
     const handleCommentOnClick = () => {
       setIsActive(!isActive)
@@ -60,7 +59,7 @@ export const TimelineCard = () => {
           <div>
             <div className='profile-hd'>
 
-              <AvatarSmall link={imgsrc}/>
+              <AvatarSmall link={avatar}/>
               <div className='name-loc-ctn'>
                   <NameLocation name={name} place={place}/>
               </div>
@@ -73,29 +72,48 @@ export const TimelineCard = () => {
             </div>
           </div>
 
+          <div className='caption-ctn'>
+            <Caption text={caption} readMore={readMore} handleReadmore={handleReadMore} />
+          </div>
+
           <>
             <div className='img-view-ctn'>
-              <ImagesViewTimeline link={ctnsrc}/>
+              {typeof links !== 'string' ? <ImagesViewTimelineMany links={links}/> : <ImagesViewTimeline link={links}/> }
             </div>
           </>
             
           <div className='bottom-ctn'>
             <div className='bottom-btn'  onClick={handleCommentOnClick}>
 
-              {isActive ? <FontAwesomeIcon icon="fa-regular fa-comment-dots" style={{height:'48px', color:'#F4F4F4'}}/> : <FontAwesomeIcon icon="fa-solid fa-comment-dots" style={{height:'48px', color:'#F4F4F4'}} />}
+              {!isActive ? <FontAwesomeIcon icon="fa-regular fa-comment-dots" style={{height:'28px', color:'#F4F4F4'}}/> : <FontAwesomeIcon icon="fa-solid fa-comment-dots" style={{height:'28px', color:'#F4F4F4'}} />}
+              
+              <div className='comment-count-ctn'>
+                <Text32White text={comments.length} />
+              </div>
             </div>
 
-            <Title3White title={`${time} \t\t ${date}`}/>
-          </div>
-
-          <div className='ext-cmt' hidden={isActive}>
-            <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} value={comment}/>
-            <div style={{display:'flex', justifyContent:'end'}}>
-              <ButtonComponent isDisable={isButtonSendActive} label={'send'} onClick={handleOnClickSend}/>
-
+            <div className='time-date'>
+              <Text32White text={`${time} \t\t ${date}`}/>
             </div>
           </div>
+
+          {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnclickSend={handleOnClickSend}/> : ''}
+
+          
         </div>
     </div>
+  )
+}
+
+const CommentExtActive = ({comments, handleCommentChange, maxLength, value, isButtonSendActive, buttonLabel, handleOnClickSend}) => {
+  return(
+    <div className='ext-cmt'>
+            <CommentExtends comments={comments}/>
+            <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} value={value}/>
+            <div style={{display:'flex', justifyContent:'end'}}>
+              <ButtonComponentSm isDisable={!isButtonSendActive} label={buttonLabel} onClick={handleOnClickSend}/>
+
+            </div>
+          </div>
   )
 }

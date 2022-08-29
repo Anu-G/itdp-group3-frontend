@@ -2,15 +2,15 @@
 
 .navbar {
     background-color: #3B4046;
-    height: 10vh;
+    height: 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-family: 'Kirang Haerang', sans-serif;
-    padding-left: 32px;
-    padding-right: 32px;
+    padding: 0px 32px 0px 32px;
     position: fixed;
     width: 100vw;
+    z-index: 1;
   }
   
   .nav-menu-icon {
@@ -25,8 +25,8 @@
     background-color: #3B4046;
     width: 320px;
     margin-left: 160px;
-    margin-top: 10vh;
-    height: 90vh;
+    margin-top: 48px;
+    height: 100%;
     display: flex;
     justify-content: center;
     position: fixed;
@@ -86,6 +86,7 @@
   }
 
   .sidebar-btn {
+    margin-left: -10%;
     height: 80px;
     display: flex;
     justify-content: center;

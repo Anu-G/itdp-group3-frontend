@@ -3,10 +3,10 @@ import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
-import { Title3White } from "../Label/Label";
+import { SubtitleWhite, Text32White, Title3White } from "../Label/Label";
 import { ButtonComponent } from "../Button/Button";
 
-function Navbar({ title, navItems, btnLabel, btnClick }) {
+function Navbar({ title, navItems, buttons }) {
   const [sidebar, setSidebar] = useState(true);
   const showSidebar = () => {
     setSidebar(!sidebar);
@@ -36,7 +36,7 @@ function Navbar({ title, navItems, btnLabel, btnClick }) {
     <>
       <div className="navbar">
         <div className="web-logo" onClick={homeClick}>
-          <img src="/logo-toktok.png" width="192" height="60" className="d-inline-block align-top" alt="logo-toktok" />
+          <img src="/logo-toktok.png" width="124px"  className="d-inline-block align-top" alt="logo-toktok" />
         </div>
         {/* <Link to="#" className="nav-menu-icon" onClick={_ => showSidebar()}>
           <FontAwesomeIcon icon={faBars} />
@@ -58,7 +58,10 @@ function Navbar({ title, navItems, btnLabel, btnClick }) {
                 </span>
               </div>
             </Link> */}
-            <Title3White title={title} />
+            <div style={{opacity:'0.8', marginBottom:'-1rem'}}>
+              <Text32White text={title} />
+            </div>
+
           </li>
           {navItems && navItems.map((sidebaritem) => {
             return (
@@ -73,9 +76,11 @@ function Navbar({ title, navItems, btnLabel, btnClick }) {
               </li>
             );
           })}
-          <li className="sidebar-btn">
-            <ButtonComponent label={btnLabel} onClick={btnClick} />
-          </li>
+          {buttons && buttons.map((btn) => (
+            <li key={btn.id} className={btn.className}>
+              <ButtonComponent label={btn.label} onClick={btn.onClick} />
+            </li>
+          ))}
         </ul>
       </div>
     </>
