@@ -13,9 +13,9 @@ export const ImageBasedPage = ({links=[]}) => {
               : ''}
         <div className='content-ctn'>
             {links.map(link => {
-                return  <div>
+                return  (<div className='post-item-cell'>
                             <ImagesViewProfile link={link}/>
-                        </div>
+                        </div>)
             })}
         </div>
     </>

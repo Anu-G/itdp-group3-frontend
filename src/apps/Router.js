@@ -12,6 +12,7 @@ import NavProfileSetting from "../pages/NavProfileSetting/NavProfileSetting";
 import NavTimeline from "../pages/NavTimeline/NavTimeline";
 import { OurLinks } from "../pages/OurLinks/OurLinks";
 import { Profile } from "../pages/Profile/Profile";
+import { Search } from "../pages/Search/Search";
 import { SettingsAccount } from "../pages/SettingsAccount/SettingsAccount";
 import { SettingsCatalog } from "../pages/SettingsCatalog/SettingsCatalog";
 import { SettingsFaq } from "../pages/SettingsFaq/SettingsFaq";
@@ -77,7 +78,7 @@ const AppRouter = _ => {
             <Route path="settings/post" element={<SettingsPost />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
-         <Route path="/test" element={<CategorizePageTimeline/>} />
+         <Route path="/test" element={<Profile/>} />
       </Routes>
    )
 }

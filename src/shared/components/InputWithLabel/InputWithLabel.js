@@ -59,3 +59,9 @@ export const InputPasswordLabelMd = ({ id, label, handleOnChange, value, }) => {
       </div>
    );
 }
+
+export const InputOnly = ({ id, label, handleOnChange, value, style }) => (
+   <div className="input-class-src" style={style}>
+      <input className="input-area srch" placeholder={label} type={"text"} id={id} onChange={handleOnChange} value={value} />
+   </div>
+);

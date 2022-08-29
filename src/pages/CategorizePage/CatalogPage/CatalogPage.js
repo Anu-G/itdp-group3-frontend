@@ -31,7 +31,8 @@ export const CatalogPage = ({catalogItems=[]}) => {
               <div className='catalog-ctn'>
         {catalogItems.map(item => {
 
-            return  (<div key={item.key}>
+             //bisa dibikin return link juga
+            return  (<div key={item.key} className='item-cell'>
                         <ImagesViewProfile link={item.link[0]}/>
                         <Title3White title={item.name}/>
                         <Text32White text={price.format(item.Price)}/>
