@@ -13,54 +13,22 @@ import AppError from '../../utils/AppError'
 import { text } from '@fortawesome/fontawesome-svg-core'
 import { TimelinePage } from '../TimelinePage/TimelinePage'
 import { useNavigate } from 'react-router'
-import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
+import { FeedPage } from './FeedPage/FeedPage'
 
 export const CategorizePage = () => {
 
     const [isActive, setIsActive] = useState([false, false, false])
-    const [feeds, setFeeds] = useState([])
-    const [links, setLinks] = useState([])
     const authRed = useSelector(AuthSelector);
-    const { accountPostService } = UseDep();
-    const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
-        handleLoad()
         handleClick();
     }, [])
 
-    useEffect(() => {
-        handleImage(feeds)
-    }, [feeds])
+    // useEffect(() => {
+    //     handleImage(feeds)
+    // }, [feeds])
 
-    const handleLoad = async () => {
-        try {
-            // set loading when hit backend
-            setLoading(true);
 
-            const response = await accountPostService.doGetAccount({
-                "account_id": authRed.account_id,
-                "page": 1,
-                "page_lim": 100
-            })
-            setFeeds(response.data.data)
-        } catch (err) {
-            console.err(err);
-        } finally {
-            // remove loading screen
-            setLoading(false);
-        }
-    }
-
-    const handleImage = (feeds) => {
-        let linkHold = ""
-        const linksInput = []
-        for (const feed of feeds) {
-            linkHold = feed.detail_media_feeds.split(",", 1)
-            linksInput.push(linkHold)
-        }
-        setLinks(linksInput)
-    }
     const FAQs = [
         {
             key: 1,
@@ -111,12 +79,10 @@ export const CategorizePage = () => {
                         ''
                     }
                 </div>
-                {isActive[0] ? <ImageBasedPage links={links} /> : ''}
+                {isActive[0] ? <FeedPage /> : ''}
                 {isActive[1] ? <CatalogPage /> : ''}
                 {isActive[2] ? <FAQPages FAQs={FAQs} /> : ''}
             </div >
-
-            {isLoading && <LoadingScreen />}
         </>
     )
 }

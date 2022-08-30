@@ -78,3 +78,13 @@
 .time-date{
     cursor: default;
 }
+
+.x-btn{
+    width: 28px;
+    height: 32px;
+    margin-left: 0px;
+    cursor: pointer;
+    color: #FE5454;
+
+    float: right;
+}

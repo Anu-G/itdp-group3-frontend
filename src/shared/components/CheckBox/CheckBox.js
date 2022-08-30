@@ -2,7 +2,7 @@ import { CustomDropdownSm } from '../Dropdown/Dropdown';
 import './CheckBox.css';
 
 //used only in profile.
-export const CheckBox = ({ label, items, valueCB, onChangeCB }) => {
+export const CheckBox = ({ label, items, valueCB, onChangeCB , handleChangeStart, handleChangeEnd}) => {
     return (
         <div className={`custom-checkbox mt-2 ${valueCB ? "" : "custom-checkbox-inactive"}`}>
 
@@ -24,11 +24,11 @@ export const CheckBox = ({ label, items, valueCB, onChangeCB }) => {
 
             </label>
             <div className='dropdown-wrapper'>
-                <CustomDropdownSm label={'Select One'} items={items} locked={!valueCB} />
+                <CustomDropdownSm label={'Select One'} items={items} locked={!valueCB} handleChange={handleChangeStart}/>
 
                 <span className='px-3'>to</span>
 
-                <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} />
+                <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeEnd}/>
             </div>
         </div>
     )

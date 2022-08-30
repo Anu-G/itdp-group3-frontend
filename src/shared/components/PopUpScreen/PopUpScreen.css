@@ -1,0 +1,16 @@
+.pop-up-ctn{
+    background-color: #FED154;
+    width: 400px;
+    min-height: 200px;
+    max-height: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 20px;
+    flex-direction: column;
+    box-shadow: 4px 4px 8px #1E2329;
+
+    pointer-events: none;
+    padding: 1rem;
+
+}

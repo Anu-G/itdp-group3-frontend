@@ -25,6 +25,8 @@ import { SettingsAddProduct } from "../pages/SetttingsAddProduct/SettingsAddProd
 import { SignUp } from "../pages/SignUp/SignUp";
 import { TimelineCard } from "../pages/TimelineCard/TimelineCard";
 import { TimelinePage } from "../pages/TimelinePage/TimelinePage";
+import { LoadingScreen } from "../shared/components/LoadingScreen/LoadingScreen";
+import { PanicPopUpScreen, SuccessPopUpScreen } from "../shared/components/PopUpScreen/PopUpScreen";
 import { AuthSelector } from "../shared/selectors/Selectors";
 import AppError from "../utils/AppError";
 
@@ -88,7 +90,7 @@ const AppRouter = _ => {
             <Route path="settings/post" element={<SettingsPost />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
-         <Route path="/test" element={<OurLinks />} />
+         <Route path="/test" element={<SuccessPopUpScreen />} />
       </Routes>
    )
 }
