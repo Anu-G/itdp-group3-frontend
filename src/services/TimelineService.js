@@ -1,15 +1,16 @@
-const TimelineService = ({ doGet }) => { 
-    const doGetTimeline = async () => {
-       try {
-          return await doGet({
-             url: '/feed/'
-          });
-       } catch (err) {
-          throw err;
-       }
-    }
- 
-    return { doGetTimeline };
+const TimelineService = ({ doPost }) => { 
+   const doGetTimeline = async (user) => {
+      try {
+         return await doPost({
+            url: '/feed/timeline',
+            data: user
+         });
+      } catch (err) {
+         throw err;
+      }
+   }
+
+   return { doGetTimeline };
  }
  
  export default TimelineService;

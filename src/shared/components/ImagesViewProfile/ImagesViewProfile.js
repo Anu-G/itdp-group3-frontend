@@ -52,8 +52,16 @@ export const ImagesViewTimelineMany = ({links}) => {
     <div className='container-slider'>
       {links.map((link, index)=>{
         return(
-          <div className={slideIndex === index + 1 ? "slide active-anim" : "slide"}>
-            <img src={link}/>
+          <div className={slideIndex === index + 1 ? "slide active-anim" : "slide"} key={index}>
+            {link.split(".").pop() === "mp4" ? 
+              <video controls>
+                <source src={link}/>
+                <p>
+                  Your browser does not support HTML video. Here is the link  
+                  <a href={link}></a>.
+                </p>
+              </video>
+             : <img src={link}/>}
           </div>
         )
       })}
@@ -75,6 +83,7 @@ export const ImagesViewTimelineMany = ({links}) => {
                     <div 
                     onClick={() => moveDot(index + 1)}
                     className={slideIndex === index + 1 ? "dot active" : "dot"}
+                    key={index}
                     ></div>
                 ))}
             </div>
