@@ -2,8 +2,8 @@ import { createContext, useContext } from "react";
 
 export const DepContext = createContext({});
 
-export const DepProvider = ({ children, service }) => (
-   <DepContext.Provider value={service}>
+export const DepProvider = ({ children, service, serviceImage }) => (
+   <DepContext.Provider value={{ ...service, ...serviceImage }}>
       {children}
    </DepContext.Provider>
 );

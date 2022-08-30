@@ -36,6 +36,12 @@ export const Login = () => {
         }
     }
 
+    const checkPassword = () => {
+        if (password.length < 8) {
+            setPasswordError('Minimal 8 character')
+        }
+    }
+
     useEffect(() => {
         if (email.length == 0 || password.length == 0) {
             setIsActive(false);
@@ -49,6 +55,13 @@ export const Login = () => {
             setIsActive(false)
         } else {
             setIsActive(true)
+        }
+
+        if (password) {
+            checkPassword();
+            if (password.length >= 8) {
+                setPasswordError('')
+            }
         }
     }, [email, password, emailError, passwordError])
 

@@ -70,3 +70,21 @@ export const Text32White = ({text}) => {
         </div>
     )
 }
+
+export const Caption = ({text, readMore=false, handleReadmore}) => {
+
+    const checkText = () => {
+        if(text.length > 50){
+            if(readMore){
+                return
+            }
+        }
+    }
+
+    return <div className='caption white'>
+        {readMore ? text.slice(0, 50) : text}
+        <span onClick={handleReadmore} className='read-more'>
+            {text.length > 50 ? !readMore ? "...show less" : "...show more" : ""}
+        </span>
+    </div>
+}

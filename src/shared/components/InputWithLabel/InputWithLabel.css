@@ -18,7 +18,7 @@
 }
 
 .input-lg {
-   height: 102px !important;
+   height: 94px !important;
    width: 484px;
    font-size: 32px;
 }
@@ -56,4 +56,23 @@ input:focus + .input-label {
    cursor: pointer;
    color: #3B4046;
    position: absolute;
+}
+
+.input-class-src{
+
+   display: flex;
+   flex-direction: column-reverse;
+   justify-content: space-between;
+   color: #f4f4f4;
+}
+
+.srch{
+   text-align: center;
+   height: 48px;
+   width: 400px;
+   font-size: 24px;
+}
+
+.srch::placeholder{
+   text-align: center;
 }

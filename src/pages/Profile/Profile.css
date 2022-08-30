@@ -1,11 +1,13 @@
 .profile-page{
     color: #F4F4F4;
-    margin: 36px;
+    padding: 2rem;
 }
 
 .head-profile{
     display: flex;
     flex-direction: row;
+    gap: 2rem;
+    margin-bottom: 1rem;
 }
 
 .head-profile-left {
@@ -20,18 +22,19 @@
 }
 
 .open-hour{
-    margin-top: -4px;
+    margin-top: 4px;
+
 }
 
 .top-profile{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .profile-buttons{
     display: flex;
-    flex-direction: column;
-    gap: 24px;
+    flex-direction: row;
+    gap: 1rem;
 }
 
 .profile-text-item{

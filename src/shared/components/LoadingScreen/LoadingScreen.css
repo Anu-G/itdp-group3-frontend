@@ -1,9 +1,9 @@
-*{
+/* *{
     color: #F4F4F4;
-}
+} */
 
 .loading-wrp {
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;

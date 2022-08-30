@@ -1,7 +1,7 @@
 .wrapper{
     position: relative;
-    width: 1440px;
-    height: 1228px;
+    width: 100%;
+    height: 100%;
 
     background-color: #1E2329;
 }
@@ -9,7 +9,8 @@
 .settings-add-product-card{
     display: flex;
     flex-direction: column;
-    width: 1080px;
+    min-width: 600px;
+    max-width: 736px;
     height: auto;
 
     background-color: #3B4046;
@@ -21,6 +22,7 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    gap: 1rem;
     margin-bottom: 36px;
 }
 
@@ -37,7 +39,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 1008px;
     height: 301px;
     background-color: white;
     border-radius: 20px;

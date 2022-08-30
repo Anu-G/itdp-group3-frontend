@@ -53,6 +53,50 @@ export const CustomDropdown = ({ label, items, locked }) => {
     )
 }
 
+export const CustomDropdownSm = ({ label, items, locked }) => {
+    const [value, setValue] = useState(label);
+    const [active, setActive] = useState(false)
+
+    const handleClick = (value) => {
+        setValue(value);
+        setActive((prevActive) => !prevActive);
+    }
+
+    const handleDropdownActive = () => {
+        if (!locked) {
+            setActive((prevActive) => !prevActive);
+        }
+    }
+
+
+    return (
+        <div className='overlay'>
+
+
+            <div className='dropdown-wrp sm'>
+                <div className='dropdown-btn' onClick={handleDropdownActive}>
+                    {value}
+                    <div>
+                        <FontAwesomeIcon icon="fa-solid fa-angle-down" className='icon' />
+                    </div>
+
+                </div>
+                {
+                    active &&
+                    <div className='dropdown-ctn'>
+                        {items.map((item) => {
+                            return (
+                                <div onClick={() => handleClick(item)}>{item}</div>
+                            )
+                        })}
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    )
+}
 
 /*
 style={{

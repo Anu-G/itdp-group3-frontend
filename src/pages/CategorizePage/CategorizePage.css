@@ -1,16 +1,26 @@
-.categorize-page{
+.categorize-page-profile{
     color: #f4f4f4;
-    margin-top: 36px;
+    padding:2rem 0px 2rem 0px;
+}
+
+.categorize-page-timeline{
+    color: #f4f4f4;
+    padding:2rem;
 }
 
 .category-label-btn{
-    width: 900px;
+    width: 200px;
 }
 
 .category-label-btn-wrp{
-    width: 900px;
+    width: 100%;
+    min-width: 576px;
     display: flex;
     flex-direction: row;
     
+}
+
+.categorize-ctn{
+    margin: -2rem;
 }
 

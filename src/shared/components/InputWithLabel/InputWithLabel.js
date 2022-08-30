@@ -8,21 +8,21 @@ import { useState } from "react";
 export const InputTextLabelSm = ({ id, label, handleOnChange, value, style }) => (
    <div className="input-class input-sm" style={style}>
       <input className="input-area" type={"text"} id={id} onChange={handleOnChange} value={value} />
-      <label className="input-label" for={id}>{label}</label>
+      <label className="input-label" htmlFor={id}>{label}</label>
    </div>
 );
 
 export const InputTextLabelMd = ({ id, label, handleOnChange, value }) => (
    <div className="input-class input-md">
       <input className="input-area" type={"text"} id={id} onChange={handleOnChange} value={value} />
-      <label className="input-label" for={id}>{label}</label>
+      <label className="input-label" htmlFor={id}>{label}</label>
    </div>
 );
 
 export const InputTextLabelLg = ({ id, label, handleOnChange, value }) => (
    <div className="input-class input-lg">
       <input className="input-area" type={"text"} id={id} onChange={handleOnChange} value={value} />
-      <label className="input-label" for={id}>{label}</label>
+      <label className="input-label" htmlFor={id}>{label}</label>
    </div>
 );
 
@@ -38,7 +38,7 @@ export const InputPasswordLabelSm = ({ id, label, handleOnChange, value, }) => {
                <FontAwesomeIcon icon={EyeRegular} />}
          </div>
          <input className="input-area" type={showIcon ? "text" : "password"} id={id} onChange={handleOnChange} value={value} />
-         <label className="input-label" for={id}>{label}</label>
+         <label className="input-label" htmlFor={id}>{label}</label>
       </div>
    );
 }
@@ -55,7 +55,13 @@ export const InputPasswordLabelMd = ({ id, label, handleOnChange, value, }) => {
                <FontAwesomeIcon icon={EyeRegular} />}
          </div>
          <input className="input-area" type={showIcon ? "text" : "password"} id={id} onChange={handleOnChange} value={value} />
-         <label className="input-label" for={id}>{label}</label>
+         <label className="input-label" htmlFor={id}>{label}</label>
       </div>
    );
 }
+
+export const InputOnly = ({ id, label, handleOnChange, value, style }) => (
+   <div className="input-class-src" style={style}>
+      <input className="input-area srch" placeholder={label} type={"text"} id={id} onChange={handleOnChange} value={value} />
+   </div>
+);

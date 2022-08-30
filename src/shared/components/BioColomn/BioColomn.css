@@ -1,10 +1,10 @@
-.comment-wrp{
-    color: #F4F4F4;
+.bio-wrp{
+    /* color: #F4F4F4; */
 }
 
-.comment-box{
+.bio-box{
     background-color: #F4F4F4;
-    width: 688px;
+    width: 100%;
     height: 116px;
     border-radius: 20px;
 
@@ -31,4 +31,5 @@
 
 .char-length{
     color: #849EB9;
+    cursor: default;
 }

@@ -1,13 +1,14 @@
 import './NameLocation.css'
 
 import React from 'react'
-import { Title3White, TitleWhite } from '../Label/Label'
+import { Text32White, Title2White, Title3White, TitleWhite } from '../Label/Label'
 
-export const NameLocation = ({name, place}) => {
+export const NameLocation = ({name, place=''}) => {
   return (
     <div className='name-location-ctn'>
-        <TitleWhite title={name}/>
-        <Title3White title={place}/>
+        <Title2White title={name}/>
+        {/* <Title3White title={place}/> */}
+        <Text32White text={place}/>
     </div>
   )
 }
