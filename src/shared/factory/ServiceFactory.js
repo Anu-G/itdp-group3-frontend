@@ -4,6 +4,7 @@ import { ProfileService, ProfileImageService } from "../../services/ProfileServi
 import SettingAccountService from "../../services/SettingAccountService";
 import ProductService from "../../services/ProductService";
 import AccountPostService from "../../services/AccountPostService";
+import TimelineService from "../../services/TimelineService";
 
 export const ServiceFactory = (apiClient) => ({
    authService: AuthService(apiClient),
@@ -11,7 +12,9 @@ export const ServiceFactory = (apiClient) => ({
    settingAccountService: SettingAccountService(apiClient),
    categoryService: CategoryService(apiClient),
    productService: ProductService(apiClient),
-   accountPostService: AccountPostService(apiClient)
+   accountPostService: AccountPostService(apiClient),
+   businessProfileService: BusinessProfileService(apiClient),
+   timelineService: TimelineService(apiClient)
 });
 
 export const ServiceImageFactory = (apiClient) => ({
