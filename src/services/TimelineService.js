@@ -10,7 +10,18 @@ const TimelineService = ({ doPost }) => {
       }
    }
 
-   return { doGetTimeline };
+   const doGetTimelineByCategory = async (user) => {
+      try {
+         return await doPost({
+            url: '/feed/category',
+            data: user
+         });
+      } catch (err) {
+         throw err;
+      }
+   }
+
+   return { doGetTimeline, doGetTimelineByCategory };
  }
  
  export default TimelineService;

@@ -4,20 +4,24 @@ import React, { useEffect, useState } from 'react'
 import { TimelineCard } from '../TimelineCard/TimelineCard'
 import { UseDep } from '../../shared/context/ContextDep'
 
-export const TimelinePage = ({categoryActive=false, categoryId=''}) => {
+export const TimelinePage = ({categoryActive=false, categoryId=null}) => {
 
   const { timelineService } = UseDep()
   const [timelines, setTimelines] = useState([])
 
   useEffect(() => {
-    getTimeline()
-  }, [])
+    if (categoryId == null) {
+      getTimeline()      
+    }else{
+      getTimelineByCategory()
+    }
+  }, [categoryId])
 
   const getTimeline = async () => {
     try {
       const response = await timelineService.doGetTimeline({
         page: 1,
-        page_lim: 10
+        page_lim: 200
       })
       setTimelines(response.data.data)
     } catch (err) {
@@ -33,6 +37,28 @@ export const TimelinePage = ({categoryActive=false, categoryId=''}) => {
     }
   }
 
+  const getTimelineByCategory = async () => {
+    try {
+      const response = await timelineService.doGetTimelineByCategory({
+        category: categoryId,
+        page: 1,
+        page_lim: 200      
+      })
+      setTimelines(response.data.data)
+    } catch (err) {
+      if (err.response.data.responseCode === 'X01') {
+        alert('please complete your profile data first')
+      } else {
+        if (err.response.status !== 400) {
+          alert(err.message);
+        } else {
+          alert(err.response.data.responseMessage);
+        }
+      }
+    }
+  }
+
+
   return (
     <div className='tl-bg'>
         <div className={categoryId ? 'tl-lst ctg' : 'tl-lst'}>
@@ -41,8 +67,8 @@ export const TimelinePage = ({categoryActive=false, categoryId=''}) => {
             let date = dt.getDate()
             let month = dt.getMonth() + 1
             let year = dt.getFullYear()
-            let hour = dt.getHours()
-            let minutes = dt.getMinutes()
+            let hour = (dt.getHours()<10?'0':'') + dt.getHours()
+            let minutes = (dt.getMinutes()<10?'0':'') + dt.getMinutes()
             return(
               <TimelineCard
                 avatar={post.avatar} 

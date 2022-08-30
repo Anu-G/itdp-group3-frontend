@@ -31,7 +31,7 @@ export const CategorizePageTimeline = () => {
 
 
             <div className='categorize-ctn'>
-                {isActive[0] ? <TimelinePage categoryId='1' /> : <TimelinePage categoryId='2' />}
+                {isActive[0] ? <TimelinePage categoryId={1} /> : <TimelinePage categoryId={3} />}
 
             </div>
 
