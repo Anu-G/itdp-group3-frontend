@@ -44,8 +44,8 @@ export const AddPost = () => {
     }
  };
 
-  const [formData, setFormData] = useState({
-    caption: ""
+const [formData, setFormData] = useState({
+    caption: "",
  });
  const [charLength, setCharLength] = useState(0);
  const maxLength = 280;
@@ -55,7 +55,7 @@ export const AddPost = () => {
 
  const saveResponse = async _ => {
     let file = await fetch(result).then(r => r.blob()).then(blobFile => new File([blobFile], "imagePost.jpg", { type: "image/png" }));
-    postImageData.append("post_image", file);
+    postImageData.append("media_links", file);
 
     try {
        const responseImage = await postImageService.doPostImage(postImageData);
@@ -63,8 +63,8 @@ export const AddPost = () => {
           try {
              const response = await postService.doPostData({
                 account_id: `${authRed.account_id}`,
-                post_image: responseImage.data.data,
-                caption: formData.caption
+                caption_post: formData.caption,
+                media_links: [responseImage.data.data]
              });
              if (response.status === 200) {
                 alert('success');
