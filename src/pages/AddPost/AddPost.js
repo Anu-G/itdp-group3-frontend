@@ -29,6 +29,7 @@ export const AddPost = () => {
   };
 
   const inputRef = useRef();
+//   const [caption, setCaption] = useState('')
   const [image, setImage] = useState(null);
   const [result, setResult] = useState(null);
   const triggerFileSelectPopup = () => inputRef.current.click();
@@ -60,7 +61,7 @@ export const AddPost = () => {
        const responseImage = await postImageService.doPostImage(postImageData);
        if (responseImage.status === 200) {
           try {
-             const response = await postService.doPost({
+             const response = await postService.doPostData({
                 account_id: `${authRed.account_id}`,
                 post_image: responseImage.data.data,
                 caption: formData.caption
