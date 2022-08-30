@@ -2,7 +2,7 @@ const PostService = ({doPost,doGetInput}) => {
     const doGetAccount = async (accountData) => {
         try {
             return await doPost({
-                url: '/feed/account',
+                url: '/account/feed',
                 data: accountData,
             })
         } catch (err) {
