@@ -17,7 +17,7 @@ import { UseDep } from '../../shared/context/ContextDep'
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments }) => {
+export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick }) => {
 
   const maxLength = 280
 
@@ -58,6 +58,11 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
       <div className='timeline-ctn'>
         <div>
           <div className='profile-hd'>
+              {handleClick != null ? 
+              <div className='x-btn' onClick={handleClick}>
+                <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
+              </div>
+            : ''}
 
             <AvatarSmall link={avatar} />
             <div className='name-loc-ctn'>
