@@ -2,7 +2,6 @@
     background-color: #FED154;
     width: 400px;
     min-height: 200px;
-    max-height: 40%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -14,3 +13,12 @@
     padding: 1rem;
 
 }
+
+.pop-up-ctn-success {
+    max-height: 40%;
+}
+
+.pop-up-ctn-panic {
+    max-height: 50%;
+}
+

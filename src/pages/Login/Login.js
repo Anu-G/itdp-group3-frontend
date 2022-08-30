@@ -5,6 +5,8 @@ import { ButtonComponent } from '../../shared/components/Button/Button'
 import { ErrorForm } from '../../shared/components/ErrorForm/ErrorForm'
 import { InputPasswordLabelSm, InputTextLabelSm } from '../../shared/components/InputWithLabel/InputWithLabel'
 import { SubtitleWhite, SubtitleYellow, Title2White } from '../../shared/components/Label/Label'
+import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
+import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { UseDep } from '../../shared/context/ContextDep'
 import AppError from '../../utils/AppError'
 import './Login.css'
@@ -20,6 +22,10 @@ export const Login = () => {
     const navigate = useNavigate();
     const { authService } = UseDep();
     const dispatch = useDispatch();
+
+    const [isLoading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
     const checkEmail = (address) => {
 
@@ -76,6 +82,7 @@ export const Login = () => {
 
     const handleLoginOnClick = async () => {
         try {
+            setLoading(true);
             const response = await authService.doLogin({
                 email: email,
                 password: password
@@ -83,11 +90,17 @@ export const Login = () => {
             if (response.status === 200) {
                 dispatch(UserLoginAction({
                     token: response.data.data
-                }))
+                }));
+                setSuccess(true);
                 navigate('/feeds');
             }
         } catch (err) {
-            AppError(err);
+            setPanic(prevState => ({
+                ...prevState,
+                isPanic: true, errMsg: AppError(err)
+            }));
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -102,35 +115,51 @@ export const Login = () => {
 
     //id, label, handleOnChange, value,
 
+    const onClickSuccess = (value) => {
+        setSuccess(current => value);
+    }
+
+    const onClickPanic = (value) => {
+        setPanic(prevState => ({
+            ...prevState,
+            isPanic: value, errMsg: ''
+        }));
+    }
+
     return (
-        <div className='login-wrp'>
-            <div className='login-ctn'>
+        <>
+            <div className='login-wrp'>
+                <div className='login-ctn'>
 
-                <Title2White title={"Login"} />
-                <div className='login-form'>
+                    <Title2White title={"Login"} />
+                    <div className='login-form'>
 
-                    <InputTextLabelSm id={'email'} label='E-mail' handleOnChange={handleOnChangeEmail} value={email} />
-                    <ErrorForm message={emailError} />
+                        <InputTextLabelSm id={'email'} label='E-mail' handleOnChange={handleOnChangeEmail} value={email} />
+                        <ErrorForm message={emailError} />
 
-                    <InputPasswordLabelSm id={'password'} label='Password' handleOnChange={handleOnChangePass} value={password} />
-                    <ErrorForm message={passwordError} />
-                    <ButtonComponent isDisable={!isActive} label='Login' onClick={handleLoginOnClick} />
+                        <InputPasswordLabelSm id={'password'} label='Password' handleOnChange={handleOnChangePass} value={password} />
+                        <ErrorForm message={passwordError} />
+                        <ButtonComponent isDisable={!isActive} label='Login' onClick={handleLoginOnClick} />
 
-                    <div className='sign-up2-ctn pointer' onClick={handleForgotClick}>
-                        <SubtitleWhite subtitle={'Forgot Password?'} />
+                        <div className='sign-up2-ctn pointer' onClick={handleForgotClick}>
+                            <SubtitleWhite subtitle={'Forgot Password?'} />
+                        </div>
+
                     </div>
 
-                </div>
+                    <div className='sign-up2-ctn'>
+                        <SubtitleYellow subtitle={`Don't have an account?`} />
 
-                <div className='sign-up2-ctn'>
-                    <SubtitleYellow subtitle={`Don't have an account?`} />
-
-                    <div className='pointer' onClick={handleSignUpClick}>
-                        <SubtitleWhite subtitle={'Sign Up'} />
+                        <div className='pointer' onClick={handleSignUpClick}>
+                            <SubtitleWhite subtitle={'Sign Up'} />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+            {isLoading && <LoadingScreen />}
+            {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
+            {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
+        </>
     )
 }

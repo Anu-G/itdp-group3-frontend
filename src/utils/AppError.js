@@ -1,12 +1,12 @@
 const AppError = (err) => {
    if (err.response.status !== 400) {
       if (err.response.status === 401) {
-         alert('session expired, please re-login');
+         return 'session expired, please re-login';
       } else {
-         alert(err.response.data);
+         return (err.response.data);
       }
    } else {
-      alert(err.response.data.responseMessage);
+      return (err.response.data.responseMessage);
    }
 }
 

@@ -58,11 +58,11 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
       <div className='timeline-ctn'>
         <div>
           <div className='profile-hd'>
-              {handleClick != null ? 
+            {handleClick != null ?
               <div className='x-btn' onClick={handleClick}>
                 <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
               </div>
-            : ''}
+              : ''}
 
             <AvatarSmall link={avatar} />
             <div className='name-loc-ctn'>
@@ -83,10 +83,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
 
         <>
           <div className='img-view-ctn'>
-            {// cek image/video - cek konten > 1 / not
-              typeof links !== 'string' ? <ImagesViewTimelineMany links={links} /> :
-                <ImagesViewTimeline link={links} />
-            }
+            {Array.isArray(links) && links.length !== 1 ? <ImagesViewTimelineMany links={links} /> : <ImagesViewTimeline link={links} />}
           </div>
         </>
 
@@ -116,7 +113,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
 const CommentExtActive = ({ comments, handleCommentChange, maxLength, value, isButtonSendActive, buttonLabel, handleOnClickSend }) => {
   return (
     <div className='ext-cmt'>
-      {comments == null ? '' : <CommentExtends comments={comments} /> }
+      {comments == null ? '' : <CommentExtends comments={comments} />}
       <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} value={value} />
       <div style={{ display: 'flex', justifyContent: 'end' }}>
         <ButtonComponentSm isDisable={!isButtonSendActive} label={buttonLabel} onClick={handleOnClickSend} />
