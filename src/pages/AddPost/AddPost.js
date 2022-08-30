@@ -65,7 +65,7 @@ export const AddPost = () => {
                 media_links: [
                   responseImage.data.data
               ],
-                caption: formData.caption
+                caption_post: formData.caption
              });
              if (response.status === 200) {
                 alert('success');
