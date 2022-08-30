@@ -53,18 +53,14 @@ export const ImagesViewTimelineMany = ({links}) => {
       {links.map((link, index)=>{
         return(
           <div className={slideIndex === index + 1 ? "slide active-anim" : "slide"} key={index}>
-            {link.split(".").pop() === "mp4" ? 
+            {link.split(".").pop().toUpperCase() === "MP4" || link.split(".").pop().toUpperCase() === "MOV" || 
+             link.split(".").pop().toUpperCase() === "WMV" || link.split(".").pop().toUpperCase() === "FLV" || 
+             link.split(".").pop().toUpperCase() === "AVI" || link.split(".").pop().toUpperCase() === "WebM" || 
+             link.split(".").pop().toUpperCase() === "AVCHD" || link.split(".").pop().toUpperCase() === "MKV" ? 
                 <div className="h_iframe">
-                  <iframe src={link} frameborder="0" allowfullscreen></iframe>
+                  <iframe src={link} frameBorder="0" allowFullScreen></iframe>
                 </div>
-              // <video className="videoInsert" controls>
-              //   <source src={link}/>
-              //   <p>
-              //     Your browser does not support HTML video. Here is the link  
-              //     <a href={link}></a>.
-              //   </p>
-              // </video>
-             : <img src={link}/>}
+             :  <img src={link}/>}
           </div>
         )
       })}

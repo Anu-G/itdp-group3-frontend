@@ -111,7 +111,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
 const CommentExtActive = ({ comments, handleCommentChange, maxLength, value, isButtonSendActive, buttonLabel, handleOnClickSend }) => {
   return (
     <div className='ext-cmt'>
-      <CommentExtends comments={comments} />
+      {comments == null ? '' : <CommentExtends comments={comments} /> }
       <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} value={value} />
       <div style={{ display: 'flex', justifyContent: 'end' }}>
         <ButtonComponentSm isDisable={!isButtonSendActive} label={buttonLabel} onClick={handleOnClickSend} />
