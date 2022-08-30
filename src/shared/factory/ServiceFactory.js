@@ -13,7 +13,6 @@ export const ServiceFactory = (apiClient) => ({
    categoryService: CategoryService(apiClient),
    productService: ProductService(apiClient),
    accountPostService: AccountPostService(apiClient),
-   businessProfileService: BusinessProfileService(apiClient),
    timelineService: TimelineService(apiClient)
 });
 
