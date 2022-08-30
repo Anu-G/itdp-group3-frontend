@@ -71,6 +71,22 @@ export const Text32White = ({text}) => {
     )
 }
 
+export const Title3Dark = ({title}) => {
+    return (
+        <div className='title-3 dark'>
+            {title}
+        </div>
+    )
+}
+
+export const Text32Dark = ({text}) => {
+    return (
+        <div className='text32 dark'>
+            {text}
+        </div>
+    )
+}
+
 export const Caption = ({text, readMore=false, handleReadmore}) => {
 
     const checkText = () => {

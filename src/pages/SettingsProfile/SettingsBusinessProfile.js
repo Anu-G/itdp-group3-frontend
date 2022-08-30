@@ -103,6 +103,9 @@ export const SettingsBusinessProfile = () => {
     const { profileImageService, profileService, categoryService } = UseDep();
     const authRed = useSelector(AuthSelector);
 
+    const [start, setStart] = useState('')
+    const [end, setEnd] = useState('')
+
     useEffect(_ => {
         let newOpenHour = [...businessHour];
         checked.map((val, key) => {
@@ -115,6 +118,13 @@ export const SettingsBusinessProfile = () => {
         })
         setBusinessHour(newOpenHour);
     }, [checked])
+
+    useEffect(()=>{
+        handleChangeDropDownStart()
+    },[start])
+    useEffect(()=>{
+        handleChangeDropDownEnd()
+    },[end])
 
     useEffect(_ => {
         setFormData(prevState => ({
@@ -200,6 +210,14 @@ export const SettingsBusinessProfile = () => {
         setChecked(newCheck);
     }
 
+    const handleChangeDropDownStart = (value) => {
+        setStart(value)
+    }
+
+    const handleChangeDropDownEnd = (value) => {
+        setEnd(value)
+    }
+
     const saveResponse = _ => {
         console.log('Hello World');
     }
@@ -243,7 +261,7 @@ export const SettingsBusinessProfile = () => {
                     <div className='open-hours'>
                         <Title3White title={"Open Hours:"} />
                         <div className='open-hours-day'>
-                            {OpenDays.map((day, i) => <CheckBox label={day} items={OpenHours} valueCB={checked[i]} onChangeCB={e => handleOnChecked(i)} />)}
+                            {OpenDays.map((day, i) => <CheckBox label={day} items={OpenHours} valueCB={checked[i]} onChangeCB={e => handleOnChecked(i)} handleChangeStart={handleChangeDropDownStart} handleChangeEnd={handleChangeDropDownEnd}/>)}
                         </div>
                     </div>
 
