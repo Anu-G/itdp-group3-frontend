@@ -54,7 +54,7 @@ export const AddPost = () => {
 
  const saveResponse = async _ => {
     let file = await fetch(result).then(r => r.blob()).then(blobFile => new File([blobFile], "imagePost.jpg", { type: "image/png" }));
-    postImageData.append("post_image", file);
+    postImageData.append("media_links", file);
 
     try {
        const responseImage = await postImageService.doPostImage(postImageData);
@@ -62,7 +62,9 @@ export const AddPost = () => {
           try {
              const response = await postService.doPost({
                 account_id: `${authRed.account_id}`,
-                post_image: responseImage.data.data,
+                media_links: [
+                  responseImage.data.data
+              ],
                 caption: formData.caption
              });
              if (response.status === 200) {
