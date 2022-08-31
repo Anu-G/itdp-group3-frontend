@@ -122,4 +122,16 @@
   left:0;
   width:100%; 
   height:100%;
+
+  border-radius: 20px;
+}
+
+.h_iframe-sl iframe {
+  /* position:absolute; */
+  top:0;
+  left:0;
+  width: 672px; 
+  height:344px;
+
+  border-radius: 20px;
 }

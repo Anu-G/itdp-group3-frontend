@@ -21,8 +21,8 @@ export const ImagesViewTimeline = ({link}) => {
               link[0].split(".").pop().toUpperCase() === "WMV" || link[0].split(".").pop().toUpperCase() === "FLV" || 
               link[0].split(".").pop().toUpperCase() === "AVI" || link[0].split(".").pop().toUpperCase() === "WebM" || 
               link[0].split(".").pop().toUpperCase() === "AVCHD" || link[0].split(".").pop().toUpperCase() === "MKV" ? 
-                 <div className="h_iframe">
-                   <iframe src={link} frameBorder="0" allowFullScreen></iframe>
+                 <div className="h_iframe-sl">
+                   <iframe src={link} frameBorder="0" allowFullScreen sandbox=""></iframe>
                  </div>
               :  <img className='img-vw-profile' src={link}/>}
           </div>
@@ -65,7 +65,7 @@ export const ImagesViewTimelineMany = ({links}) => {
              link.split(".").pop().toUpperCase() === "AVI" || link.split(".").pop().toUpperCase() === "WebM" || 
              link.split(".").pop().toUpperCase() === "AVCHD" || link.split(".").pop().toUpperCase() === "MKV" ? 
                 <div className="h_iframe">
-                  <iframe src={link} frameBorder="0" allowFullScreen></iframe>
+                  <iframe src={link} frameBorder="0" allowFullScreen sandbox=""></iframe>
                 </div>
              :  <img src={link}/>}
           </div>
