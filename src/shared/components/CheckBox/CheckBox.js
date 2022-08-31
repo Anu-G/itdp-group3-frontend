@@ -24,7 +24,7 @@ export const CheckBox = ({ label, items, valueCB, onChangeCB , handleChangeStart
 
             </label>
             <div className='dropdown-wrapper'>
-                <CustomDropdownSm label={'Select One'} items={items} locked={!valueCB} handleChange={handleChangeStart}/>
+                <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeStart}/>
 
                 <span className='px-3'>to</span>
 
