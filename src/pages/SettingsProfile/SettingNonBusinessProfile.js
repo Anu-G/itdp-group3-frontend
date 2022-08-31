@@ -90,8 +90,8 @@ export const SettingsNonBusinessProfile = () => {
 
       try {
          setLoading(true);
-         const responseImage = '';
-         const submitImage = '';
+         let responseImage = undefined;
+         let submitImage = '';
          if (result !== null) {
             responseImage = await profileImageService.addNonBusinessProfileImage(profileImageData);
             submitImage = responseImage.data.data

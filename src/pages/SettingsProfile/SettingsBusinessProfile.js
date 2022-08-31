@@ -236,8 +236,8 @@ export const SettingsBusinessProfile = () => {
 
         try {
             setLoading(true);
-            const responseImage = '';
-            const submitImage = '';
+            let responseImage = undefined;
+            let submitImage = '';
             if (result !== null) {
                 responseImage = await profileImageService.addBusinessProfileImage(profileImageData);
                 submitImage = responseImage.data.data
@@ -266,12 +266,14 @@ export const SettingsBusinessProfile = () => {
                     ...prevState,
                     isPanic: true, errMsg: AppError(err)
                 }));
+                console.error(err);
             }
         } catch (err) {
             setPanic(prevState => ({
                 ...prevState,
                 isPanic: true, errMsg: AppError(err)
             }));
+            console.error(err);
         } finally {
             setLoading(false);
         }
