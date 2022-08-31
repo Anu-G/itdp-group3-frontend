@@ -17,33 +17,7 @@ import { UseDep } from '../../shared/context/ContextDep'
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments }) => {
-
-  // pindah ke timelinepage - START
-  const { timelineService } = UseDep()
-  const [timelines, setTimelines] = useState([])
-
-  useEffect(() => {
-    getTimeline()
-  }, [])
-
-  const getTimeline = async () => {
-    try {
-      const response = await timelineService.doGetTimeline()
-      setTimelines(response.data.data)
-    } catch (err) {
-      if (err.response.data.responseCode === 'X01') {
-        alert('please complete your profile data first')
-      } else {
-        if (err.response.status !== 400) {
-          alert(err.message);
-        } else {
-          alert(err.response.data.responseMessage);
-        }
-      }
-    }
-  }
-  // pindah ke timelinepage - END
+export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick }) => {
 
   const maxLength = 280
 
@@ -84,6 +58,11 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
       <div className='timeline-ctn'>
         <div>
           <div className='profile-hd'>
+            {handleClick != null ?
+              <div className='x-btn' onClick={handleClick}>
+                <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
+              </div>
+              : ''}
 
             <AvatarSmall link={avatar} />
             <div className='name-loc-ctn'>
@@ -104,10 +83,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
 
         <>
           <div className='img-view-ctn'>
-            {// cek image/video - cek konten > 1 / not
-              typeof links !== 'string' ? <ImagesViewTimelineMany links={links} /> :
-                <ImagesViewTimeline link={links} />
-            }
+            {Array.isArray(links) && links.length !== 1 ? <ImagesViewTimelineMany links={links} /> : <ImagesViewTimeline link={links} />}
           </div>
         </>
 
@@ -117,7 +93,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
             {!isActive ? <FontAwesomeIcon icon="fa-regular fa-comment-dots" style={{ height: '28px', color: '#F4F4F4' }} /> : <FontAwesomeIcon icon="fa-solid fa-comment-dots" style={{ height: '28px', color: '#F4F4F4' }} />}
 
             <div className='comment-count-ctn'>
-              <Text32White text={comments.length} />
+              <Text32White text={comments == null ? 0 : comments.length} />
             </div>
           </div>
 
@@ -131,47 +107,13 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
 
       </div>
     </div>
-
-    // {timelines.map(timeline => {
-    //   let dt = new Date(timeline.CreatedAt.replace(' ', 'T'));
-    //   let date = dt.getDate()
-    //   let month = dt.getMonth() + 1
-    //   let year = dt.getFullYear()
-    //   let hour = dt.getHours()
-    //   let minutes = dt.getMinutes()
-    //   return (
-    //       <div className='timeline-ctn'>
-    //       <div>
-    //         <div className='profile-hd'>
-
-    //           <AvatarSmall link={timeline.profile_image}/>
-    //           <div className='name-loc-ctn'>
-    //               <NameLocation name={timeline.account_id} place={"Indonesia"}/>
-    //           </div>
-
-    //           {isActive ? <FontAwesomeIcon icon="fa-regular fa-comment-dots" style={{height:'48px', color:'#F4F4F4'}}/> : <FontAwesomeIcon icon="fa-solid fa-comment-dots" style={{height:'48px', color:'#F4F4F4'}} />}
-    //         </div>
-
-    //         <Title3White title={`${hour}:${minutes}    \t\t\t ${date}/${month}/${year}`}/>
-    //       </div>
-
-    //       <div className='ext-cmt' hidden={isActive}>
-    //         <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} value={comment}/>
-    //         <div style={{display:'flex', justifyContent:'end'}}>
-    //           <ButtonComponent isDisable={isButtonSendActive} label={'send'} onClick={handleOnClickSend}/>
-
-    //         </div>
-    //       </div>
-    //     </div>
-    //   )
-    // })}
   )
 }
 
 const CommentExtActive = ({ comments, handleCommentChange, maxLength, value, isButtonSendActive, buttonLabel, handleOnClickSend }) => {
   return (
     <div className='ext-cmt'>
-      <CommentExtends comments={comments} />
+      {comments == null ? '' : <CommentExtends comments={comments} />}
       <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} value={value} />
       <div style={{ display: 'flex', justifyContent: 'end' }}>
         <ButtonComponentSm isDisable={!isButtonSendActive} label={buttonLabel} onClick={handleOnClickSend} />

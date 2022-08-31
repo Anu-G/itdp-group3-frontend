@@ -11,6 +11,8 @@ import AppError from '../../utils/AppError';
 import { useSelector } from 'react-redux';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import { InputTextLabelSm } from '../../shared/components/InputWithLabel/InputWithLabel';
+import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
+import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 
 export const SettingsNonBusinessProfile = () => {
    // start profile image processing
@@ -78,11 +80,16 @@ export const SettingsNonBusinessProfile = () => {
    const { profileImageService, profileService } = UseDep();
    const authRed = useSelector(AuthSelector);
 
+   const [isLoading, setLoading] = useState(false);
+   const [success, setSuccess] = useState(false);
+   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
+
    const saveResponse = async _ => {
       let file = await fetch(result).then(r => r.blob()).then(blobFile => new File([blobFile], "imageCropped.jpg", { type: "image/png" }));
       profileImageData.append("profile_image", file);
 
       try {
+         setLoading(true);
          const responseImage = await profileImageService.addNonBusinessProfileImage(profileImageData);
          if (responseImage.status === 200) {
             try {
@@ -93,15 +100,34 @@ export const SettingsNonBusinessProfile = () => {
                   display_name: formData.displayName
                });
                if (response.status === 200) {
-                  alert('success');
+                  setSuccess(true);
                }
             } catch (err) {
-               AppError(err);
+               setPanic(prevState => ({
+                  ...prevState,
+                  isPanic: true, errMsg: AppError(err)
+               }));
             }
          }
       } catch (err) {
-         AppError(err);
+         setPanic(prevState => ({
+            ...prevState,
+            isPanic: true, errMsg: AppError(err)
+         }));
+      } finally {
+         setLoading(false);
       }
+   }
+
+   const onClickSuccess = (value) => {
+      setSuccess(current => value);
+   }
+
+   const onClickPanic = (value) => {
+      setPanic(prevState => ({
+         ...prevState,
+         isPanic: value, errMsg: ''
+      }));
    }
 
    const onChangeDisplayName = (e) => {
@@ -166,6 +192,10 @@ export const SettingsNonBusinessProfile = () => {
                </div>
             </div>
          </div>
+
+         {isLoading && <LoadingScreen />}
+         {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
+         {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
       </>
    )
 }

@@ -24,7 +24,9 @@ export const CatalogPage = ({ }) => {
             const response = await settingAccountService.doGetAccountProduct({
                 account_id: authRed.account_id
             })
-            setProduct(prevState => response.data.data)
+            if (response.data.data !== null) {
+                setProduct(response.data.data)
+            }
         } catch (err) {
             AppError(err);
         }
@@ -54,10 +56,13 @@ export const CatalogPage = ({ }) => {
                 </div> : ''}
 
             <div className='catalog-ctn'>
-                {products.map(item => {
+                {products.length !== 0 && products.map(item => {
                     return (
-                        <div key={item.product_id}>
-                            <ImagesViewProfile link={item.detail_media_products[0]} handleClick={_ => handleFormOpen(item)} />
+                        <div key={item.product_id} className='item-cell'>
+                            {item.detail_media_products
+                                ? <ImagesViewProfile link={item.detail_media_products[0]} handleClick={_ => handleFormOpen(item)} />
+                                : <ImagesViewProfile link="" handleClick={_ => handleFormOpen(item)} />
+                            }
                             <Title3White title={item.product_name} />
                             <Text32White text={price.format(item.price)} />
                         </div>

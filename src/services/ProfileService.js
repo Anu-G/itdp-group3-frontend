@@ -58,5 +58,16 @@ export const ProfileImageService = ({ doPost, doGet }) => {
       }
    }
 
-   return { addNonBusinessProfileImage };
+   const addBusinessProfileImage = async (image) => {
+      try {
+         return await doPost({
+            url: '/business-profile/add/profile-image',
+            data: image
+         });
+      } catch (err) {
+         throw err;
+      }
+   }
+
+   return { addNonBusinessProfileImage, addBusinessProfileImage };
 }
