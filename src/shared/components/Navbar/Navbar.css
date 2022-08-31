@@ -6,7 +6,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Kirang Haerang', sans-serif;
+    /* font-family: 'Kirang Haerang', sans-serif; */
     padding: 0px 32px 0px 32px;
     position: fixed;
     width: 100vw;
@@ -46,7 +46,7 @@
     height: 60px;
     text-indent: 2rem;
     list-style: none;
-    font-family: 'Kirang Haerang', sans-serif;
+    /* font-family: 'Kirang Haerang', sans-serif; */
   }
   
   .sidebar-item a {
