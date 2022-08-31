@@ -44,6 +44,7 @@
     display: flex;
     align-items: center;
     height: 60px;
+    text-indent: 2rem;
     list-style: none;
     font-family: 'Kirang Haerang', sans-serif;
   }

@@ -1,0 +1,24 @@
+.pop-up-ctn{
+    background-color: #FED154;
+    width: 400px;
+    min-height: 200px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 20px;
+    flex-direction: column;
+    box-shadow: 4px 4px 8px #1E2329;
+
+    pointer-events: none;
+    padding: 1rem;
+
+}
+
+.pop-up-ctn-success {
+    max-height: 40%;
+}
+
+.pop-up-ctn-panic {
+    max-height: 50%;
+}
+

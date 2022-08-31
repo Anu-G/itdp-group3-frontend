@@ -56,15 +56,8 @@ export const navItemsBusinessProfile = [
   },
   {
     id: 3,
-    title: "Catalog",
+    title: "Add Catalog",
     path: "./settings/catalog",
-    nName: "nav-item",
-    sName: "sidebar-item",
-  },
-  {
-    id: 4,
-    title: "Post",
-    path: "./settings/post",
     nName: "nav-item",
     sName: "sidebar-item",
   },

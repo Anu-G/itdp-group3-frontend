@@ -8,6 +8,8 @@ import { ErrorForm } from '../../shared/components/ErrorForm/ErrorForm'
 import { useNavigate } from 'react-router'
 import { UseDep } from '../../shared/context/ContextDep'
 import AppError from '../../utils/AppError'
+import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
+import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 
 export const SignUp = () => {
     const [username, setUsername] = useState('')
@@ -20,6 +22,10 @@ export const SignUp = () => {
     const [verifyPasswordError, setVerifyPasswordError] = useState('');
     const navigate = useNavigate();
     const { authService } = UseDep();
+
+    const [isLoading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
     const checkEmail = (address) => {
 
@@ -105,49 +111,72 @@ export const SignUp = () => {
     }
     const handleSignUpClick = async () => {
         try {
+            setLoading(true);
             const response = await authService.doRegister({
                 user_name: username,
                 email: email,
                 password: password
             });
             if (response.status === 200) {
-                alert('success create account, please login');
+                setSuccess(true);
             }
         } catch (err) {
-            AppError(err);
+            setPanic(prevState => ({
+                ...prevState,
+                isPanic: true, errMsg: AppError(err)
+            }));
+        } finally {
+            setLoading(false);
         }
     }
     const handleSignInClick = () => {
         navigate('/auth/login');
     }
 
+    const onClickSuccess = (value) => {
+        setSuccess(current => value);
+    }
+
+    const onClickPanic = (value) => {
+        setPanic(prevState => ({
+            ...prevState,
+            isPanic: value, errMsg: ''
+        }));
+    }
+
     return (
-        <div className='sign-up-wrp'>
-            <div className='sign-up-ctn'>
-                <Title2White title={'Sign Up'} />
+        <>
+            <div className='sign-up-wrp'>
+                <div className='sign-up-ctn'>
+                    <Title2White title={'Sign Up'} />
 
-                <InputTextLabelMd handleOnChange={handleUsernameChange} id={'username'} label='Username' value={username} />
+                    <InputTextLabelMd handleOnChange={handleUsernameChange} id={'username'} label='Username' value={username} />
 
-                <InputTextLabelMd handleOnChange={handleEmailChange} id={'email'} label='E-mail' value={email} />
-                <ErrorForm message={emailError} />
+                    <InputTextLabelMd handleOnChange={handleEmailChange} id={'email'} label='E-mail' value={email} />
+                    <ErrorForm message={emailError} />
 
-                <InputPasswordLabelMd handleOnChange={handlePasswordChange} id='password' label={'Password'} value={password} />
-                <ErrorForm message={passwordError} />
+                    <InputPasswordLabelMd handleOnChange={handlePasswordChange} id='password' label={'Password'} value={password} />
+                    <ErrorForm message={passwordError} />
 
-                <InputPasswordLabelMd handleOnChange={handleVerifyPasswordChange} id='verifyPassword' label={'Confirm Password'} value={verifyPassword} />
-                <ErrorForm message={verifyPasswordError} />
+                    <InputPasswordLabelMd handleOnChange={handleVerifyPasswordChange} id='verifyPassword' label={'Confirm Password'} value={verifyPassword} />
+                    <ErrorForm message={verifyPasswordError} />
 
-                <ButtonComponent isDisable={!isActive} label='Sign Up' onClick={handleSignUpClick} />
+                    <ButtonComponent isDisable={!isActive} label='Sign Up' onClick={handleSignUpClick} />
 
 
-                <div className='sign-in-ctn'>
-                    <SubtitleYellow subtitle={`Have an account?`} />
-                    <div className='pointer' onClick={handleSignInClick}>
-                        <SubtitleWhite subtitle={'Sign In'} />
+                    <div className='sign-in-ctn'>
+                        <SubtitleYellow subtitle={`Have an account?`} />
+                        <div className='pointer' onClick={handleSignInClick}>
+                            <SubtitleWhite subtitle={'Sign In'} />
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
+
+            {isLoading && <LoadingScreen />}
+            {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
+            {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
+        </>
     )
 }

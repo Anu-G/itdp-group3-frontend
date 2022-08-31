@@ -72,9 +72,16 @@
 }
 
 .caption-form{
+/* <<<<<<< HEAD */
     margin-top: 32px;
     margin-bottom: 32px;
     width: 736px;
+/* =======
+    margin-top: 36px;
+    margin-bottom: 36px;
+    width: 828px;
+    height: 149px;
+>>>>>>> origin/dev-tika-8-settings-add-product-catalog */
 }
 
 .button-upload{

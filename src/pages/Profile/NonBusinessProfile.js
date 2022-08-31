@@ -6,6 +6,10 @@ import './Profile.css'
 import { useSelector } from 'react-redux'
 import { AuthSelector } from '../../shared/selectors/Selectors'
 import { UseDep } from '../../shared/context/ContextDep'
+import { AppErrorNoProfile } from '../../utils/AppError'
+import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
+import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
+import { useNavigate } from 'react-router'
 
 export const NonBusinessProfile = () => {
    const { profileService } = UseDep()
@@ -15,6 +19,10 @@ export const NonBusinessProfile = () => {
       DisplayName: '',
    })
    const authRed = useSelector(AuthSelector)
+   const navigate = useNavigate();
+
+   const [isLoading, setLoading] = useState(false);
+   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
    useEffect(() => {
       getUser()
@@ -22,6 +30,7 @@ export const NonBusinessProfile = () => {
 
    const getUser = async () => {
       try {
+         setLoading(true);
          const response = await profileService.doGetNonBusinessProfile({
             account_id: `${authRed.account_id}`
          })
@@ -34,16 +43,23 @@ export const NonBusinessProfile = () => {
          }))
 
       } catch (err) {
-         if (err.response.data.responseCode === 'X01') {
-            alert('please complete your profile data first')
-         } else {
-            if (err.response.status !== 400) {
-               alert(err.message);
-            } else {
-               alert(err.response.data.responseMessage);
-            }
+         if (AppErrorNoProfile(err)) {
+            setPanic(prevState => ({
+               ...prevState,
+               isPanic: true, errMsg: AppErrorNoProfile(err)
+            }));
          }
+      } finally {
+         setLoading(false);
       }
+   }
+
+   const onClickPanic = (value) => {
+      setPanic(prevState => ({
+         ...prevState,
+         isPanic: value, errMsg: ''
+      }));
+      navigate('/profile/settings/profile');
    }
 
    return (
@@ -67,6 +83,9 @@ export const NonBusinessProfile = () => {
                </div>
             </div>
          </div>
+
+         {isLoading && <LoadingScreen />}
+         {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
       </>
 
    )

@@ -8,12 +8,13 @@ library.add(fas)
 
 //propsnya itu list yang bakal jadi dropdown itemnya.
 // <CustomDropdown label={'Select One'} items={["item 1", "item 2", "item 3", "item 4", "item 5"]}/> 
-export const CustomDropdown = ({ label, items, locked }) => {
+export const CustomDropdown = ({ label, items, locked, handleChange }) => {
     const [value, setValue] = useState(label);
     const [active, setActive] = useState(false)
 
     const handleClick = (value) => {
         setValue(value);
+        handleChange(value)
         setActive((prevActive) => !prevActive);
     }
 
@@ -53,12 +54,13 @@ export const CustomDropdown = ({ label, items, locked }) => {
     )
 }
 
-export const CustomDropdownSm = ({ label, items, locked }) => {
+export const CustomDropdownSm = ({ label, items, locked, handleChange }) => {
     const [value, setValue] = useState(label);
     const [active, setActive] = useState(false)
 
     const handleClick = (value) => {
         setValue(value);
+        handleChange(value)
         setActive((prevActive) => !prevActive);
     }
 

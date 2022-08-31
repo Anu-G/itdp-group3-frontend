@@ -30,3 +30,27 @@
 
     pointer-events: none;
 }
+
+.loading-wrp-sm {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 320px;
+}
+
+.loading-ctn-sm{
+    background-color: #FED154;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 20px;
+    flex-direction: column;
+    box-shadow: 4px 4px 8px #1E2329;
+
+    pointer-events: none;
+}

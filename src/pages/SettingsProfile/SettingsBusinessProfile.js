@@ -15,6 +15,8 @@ import { UseDep } from '../../shared/context/ContextDep';
 import { useSelector } from 'react-redux';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import AppError from '../../utils/AppError';
+import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
+import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 
 export const SettingsBusinessProfile = () => {
     // start profile image processing
@@ -103,18 +105,52 @@ export const SettingsBusinessProfile = () => {
     const { profileImageService, profileService, categoryService } = UseDep();
     const authRed = useSelector(AuthSelector);
 
+    const [start, setStart] = useState(Array.from({ length: 7 }, (v, i) => ''));
+    const [end, setEnd] = useState(Array.from({ length: 7 }, (v, i) => ''));
+
+    const [isLoading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
+
     useEffect(_ => {
         let newOpenHour = [...businessHour];
         checked.map((val, key) => {
             if (val) {
-                newOpenHour[key] = { day: `${key + 1}`, open_hour: '00.00', close_hour: '00.00' };
+                newOpenHour[key] = { day: `${key + 1}`, open_hour: '00:00', close_hour: '00:00' };
                 // if open != '', set open + close
+                handleChangeDropDownStart()
             } else if (!val) {
                 newOpenHour[key] = { day: '', open_hour: '', close_hour: '' };
             }
         })
         setBusinessHour(newOpenHour);
     }, [checked])
+
+    const handleChangeDropDownStart = (i, value) => {
+        let newStart = [...start];
+        newStart[i] = value;
+        setStart(newStart);
+    }
+
+    const handleChangeDropDownEnd = (i, value) => {
+        let newEnd = [...end];
+        newEnd[i] = value;
+        setEnd(newEnd);
+    }
+
+    const handleChangeCategory = (value) => {
+        let match = categories.find(item => item.category_names === value)
+        setFormData(prevState => ({
+            ...prevState,
+            categoryId: match.category_id
+        }))
+    }
+
+    const handleOnChecked = (key, val) => {
+        let newCheck = [...checked];
+        newCheck[key] = !newCheck[key];
+        setChecked(newCheck);
+    }
 
     useEffect(_ => {
         setFormData(prevState => ({
@@ -194,14 +230,58 @@ export const SettingsBusinessProfile = () => {
         }));
     }
 
-    const handleOnChecked = (key, val) => {
-        let newCheck = [...checked];
-        newCheck[key] = !newCheck[key];
-        setChecked(newCheck);
+    const saveResponse = async _ => {
+        let file = await fetch(result).then(r => r.blob()).then(blobFile => new File([blobFile], "imageCropped.jpg", { type: "image/png" }));
+        profileImageData.append("profile_image", file);
+
+        try {
+            setLoading(true);
+            const responseImage = await profileImageService.addBusinessProfileImage(profileImageData);
+            if (responseImage.status === 200) {
+                try {
+                    const response = await profileService.addBusinessProfile({
+                        account_id: `${authRed.account_id}`,
+                        category_id: `${formData.categoryId}`,
+                        address: formData.address,
+                        profile_image: responseImage.data.data,
+                        profile_bio: formData.profileBio,
+                        gmaps_link: formData.gmapsLink,
+                        display_name: formData.displayName,
+                        business_hours: businessHour.filter(val => val.day !== '').map((item, i) => {
+                            item.open_hour = start[i];
+                            item.close_hour = end[i];
+                        }),
+                        business_links: formData.businessLinks.filter(val => val.label !== '')
+                    });
+                    if (response.status === 200) {
+                        setSuccess(true);
+                    }
+                } catch (err) {
+                    setPanic(prevState => ({
+                        ...prevState,
+                        isPanic: true, errMsg: AppError(err)
+                    }));
+                }
+            }
+        } catch (err) {
+            setPanic(prevState => ({
+                ...prevState,
+                isPanic: true, errMsg: AppError(err)
+            }));
+        } finally {
+            setLoading(false);
+        }
     }
 
-    const saveResponse = _ => {
-        console.log('Hello World');
+    const onClickSuccess = (value) => {
+        setSuccess(current => value);
+    }
+
+    const onClickPanic = (value) => {
+        setPanic(prevState => ({
+            ...prevState,
+            isPanic: value, errMsg: ''
+        }));
     }
 
     return (
@@ -236,14 +316,14 @@ export const SettingsBusinessProfile = () => {
                     <div className='settings-category'>
                         <Title3White title={"Category:"} />
                         <span>
-                            <CustomDropdown label={'Select Category'} items={categories.map(val => val.category_names)} locked={false} />
+                            <CustomDropdown label={'Select Category'} items={categories.map(val => val.category_names)} locked={false} handleChange={handleChangeCategory} />
                         </span>
                     </div>
 
                     <div className='open-hours'>
                         <Title3White title={"Open Hours:"} />
                         <div className='open-hours-day'>
-                            {OpenDays.map((day, i) => <CheckBox label={day} items={OpenHours} valueCB={checked[i]} onChangeCB={e => handleOnChecked(i)} />)}
+                            {OpenDays.map((day, i) => <CheckBox label={day} items={OpenHours} valueCB={checked[i]} onChangeCB={e => handleOnChecked(i)} handleChangeStart={e => handleChangeDropDownStart(i, e)} handleChangeEnd={e => handleChangeDropDownEnd(i, e)} />)}
                         </div>
                     </div>
 
@@ -271,6 +351,10 @@ export const SettingsBusinessProfile = () => {
                     </div>
                 </div>
             </div>
+
+            {isLoading && <LoadingScreen />}
+            {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
+            {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
         </>
     )
 }
