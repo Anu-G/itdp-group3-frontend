@@ -22,6 +22,15 @@
     margin: 2rem;
 }
 
+.srch-ctnt{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin: 2rem;
+    height: 80%;
+    width: 100%;
+}
+
 .categorize-page-srch{
     padding: 2rem;
     max-width: 50rem;
@@ -37,7 +46,12 @@
 }
 
 .srch-dtl-empty{
-    padding-top: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.srch-dtl{
     height: 100%;
     display: flex;
     justify-content: center;
@@ -61,7 +75,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 }
 
 .item-cell:hover{
@@ -71,8 +84,9 @@
 }
 
 .dtl-srch-ctn{
-    display: grid;
-    grid-template-columns: auto auto auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     padding: 24px;
     gap: 20px;
 }

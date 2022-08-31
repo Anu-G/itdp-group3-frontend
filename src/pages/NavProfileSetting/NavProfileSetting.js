@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router';
+import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import Navbar from '../../shared/components/Navbar/Navbar';
 import { navItemsBusinessProfile, navItemsNonBusinessProfile } from '../../shared/components/Navbar/NavItems';
+import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { UseDep } from '../../shared/context/ContextDep';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import AppError from '../../utils/AppError';
@@ -14,6 +16,10 @@ const NavProfileSetting = _ => {
   const { authService, settingAccountService } = UseDep();
   const authRed = useSelector(AuthSelector);
 
+  const [isLoading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
+
   const onLogout = async _ => {
     try {
       if (authRed.expiredAt * 1000 <= Date.now()) {
@@ -22,6 +28,7 @@ const NavProfileSetting = _ => {
         const response = await authService.doLogout();
         if (response.status === 200) {
           dispatch(UserLogoutAction());
+          setSuccess(true);
         }
       }
     } catch (err) {
@@ -29,17 +36,33 @@ const NavProfileSetting = _ => {
     }
   }
 
+  const onClickSuccess = (value) => {
+    setSuccess(current => value);
+  }
+
+  const onClickPanic = (value) => {
+    setPanic(prevState => ({
+      ...prevState,
+      isPanic: value, errMsg: ''
+    }));
+  }
+
   const activateBusiness = async _ => {
     try {
+      setLoading(true)
       const response = await settingAccountService.doActivateBusiness({
         account_id: authRed.account_id
       });
       if (response.status === 200) {
-        alert('succes, please re-login');
-        onLogout();
+        setSuccess(true);
       }
     } catch (err) {
-      AppError(err);
+      setPanic(prevState => ({
+        ...prevState,
+        isPanic: true, errMsg: AppError(err)
+      }));
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -72,6 +95,10 @@ const NavProfileSetting = _ => {
       <div className='inner-content'>
         <Outlet />
       </div>
+
+      {isLoading && <LoadingScreen />}
+      {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
+      {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
     </>
   )
 }

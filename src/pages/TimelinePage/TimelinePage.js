@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { TimelineCard } from '../TimelineCard/TimelineCard'
 import { UseDep } from '../../shared/context/ContextDep'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
+import { AppErrorAuth } from '../../utils/AppError'
+import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 
 export const TimelinePage = ({ categoryActive = false, categoryId = null }) => {
 
@@ -11,6 +13,7 @@ export const TimelinePage = ({ categoryActive = false, categoryId = null }) => {
   const [timelines, setTimelines] = useState([])
 
   const [isLoading, setLoading] = useState(false);
+  const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
   useEffect(() => {
     if (categoryId == null) {
@@ -29,7 +32,12 @@ export const TimelinePage = ({ categoryActive = false, categoryId = null }) => {
       })
       setTimelines(response.data.data)
     } catch (err) {
-      console.error(err);
+      if (AppErrorAuth(err)) {
+        setPanic(prevState => ({
+          ...prevState,
+          isPanic: true, errMsg: AppErrorAuth(err)
+        }));
+      }
     } finally {
       setLoading(false);
     }
@@ -45,12 +53,23 @@ export const TimelinePage = ({ categoryActive = false, categoryId = null }) => {
       })
       setTimelines(response.data.data)
     } catch (err) {
-      console.error(err);
+      if (AppErrorAuth(err)) {
+        setPanic(prevState => ({
+          ...prevState,
+          isPanic: true, errMsg: AppErrorAuth(err)
+        }));
+      }
     } finally {
       setLoading(false);
     }
   }
 
+  const onClickPanic = (value) => {
+    setPanic(prevState => ({
+      ...prevState,
+      isPanic: value, errMsg: ''
+    }));
+  }
 
   return (
     <>
@@ -80,6 +99,7 @@ export const TimelinePage = ({ categoryActive = false, categoryId = null }) => {
       </div>
 
       {isLoading && <LoadingScreen />}
+      {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
     </>
   )
 }

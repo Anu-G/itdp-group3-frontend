@@ -42,3 +42,16 @@
     background-color: #3B4046;
     border-radius: 20px;
 }
+
+.item-cell{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-cell:hover{
+    background-color: #1E2329;
+    margin: -4px;
+    border-radius: 20px;
+}

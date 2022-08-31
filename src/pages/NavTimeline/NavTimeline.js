@@ -4,10 +4,10 @@ import { Outlet, useLocation, useNavigate } from 'react-router';
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import Navbar from '../../shared/components/Navbar/Navbar';
 import { navItemsTimeline } from '../../shared/components/Navbar/NavItems';
-import { SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
+import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { UseDep } from '../../shared/context/ContextDep';
 import { AuthSelector } from '../../shared/selectors/Selectors';
-import AppError from '../../utils/AppError';
+import AppError, { AppErrorAuth } from '../../utils/AppError';
 import { AddPost } from '../AddPost/AddPost';
 import './NavTimeline.css';
 
@@ -20,6 +20,7 @@ const NavTimeline = _ => {
 
   const [isLoading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
   const togglePopup = () => {
     setOpenAddPost(!openAddPost);
@@ -28,20 +29,22 @@ const NavTimeline = _ => {
   useEffect(_ => {
     (async () => {
       try {
-        setLoading(true);
         if (authRed.role_id === 1) {
           await profileService.doGetNonBusinessProfile({
             account_id: `${authRed.account_id}`
           });
-          setSuccess(true);
         } else if (authRed.role_id === 2) {
           await profileService.doGetBusinessProfile({
             account_id: `${authRed.account_id}`
           });
-          setSuccess(true);
         }
       } catch (err) {
-        console.error(err);
+        if (AppErrorAuth(err)) {
+          setPanic(prevState => ({
+            ...prevState,
+            isPanic: true, errMsg: AppErrorAuth(err)
+          }));
+        }
       } finally {
         setLoading(false);
       }
@@ -61,6 +64,13 @@ const NavTimeline = _ => {
     setSuccess(current => value);
   }
 
+  const onClickPanic = (value) => {
+    setPanic(prevState => ({
+      ...prevState,
+      isPanic: value, errMsg: ''
+    }));
+  }
+
   return (
     <>
       <Navbar title={"Timeline"} navItems={navItemsTimeline} buttons={buttons} />
@@ -71,6 +81,7 @@ const NavTimeline = _ => {
 
       {isLoading && <LoadingScreen />}
       {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
+      {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
     </>
   )
 }

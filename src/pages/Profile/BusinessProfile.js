@@ -9,6 +9,9 @@ import { UseDep } from '../../shared/context/ContextDep'
 import { CategorizePage } from '../CategorizePage/CategorizePageProfile'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { OurLinks } from '../OurLinks/OurLinks'
+import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
+import { AppErrorNoProfile } from '../../utils/AppError'
+import { useNavigate } from 'react-router'
 
 export const BusinessProfile = () => {
     const { profileService } = UseDep()
@@ -29,6 +32,10 @@ export const BusinessProfile = () => {
     const [closeHour, setCloseHour] = useState('')
     const authRed = useSelector(AuthSelector);
     const [showOurLinks, setShowOurLinks] = useState(false);
+    const navigate = useNavigate();
+
+    const [isLoading, setLoading] = useState(false);
+    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
     const handleClickLinks = _ => {
         setShowOurLinks(!showOurLinks);
@@ -44,6 +51,7 @@ export const BusinessProfile = () => {
 
     const getUser = async () => {
         try {
+            setLoading(true);
             const response = await profileService.doGetBusinessProfile({
                 account_id: `${authRed.account_id}`
             })
@@ -62,26 +70,36 @@ export const BusinessProfile = () => {
             }))
 
         } catch (err) {
-            if (err.response.data.responseCode === 'X01') {
-                alert('please complete your profile data first')
-            } else {
-                if (err.response.status !== 400) {
-                    alert(err.message);
-                } else {
-                    alert(err.response.data.responseMessage);
-                }
+            if (AppErrorNoProfile(err)) {
+                setPanic(prevState => ({
+                    ...prevState,
+                    isPanic: true, errMsg: AppErrorNoProfile(err)
+                }));
             }
+        } finally {
+            setLoading(false);
         }
+    }
+
+    const onClickPanic = (value) => {
+        setPanic(prevState => ({
+            ...prevState,
+            isPanic: value, errMsg: ''
+        }));
+        navigate('/profile/settings/profile');
     }
 
     const getDate = () => {
         let d = new Date()
         let day = d.getDay()
+        let hour = d.getHours();
 
         for (let i = 0; i < profile.BusinessHours.length; i++) {
             if (day == profile.BusinessHours[i].day) {
                 setDay(day)
-                setIsOpen(true)
+                if (hour >= profile.BusinessHours[i].open_hour && hour <= profile.BusinessHours[i].close_hour) {
+                    setIsOpen(true)
+                }
                 setOpenHour(profile.BusinessHours[i].open_hour)
                 setCloseHour(profile.BusinessHours[i].close_hour)
             }
@@ -138,6 +156,8 @@ export const BusinessProfile = () => {
             </div>
 
             {showOurLinks && <OurLinks handleX={handleClickLinks} links={profile.BusinessLinks} />}
+            {isLoading && <LoadingScreen />}
+            {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
         </>
 
     )

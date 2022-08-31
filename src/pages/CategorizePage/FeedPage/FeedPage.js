@@ -12,7 +12,7 @@ import { TimelineCard } from '../../TimelineCard/TimelineCard'
 
 
 
-export const FeedPage = ({}) => {
+export const FeedPage = ({ }) => {
     const { accountPostService } = UseDep();
     const [isActive, setIsActive] = useState(false)
     const [feeds, setFeeds] = useState([])
@@ -33,7 +33,9 @@ export const FeedPage = ({}) => {
             const response = await accountPostService.doGetAccount({
                 "account_id": authRed.account_id
             })
-            setFeeds(response.data.data)
+            if (response.data.data !== null) {
+                setFeeds(response.data.data)
+            }
         } catch (err) {
             console.err(err);
         } finally {
@@ -60,10 +62,14 @@ export const FeedPage = ({}) => {
                 </div> : ''}
 
             <div className='catalog-ctn'>
-                {feeds.map(item => {
+                {feeds.length !== 0 && feeds.map(item => {
                     return (
                         <div key={item.post_id}>
-                            {item.detail_media_feed == null ? 'no post' : <ImagesViewProfile link={item.detail_media_feed[0]} handleClick={_ => handleFormOpen(item)} item={item} /> }                            
+                            {item.detail_media_feed == null ? 'no post' :
+                                <div className='item-cell'>
+                                    <ImagesViewProfile link={item.detail_media_feed[0]} handleClick={_ => handleFormOpen(item)} item={item} />
+                                </div>
+                            }
                             {/* <Title3White title={item.product_name} />
                             <Text32White text={price.format(item.price)} /> */}
                         </div>
@@ -86,15 +92,15 @@ export const FeedPage = ({}) => {
                 <div className='detail-feed-bg'>
                     <div className='detail-feed-wrp'>
                         <TimelineCard
-                            avatar={feedsOpen.avatar} 
+                            avatar={feedsOpen.avatar}
                             caption={feedsOpen.caption_post}
                             comments={feedsOpen.detail_comments}
                             date={`${new Date(feedsOpen.created_at.replace(' ', 'T')).getDate()}/${new Date(feedsOpen.created_at.replace(' ', 'T')).getMonth() + 1}/${new Date(feedsOpen.created_at.replace(' ', 'T')).getFullYear()}`}
                             links={feedsOpen.detail_media_feed}
                             name={feedsOpen.display_name}
                             place={feedsOpen.place}
-                            time={`${new Date(feedsOpen.created_at.replace(' ', 'T')).getHours()<10 ? '0'+new Date(feedsOpen.created_at.replace(' ', 'T')).getHours(): new Date(feedsOpen.created_at.replace(' ', 'T')).getHours()}:${new Date(feedsOpen.created_at.replace(' ', 'T')).getMinutes()<10 ? '0'+new Date(feedsOpen.created_at.replace(' ', 'T')).getMinutes() : new Date(feedsOpen.created_at.replace(' ', 'T')).getMinutes()}`}
-                            key={feedsOpen.account_id} 
+                            time={`${new Date(feedsOpen.created_at.replace(' ', 'T')).getHours() < 10 ? '0' + new Date(feedsOpen.created_at.replace(' ', 'T')).getHours() : new Date(feedsOpen.created_at.replace(' ', 'T')).getHours()}:${new Date(feedsOpen.created_at.replace(' ', 'T')).getMinutes() < 10 ? '0' + new Date(feedsOpen.created_at.replace(' ', 'T')).getMinutes() : new Date(feedsOpen.created_at.replace(' ', 'T')).getMinutes()}`}
+                            key={feedsOpen.account_id}
                             handleClick={handleFormClose}
                         />
                     </div>

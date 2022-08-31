@@ -92,7 +92,6 @@ export const Login = () => {
                     token: response.data.data
                 }));
                 setSuccess(true);
-                navigate('/feeds');
             }
         } catch (err) {
             setPanic(prevState => ({
@@ -117,6 +116,7 @@ export const Login = () => {
 
     const onClickSuccess = (value) => {
         setSuccess(current => value);
+        navigate('/feeds');
     }
 
     const onClickPanic = (value) => {
