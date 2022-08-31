@@ -21,7 +21,7 @@ export const ImagesViewTimeline = ({link}) => {
               link[0].split(".").pop().toUpperCase() === "WMV" || link[0].split(".").pop().toUpperCase() === "FLV" || 
               link[0].split(".").pop().toUpperCase() === "AVI" || link[0].split(".").pop().toUpperCase() === "WebM" || 
               link[0].split(".").pop().toUpperCase() === "AVCHD" || link[0].split(".").pop().toUpperCase() === "MKV" ? 
-                 <div className="h_iframe">
+                 <div className="h_iframe-sl">
                    <iframe src={link} frameBorder="0" allowFullScreen></iframe>
                  </div>
               :  <img className='img-vw-profile' src={link}/>}
