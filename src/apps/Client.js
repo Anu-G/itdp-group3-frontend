@@ -2,7 +2,7 @@ import axios from "axios";
 import { AuthInterceptor } from "../shared/interceptor/AuthInterceptor";
 
 export const AxiosClient = axios.create({
-   baseURL: process.env.REACT_APP_BASE_URL,
+   baseURL: 'https://toktok-app-backend.herokuapp.com',
    headers: {
       "Content-Type": "application/json"
    },
