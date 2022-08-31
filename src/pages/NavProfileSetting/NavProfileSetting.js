@@ -4,7 +4,7 @@ import { Outlet } from 'react-router';
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import Navbar from '../../shared/components/Navbar/Navbar';
 import { navItemsBusinessProfile, navItemsNonBusinessProfile } from '../../shared/components/Navbar/NavItems';
-import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
+import { PanicPopUpScreen, SuccessPopUpScreen, SuccessPopUpScreenCustom } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { UseDep } from '../../shared/context/ContextDep';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import AppError from '../../utils/AppError';
@@ -18,6 +18,7 @@ const NavProfileSetting = _ => {
 
   const [isLoading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [successActivate, setSuccessActivate] = useState(false);
   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
   const onLogout = async _ => {
@@ -40,6 +41,10 @@ const NavProfileSetting = _ => {
     setSuccess(current => value);
   }
 
+  const onClickSuccessActivate = (value) => {
+    setSuccessActivate(current => value);
+  }
+
   const onClickPanic = (value) => {
     setPanic(prevState => ({
       ...prevState,
@@ -54,7 +59,7 @@ const NavProfileSetting = _ => {
         account_id: authRed.account_id
       });
       if (response.status === 200) {
-        setSuccess(true);
+        setSuccessActivate(true);
       }
     } catch (err) {
       setPanic(prevState => ({
@@ -98,6 +103,7 @@ const NavProfileSetting = _ => {
 
       {isLoading && <LoadingScreen />}
       {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
+      {successActivate && <SuccessPopUpScreenCustom onClickAnywhere={onClickSuccessActivate} successMsg={'please logout to change your account'} />}
       {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
     </>
   )

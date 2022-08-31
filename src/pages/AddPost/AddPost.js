@@ -88,13 +88,15 @@ export const AddPost = ({ isOpen, togglePopup }) => {
   }
 
   const fileObj = [];
-  const fileArray = [];
+  const [fileArray, setFileArray] = useState([]);
   const onSelectFile = (event) => {
-    fileObj.push(event.target.files)
+    fileObj.push(event.target.files);
+    let arr = [];
     for (let i = 0; i < fileObj[0].length; i++) {
-      fileArray.push(URL.createObjectURL(fileObj[0][i]))
+      arr.push(URL.createObjectURL(fileObj[0][i]));
     }
-  };
+    setFileArray(arr);
+  }
 
   return (
     <>

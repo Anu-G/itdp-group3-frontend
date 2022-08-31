@@ -90,24 +90,27 @@ export const SettingsNonBusinessProfile = () => {
 
       try {
          setLoading(true);
-         const responseImage = await profileImageService.addNonBusinessProfileImage(profileImageData);
-         if (responseImage.status === 200) {
-            try {
-               const response = await profileService.addNonBusinessProfile({
-                  account_id: `${authRed.account_id}`,
-                  profile_image: responseImage.data.data,
-                  profile_bio: formData.profileBio,
-                  display_name: formData.displayName
-               });
-               if (response.status === 200) {
-                  setSuccess(true);
-               }
-            } catch (err) {
-               setPanic(prevState => ({
-                  ...prevState,
-                  isPanic: true, errMsg: AppError(err)
-               }));
+         const responseImage = '';
+         const submitImage = '';
+         if (result !== null) {
+            responseImage = await profileImageService.addNonBusinessProfileImage(profileImageData);
+            submitImage = responseImage.data.data
+         }
+         try {
+            const response = await profileService.addNonBusinessProfile({
+               account_id: `${authRed.account_id}`,
+               profile_image: submitImage,
+               profile_bio: formData.profileBio,
+               display_name: formData.displayName
+            });
+            if (response.status === 200) {
+               setSuccess(true);
             }
+         } catch (err) {
+            setPanic(prevState => ({
+               ...prevState,
+               isPanic: true, errMsg: AppError(err)
+            }));
          }
       } catch (err) {
          setPanic(prevState => ({

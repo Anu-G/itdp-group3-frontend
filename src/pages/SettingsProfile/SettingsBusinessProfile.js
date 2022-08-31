@@ -236,32 +236,36 @@ export const SettingsBusinessProfile = () => {
 
         try {
             setLoading(true);
-            const responseImage = await profileImageService.addBusinessProfileImage(profileImageData);
-            if (responseImage.status === 200) {
-                try {
-                    const response = await profileService.addBusinessProfile({
-                        account_id: `${authRed.account_id}`,
-                        category_id: `${formData.categoryId}`,
-                        address: formData.address,
-                        profile_image: responseImage.data.data,
-                        profile_bio: formData.profileBio,
-                        gmaps_link: formData.gmapsLink,
-                        display_name: formData.displayName,
-                        business_hours: businessHour.filter(val => val.day !== '').map((item, i) => {
-                            item.open_hour = start[i];
-                            item.close_hour = end[i];
-                        }),
-                        business_links: formData.businessLinks.filter(val => val.label !== '')
-                    });
-                    if (response.status === 200) {
-                        setSuccess(true);
-                    }
-                } catch (err) {
-                    setPanic(prevState => ({
-                        ...prevState,
-                        isPanic: true, errMsg: AppError(err)
-                    }));
+            const responseImage = '';
+            const submitImage = '';
+            if (result !== null) {
+                responseImage = await profileImageService.addBusinessProfileImage(profileImageData);
+                submitImage = responseImage.data.data
+            }
+            try {
+                businessHour.map((item, i) => {
+                    item.open_hour = start[i];
+                    item.close_hour = end[i];
+                })
+                const response = await profileService.addBusinessProfile({
+                    account_id: `${authRed.account_id}`,
+                    category_id: `${formData.categoryId}`,
+                    address: formData.address,
+                    profile_image: submitImage,
+                    profile_bio: formData.profileBio,
+                    gmaps_link: formData.gmapsLink,
+                    display_name: formData.displayName,
+                    business_hours: businessHour.filter(val => val.day !== ''),
+                    business_links: formData.businessLinks.filter(val => val.label !== '')
+                });
+                if (response.status === 200) {
+                    setSuccess(true);
                 }
+            } catch (err) {
+                setPanic(prevState => ({
+                    ...prevState,
+                    isPanic: true, errMsg: AppError(err)
+                }));
             }
         } catch (err) {
             setPanic(prevState => ({

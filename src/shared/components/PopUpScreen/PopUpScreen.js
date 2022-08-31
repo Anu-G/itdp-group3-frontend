@@ -38,3 +38,16 @@ export const PanicPopUpScreen = ({ onClickAnywhere, errMsg }) => {
     )
 }
 
+export const SuccessPopUpScreenCustom = ({ onClickAnywhere, successMsg }) => {
+    return (
+        <div className="loading-wrp">
+            <OutsideClickHandler onOutsideClick={() => onClickAnywhere(false)}></OutsideClickHandler>
+            <div className="pop-up-ctn pop-up-ctn-success">
+                <Lottie animationData={Happy} loop={true} autoPlay={true} style={{ height: '80%' }} />
+                <Title3Dark title={'Success!'} />
+                <Title3Dark title={successMsg} />
+                <Text32Dark text={'Click Anywhere to continue...'} />
+            </div>
+        </div>
+    )
+}
