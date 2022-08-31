@@ -30,7 +30,9 @@ export const TimelinePage = ({ categoryActive = false, categoryId = null }) => {
         page: 1,
         page_lim: 200
       })
-      setTimelines(response.data.data)
+      if (response.data.data !== null) {
+        setTimelines(response.data.data)
+      }
     } catch (err) {
       if (AppErrorAuth(err)) {
         setPanic(prevState => ({
@@ -51,7 +53,9 @@ export const TimelinePage = ({ categoryActive = false, categoryId = null }) => {
         page: 1,
         page_lim: 200
       })
-      setTimelines(response.data.data)
+      if (response.data.data !== null) {
+        setTimelines(response.data.data)
+      }
     } catch (err) {
       if (AppErrorAuth(err)) {
         setPanic(prevState => ({
