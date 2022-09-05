@@ -1,19 +1,14 @@
 import './TimelinePage.css'
-
 import React, { useEffect, useState } from 'react'
 import { TimelineCard } from '../TimelineCard/TimelineCard'
 import { UseDep } from '../../shared/context/ContextDep'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
-import { AppErrorAuth } from '../../utils/AppError'
+import { AppErrorAuth } from '../../utils/AppErrors'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 
-export const TimelinePage = ({ categoryActive = false, categoryId = null }) => {
-
-  const { timelineService } = UseDep()
+export const TimelinePage = ({ categoryId = null }) => {
+  // state
   const [timelines, setTimelines] = useState([])
-
-  const [isLoading, setLoading] = useState(false);
-  const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
   useEffect(() => {
     if (categoryId == null) {
@@ -22,6 +17,9 @@ export const TimelinePage = ({ categoryActive = false, categoryId = null }) => {
       getTimelineByCategory()
     }
   }, [categoryId])
+
+  // service
+  const { timelineService } = UseDep()
 
   const getTimeline = async () => {
     try {
@@ -67,6 +65,10 @@ export const TimelinePage = ({ categoryActive = false, categoryId = null }) => {
       setLoading(false);
     }
   }
+
+  // screen
+  const [isLoading, setLoading] = useState(false);
+  const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
   const onClickPanic = (value) => {
     setPanic(prevState => ({

@@ -1,33 +1,36 @@
 import './CategorizePage.css'
 import React, { useEffect, useState } from 'react'
 import { CategoryLabelActive, CategoryLabelInactive } from '../../shared/components/CategoryLabel/CategoryLabel'
-import { ImagesViewProfile } from '../../shared/components/ImagesViewProfile/ImagesViewProfile'
-import { ImageBasedPage } from './ImagesBasedPage/ImageBasedPage'
-import { QA } from '../../shared/components/QA/QA'
 import { FAQPages } from './FAQPages/FAQPages'
 import { CatalogPage } from './CatalogPage/CatalogPage'
 import { useSelector } from 'react-redux'
 import { AuthSelector } from '../../shared/selectors/Selectors'
-import { UseDep } from '../../shared/context/ContextDep'
-import AppError from '../../utils/AppError'
-import { text } from '@fortawesome/fontawesome-svg-core'
-import { TimelinePage } from '../TimelinePage/TimelinePage'
-import { useNavigate } from 'react-router'
 import { FeedPage } from './FeedPage/FeedPage'
 
 export const CategorizePage = () => {
-
+    // state
     const [isActive, setIsActive] = useState([false, false, false])
-    const authRed = useSelector(AuthSelector);
+
+    const handleClick = (page) => {
+        switch (page) {
+            case 1:
+                setIsActive([false, true, false])
+                break;
+            case 2:
+                setIsActive([false, false, true])
+                break;
+            default:
+                setIsActive([true, false, false])
+                break;
+        }
+    }
 
     useEffect(() => {
         handleClick();
     }, [])
 
-    // useEffect(() => {
-    //     handleImage(feeds)
-    // }, [feeds])
-
+    // service
+    const authRed = useSelector(AuthSelector);
 
     const FAQs = [
         {
@@ -46,20 +49,6 @@ export const CategorizePage = () => {
             answer: `Yes in but got you more nothing less good bubble word knock out balloon.`
         }
     ]
-
-    const handleClick = (page) => {
-        switch (page) {
-            case 1:
-                setIsActive([false, true, false])
-                break;
-            case 2:
-                setIsActive([false, false, true])
-                break;
-            default:
-                setIsActive([true, false, false])
-                break;
-        }
-    }
 
     return (
         <>

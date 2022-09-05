@@ -1,29 +1,22 @@
 import { useEffect, useState } from 'react';
 import { ButtonComponent } from '../../shared/components/Button/Button';
-import { InputPasswordLabelMd, InputPasswordLabelSm, InputTextLabelLg, InputTextLabelMd } from '../../shared/components/InputWithLabel/InputWithLabel';
-import { Title3White } from '../../shared/components/Label/Label';
+import { InputPasswordLabelMd, InputTextLabelMd } from '../../shared/components/InputWithLabel/InputWithLabel';
 import './SettingsAccount.css';
-import { useForm } from 'react-hook-form';
 import { ErrorForm } from '../../shared/components/ErrorForm/ErrorForm';
 import { UseDep } from '../../shared/context/ContextDep';
-import AppError from '../../utils/AppError';
+import AppError from '../../utils/AppErrors';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import { useSelector } from 'react-redux'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 
 export const SettingsAccount = () => {
+    // state
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [emailError, setEmailError] = useState('');
-    const { settingAccountService } = UseDep();
-    const authRed = useSelector(AuthSelector)
-
-    const [isLoading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
     const checkEmail = (address) => {
 
@@ -55,6 +48,32 @@ export const SettingsAccount = () => {
         setPhoneNumber(event.target.value)
     }
 
+    const handleOnChangePass = (event) => {
+        setPassword(event.target.value)
+    }
+
+    useEffect(() => {
+        if (email.length == 0 || password.length == 0) {
+            if (email.length == 0) {
+                setEmailError('')
+            }
+            if (password.length == 0) {
+                setPasswordError('')
+            }
+        }
+
+        if (password) {
+            checkPassword();
+            if (password.length >= 8) {
+                setPasswordError('')
+            }
+        }
+    }, [email, password, emailError, passwordError])
+
+    // service
+    const { settingAccountService } = UseDep();
+    const authRed = useSelector(AuthSelector)
+
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
@@ -79,6 +98,11 @@ export const SettingsAccount = () => {
         }
     }
 
+    // screen
+    const [isLoading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
+
     const onClickSuccess = (value) => {
         setSuccess(current => value);
     }
@@ -89,28 +113,6 @@ export const SettingsAccount = () => {
             isPanic: value, errMsg: ''
         }));
     }
-
-    const handleOnChangePass = (event) => {
-        setPassword(event.target.value)
-    }
-
-    useEffect(() => {
-        if (email.length == 0 || password.length == 0) {
-            if (email.length == 0) {
-                setEmailError('')
-            }
-            if (password.length == 0) {
-                setPasswordError('')
-            }
-        }
-
-        if (password) {
-            checkPassword();
-            if (password.length >= 8) {
-                setPasswordError('')
-            }
-        }
-    }, [email, password, emailError, passwordError])
 
     return (
         <>

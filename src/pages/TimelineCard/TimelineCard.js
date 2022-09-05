@@ -1,8 +1,7 @@
 import './TimelineCard.css'
-
 import React, { useEffect, useState } from 'react'
 import { AvatarSmall } from '../../shared/components/Avatar/Avatar'
-import { Caption, Text32White, Title3White, TitleWhite } from '../../shared/components/Label/Label'
+import { Caption, Text32White } from '../../shared/components/Label/Label'
 import { NameLocation } from '../../shared/components/NameLocation/NameLocation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -10,17 +9,15 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { ImagesViewTimeline, ImagesViewTimelineMany } from '../../shared/components/ImagesViewProfile/ImagesViewProfile'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { CommentColomn } from '../../shared/components/CommentColomn/CommentColomn'
-import { ButtonComponent, ButtonComponentSm } from '../../shared/components/Button/Button'
+import { ButtonComponentSm } from '../../shared/components/Button/Button'
 import { CommentExtends } from '../../shared/components/CommentExtends/CommentExtends'
-import { UseDep } from '../../shared/context/ContextDep'
 
 library.add(fas)
 library.add(far)
 
 export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick }) => {
-
+  // state
   const maxLength = 280
-
   const [isActive, setIsActive] = useState(false)
   const [comment, setComment] = useState('')
   const [isButtonSendActive, setIsButtonSendActive] = useState(false)
@@ -51,7 +48,6 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   const handleOnClickSend = () => {
     console.log('ceritanya send')
   }
-
 
   return (
     <div className='timeline-wrp'>

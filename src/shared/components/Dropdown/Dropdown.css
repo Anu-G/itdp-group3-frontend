@@ -3,8 +3,6 @@
     width: 240px;
     height: 48px;
 
-    /* position: relative; */
-
     color: #f4f4f4;
     font-size: 20px;
 
@@ -42,8 +40,6 @@
 
     overflow: scroll;
     text-indent: 20px;
-
-    /* visibility: hidden; */
 
     -ms-overflow-style: none;
     scrollbar-width: none;

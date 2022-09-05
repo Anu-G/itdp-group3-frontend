@@ -2,8 +2,8 @@ import Lottie from "lottie-react";
 import Happy from './Happy.json';
 import Panic from './Sad.json';
 import './PopUpScreen.css';
-import React, { useState } from 'react'
-import { SubtitleWhite, Text32Dark, Title3Dark, Title3White } from "../Label/Label";
+import React from 'react'
+import { Text32Dark, Title3Dark } from "../Label/Label";
 import OutsideClickHandler from 'react-outside-click-handler'
 
 export const SuccessPopUpScreen = ({ onClickAnywhere }) => {

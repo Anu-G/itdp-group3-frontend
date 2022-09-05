@@ -8,23 +8,17 @@ import './SettingsAddProduct.css'
 import _ from 'lodash';
 import { useSelector } from 'react-redux';
 import { AuthSelector } from '../../shared/selectors/Selectors';
-import AppError from '../../utils/AppError';
+import AppError from '../../utils/AppErrors';
 import { BioColomn } from '../../shared/components/BioColomn/BioColomn'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 
 export const SettingsAddProduct = (props) => {
+   // state
    const maxLength = 280
-
    let { id, label } = props;
    const inputRef = useRef();
-   const [image, setImage] = useState(null);
    const triggerFileSelectPopup = () => inputRef.current.click();
-
-   const [isLoading, setLoading] = useState(false);
-   const [success, setSuccess] = useState(false);
-   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
-
    const fileObj = [];
    const [fileArray, setFileArray] = useState([]);
    const onSelectFile = (event) => {
@@ -35,16 +29,42 @@ export const SettingsAddProduct = (props) => {
       }
       setFileArray(arr);
    };
-
    const [formData, setFormData] = useState({
       productName: "",
       price: "",
       description: ""
    });
-
    const [charLength, setCharLength] = useState(0);
 
-   const [result, setResult] = useState(null);
+   const onChangeProductName = (e) => {
+      setFormData(prevState => ({
+         ...prevState,
+         productName: e.target.value
+      }))
+   }
+
+   const onChangePrice = (event) => {
+      setFormData(prevState => ({
+         ...prevState,
+         price: event.target.value
+      }))
+   }
+
+   const onChangeDescription = (event) => {
+      setFormData(prevState => ({
+         ...prevState,
+         description: event.target.value
+      }))
+      setCharLength(event.target.value.length)
+   }
+
+   const charLimitHandle = (e) => {
+      if (charLength >= maxLength) {
+         e.preventDefault();
+      }
+   }
+
+   // service
    const productImageData = new FormData();
    const { productImageService, productService } = UseDep();
    const authRed = useSelector(AuthSelector);
@@ -86,12 +106,10 @@ export const SettingsAddProduct = (props) => {
       }
    }
 
-   const onChangeProductName = (e) => {
-      setFormData(prevState => ({
-         ...prevState,
-         productName: e.target.value
-      }))
-   }
+   // screen
+   const [isLoading, setLoading] = useState(false);
+   const [success, setSuccess] = useState(false);
+   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
    const onClickSuccess = (value) => {
       setSuccess(current => value);
@@ -104,34 +122,6 @@ export const SettingsAddProduct = (props) => {
       }));
    }
 
-
-   //  useEffect(_ => {
-   //     setFormData(prevState => ({
-   //        ...prevState,
-   //        productName: authRed.productName
-   //     }));
-   //  }, []);
-
-   const onChangePrice = (event) => {
-      setFormData(prevState => ({
-         ...prevState,
-         price: event.target.value
-      }))
-   }
-
-   const onChangeDescription = (event) => {
-      setFormData(prevState => ({
-         ...prevState,
-         description: event.target.value
-      }))
-      setCharLength(event.target.value.length)
-   }
-
-   const charLimitHandle = (e) => {
-      if (charLength >= maxLength) {
-         e.preventDefault();
-      }
-   }
    return (
       <>
          <div className='wrapper'>

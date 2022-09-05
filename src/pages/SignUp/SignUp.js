@@ -1,5 +1,4 @@
 import './SignUp.css'
-
 import React, { useEffect, useState } from 'react'
 import { SubtitleWhite, SubtitleYellow, Title2White } from '../../shared/components/Label/Label'
 import { InputPasswordLabelMd, InputTextLabelMd } from '../../shared/components/InputWithLabel/InputWithLabel'
@@ -7,11 +6,12 @@ import { ButtonComponent } from '../../shared/components/Button/Button'
 import { ErrorForm } from '../../shared/components/ErrorForm/ErrorForm'
 import { useNavigate } from 'react-router'
 import { UseDep } from '../../shared/context/ContextDep'
-import AppError from '../../utils/AppError'
+import AppError from '../../utils/AppErrors'
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 
 export const SignUp = () => {
+    // state
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -20,12 +20,6 @@ export const SignUp = () => {
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [verifyPasswordError, setVerifyPasswordError] = useState('');
-    const navigate = useNavigate();
-    const { authService } = UseDep();
-
-    const [isLoading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
     const checkEmail = (address) => {
 
@@ -93,22 +87,28 @@ export const SignUp = () => {
         }
     }, [username, email, password, verifyPassword, emailError, passwordError, verifyPasswordError])
 
-
-
     const handleEmailChange = (event) => {
         setEmail(event.target.value)
         checkEmail(event.target.value)
     }
+
     const handleUsernameChange = (event) => {
         setUsername(event.target.value)
     }
+
     const handlePasswordChange = (event) => {
         setPassword(event.target.value)
     }
+
     const handleVerifyPasswordChange = (event) => {
         setVerifyPassword(event.target.value);
         checkConfirmPassword();
     }
+
+    // service
+    const navigate = useNavigate();
+    const { authService } = UseDep();
+
     const handleSignUpClick = async () => {
         try {
             setLoading(true);
@@ -129,9 +129,15 @@ export const SignUp = () => {
             setLoading(false);
         }
     }
+
     const handleSignInClick = () => {
         navigate('/auth/login');
     }
+
+    // screen
+    const [isLoading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
     const onClickSuccess = (value) => {
         setSuccess(current => value);

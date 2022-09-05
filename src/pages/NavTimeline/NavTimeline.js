@@ -1,30 +1,28 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Outlet, useLocation, useNavigate } from 'react-router';
+import { Outlet } from 'react-router';
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import Navbar from '../../shared/components/Navbar/Navbar';
 import { navItemsTimeline } from '../../shared/components/Navbar/NavItems';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { UseDep } from '../../shared/context/ContextDep';
 import { AuthSelector } from '../../shared/selectors/Selectors';
-import AppError, { AppErrorAuth } from '../../utils/AppError';
+import { AppErrorAuth } from '../../utils/AppErrors';
 import { AddPost } from '../AddPost/AddPost';
 import './NavTimeline.css';
 
 const NavTimeline = _ => {
+  // state
   const [buttons, setButtons] = useState([]);
-  const authRed = useSelector(AuthSelector);
-  const { profileService } = UseDep();
-  const navigate = useNavigate();
   const [openAddPost, setOpenAddPost] = useState(false);
-
-  const [isLoading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
   const togglePopup = () => {
     setOpenAddPost(!openAddPost);
   }
+
+  // service
+  const authRed = useSelector(AuthSelector);
+  const { profileService } = UseDep();
 
   useEffect(_ => {
     (async () => {
@@ -59,6 +57,11 @@ const NavTimeline = _ => {
       }]);
     }
   }, []);
+
+  // screen
+  const [isLoading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
   const onClickSuccess = (value) => {
     setSuccess(current => value);

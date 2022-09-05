@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { ImagesViewProfile } from '../../../shared/components/ImagesViewProfile/ImagesViewProfile'
-import { Text32White, Title2White, Title3White } from '../../../shared/components/Label/Label'
+import { Title2White } from '../../../shared/components/Label/Label'
 import { UseDep } from '../../../shared/context/ContextDep'
 import { AuthSelector } from '../../../shared/selectors/Selectors'
-import AppError from '../../../utils/AppError'
-import { DetailProductCard } from '../../DetailProductCard/DetailProductCard'
 import './FeedPage.css'
 import { LoadingScreen } from '../../../shared/components/LoadingScreen/LoadingScreen'
 import { TimelineCard } from '../../TimelineCard/TimelineCard'
@@ -13,13 +11,24 @@ import { TimelineCard } from '../../TimelineCard/TimelineCard'
 
 
 export const FeedPage = ({ }) => {
-    const { accountPostService } = UseDep();
+    // state
     const [isActive, setIsActive] = useState(false)
     const [feeds, setFeeds] = useState([])
     const [feedsOpen, setFeedsOpen] = useState({})
-    const authRed = useSelector(AuthSelector)
-    const [isLoading, setLoading] = useState(false);
 
+    const handleFormClose = () => {
+        setIsActive(prevState => false)
+        setFeedsOpen(prevState => { })
+    }
+
+    const handleFormOpen = (value) => {
+        setIsActive(prevState => true)
+        setFeedsOpen(prevState => value)
+    }
+
+    // service
+    const { accountPostService } = UseDep();
+    const authRed = useSelector(AuthSelector)
 
     useEffect(() => {
         handleLoad()
@@ -44,22 +53,15 @@ export const FeedPage = ({ }) => {
         }
     }
 
-    const handleFormClose = () => {
-        setIsActive(prevState => false)
-        setFeedsOpen(prevState => { })
-    }
-
-    const handleFormOpen = (value) => {
-        setIsActive(prevState => true)
-        setFeedsOpen(prevState => value)
-    }
+    // screen
+    const [isLoading, setLoading] = useState(false);
 
     return (
         <>
             {feeds.length == 0 ?
                 <div className='catalog-ctn empty'>
                     <Title2White title={'No Feeds Yet'} />
-                </div> : ''}
+                </div> : null}
 
             <div className='catalog-ctn'>
                 {feeds.length !== 0 && feeds.map(item => {
@@ -70,24 +72,11 @@ export const FeedPage = ({ }) => {
                                     <ImagesViewProfile link={item.detail_media_feed[0]} handleClick={_ => handleFormOpen(item)} item={item} />
                                 </div>
                             }
-                            {/* <Title3White title={item.product_name} />
-                            <Text32White text={price.format(item.price)} /> */}
                         </div>
                     )
-                    // =======
-                    //             {isActive && <DetailProductCard handleClick={handleFormClose} product={productOpen}/>}
-
-                    //             <div className='catalog-ctn'>
-                    //                 {products.map(item => {
-
-                    //                     return (<div key={item.product_id}>
-                    //                         <ImagesViewProfile item={item} link={item.detail_media_products[0]} handleClick={handleFormOpen}/>
-                    //                         <Title3White title={item.product_name} />
-                    //                         <Text32White text={price.format(item.price)} />
-                    //                     </div>)
-                    // >>>>>>> origin/dev-barkah-8-catalog_category_view
                 })}
             </div>
+
             {isActive &&
                 <div className='detail-feed-bg'>
                     <div className='detail-feed-wrp'>

@@ -1,4 +1,4 @@
-import { USER_LOGIN, USER_LOGOUT } from "../../../shared/actions/ActionConstants";
+import { USER_LOGIN, USER_LOGOUT } from "../../../shared/constants/ActionConstants";
 
 export const UserLoginAction = (reqData) => ({
    type: USER_LOGIN,

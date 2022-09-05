@@ -7,69 +7,12 @@ import { navItemsBusinessProfile, navItemsNonBusinessProfile } from '../../share
 import { PanicPopUpScreen, SuccessPopUpScreen, SuccessPopUpScreenCustom } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { UseDep } from '../../shared/context/ContextDep';
 import { AuthSelector } from '../../shared/selectors/Selectors';
-import AppError from '../../utils/AppError';
+import AppError from '../../utils/AppErrors';
 import { UserLogoutAction } from '../Login/state/AuthAction';
 
 const NavProfileSetting = _ => {
+  // state
   const [buttons, setButtons] = useState([]);
-  const dispatch = useDispatch();
-  const { authService, settingAccountService } = UseDep();
-  const authRed = useSelector(AuthSelector);
-
-  const [isLoading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [successActivate, setSuccessActivate] = useState(false);
-  const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
-
-  const onLogout = async _ => {
-    try {
-      if (authRed.expiredAt * 1000 <= Date.now()) {
-        dispatch(UserLogoutAction());
-      } else {
-        const response = await authService.doLogout();
-        if (response.status === 200) {
-          dispatch(UserLogoutAction());
-          setSuccess(true);
-        }
-      }
-    } catch (err) {
-      AppError(err);
-    }
-  }
-
-  const onClickSuccess = (value) => {
-    setSuccess(current => value);
-  }
-
-  const onClickSuccessActivate = (value) => {
-    setSuccessActivate(current => value);
-  }
-
-  const onClickPanic = (value) => {
-    setPanic(prevState => ({
-      ...prevState,
-      isPanic: value, errMsg: ''
-    }));
-  }
-
-  const activateBusiness = async _ => {
-    try {
-      setLoading(true)
-      const response = await settingAccountService.doActivateBusiness({
-        account_id: authRed.account_id
-      });
-      if (response.status === 200) {
-        setSuccessActivate(true);
-      }
-    } catch (err) {
-      setPanic(prevState => ({
-        ...prevState,
-        isPanic: true, errMsg: AppError(err)
-      }));
-    } finally {
-      setLoading(false);
-    }
-  }
 
   useEffect(_ => {
     if (authRed.role_id === 1) {
@@ -93,6 +36,67 @@ const NavProfileSetting = _ => {
       }]);
     }
   }, []);
+
+  // service
+  const dispatch = useDispatch();
+  const { authService, settingAccountService } = UseDep();
+  const authRed = useSelector(AuthSelector);
+
+  const onLogout = async _ => {
+    try {
+      if (authRed.expiredAt * 1000 <= Date.now()) {
+        dispatch(UserLogoutAction());
+      } else {
+        const response = await authService.doLogout();
+        if (response.status === 200) {
+          dispatch(UserLogoutAction());
+          setSuccess(true);
+        }
+      }
+    } catch (err) {
+      AppError(err);
+    }
+  }
+
+  const activateBusiness = async _ => {
+    try {
+      setLoading(true)
+      const response = await settingAccountService.doActivateBusiness({
+        account_id: authRed.account_id
+      });
+      if (response.status === 200) {
+        setSuccessActivate(true);
+      }
+    } catch (err) {
+      setPanic(prevState => ({
+        ...prevState,
+        isPanic: true, errMsg: AppError(err)
+      }));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // screen
+  const [isLoading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [successActivate, setSuccessActivate] = useState(false);
+  const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
+
+  const onClickSuccess = (value) => {
+    setSuccess(current => value);
+  }
+
+  const onClickSuccessActivate = (value) => {
+    setSuccessActivate(current => value);
+  }
+
+  const onClickPanic = (value) => {
+    setPanic(prevState => ({
+      ...prevState,
+      isPanic: value, errMsg: ''
+    }));
+  }
 
   return (
     <>

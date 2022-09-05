@@ -1,6 +1,5 @@
 .img-ctn{
     min-width: 200px;
-    /* width: 100%; */
     max-width: 736px;
     min-height: 320px;
     background-color: #3B4046;
@@ -13,9 +12,3 @@
     align-items: center;
     grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
 }
-
-/* @media (max-width: 820px){
-    .img-ctn { 
-        grid-template-columns: repeat(2, 1fr);
-    }
-} */

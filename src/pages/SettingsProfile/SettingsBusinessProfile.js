@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { OpenDays, OpenHours } from '../../apps/Constants';
+import { OpenDays, OpenHours } from '../../shared/constants/AppConstants';
 import { BioColomn } from '../../shared/components/BioColomn/BioColomn';
 import { ButtonComponent } from '../../shared/components/Button/Button';
 import { CheckBox } from '../../shared/components/CheckBox/CheckBox';
@@ -14,7 +14,7 @@ import Slider from '@mui/material/Slider';
 import { UseDep } from '../../shared/context/ContextDep';
 import { useSelector } from 'react-redux';
 import { AuthSelector } from '../../shared/selectors/Selectors';
-import AppError from '../../utils/AppError';
+import AppError from '../../utils/AppErrors';
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 
@@ -79,6 +79,7 @@ export const SettingsBusinessProfile = () => {
     }, [result]);
     // end profile image processing
 
+    // state
     const [totalLink, setTotalLink] = useState(5);
     const linkFormId = [];
     for (let i = 1; i <= totalLink; i++) {
@@ -100,17 +101,8 @@ export const SettingsBusinessProfile = () => {
     const [charLength, setCharLength] = useState(0);
     const maxBioLen = 150;
     const maxAddressLen = 250;
-
-    const profileImageData = new FormData();
-    const { profileImageService, profileService, categoryService } = UseDep();
-    const authRed = useSelector(AuthSelector);
-
     const [start, setStart] = useState(Array.from({ length: 7 }, (v, i) => ''));
     const [end, setEnd] = useState(Array.from({ length: 7 }, (v, i) => ''));
-
-    const [isLoading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
     useEffect(_ => {
         let newOpenHour = [...businessHour];
@@ -151,24 +143,6 @@ export const SettingsBusinessProfile = () => {
         newCheck[key] = !newCheck[key];
         setChecked(newCheck);
     }
-
-    useEffect(_ => {
-        setFormData(prevState => ({
-            ...prevState,
-            displayName: authRed.userName
-        }));
-
-        (async _ => {
-            try {
-                const response = await categoryService.doGetCategories()
-                if (response.status === 200) {
-                    setCategories(response.data.data);
-                }
-            } catch (err) {
-                AppError(err);
-            }
-        })();
-    }, []);
 
     const onChangeBio = (event) => {
         setFormData(prevState => ({
@@ -230,6 +204,29 @@ export const SettingsBusinessProfile = () => {
         }));
     }
 
+    // service
+    const profileImageData = new FormData();
+    const { profileImageService, profileService, categoryService } = UseDep();
+    const authRed = useSelector(AuthSelector);
+
+    useEffect(_ => {
+        setFormData(prevState => ({
+            ...prevState,
+            displayName: authRed.userName
+        }));
+
+        (async _ => {
+            try {
+                const response = await categoryService.doGetCategories()
+                if (response.status === 200) {
+                    setCategories(response.data.data);
+                }
+            } catch (err) {
+                AppError(err);
+            }
+        })();
+    }, []);
+
     const saveResponse = async _ => {
         let file = await fetch(result).then(r => r.blob()).then(blobFile => new File([blobFile], "imageCropped.jpg", { type: "image/png" }));
         profileImageData.append("profile_image", file);
@@ -278,6 +275,11 @@ export const SettingsBusinessProfile = () => {
             setLoading(false);
         }
     }
+
+    // screen
+    const [isLoading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
     const onClickSuccess = (value) => {
         setSuccess(current => value);

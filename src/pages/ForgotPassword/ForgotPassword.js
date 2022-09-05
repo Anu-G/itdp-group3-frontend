@@ -1,5 +1,4 @@
 import './ForgotPassword.css'
-
 import React, { useEffect, useState } from 'react'
 import { SubtitleWhite, SubtitleYellow, Title2White } from '../../shared/components/Label/Label'
 import { InputTextLabelSm } from '../../shared/components/InputWithLabel/InputWithLabel'
@@ -8,6 +7,7 @@ import { ErrorForm } from '../../shared/components/ErrorForm/ErrorForm'
 import { useNavigate } from 'react-router'
 
 export const ForgotPassword = () => {
+    // state
     const [email, setEmail] = useState('')
     const [isActive, setIsActive] = useState(false)
     const [error, setError] = useState('');
@@ -47,6 +47,7 @@ export const ForgotPassword = () => {
     const handleClick = () => {
         console.log('ceritanya send reset link')
     }
+
     const handleSignInClick = () => {
         navigate('/auth/login');
     }

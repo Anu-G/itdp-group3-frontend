@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ButtonComponentSm } from '../../shared/components/Button/Button'
-import { SubtitleWhite, Title2Blue, Title2Green, Title2Red, Title2White, Title2Yellow, TitleWhite } from '../../shared/components/Label/Label'
+import { SubtitleWhite, Title2Blue, Title2Green, Title2Red, Title2Yellow, TitleWhite } from '../../shared/components/Label/Label'
 import { Avatar } from '../../shared/components/Avatar/Avatar'
 import './Profile.css'
 import { useSelector } from 'react-redux'
@@ -10,11 +10,11 @@ import { CategorizePage } from '../CategorizePage/CategorizePageProfile'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { OurLinks } from '../OurLinks/OurLinks'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
-import { AppErrorNoProfile } from '../../utils/AppError'
+import { AppErrorNoProfile } from '../../utils/AppErrors'
 import { useNavigate } from 'react-router'
 
 export const BusinessProfile = () => {
-    const { profileService } = UseDep()
+    // state
     const [profile, setProfile] = useState({
         Address: '',
         ProfileImage: '',
@@ -30,24 +30,32 @@ export const BusinessProfile = () => {
     const [day, setDay] = useState()
     const [openHour, setOpenHour] = useState('')
     const [closeHour, setCloseHour] = useState('')
-    const authRed = useSelector(AuthSelector);
     const [showOurLinks, setShowOurLinks] = useState(false);
-    const navigate = useNavigate();
-
-    const [isLoading, setLoading] = useState(false);
-    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
     const handleClickLinks = _ => {
         setShowOurLinks(!showOurLinks);
     }
 
+    const handleClickContact = () => {
+        window.open(`https://wa.me/${profile.PhoneNumber}`)
+    }
+
+    const handleClickGmaps = () => {
+        if (profile.GmapsLink.includes("http://") || profile.GmapsLink.includes("https://")) {
+            window.open(`${profile.GmapsLink}`, '_blank')
+        } else {
+            window.open(`https://${profile.GmapsLink}`, '_blank')
+        }
+    }
+
+    // service
+    const { profileService } = UseDep()
+    const authRed = useSelector(AuthSelector);
+    const navigate = useNavigate();
+
     useEffect(() => {
         getUser()
     }, profile)
-
-    useEffect(() => {
-        getDate()
-    }, day)
 
     const getUser = async () => {
         try {
@@ -81,13 +89,9 @@ export const BusinessProfile = () => {
         }
     }
 
-    const onClickPanic = (value) => {
-        setPanic(prevState => ({
-            ...prevState,
-            isPanic: value, errMsg: ''
-        }));
-        navigate('/profile/settings/profile');
-    }
+    useEffect(() => {
+        getDate()
+    }, day)
 
     const getDate = () => {
         let d = new Date()
@@ -108,16 +112,16 @@ export const BusinessProfile = () => {
         return false
     }
 
-    const handleClickContact = () => {
-        window.open(`https://wa.me/${profile.PhoneNumber}`)
-    }
+    // screen
+    const [isLoading, setLoading] = useState(false);
+    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
-    const handleClickGmaps = () => {
-        if (profile.GmapsLink.includes("http://") || profile.GmapsLink.includes("https://")) {
-            window.open(`${profile.GmapsLink}`, '_blank')
-        } else {
-            window.open(`https://${profile.GmapsLink}`, '_blank')
-        }
+    const onClickPanic = (value) => {
+        setPanic(prevState => ({
+            ...prevState,
+            isPanic: value, errMsg: ''
+        }));
+        navigate('/profile/settings/profile');
     }
 
     return (

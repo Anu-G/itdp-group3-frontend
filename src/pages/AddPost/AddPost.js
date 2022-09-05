@@ -1,10 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useRef } from 'react';
-import { BioColomn } from '../../shared/components/BioColomn/BioColomn';
 import { ButtonComponent } from '../../shared/components/Button/Button'
 import { Title2White, Title3White } from '../../shared/components/Label/Label';
 import { UseDep } from '../../shared/context/ContextDep';
-import AppError from '../../utils/AppError';
+import AppError from '../../utils/AppErrors';
 import './AddPost.css'
 import { useSelector } from 'react-redux';
 import { AuthSelector } from '../../shared/selectors/Selectors';
@@ -13,20 +12,12 @@ import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScre
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 
 export const AddPost = ({ isOpen, togglePopup }) => {
+  // state
   const maxLength = 280;
-  const { addPostService } = UseDep();
   const [caption, setCaption] = useState('');
   const [charLength, setCharLength] = useState(0);
+  const [fileArray, setFileArray] = useState([]);
   const inputRef = useRef();
-  const [image, setImage] = useState([]);
-  const [result, setResult] = useState(null);
-  const postImageData = new FormData();
-  const { postImageService, postService } = UseDep();
-  const authRed = useSelector(AuthSelector);
-
-  const [isLoading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
   const triggerFileSelectPopup = () => inputRef.current.click();
 
@@ -40,6 +31,21 @@ export const AddPost = ({ isOpen, togglePopup }) => {
       e.preventDefault();
     }
   }
+
+  const fileObj = [];
+  const onSelectFile = (event) => {
+    fileObj.push(event.target.files);
+    let arr = [];
+    for (let i = 0; i < fileObj[0].length; i++) {
+      arr.push(URL.createObjectURL(fileObj[0][i]));
+    }
+    setFileArray(arr);
+  }
+
+  // service
+  const postImageData = new FormData();
+  const { postImageService, postService } = UseDep();
+  const authRed = useSelector(AuthSelector);
 
   const saveResponse = async _ => {
     for (let i = 0; i < fileArray.length; i++) {
@@ -76,6 +82,11 @@ export const AddPost = ({ isOpen, togglePopup }) => {
     }
   }
 
+  // screen
+  const [isLoading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
+
   const onClickSuccess = (value) => {
     setSuccess(current => value);
   }
@@ -85,17 +96,6 @@ export const AddPost = ({ isOpen, togglePopup }) => {
       ...prevState,
       isPanic: value, errMsg: ''
     }));
-  }
-
-  const fileObj = [];
-  const [fileArray, setFileArray] = useState([]);
-  const onSelectFile = (event) => {
-    fileObj.push(event.target.files);
-    let arr = [];
-    for (let i = 0; i < fileObj[0].length; i++) {
-      arr.push(URL.createObjectURL(fileObj[0][i]));
-    }
-    setFileArray(arr);
   }
 
   return (

@@ -7,7 +7,7 @@ import getCroppedImg from '../../utils/CropImage';
 import Cropper from 'react-easy-crop';
 import Slider from '@mui/material/Slider';
 import { UseDep } from '../../shared/context/ContextDep';
-import AppError from '../../utils/AppError';
+import AppError from '../../utils/AppErrors';
 import { useSelector } from 'react-redux';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import { InputTextLabelSm } from '../../shared/components/InputWithLabel/InputWithLabel';
@@ -70,19 +70,46 @@ export const SettingsNonBusinessProfile = () => {
    }, [result]);
    // end profile image processing
 
+   // state
    const [formData, setFormData] = useState({
       profileBio: "",
       displayName: ""
    });
    const [charLength, setCharLength] = useState(0);
    const maxLength = 150;
+
+   const onChangeDisplayName = (e) => {
+      setFormData(prevState => ({
+         ...prevState,
+         displayName: e.target.value
+      }))
+   }
+
+   useEffect(_ => {
+      setFormData(prevState => ({
+         ...prevState,
+         displayName: authRed.userName
+      }));
+   }, []);
+
+   const onChangeBio = (event) => {
+      setFormData(prevState => ({
+         ...prevState,
+         profileBio: event.target.value
+      }))
+      setCharLength(event.target.value.length)
+   }
+
+   const charLimitHandle = (e) => {
+      if (charLength >= maxLength) {
+         e.preventDefault();
+      }
+   }
+
+   // service
    const profileImageData = new FormData();
    const { profileImageService, profileService } = UseDep();
    const authRed = useSelector(AuthSelector);
-
-   const [isLoading, setLoading] = useState(false);
-   const [success, setSuccess] = useState(false);
-   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
    const saveResponse = async _ => {
       let file = await fetch(result).then(r => r.blob()).then(blobFile => new File([blobFile], "imageCropped.jpg", { type: "image/png" }));
@@ -122,6 +149,11 @@ export const SettingsNonBusinessProfile = () => {
       }
    }
 
+   // screen
+   const [isLoading, setLoading] = useState(false);
+   const [success, setSuccess] = useState(false);
+   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
+
    const onClickSuccess = (value) => {
       setSuccess(current => value);
    }
@@ -131,34 +163,6 @@ export const SettingsNonBusinessProfile = () => {
          ...prevState,
          isPanic: value, errMsg: ''
       }));
-   }
-
-   const onChangeDisplayName = (e) => {
-      setFormData(prevState => ({
-         ...prevState,
-         displayName: e.target.value
-      }))
-   }
-
-   useEffect(_ => {
-      setFormData(prevState => ({
-         ...prevState,
-         displayName: authRed.userName
-      }));
-   }, []);
-
-   const onChangeBio = (event) => {
-      setFormData(prevState => ({
-         ...prevState,
-         profileBio: event.target.value
-      }))
-      setCharLength(event.target.value.length)
-   }
-
-   const charLimitHandle = (e) => {
-      if (charLength >= maxLength) {
-         e.preventDefault();
-      }
    }
 
    return (

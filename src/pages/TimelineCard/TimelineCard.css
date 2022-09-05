@@ -1,18 +1,6 @@
-.timeline-wrp{
-    /* padding: 2rem;
-    max-width: 46rem;
-    min-height: 32rem;
-    background-color: #1E2329;
-    color: #f4f4f4; */
-
-}
-
 .timeline-ctn{
-    /* margin: 32px; */
     min-height: 100%;
     width: 100%;
-    /* background-color: #3B4046; */
-    /* border-radius: 20px; */
     padding: 32px;
     border-bottom: solid #1E2329;
 

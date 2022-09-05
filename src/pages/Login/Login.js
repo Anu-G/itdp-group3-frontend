@@ -8,24 +8,18 @@ import { SubtitleWhite, SubtitleYellow, Title2White } from '../../shared/compone
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { UseDep } from '../../shared/context/ContextDep'
-import AppError from '../../utils/AppError'
+import AppError from '../../utils/AppErrors'
 import './Login.css'
 import { UserLoginAction } from './state/AuthAction'
 
 export const Login = () => {
-
+    // state
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isActive, setIsActive] = useState(false);
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const navigate = useNavigate();
-    const { authService } = UseDep();
-    const dispatch = useDispatch();
-
-    const [isLoading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
     const checkEmail = (address) => {
 
@@ -80,6 +74,18 @@ export const Login = () => {
         setPassword(event.target.value)
     }
 
+    const handleForgotClick = () => {
+        navigate('/forgot-password');
+    }
+
+    const handleSignUpClick = () => {
+        navigate('/auth/register');
+    }
+
+    // service
+    const { authService } = UseDep();
+    const dispatch = useDispatch();
+
     const handleLoginOnClick = async () => {
         try {
             setLoading(true);
@@ -103,16 +109,10 @@ export const Login = () => {
         }
     }
 
-    const handleForgotClick = () => {
-        navigate('/forgot-password');
-    }
-
-
-    const handleSignUpClick = () => {
-        navigate('/auth/register');
-    }
-
-    //id, label, handleOnChange, value,
+    // screen
+    const [isLoading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
     const onClickSuccess = (value) => {
         setSuccess(current => value);

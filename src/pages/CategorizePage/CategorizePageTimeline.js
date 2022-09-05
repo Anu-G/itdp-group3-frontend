@@ -4,8 +4,8 @@ import { TimelinePage } from "../TimelinePage/TimelinePage";
 import './CategorizePage.css'
 
 export const CategorizePageTimeline = () => {
+    // state
     const [isActive, setIsActive] = useState([true, false])
-
 
     const handleClick = (page) => {
         switch (page) {
@@ -35,9 +35,6 @@ export const CategorizePageTimeline = () => {
                 {isActive[1] && <TimelinePage categoryId={2} />}
 
             </div>
-
-
-
         </div>
     )
 }

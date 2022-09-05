@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { ButtonComponent, ButtonComponentSm } from '../../shared/components/Button/Button'
-import { SubtitleWhite, Title2Blue, Title2Green, Title2Red, Title2White, Title2Yellow, TitleWhite } from '../../shared/components/Label/Label'
+import { SubtitleWhite, TitleWhite } from '../../shared/components/Label/Label'
 import { Avatar } from '../../shared/components/Avatar/Avatar'
 import './Profile.css'
 import { useSelector } from 'react-redux'
 import { AuthSelector } from '../../shared/selectors/Selectors'
 import { UseDep } from '../../shared/context/ContextDep'
-import { AppErrorNoProfile } from '../../utils/AppError'
+import { AppErrorNoProfile } from '../../utils/AppErrors'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { useNavigate } from 'react-router'
 
 export const NonBusinessProfile = () => {
-   const { profileService } = UseDep()
+   // state
    const [profile, setProfile] = useState({
       ProfileImage: '',
       ProfileBio: '',
       DisplayName: '',
    })
+
+   // service
+   const { profileService } = UseDep()
    const authRed = useSelector(AuthSelector)
    const navigate = useNavigate();
-
-   const [isLoading, setLoading] = useState(false);
-   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
    useEffect(() => {
       getUser()
@@ -53,6 +52,10 @@ export const NonBusinessProfile = () => {
          setLoading(false);
       }
    }
+
+   // screen
+   const [isLoading, setLoading] = useState(false);
+   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
    const onClickPanic = (value) => {
       setPanic(prevState => ({

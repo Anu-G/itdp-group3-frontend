@@ -2,27 +2,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
 import { CategoryLabelActive } from "../../shared/components/CategoryLabel/CategoryLabel"
 import { InputOnly } from "../../shared/components/InputWithLabel/InputWithLabel"
-import { LoadingScreen, LoadingScreenSm } from "../../shared/components/LoadingScreen/LoadingScreen"
+import { LoadingScreenSm } from "../../shared/components/LoadingScreen/LoadingScreen"
 import { PanicPopUpScreen } from "../../shared/components/PopUpScreen/PopUpScreen"
 import { UseDep } from "../../shared/context/ContextDep"
-import AppError, { AppErrorAuth } from "../../utils/AppError"
+import { AppErrorAuth } from "../../utils/AppErrors"
 import { DetailProductCard } from "../DetailProductCard/DetailProductCard"
 import './Search.css'
 import { SearchDetail } from "./SearchDetail"
 
 export const Search = () => {
+    // state
     const [value, setValue] = useState('');
     const [product, setProduct] = useState({})
     const [products, setProducts] = useState([])
     const [isActive, setIsActive] = useState(false)
-    const { productService } = UseDep();
 
-    const [isLoading, setLoading] = useState(false);
-    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
+    const handleFormClose = () => {
+        setIsActive(prevState => false)
+        setProduct(prevState => { })
+    }
+
+    const handleFormOpen = (value) => {
+        setIsActive(prevState => true)
+        setProduct(prevState => value)
+    }
 
     const handleChange = (event) => {
         setValue(event.target.value)
     }
+
+    // service
+    const { productService } = UseDep();
 
     const handleSearchClick = async (event) => {
         event.preventDefault()
@@ -44,15 +54,9 @@ export const Search = () => {
         }
     }
 
-    const handleFormClose = () => {
-        setIsActive(prevState => false)
-        setProduct(prevState => { })
-    }
-
-    const handleFormOpen = (value) => {
-        setIsActive(prevState => true)
-        setProduct(prevState => value)
-    }
+    // screen
+    const [isLoading, setLoading] = useState(false);
+    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
     const onClickPanic = (value) => {
         setPanic(prevState => ({

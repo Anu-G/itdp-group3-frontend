@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
-import { SubtitleWhite, Text32White, Title3White } from "../Label/Label";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { Text32White } from "../Label/Label";
 import { ButtonComponent } from "../Button/Button";
 
 function Navbar({ title, navItems, buttons }) {

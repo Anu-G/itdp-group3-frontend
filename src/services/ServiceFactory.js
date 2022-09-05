@@ -1,11 +1,11 @@
-import AuthService from "../../services/AuthService";
-import { CategoryService } from "../../services/CategoryService";
-import { ProfileService, ProfileImageService } from "../../services/ProfileService";
-import SettingAccountService from "../../services/SettingAccountService";
-import ProductService, { ProductImageService } from "../../services/ProductService";
-import AccountPostService from "../../services/AccountPostService";
-import TimelineService from "../../services/TimelineService";
-import { PostImageService, PostService } from "../../services/PostService";
+import AuthService from "./AuthService";
+import { CategoryService } from "./CategoryService";
+import { ProfileService, ProfileImageService } from "./ProfileService";
+import SettingAccountService from "./SettingAccountService";
+import ProductService, { ProductImageService } from "./ProductService";
+import AccountPostService from "./AccountPostService";
+import TimelineService from "./TimelineService";
+import { PostImageService, PostService } from "./PostService";
 
 export const ServiceFactory = (apiClient) => ({
    authService: AuthService(apiClient),
