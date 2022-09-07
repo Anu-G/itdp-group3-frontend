@@ -1,5 +1,9 @@
 # TOKTOK Frontend
 
+## How To Contribute
+- Create new branch from master branch
+- If you wish to use local backend, change src > apps > Client.js > axios.baseURL to your localhost and port
+- Commit push on origin, then create pull request to master/staging
 ## Available Scripts
 
 In the project directory, you can run:

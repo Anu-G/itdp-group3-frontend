@@ -8,11 +8,11 @@ import { Provider } from 'react-redux';
 import Store from './apps/Store';
 import { PersistGate } from 'redux-persist/integration/react'
 import { DepProvider } from './shared/context/ContextDep';
-import ApiFactory from './shared/factory/ApiFactory';
 import { AxiosClient, AxiosImageClient } from './apps/Client';
-import { ServiceFactory, ServiceImageFactory } from './shared/factory/ServiceFactory';
 import { InjectStore } from './shared/interceptor/AuthInterceptor';
 import App from './App';
+import { ServiceFactory, ServiceImageFactory } from './services/ServiceFactory';
+import ApiFactory from './apps/ApiFactory';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const { store, persistor } = Store();

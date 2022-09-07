@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import { USER_LOGIN, USER_LOGOUT } from "../../../shared/actions/ActionConstants";
+import { USER_LOGIN, USER_LOGOUT } from "../../../shared/constants/ActionConstants";
 
 const initAuthState = {
    userName: '',

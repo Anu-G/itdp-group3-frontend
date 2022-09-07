@@ -28,7 +28,7 @@ import { TimelinePage } from "../pages/TimelinePage/TimelinePage";
 import { LoadingScreen } from "../shared/components/LoadingScreen/LoadingScreen";
 import { PanicPopUpScreen, SuccessPopUpScreen } from "../shared/components/PopUpScreen/PopUpScreen";
 import { AuthSelector } from "../shared/selectors/Selectors";
-import AppError from "../utils/AppError";
+import AppError from "../utils/AppErrors";
 
 const AppRouter = _ => {
    const authRed = useSelector(AuthSelector);
