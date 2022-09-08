@@ -72,7 +72,7 @@ const AppRouter = _ => {
             <Route path="category" element={<CategorizePageTimeline />} />
             <Route path="search" element={<Search />} />
          </Route>
-         <Route path="/profile" element={
+         <Route path="/profile/:accId" element={
             <RequireAuth>
                <NavProfileSetting />
             </RequireAuth>

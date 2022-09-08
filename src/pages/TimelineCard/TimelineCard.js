@@ -15,7 +15,7 @@ import { CommentExtends } from '../../shared/components/CommentExtends/CommentEx
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick }) => {
+export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, accId, handleClickName }) => {
   // state
   const maxLength = 280
   const [isActive, setIsActive] = useState(false)
@@ -62,7 +62,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
 
             <AvatarSmall link={avatar} />
             <div className='name-loc-ctn'>
-              <NameLocation name={name} place={place} />
+              <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} />
             </div>
 
           </div>

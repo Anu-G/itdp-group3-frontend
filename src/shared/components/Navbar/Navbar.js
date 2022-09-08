@@ -5,9 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Text32White } from "../Label/Label";
 import { ButtonComponent } from "../Button/Button";
+import { useSelector } from "react-redux";
+import { AuthSelector } from "../../selectors/Selectors";
 
 function Navbar({ title, navItems, buttons }) {
   const [sidebar, setSidebar] = useState(true);
+  const authRed = useSelector(AuthSelector)
   const showSidebar = () => {
     setSidebar(!sidebar);
   };
@@ -25,7 +28,7 @@ function Navbar({ title, navItems, buttons }) {
   }, []);
 
   const profileClick = _ => {
-    navigate('/profile')
+    navigate(`/profile/${authRed.account_id}`)
   }
 
   const homeClick = _ => {

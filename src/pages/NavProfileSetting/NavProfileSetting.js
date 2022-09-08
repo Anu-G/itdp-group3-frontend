@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Outlet } from 'react-router';
+import { Outlet, useParams } from 'react-router';
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import Navbar from '../../shared/components/Navbar/Navbar';
-import { navItemsBusinessProfile, navItemsNonBusinessProfile } from '../../shared/components/Navbar/NavItems';
+import { navItemsBusinessProfile, navItemsNonBusinessProfile, navItemsTimeline } from '../../shared/components/Navbar/NavItems';
 import { PanicPopUpScreen, SuccessPopUpScreen, SuccessPopUpScreenCustom } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { UseDep } from '../../shared/context/ContextDep';
 import { AuthSelector } from '../../shared/selectors/Selectors';
@@ -13,6 +13,7 @@ import { UserLogoutAction } from '../Login/state/AuthAction';
 const NavProfileSetting = _ => {
   // state
   const [buttons, setButtons] = useState([]);
+  const {accId} = useParams();
 
   useEffect(_ => {
     if (authRed.role_id === 1) {
@@ -98,9 +99,21 @@ const NavProfileSetting = _ => {
     }));
   }
 
+  const navSideItems = () => {
+    if (accId == authRed.account_id) {
+      if (authRed.role_id === 2) {
+        return navItemsBusinessProfile
+      } else {
+        return navItemsNonBusinessProfile
+      }
+    } else {
+      return navItemsTimeline
+    }
+  }
+
   return (
     <>
-      <Navbar title={"Settings"} navItems={authRed.role_id === 2 ? navItemsBusinessProfile : navItemsNonBusinessProfile} buttons={buttons} />
+      <Navbar title={"Settings"} navItems={navSideItems()} buttons={buttons} />
       <div className='inner-content'>
         <Outlet />
       </div>

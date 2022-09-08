@@ -2,21 +2,21 @@ export const navItemsTimeline = [
   {
     id: 1,
     title: "Recommendation",
-    path: "./",
+    path: "/feeds/",
     nName: "nav-item",
     sName: "sidebar-item"
   },
   {
     id: 2,
     title: "Category",
-    path: "./category",
+    path: "/feeds/category",
     nName: "nav-item",
     sName: "sidebar-item"
   },
   {
     id: 3,
     title: "Search",
-    path: "./search",
+    path: "/feeds/search",
     nName: "nav-item",
     sName: "sidebar-item"
   }

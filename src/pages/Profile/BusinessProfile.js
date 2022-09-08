@@ -11,7 +11,7 @@ import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScre
 import { OurLinks } from '../OurLinks/OurLinks'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { AppErrorNoProfile } from '../../utils/AppErrors'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 
 export const BusinessProfile = () => {
     // state
@@ -28,6 +28,7 @@ export const BusinessProfile = () => {
     })
     const [isOpen, setIsOpen] = useState(false)
     const [day, setDay] = useState()
+    const {accId} = useParams();
     const [openHour, setOpenHour] = useState('')
     const [closeHour, setCloseHour] = useState('')
     const [showOurLinks, setShowOurLinks] = useState(false);
@@ -61,7 +62,7 @@ export const BusinessProfile = () => {
         try {
             setLoading(true);
             const response = await profileService.doGetBusinessProfile({
-                account_id: `${authRed.account_id}`
+                account_id: `${accId}`
             })
 
             setProfile(prevState => ({

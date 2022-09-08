@@ -5,10 +5,12 @@ import { UseDep } from '../../shared/context/ContextDep'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { AppErrorAuth } from '../../utils/AppErrors'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
+import { useNavigate } from 'react-router'
 
 export const TimelinePage = ({ categoryId = null }) => {
   // state
   const [timelines, setTimelines] = useState([])
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (categoryId == null) {
@@ -77,6 +79,10 @@ export const TimelinePage = ({ categoryId = null }) => {
     }));
   }
 
+  const handleClickName = (accountId) => {
+    navigate(`/profile/${accountId}`)
+  }
+
   return (
     <>
       <div className='tl-bg'>
@@ -98,7 +104,9 @@ export const TimelinePage = ({ categoryId = null }) => {
                 name={post.display_name}
                 place={post.place}
                 time={`${hour}:${minutes}`}
-                key={post.i} />
+                key={post.i}
+                accId={post.account_id}
+                handleClickName={handleClickName} />
             )
           })}
         </div>
