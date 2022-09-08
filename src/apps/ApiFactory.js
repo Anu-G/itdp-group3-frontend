@@ -1,3 +1,8 @@
+import { async } from "@firebase/util";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import storage from "../shared/storage/FirebaseConfig";
+import {v4 as uuidv4} from 'uuid'
+
 const ApiFactory = (client) => {
    const doPost = async ({ url, data }) => {
       try {
@@ -35,7 +40,33 @@ const ApiFactory = (client) => {
       }
    }
 
-   return { doPost, doGet, doGetInput, doPut }
+   const doStoreFile = async({url, data}) => {
+      try {
+         let fileExt = data.name.split(".").pop()
+         let fileName = uuidv4().toString()   
+         const storageRef = ref(storage, `toktok-dev${url}/${fileName}.${fileExt}`)
+         const uploadTask = uploadBytesResumable(storageRef, data)
+
+         uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                console.log(snapshot); 
+            }, (err) => {
+                console.log(err);
+            }
+        )
+        
+        await uploadTask
+        let imgUrl = await getDownloadURL(uploadTask.snapshot.ref)
+
+        return imgUrl
+
+      } catch (err) {
+         throw err
+      }
+   }
+
+   return { doPost, doGet, doGetInput, doPut, doStoreFile }
 }
 
 export default ApiFactory;
