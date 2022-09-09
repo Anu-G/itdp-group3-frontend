@@ -1,3 +1,5 @@
+import { uuidv4 } from "@firebase/util";
+
 export const PostService = ({ doPost }) => {
    const doPostData = async (postData) => {
       try {
@@ -15,11 +17,12 @@ export const PostService = ({ doPost }) => {
 }
 
 
-export const PostImageService = ({ doPost, doGet }) => {
+export const PostImageService = ({ doStoreMultipleFiles }) => {
    const doPostImage = async (image) => {
       try {
-         return await doPost({
-            url: '/mediafeed/create',
+         let folderName = uuidv4().toString()
+         return await doStoreMultipleFiles({
+            url: `/post/${folderName}`,
             data: image
          });
       } catch (err) {

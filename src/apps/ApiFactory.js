@@ -52,7 +52,7 @@ const ApiFactory = (client) => {
             (snapshot) => {
                 console.log(snapshot); 
             }, (err) => {
-                console.log(err);
+               console.log(err);
             }
         )
         
@@ -66,7 +66,28 @@ const ApiFactory = (client) => {
       }
    }
 
-   return { doPost, doGet, doGetInput, doPut, doStoreFile }
+   const doStoreMultipleFiles = async({url, data}) => {
+      try {
+         const promises = []
+         const links = []
+
+         data.map((image) => {
+            let fileExt = image.name.split(".").pop()
+            let fileName = uuidv4().toString()   
+            const storageRef = ref(storage, `toktok-dev${url}/${fileName}.${fileExt}`)
+            const uploadTask = uploadBytesResumable(storageRef, image).then(() => getDownloadURL(storageRef).then((url) => links.push(url)))
+            promises.push(uploadTask)
+         })
+
+         await Promise.all(promises)
+         return links
+
+      } catch (err) {
+         throw err
+      }
+   }
+
+   return { doPost, doGet, doGetInput, doPut, doStoreFile, doStoreMultipleFiles }
 }
 
 export default ApiFactory;
