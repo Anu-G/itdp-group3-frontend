@@ -8,9 +8,6 @@ import { ButtonComponent } from "../Button/Button";
 
 function Navbar({ title, navItems, buttons }) {
   const [sidebar, setSidebar] = useState(true);
-  const showSidebar = () => {
-    setSidebar(!sidebar);
-  };
   const [active, setActive] = useState(0);
   const showActive = (id) => {
     setActive(id);
@@ -34,30 +31,12 @@ function Navbar({ title, navItems, buttons }) {
 
   return (
     <>
-      <div className="navbar">
-        <div className="web-logo" onClick={homeClick}>
-          <img src="/logo-toktok.png" width="124px" className="d-inline-block align-top" alt="logo-toktok" />
-        </div>
-        {/* <Link to="#" className="nav-menu-icon" onClick={_ => showSidebar()}>
-          <FontAwesomeIcon icon={faBars} />
-        </Link> */}
-        <button className="btn btn-warning btn-profile" type="submit" onClick={profileClick}>
-          <FontAwesomeIcon icon={faUser} />
-        </button>
-      </div>
+      
       <div
         className={sidebar ? "sidebar-container active" : "sidebar-container"}
       >
         <ul className="sidebar-items">
           <li className="sidebar-toggle">
-            {/* <Link to="#" className="nav-menu-icon" onClick={_ => showSidebar()}>
-              <div>
-                <img src="/logo-toktok.png" width="185.08" height="60" className="d-inline-block align-top" alt="logo-toktok" />
-                <span>
-                  <FontAwesomeIcon icon={faBars} />
-                </span>
-              </div>
-            </Link> */}
             <div style={{ opacity: '0.8', marginBottom: '-1rem' }}>
               <Text32White text={title} />
             </div>
@@ -88,3 +67,28 @@ function Navbar({ title, navItems, buttons }) {
 }
 
 export default Navbar;
+
+export const HeaderBar = () => {
+
+  const navigate = useNavigate();
+  const homeClick = _ => {
+    navigate('/')
+  }
+
+  const profileClick = _ => {
+    navigate('/profile')
+  }
+
+  return(
+    <>
+    <div className="navbar">
+        <div className="web-logo" onClick={homeClick}>
+          <img src="/logo-toktok.png" width="124px" className="d-inline-block align-top" alt="logo-toktok" />
+        </div>
+        <button className="btn btn-warning btn-profile" type="submit" onClick={profileClick}>
+          <FontAwesomeIcon icon={faUser} />
+        </button>
+      </div>
+    </>
+  )
+}

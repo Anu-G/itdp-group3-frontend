@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router';
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
-import Navbar from '../../shared/components/Navbar/Navbar';
+import Navbar, { HeaderBar } from '../../shared/components/Navbar/Navbar';
 import { navItemsBusinessProfile, navItemsNonBusinessProfile } from '../../shared/components/Navbar/NavItems';
 import { PanicPopUpScreen, SuccessPopUpScreen, SuccessPopUpScreenCustom } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { UseDep } from '../../shared/context/ContextDep';
@@ -100,6 +100,7 @@ const NavProfileSetting = _ => {
 
   return (
     <>
+      <HeaderBar/>
       <Navbar title={"Settings"} navItems={authRed.role_id === 2 ? navItemsBusinessProfile : navItemsNonBusinessProfile} buttons={buttons} />
       <div className='inner-content'>
         <Outlet />
