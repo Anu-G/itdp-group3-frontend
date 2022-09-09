@@ -14,8 +14,6 @@
     width: 100vw;
     z-index: 1;
   }
-
-.si
   
   .nav-menu-icon {
     margin-left: 2rem;
@@ -33,10 +31,14 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    position: fixed;
+    /* position: fixed; */
     top: 0;
-    /* left: -100%; */
+    left: -100%;
     transition: 1s;
+  }
+
+  .sidebar-ctn-itm{
+    position: fixed
   }
   
   .sidebar-container.active {
@@ -57,7 +59,7 @@
   .sidebar-item a {
     text-decoration: none;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     height: 100%;
     width: 90%;
     display: flex;
@@ -69,6 +71,7 @@
   .sidebar-item a:hover {
     background-color:#1E2329;
     color:  #FED154;
+    font-weight: bolder;
   }
 
   .sidebar-item-active a {
@@ -105,4 +108,3 @@
     display: block;
     /* position: fixed; */
   }
-  

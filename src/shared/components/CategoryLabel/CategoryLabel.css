@@ -26,6 +26,8 @@
     background-color: #475264;
     
     color: #A3A8B2;
+
+    transition: 0.3s;
 }
 
 .inactive:hover{

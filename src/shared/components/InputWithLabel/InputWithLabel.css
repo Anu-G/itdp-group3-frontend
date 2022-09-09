@@ -3,6 +3,12 @@
    flex-direction: column-reverse;
    justify-content: space-between;
    color: #f4f4f4;
+   transition: 0.1s;
+}
+
+.input-class:hover{
+   color: #FED154;
+
 }
 
 .input-sm {
@@ -37,6 +43,13 @@
    font-weight: 400;
    color: #3B4046;
    border: none;
+
+   transition: 0.1s;
+}
+
+.input-area:hover{
+   border:5px solid #FED154;
+
 }
 
 input:focus {

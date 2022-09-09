@@ -51,6 +51,8 @@
     gap: 16px;
     display: flex;
     flex-flow: column;
+    padding-top: 1rem;
+
 }
 
 .caption-ctn{
@@ -75,4 +77,9 @@
     color: #FE5454;
 
     float: right;
+}
+
+.comment-ssn{
+    /* padding-top: 1rem; */
+    transition: 0.3s;
 }

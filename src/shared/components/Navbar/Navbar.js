@@ -33,8 +33,10 @@ function Navbar({ title, navItems, buttons }) {
     <>
       
       <div
-        className={sidebar ? "sidebar-container active" : "sidebar-container"}
+        // className={sidebar ? "sidebar-container active" : "sidebar-container"}
+        className="sidebar-container"
       >
+        <div className="sidebar-ctn-itm">
         <ul className="sidebar-items">
           <li className="sidebar-toggle">
             <div style={{ opacity: '0.8', marginBottom: '-1rem' }}>
@@ -61,6 +63,8 @@ function Navbar({ title, navItems, buttons }) {
             </li>
           ))}
         </ul>
+        </div>
+        
       </div>
     </>
   );

@@ -101,10 +101,14 @@ const NavProfileSetting = _ => {
   return (
     <>
       <HeaderBar/>
-      <Navbar title={"Settings"} navItems={authRed.role_id === 2 ? navItemsBusinessProfile : navItemsNonBusinessProfile} buttons={buttons} />
-      <div className='inner-content'>
-        <Outlet />
+      <div className='content-spc'>
+        <Navbar title={"Settings"} navItems={authRed.role_id === 2 ? navItemsBusinessProfile : navItemsNonBusinessProfile} buttons={buttons} />
+        <div className='inner-content'>
+          <Outlet />
+        </div>
+
       </div>
+      
 
       {isLoading && <LoadingScreen />}
       {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}

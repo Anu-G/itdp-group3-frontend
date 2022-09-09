@@ -43,4 +43,10 @@
 
 .pointer {
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.pointer:hover{
+    text-shadow: 4px 4px 8px #1E2329;
+
 }
