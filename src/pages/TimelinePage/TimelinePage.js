@@ -6,11 +6,14 @@ import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScre
 import { AppErrorAuth } from '../../utils/AppErrors'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { useNavigate } from 'react-router'
+import { AuthSelector } from '../../shared/selectors/Selectors'
+import { useSelector } from 'react-redux'
 
 export const TimelinePage = ({ categoryId = null }) => {
   // state
   const [timelines, setTimelines] = useState([])
   const navigate = useNavigate();
+  const authRed = useSelector(AuthSelector);
 
   useEffect(() => {
     if (categoryId == null) {
@@ -80,7 +83,11 @@ export const TimelinePage = ({ categoryId = null }) => {
   }
 
   const handleClickName = (accountId) => {
-    navigate(`/profile/${accountId}`)
+    if (accountId == authRed.account_id) {
+      navigate('/profile')
+    } else {
+      navigate(`/feeds/${accountId}`)
+    }
   }
 
   return (

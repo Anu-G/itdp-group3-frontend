@@ -28,7 +28,7 @@ function Navbar({ title, navItems, buttons }) {
   }, []);
 
   const profileClick = _ => {
-    navigate(`/profile/${authRed.account_id}`)
+    navigate('/profile')
   }
 
   const homeClick = _ => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useId, useState } from 'react'
 import { ButtonComponentSm } from '../../shared/components/Button/Button'
 import { SubtitleWhite, Title2Blue, Title2Green, Title2Red, Title2Yellow, TitleWhite } from '../../shared/components/Label/Label'
 import { Avatar } from '../../shared/components/Avatar/Avatar'
@@ -59,10 +59,16 @@ export const BusinessProfile = () => {
     }, profile)
 
     const getUser = async () => {
+        let useId = 0
+        if (accId) {
+            useId = accId
+        } else {
+            useId = authRed.account_id
+        }
         try {
             setLoading(true);
             const response = await profileService.doGetBusinessProfile({
-                account_id: `${accId}`
+                account_id: `${useId}`
             })
 
             setProfile(prevState => ({

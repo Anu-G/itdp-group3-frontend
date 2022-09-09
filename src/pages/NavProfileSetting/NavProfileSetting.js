@@ -13,7 +13,6 @@ import { UserLogoutAction } from '../Login/state/AuthAction';
 const NavProfileSetting = _ => {
   // state
   const [buttons, setButtons] = useState([]);
-  const {accId} = useParams();
 
   useEffect(_ => {
     if (authRed.role_id === 1) {
@@ -99,21 +98,9 @@ const NavProfileSetting = _ => {
     }));
   }
 
-  const navSideItems = () => {
-    if (accId == authRed.account_id) {
-      if (authRed.role_id === 2) {
-        return navItemsBusinessProfile
-      } else {
-        return navItemsNonBusinessProfile
-      }
-    } else {
-      return navItemsTimeline
-    }
-  }
-
   return (
     <>
-      <Navbar title={"Settings"} navItems={navSideItems()} buttons={buttons} />
+      <Navbar title={"Settings"} navItems={authRed.role_id === 2 ? navItemsBusinessProfile : navItemsNonBusinessProfile} buttons={buttons} />
       <div className='inner-content'>
         <Outlet />
       </div>
