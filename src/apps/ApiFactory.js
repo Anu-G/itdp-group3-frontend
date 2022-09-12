@@ -35,7 +35,16 @@ const ApiFactory = (client) => {
       }
    }
 
-   return { doPost, doGet, doGetInput, doPut }
+   const doDelete = async ({url, data}) => {
+      try {
+         const response = await client.delete(url,data);
+         return response;
+      } catch (err) {
+         throw err;
+      }
+   }
+
+   return { doPost, doGet, doGetInput, doPut, doDelete }
 }
 
 export default ApiFactory;

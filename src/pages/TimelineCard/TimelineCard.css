@@ -31,7 +31,7 @@
 
 .img-view-ctn{
     min-height: 360px;
-    
+    cursor: pointer;
 }
 
 .bottom-btn{
@@ -47,6 +47,13 @@
     align-items: center;
 }
 
+.bottom-like-comment-ctn{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 20%;
+}
+
 .ext-cmt{
     gap: 16px;
     display: flex;
@@ -59,6 +66,11 @@
 }
 
 .comment-count-ctn{
+    opacity: 0.8;
+    cursor: default;
+}
+
+.like-count-ctn{
     opacity: 0.8;
     cursor: default;
 }

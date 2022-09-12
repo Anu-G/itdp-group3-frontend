@@ -14,6 +14,7 @@ export const TimelinePage = ({ categoryId = null }) => {
   const [timelines, setTimelines] = useState([])
   const navigate = useNavigate();
   const authRed = useSelector(AuthSelector);
+  const [refresh,setRefresh] = useState(false)
 
   useEffect(() => {
     if (categoryId == null) {
@@ -21,7 +22,7 @@ export const TimelinePage = ({ categoryId = null }) => {
     } else {
       getTimelineByCategory()
     }
-  }, [categoryId])
+  }, [categoryId,refresh])
 
   // service
   const { timelineService } = UseDep()
@@ -112,6 +113,9 @@ export const TimelinePage = ({ categoryId = null }) => {
                 place={post.place}
                 time={`${hour}:${minutes}`}
                 key={post.i}
+                postId={post.post_id}
+                postLikes={post.total_like}
+                setRefresh={setRefresh}
                 accId={post.account_id}
                 handleClickName={handleClickName} />
             )

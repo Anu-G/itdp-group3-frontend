@@ -1,4 +1,4 @@
-const TimelineService = ({ doPost }) => { 
+const TimelineService = ({ doPost,doDelete }) => { 
    const doGetTimeline = async (user) => {
       try {
          return await doPost({
@@ -21,7 +21,29 @@ const TimelineService = ({ doPost }) => {
       }
    }
 
-   return { doGetTimeline, doGetTimelineByCategory };
+   const doPostTimelineLike = async (data) => {
+      try {
+         return await doPost({
+            url:'/feed/like',
+            data:data
+         })
+      } catch (err) {
+         throw err;
+      }
+   }
+
+   const doDeleteTimelineLike = async (data) => {
+      try {
+         return await doPost({
+            url:'/feed/unlike',
+            data:data
+         })
+      } catch (err) {
+         throw err;
+      }
+   }
+
+   return { doGetTimeline, doGetTimelineByCategory, doPostTimelineLike, doDeleteTimelineLike};
  }
  
  export default TimelineService;
