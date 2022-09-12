@@ -2,6 +2,7 @@
 
 .navbar {
     background-color: #3B4046;
+    right: 0;
     height: 48px;
     display: flex;
     justify-content: space-between;
@@ -9,6 +10,7 @@
     /* font-family: 'Kirang Haerang', sans-serif; */
     padding: 0px 32px 0px 32px;
     position: fixed;
+    /* min-width: 1160px; */
     width: 100vw;
     z-index: 1;
   }
@@ -24,15 +26,19 @@
   .sidebar-container {
     background-color: #3B4046;
     width: 320px;
-    margin-left: 160px;
+    margin-left: 0;
     margin-top: 48px;
     height: 100%;
     display: flex;
     justify-content: center;
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     left: -100%;
     transition: 1s;
+  }
+
+  .sidebar-ctn-itm{
+    position: fixed
   }
   
   .sidebar-container.active {
@@ -46,23 +52,26 @@
     height: 60px;
     text-indent: 2rem;
     list-style: none;
+    position: sticky;
     /* font-family: 'Kirang Haerang', sans-serif; */
   }
   
   .sidebar-item a {
     text-decoration: none;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     height: 100%;
     width: 90%;
     display: flex;
     align-items: center;
     border-radius: 4px;
+    transition: 0.3s;
   }
   
   .sidebar-item a:hover {
     background-color:#1E2329;
     color:  #FED154;
+    font-weight: bolder;
   }
 
   .sidebar-item-active a {
@@ -96,4 +105,6 @@
 
   .web-logo{
     cursor: pointer;
+    display: block;
+    /* position: fixed; */
   }

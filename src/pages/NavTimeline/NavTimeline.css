@@ -1,5 +1,16 @@
 .inner-content {
-   margin-left: 480px;
-   margin-right: 192px;
+   /* margin-left: 480px;
+   margin-right: 192px; */
    padding-top: 48px;
+   /* position: absolute; */
+}
+
+.content-spc{
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+
+   position: relative;
+   min-width: 1160px;
 }

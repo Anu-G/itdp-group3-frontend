@@ -98,8 +98,12 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
           </div>
         </div>
 
-        {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnclickSend={handleOnClickSend} /> : ''}
+        <div className='comment-ssn'>
+          
 
+        {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnclickSend={handleOnClickSend} maxLength={280}/> : ''}
+
+        </div>
 
       </div>
     </div>

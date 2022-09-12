@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router';
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
-import Navbar from '../../shared/components/Navbar/Navbar';
+import Navbar, { HeaderBar } from '../../shared/components/Navbar/Navbar';
 import { navItemsTimeline } from '../../shared/components/Navbar/NavItems';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { UseDep } from '../../shared/context/ContextDep';
@@ -76,10 +76,14 @@ const NavTimeline = _ => {
 
   return (
     <>
-      <Navbar title={"Timeline"} navItems={navItemsTimeline} buttons={buttons} />
-      <div className='inner-content'>
-        <Outlet />
+      <HeaderBar/>
+      <div className='content-spc'>
+        <Navbar title={"Timeline"} navItems={navItemsTimeline} buttons={buttons} />
+        <div className='inner-content'>
+          <Outlet />
+        </div>
       </div>
+      
       <AddPost isOpen={openAddPost} togglePopup={togglePopup} />
 
       {isLoading && <LoadingScreen />}

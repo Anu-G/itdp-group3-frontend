@@ -6,15 +6,18 @@
    background-color: #FED154;
    border: none;
    border-radius: 20px;
-   font-size: 28px;
+   font-size: 1.25rem;
    font-weight: 400;
    line-height: 43px;
    text-align: center;
-   color: #f4f4f4;
+   color: #475264;
+   transition: 0.3s;
 }
 
 .button-component:hover{
    background-color: #FEDA76;
+   box-shadow: 4px 4px 8px #1E2329;
+   font-weight: bolder;
 }
 
 .button-component-disable{
@@ -33,6 +36,8 @@
 
 .button-component-disable:hover{
    background-color: #E3CD8E;
+   box-shadow: none;
+   font-weight: normal;
 }
 
 .btn-sm{
@@ -40,4 +45,6 @@
    width: 124px;
    font-size: 20px;
    line-height: 25px;
+
+   font-size: 1rem;
 }

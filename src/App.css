@@ -1,10 +1,15 @@
 .app {
     height: 100%;
     min-height: 100vh;
+    min-width: 1096px;
     width: 100vw;
     padding-bottom: 24px;
 
     background-color: #1E2329;
+
+    display: flex;
+    align-content: center;
+    justify-content: center;
 
 
     /* font-family: 'Kirang Haerang', cursive; */
