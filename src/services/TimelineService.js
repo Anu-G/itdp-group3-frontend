@@ -21,7 +21,18 @@ const TimelineService = ({ doPost }) => {
       }
    }
 
-   return { doGetTimeline, doGetTimelineByCategory };
+   const doPostComment = async (user) => {
+      try {
+         return await doPost({
+            url: '/comment/create',
+            data: user
+         });
+      } catch (err) {
+         throw err
+      }
+   }
+
+   return { doGetTimeline, doGetTimelineByCategory, doPostComment };
  }
  
  export default TimelineService;

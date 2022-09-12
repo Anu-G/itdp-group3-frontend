@@ -11,11 +11,13 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { CommentColomn } from '../../shared/components/CommentColomn/CommentColomn'
 import { ButtonComponentSm } from '../../shared/components/Button/Button'
 import { CommentExtends } from '../../shared/components/CommentExtends/CommentExtends'
+import { UseDep } from '../../shared/context/ContextDep'
+import AppError from '../../utils/AppErrors'
 
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick }) => {
+export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment }) => {
   // state
   const maxLength = 280
   const [isActive, setIsActive] = useState(false)
@@ -46,7 +48,12 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   }
 
   const handleOnClickSend = () => {
-    console.log('ceritanya send')
+    handleComment({
+      feedId: feedId,
+      comment: comment
+    })
+    setComment('')
+    // console.log('ceritanya send')
   }
 
   return (
@@ -98,7 +105,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
           </div>
         </div>
 
-        {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnclickSend={handleOnClickSend} /> : ''}
+        {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnClickSend={handleOnClickSend} /> : ''}
 
 
       </div>
