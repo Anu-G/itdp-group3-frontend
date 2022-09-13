@@ -16,7 +16,7 @@ export const AddPost = ({ isOpen, togglePopup }) => {
   const maxLength = 280;
   const [caption, setCaption] = useState('');
   const [charLength, setCharLength] = useState(0);
-  const [fileArray, setFileArray] = useState([]);
+  const [fileObj, setFileObj] = useState([])
   const inputRef = useRef();
 
   const triggerFileSelectPopup = () => inputRef.current.click();
@@ -32,45 +32,36 @@ export const AddPost = ({ isOpen, togglePopup }) => {
     }
   }
 
-  const fileObj = [];
   const onSelectFile = (event) => {
-    fileObj.push(event.target.files);
-    let arr = [];
-    for (let i = 0; i < fileObj[0].length; i++) {
-      arr.push(URL.createObjectURL(fileObj[0][i]));
+    for (let i = 0; i < event.target.files.length; i++) {
+      const newImage = event.target.files[i]
+      newImage["id"] = Math.random()
+      setFileObj((prevState) => [...prevState, newImage])
     }
-    setFileArray(arr);
   }
 
   // service
-  const postImageData = new FormData();
   const { postImageService, postService } = UseDep();
   const authRed = useSelector(AuthSelector);
 
   const saveResponse = async _ => {
-    for (let i = 0; i < fileArray.length; i++) {
-      let file = await fetch(fileArray[i]).then(r => r.blob()).then(blobFile => new File([blobFile], `${i}-feedImage.jpg`, { type: "image/png" }));
-      postImageData.append("feed_images", file);
-    }
     try {
       setLoading(true);
-      const responseImage = await postImageService.doPostImage(postImageData);
-      if (responseImage.status === 200) {
-        try {
-          const response = await postService.doPostData({
-            account_id: authRed.account_id,
-            caption_post: caption,
-            media_links: responseImage.data.data
-          });
-          if (response.status === 200) {
-            setSuccess(true);
-          }
-        } catch (err) {
-          setPanic(prevState => ({
-            ...prevState,
-            isPanic: true, errMsg: AppError(err)
-          }));
+      const responseImage = await postImageService.doPostImage(fileObj);
+      try {
+        const response = await postService.doPostData({
+          account_id: authRed.account_id,
+          caption_post: caption,
+          media_links: responseImage
+        });
+        if (response.status === 200) {
+          setSuccess(true);
         }
+      } catch (err) {
+        setPanic(prevState => ({
+          ...prevState,
+          isPanic: true, errMsg: AppError(err)
+        }));
       }
     } catch (err) {
       setPanic(prevState => ({

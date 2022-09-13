@@ -1,3 +1,5 @@
+import { uuidv4 } from "@firebase/util";
+
 const ProductService = ({ doPost }) => {
    const doGetProductByAccount = async (user) => {
       try {
@@ -37,11 +39,12 @@ const ProductService = ({ doPost }) => {
 
 export default ProductService;
 
-export const ProductImageService = ({ doPost, doGet }) => {
+export const ProductImageService = ({ doStoreMultipleFiles }) => {
    const doPostProductImage = async (image) => {
       try {
-         return await doPost({
-            url: '/product/add/product-image',
+         let folderName = uuidv4().toString()
+         return await doStoreMultipleFiles({
+            url: `/product/${folderName}`,
             data: image
          });
       } catch (err) {

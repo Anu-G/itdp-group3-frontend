@@ -107,21 +107,17 @@ export const SettingsNonBusinessProfile = () => {
    }
 
    // service
-   const profileImageData = new FormData();
    const { profileImageService, profileService } = UseDep();
    const authRed = useSelector(AuthSelector);
 
    const saveResponse = async _ => {
       let file = await fetch(result).then(r => r.blob()).then(blobFile => new File([blobFile], "imageCropped.jpg", { type: "image/png" }));
-      profileImageData.append("profile_image", file);
 
       try {
          setLoading(true);
-         let responseImage = undefined;
          let submitImage = '';
          if (result !== null) {
-            responseImage = await profileImageService.addNonBusinessProfileImage(profileImageData);
-            submitImage = responseImage.data.data
+            submitImage = await profileImageService.addNonBusinessProfileImage(file);
          }
          try {
             const response = await profileService.addNonBusinessProfile({

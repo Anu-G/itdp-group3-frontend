@@ -17,6 +17,9 @@ import { AuthSelector } from '../../shared/selectors/Selectors';
 import AppError from '../../utils/AppErrors';
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import storage from '../../shared/storage/FirebaseConfig';
+import {v4 as uuidv4} from 'uuid'
 
 export const SettingsBusinessProfile = () => {
     // start profile image processing
@@ -205,7 +208,6 @@ export const SettingsBusinessProfile = () => {
     }
 
     // service
-    const profileImageData = new FormData();
     const { profileImageService, profileService, categoryService } = UseDep();
     const authRed = useSelector(AuthSelector);
 
@@ -229,21 +231,19 @@ export const SettingsBusinessProfile = () => {
 
     const saveResponse = async _ => {
         let file = await fetch(result).then(r => r.blob()).then(blobFile => new File([blobFile], "imageCropped.jpg", { type: "image/png" }));
-        profileImageData.append("profile_image", file);
 
         try {
             setLoading(true);
-            let responseImage = undefined;
             let submitImage = '';
             if (result !== null) {
-                responseImage = await profileImageService.addBusinessProfileImage(profileImageData);
-                submitImage = responseImage.data.data
+                submitImage = await profileImageService.addBusinessProfileImage(file)
             }
             try {
                 businessHour.map((item, i) => {
                     item.open_hour = start[i];
                     item.close_hour = end[i];
                 })
+                console.log('submit business profile img', submitImage);
                 const response = await profileService.addBusinessProfile({
                     account_id: `${authRed.account_id}`,
                     category_id: `${formData.categoryId}`,

@@ -46,23 +46,23 @@ export const ProfileService = ({ doPost, doGet }) => {
    return { doGetNonBusinessProfile, doGetBusinessProfile, addNonBusinessProfile, addBusinessProfile };
 }
 
-export const ProfileImageService = ({ doPost, doGet }) => {
-   const addNonBusinessProfileImage = async (image) => {
+export const ProfileImageService = ({ doStoreFile }) => {
+   const addNonBusinessProfileImage = async (file) => {
       try {
-         return await doPost({
-            url: '/non-business-profile/add/profile-image',
-            data: image
+         return await doStoreFile({
+            url: '/profile/non-business-profile',
+            data: file
          });
       } catch (err) {
          throw err;
       }
    }
 
-   const addBusinessProfileImage = async (image) => {
+   const addBusinessProfileImage = async (file) => {
       try {
-         return await doPost({
-            url: '/business-profile/add/profile-image',
-            data: image
+         return await doStoreFile({
+            url: '/profile/business-profile',
+            data: file
          });
       } catch (err) {
          throw err;

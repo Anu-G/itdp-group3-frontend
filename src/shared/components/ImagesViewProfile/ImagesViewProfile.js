@@ -17,10 +17,10 @@ export const ImagesViewTimeline = ({link}) => {
     return (
       <div>
           <div className='img-tl-ctn'>
-          {link[0].split(".").pop().toUpperCase() === "MP4" || link[0].split(".").pop().toUpperCase() === "MOV" || 
-              link[0].split(".").pop().toUpperCase() === "WMV" || link[0].split(".").pop().toUpperCase() === "FLV" || 
-              link[0].split(".").pop().toUpperCase() === "AVI" || link[0].split(".").pop().toUpperCase() === "WebM" || 
-              link[0].split(".").pop().toUpperCase() === "AVCHD" || link[0].split(".").pop().toUpperCase() === "MKV" ? 
+          {link[0].toUpperCase().includes("MP4") || link[0].toUpperCase().includes("MOV") || 
+           link[0].toUpperCase().includes("WMV") || link[0].toUpperCase().includes("FLV") || 
+           link[0].toUpperCase().includes("AVI") || link[0].toUpperCase().includes("WebM") || 
+           link[0].toUpperCase().includes("AVCHD") || link[0].toUpperCase().includes("MKV") ? 
                  <div className="h_iframe-sl">
                    <iframe src={link} frameBorder="0" allowFullScreen sandbox=""></iframe>
                  </div>
@@ -60,10 +60,10 @@ export const ImagesViewTimelineMany = ({links}) => {
       {links.map((link, index)=>{
         return(
           <div className={slideIndex === index + 1 ? "slide active-anim" : "slide"} key={index}>
-            {link.split(".").pop().toUpperCase() === "MP4" || link.split(".").pop().toUpperCase() === "MOV" || 
-             link.split(".").pop().toUpperCase() === "WMV" || link.split(".").pop().toUpperCase() === "FLV" || 
-             link.split(".").pop().toUpperCase() === "AVI" || link.split(".").pop().toUpperCase() === "WebM" || 
-             link.split(".").pop().toUpperCase() === "AVCHD" || link.split(".").pop().toUpperCase() === "MKV" ? 
+            {link.toUpperCase().includes("MP4") || link.toUpperCase().includes("MOV") || 
+             link.toUpperCase().includes("WMV") || link.toUpperCase().includes("FLV") || 
+             link.toUpperCase().includes("AVI") || link.toUpperCase().includes("WebM") || 
+             link.toUpperCase().includes("AVCHD") || link.toUpperCase().includes("MKV") ? 
                 <div className="h_iframe">
                   <iframe src={link} frameBorder="0" allowFullScreen sandbox=""></iframe>
                 </div>
