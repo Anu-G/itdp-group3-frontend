@@ -1,0 +1,264 @@
+/* basic styles */
+.skeleton {
+    background: #ddd;
+    overflow: hidden;
+    margin: 10px 0;
+    border-radius: 4px;
+  }
+
+  .skeleton.tl-avatar-small {
+    width: 60px;
+    height: 60px;
+    border-radius: 60%;
+  }
+
+  .skeleton.tl-name{
+   height: 26px;
+  }
+
+  .skeleton.tl-loc{
+    height: 18px;
+}
+  
+  .skeleton.tl-option-btn{
+    width: 28px;
+    height: 32px;
+  }
+
+  .skeleton.tl-caption{
+    height: 24px;
+  }
+
+  .skeleton.tl-img-view{
+    min-height: 360px;
+  }
+
+  .skeleton.tl-comment-btn{
+    height: 28px;
+    width: 28px;
+  }
+
+  .skeleton.tl-time-date{
+    height: 18px;
+    width: 200px;
+  }
+
+  .skeleton.profile-avatar{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+  }
+
+  .skeleton.profile-display-name{
+    height: 32px;
+    width: 300px;
+  }
+
+  .skeleton.profile-isopen{
+    height: 26px;
+    width: 100px;
+  }
+
+  .skeleton.profile-category-name{
+    height: 26px;
+    width: 200px;
+  }
+
+  .skeleton.profile-today-open-hour{
+    height: 24px;
+    width: 250px;
+  }
+
+  .skeleton.profile-open-close-hour{
+    height: 26px;
+    width: 300px;
+  }
+
+  .skeleton.profile-bio{
+    height: 24px;
+    width: 600px;
+  }
+
+  .skeleton.button-sm{
+    height: 40px;
+    width: 124px;
+  }
+
+  .skeleton-wrapper {
+    margin: 20px auto;
+    padding: 10px 15px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* skeleton profile */
+  .skeleton-profile {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 30px;
+    align-items: center;
+  }
+
+  /* skeleton timeline */
+  .skeleton-timeline{
+    min-height: 100%;
+    width: 100%;
+    padding: 32px;
+    border-bottom: solid #1E2329;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-hd{
+    display: flex;
+    float: left;
+}
+
+.name-loc-ctn{
+    height: 70px;
+    width: 300px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.option-btn{
+    width: 28px;
+    height: 32px;
+    margin-left: 0px;
+    cursor: pointer;
+
+    float: right;
+}
+
+.caption-ctn{
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.bottom-btn{
+    cursor: pointer;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.bottom-ctn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.time-date{
+    cursor: default;
+}
+
+/* skeleton profile */
+.skeleton-profile{
+  color: #F4F4F4;
+  padding: 2rem;
+}
+
+.top-profile{
+  display: flex;
+  flex-direction: column;
+}
+
+.head-profile{
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.head-profile-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar-container {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  margin: 0 16px 0 0;
+}
+
+.profile-text-item{
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.profile-text-head{
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.open-hour{
+  margin-top: 4px;
+}
+
+.profile-buttons{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+/* skeleton categorize profile */
+.skeleton-categorize-page-profile{
+  color: #f4f4f4;
+  padding:2rem 0px 2rem 0px;
+}
+
+.category-label-btn{
+  width: 200px;
+}
+
+.category-label-btn-wrp{
+  width: 100%;
+  min-width: 576px;
+  display: flex;
+  flex-direction: row;
+  
+}
+
+  /* themes */
+  .skeleton-wrapper.light {
+    background: #f2f2f2;
+  }
+  .skeleton-wrapper.dark {
+    background: #444;
+  }
+  .skeleton-wrapper.dark .skeleton {
+    background: #777;
+  }
+  
+  /* animation effects */
+  .shimmer-wrapper {
+    position: absolute;
+    /* parent must be relative position & overflow hidden */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: loading 2.5s infinite;
+  }
+  .shimmer {
+    width: 50%;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    transform: skewX(-20deg);
+    box-shadow: 0 0 30px 30px rgba(255,255,255,0.2);
+  }
+  .dark .shimmer {
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 0 30px 30px rgba(255,255,255,0.05);
+  }
+  
+  @keyframes loading {
+    0% { transform: translateX(-150%) }
+    50% { transform: translateX(-60%) }
+    100% { transform: translateX(150%) }
+  }
