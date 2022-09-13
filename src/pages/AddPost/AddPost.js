@@ -10,6 +10,8 @@ import { AuthSelector } from '../../shared/selectors/Selectors';
 import { CommentColomn } from '../../shared/components/CommentColomn/CommentColomn';
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
+import { ImagesViewTimeline, ImagesViewTimelineMany } from '../../shared/components/ImagesViewProfile/ImagesViewProfile';
+import { ImagesViewAddPost, ImagesViewAddPostOne, ImageViewAddPostMany } from '../../shared/components/ImagesViewAddPost/ImagesViewAddPost';
 
 export const AddPost = ({ isOpen, togglePopup }) => {
   // state
@@ -34,9 +36,14 @@ export const AddPost = ({ isOpen, togglePopup }) => {
 
   const onSelectFile = (event) => {
     for (let i = 0; i < event.target.files.length; i++) {
-      const newImage = event.target.files[i]
-      newImage["id"] = Math.random()
-      setFileObj((prevState) => [...prevState, newImage])
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[i])
+      reader.addEventListener('load', () => {
+        setFileObj((prevState) => [...prevState, reader.result])
+      })
+      // const newImage = event.target.files[i]
+      // newImage["id"] = Math.random()
+      // setFileObj((prevState) => [...prevState, reader.result])
     }
   }
 
@@ -58,12 +65,14 @@ export const AddPost = ({ isOpen, togglePopup }) => {
           setSuccess(true);
         }
       } catch (err) {
+        console.error(err);
         setPanic(prevState => ({
           ...prevState,
           isPanic: true, errMsg: AppError(err)
         }));
       }
     } catch (err) {
+      console.error(err);
       setPanic(prevState => ({
         ...prevState,
         isPanic: true, errMsg: AppError(err)
@@ -89,6 +98,16 @@ export const AddPost = ({ isOpen, togglePopup }) => {
     }));
   }
 
+  const handleDelete = (index) => {
+    if (fileObj.length == 1) {
+      setFileObj(prevState => [])
+    } else {
+      const holdFileObjFront = fileObj.slice(0, index - 1);
+      const holdFileObjBack = fileObj.slice(index, fileObj.length)
+      setFileObj(prevState => [...holdFileObjFront, ...holdFileObjBack])
+    }
+  }
+
   return (
     <>
       {isOpen &&
@@ -102,10 +121,18 @@ export const AddPost = ({ isOpen, togglePopup }) => {
               <Title3White title={"Add Photos/Videos"} />
               <div className='form'>
                 <div className='add-photo-video-form'>
-                  <div className='file-input-card'>
-                    <input multiple type="file" accept='image/*,video/*' ref={inputRef} style={{ display: "none" }} onChange={onSelectFile} name="fileName" />
-                    <button onClick={triggerFileSelectPopup} style={{ borderRadius: "8px" }}>Choose Image</button>
-                  </div>
+                  {fileObj.length > 0 ?
+                    <div className='file-input-card'>
+                      {fileObj.length !== 1
+                        ? <ImageViewAddPostMany links={fileObj} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />
+                        : <ImagesViewAddPostOne link={fileObj} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />}
+                    </div>
+                    :
+                    <div className='file-input-card'>
+                      <input multiple type="file" accept='image/*,video/*' ref={inputRef} style={{ display: "none" }} onChange={onSelectFile} name="fileName" />
+                      <button onClick={triggerFileSelectPopup} style={{ borderRadius: "8px" }}>Choose Image</button>
+                    </div>
+                  }
                 </div>
 
                 <div className='caption-form'>

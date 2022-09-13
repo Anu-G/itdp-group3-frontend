@@ -20,7 +20,7 @@ export const NonBusinessProfile = () => {
 
    // service
    const { profileService } = UseDep()
-   const {accId} = useParams();
+   const { accId } = useParams();
    const authRed = useSelector(AuthSelector)
    const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ export const NonBusinessProfile = () => {
       try {
          setLoading(true);
          const response = await profileService.doGetNonBusinessProfile({
-            account_id: `${accId}`
+            account_id: `${authRed.account_id}`
          })
 
          setProfile(prevState => ({
