@@ -74,6 +74,22 @@ export const SettingsAccount = () => {
     const { settingAccountService } = UseDep();
     const authRed = useSelector(AuthSelector)
 
+    useEffect(() => {
+        (async _ => {
+            try {
+                let response = await settingAccountService.doGetDetailAccount({
+                    account_id: `${authRed.account_id}`
+                })
+                if (response.email !== "") {
+                    setEmail(response.data.data.email)
+                    setPhoneNumber(response.data.data.phone_number)
+                }
+            } catch (err) {
+                AppError(err)
+            }
+        })()
+    }, [])
+
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {

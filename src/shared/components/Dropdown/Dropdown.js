@@ -12,10 +12,9 @@ export const CustomDropdown = ({ label, items, locked, handleChange }) => {
     const [value, setValue] = useState(label);
     const [active, setActive] = useState(false)
 
-    console.log(label);
     useEffect(() => {
-        setValue(label)
         if (label.toLowerCase().includes("select") === false) {
+            setValue(label)
             handleChange(label)
         }
     }, [label])
