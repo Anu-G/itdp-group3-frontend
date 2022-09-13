@@ -46,15 +46,6 @@ const ApiFactory = (client) => {
          const storageRef = ref(storage, `toktok-dev${url}/${fileName}.${fileExt}`)
          const uploadTask = uploadBytesResumable(storageRef, data)
 
-         uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-               console.log(snapshot);
-            }, (err) => {
-               console.log(err);
-            }
-         )
-
          await uploadTask
          let imgUrl = await getDownloadURL(uploadTask.snapshot.ref)
 

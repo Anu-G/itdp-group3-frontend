@@ -14,7 +14,7 @@ export const TimelinePage = ({ categoryId = null }) => {
   const [timelines, setTimelines] = useState([])
   const navigate = useNavigate();
   const authRed = useSelector(AuthSelector);
-  const [refresh,setRefresh] = useState(false)
+  const [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
     if (categoryId == null) {
@@ -22,7 +22,7 @@ export const TimelinePage = ({ categoryId = null }) => {
     } else {
       getTimelineByCategory()
     }
-  }, [categoryId,refresh])
+  }, [categoryId, refresh])
 
   // service
   const { timelineService } = UseDep()
@@ -72,6 +72,28 @@ export const TimelinePage = ({ categoryId = null }) => {
     }
   }
 
+  const handleComment = async (detailComment) => {
+    try {
+      setLoading(true)
+      const response = await timelineService.doPostComment({
+        feed_id: detailComment.feedId,
+        comment_fill: detailComment.comment
+      })
+      if (response.data.data !== null) {
+        getTimeline()
+      }
+    } catch (err) {
+      if (AppErrorAuth(err)) {
+        setPanic(prevState => ({
+          ...prevState,
+          isPanic: true, errMsg: AppErrorAuth(err)
+        }));
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
   // screen
   const [isLoading, setLoading] = useState(false);
   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
@@ -106,18 +128,20 @@ export const TimelinePage = ({ categoryId = null }) => {
               <TimelineCard
                 avatar={post.avatar}
                 caption={post.caption_post}
-                comments={post.detail_comments}
+                comments={post.detail_comment}
                 date={`${date}/${month}/${year}`}
                 links={post.detail_media_feed}
                 name={post.display_name}
                 place={post.place}
                 time={`${hour}:${minutes}`}
                 key={post.i}
-                postId={post.post_id}
                 postLikes={post.total_like}
                 setRefresh={setRefresh}
                 accId={post.account_id}
-                handleClickName={handleClickName} />
+                handleClickName={handleClickName}
+                feedId={post.post_id}
+                handleComment={handleComment}
+              />
             )
           })}
         </div>

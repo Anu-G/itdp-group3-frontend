@@ -75,6 +75,7 @@ export const SettingsNonBusinessProfile = () => {
       profileBio: "",
       displayName: ""
    });
+   const [existing, setExisting] = useState(false)
    const [charLength, setCharLength] = useState(0);
    const maxLength = 150;
 
@@ -90,6 +91,35 @@ export const SettingsNonBusinessProfile = () => {
          ...prevState,
          displayName: authRed.userName
       }));
+
+      (async _ => {
+         try {
+            const response = await profileService.doGetNonBusinessProfile({
+               account_id: `${authRed.account_id}`
+            })
+
+            if (response.data.data.non_business_profile.display_name != "") {
+               setExisting(true)
+
+               setProfileImage(prevState => ({
+                  ...prevState,
+                  background: `url(${response.data.data.non_business_profile.profile_image})`,
+                  backgroundSize: "cover"
+               }))
+
+               setResult(response.data.data.non_business_profile.profile_image)
+
+               setFormData(prevState => ({
+                  ...prevState,
+                  profileBio: response.data.data.non_business_profile.profile_bio,
+                  displayName: response.data.data.non_business_profile.display_name,
+               }))
+            }
+         } catch (err) {
+            console.log(err);
+            AppError(err)
+         }
+      })()
    }, []);
 
    const onChangeBio = (event) => {
@@ -111,23 +141,36 @@ export const SettingsNonBusinessProfile = () => {
    const authRed = useSelector(AuthSelector);
 
    const saveResponse = async _ => {
-      let file = await fetch(result).then(r => r.blob()).then(blobFile => new File([blobFile], "imageCropped.jpg", { type: "image/png" }));
-
       try {
          setLoading(true);
          let submitImage = '';
-         if (result !== null) {
+         if (result.toLowerCase().includes("firebasestorage") === false) {
+            let file = await fetch(result).then(r => r.blob()).then(blobFile => new File([blobFile], "imageCropped.jpg", { type: "image/png" }));
             submitImage = await profileImageService.addNonBusinessProfileImage(file);
+         } else {
+            submitImage = result
          }
          try {
-            const response = await profileService.addNonBusinessProfile({
-               account_id: `${authRed.account_id}`,
-               profile_image: submitImage,
-               profile_bio: formData.profileBio,
-               display_name: formData.displayName
-            });
-            if (response.status === 200) {
-               setSuccess(true);
+            if (existing) {
+               const response = await profileService.updateNonBusinessProfile({
+                  account_id: `${authRed.account_id}`,
+                  profile_image: submitImage,
+                  profile_bio: formData.profileBio,
+                  display_name: formData.displayName
+               });
+               if (response.status === 200) {
+                  setSuccess(true);
+               }                  
+            } else {
+               const response = await profileService.addNonBusinessProfile({
+                  account_id: `${authRed.account_id}`,
+                  profile_image: submitImage,
+                  profile_bio: formData.profileBio,
+                  display_name: formData.displayName
+               });
+               if (response.status === 200) {
+                  setSuccess(true);
+               }   
             }
          } catch (err) {
             setPanic(prevState => ({

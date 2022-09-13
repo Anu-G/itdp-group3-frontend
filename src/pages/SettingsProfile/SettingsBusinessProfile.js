@@ -91,6 +91,7 @@ export const SettingsBusinessProfile = () => {
     const [categories, setCategories] = useState([]);
     const [formData, setFormData] = useState({
         categoryId: "",
+        categoryName: "",
         address: "",
         profileBio: "",
         gmapsLink: "",
@@ -106,12 +107,15 @@ export const SettingsBusinessProfile = () => {
     const maxAddressLen = 250;
     const [start, setStart] = useState(Array.from({ length: 7 }, (v, i) => ''));
     const [end, setEnd] = useState(Array.from({ length: 7 }, (v, i) => ''));
+    const [existing, setExisting] = useState(false)
 
     useEffect(_ => {
         let newOpenHour = [...businessHour];
         checked.map((val, key) => {
             if (val) {
-                newOpenHour[key] = { day: `${key + 1}`, open_hour: '00:00', close_hour: '00:00' };
+                if (newOpenHour[key].day === '') {
+                    newOpenHour[key] = { day: `${key + 1}`, open_hour: '00:00', close_hour: '00:00' };                    
+                }
                 // if open != '', set open + close
                 handleChangeDropDownStart()
             } else if (!val) {
@@ -212,11 +216,6 @@ export const SettingsBusinessProfile = () => {
     const authRed = useSelector(AuthSelector);
 
     useEffect(_ => {
-        setFormData(prevState => ({
-            ...prevState,
-            displayName: authRed.userName
-        }));
-
         (async _ => {
             try {
                 const response = await categoryService.doGetCategories()
@@ -227,36 +226,119 @@ export const SettingsBusinessProfile = () => {
                 AppError(err);
             }
         })();
+
+        (async _ => {
+            try {
+                const response = await profileService.doGetBusinessProfile({
+                    account_id: `${authRed.account_id}`
+                })
+
+                if (response.data.data.business_profile.display_name !== "") {
+                    setExisting(true)
+
+                    setProfileImage(prevState => ({
+                        ...prevState,
+                        background: `url(${response.data.data.business_profile.profile_image})`,
+                        backgroundSize: "cover"
+                    }));
+    
+                    setResult(response.data.data.business_profile.profile_image)
+            
+                    setFormData(prevState => ({
+                        ...prevState,
+                        address: response.data.data.business_profile.address,
+                        profileBio: response.data.data.business_profile.profile_bio,
+                        gmapsLink: response.data.data.business_profile.gmaps_link,
+                        displayName: response.data.data.business_profile.display_name,
+                        categoryName: response.data.data.category_name
+                    }))
+    
+                    if (response.data.data.business_profile.business_links) {
+                        let businessLinkTemp = [...formData.businessLinks]
+                        let responseBusinessLink = response.data.data.business_profile.business_links
+                        for (let i = 0; i < businessLinkTemp.length; i++) {
+                            let index = businessLinkTemp.map(prop => prop.label).indexOf('')
+                            if (index !== -1 && i < responseBusinessLink.length) {
+                                businessLinkTemp[index].label = responseBusinessLink[i].label
+                                businessLinkTemp[index].link = responseBusinessLink[i].link
+                            }
+                        }
+                        setFormData(prevState => ({
+                            ...prevState,
+                            businessLinks: businessLinkTemp
+                        }));
+                    }
+
+                    let businessHourTemp = response.data.data.business_profile.business_hours
+                    let newCheck = [...checked];
+                    let newOpenHour = [...businessHour];
+                    let newStart = [...start];
+                    let newEnd = [...end]
+                    for (let i = 0; i < businessHourTemp.length; i++) {
+                        let day = businessHourTemp[i].day
+                        newCheck[day-1] = !newCheck[day-1];
+                        newOpenHour[day-1] = { day: `${day}`, open_hour: businessHourTemp[i].open_hour, close_hour: businessHourTemp[i].close_hour };  
+                        newStart[day-1] = businessHourTemp[i].open_hour
+                        newEnd[day-1] = businessHourTemp[i].close_hour
+
+                        setChecked(newCheck);  
+                        setBusinessHour(newOpenHour) 
+                        setStart(newStart);    
+                        setEnd(newEnd)
+                    }
+                }
+            } catch (err) {
+                console.log(err);
+                AppError(err)
+            }
+        })()
     }, []);
 
     const saveResponse = async _ => {
-        let file = await fetch(result).then(r => r.blob()).then(blobFile => new File([blobFile], "imageCropped.jpg", { type: "image/png" }));
-
         try {
             setLoading(true);
             let submitImage = '';
-            if (result !== null) {
+            if (result.toLowerCase().includes("firebasestorage") === false) {
+                let file = await fetch(result).then(r => r.blob()).then(blobFile => new File([blobFile], "imageCropped.jpg", { type: "image/png" }));
                 submitImage = await profileImageService.addBusinessProfileImage(file)
+            } else {
+                submitImage = result
             }
             try {
                 businessHour.map((item, i) => {
                     item.open_hour = start[i];
                     item.close_hour = end[i];
                 })
-                console.log('submit business profile img', submitImage);
-                const response = await profileService.addBusinessProfile({
-                    account_id: `${authRed.account_id}`,
-                    category_id: `${formData.categoryId}`,
-                    address: formData.address,
-                    profile_image: submitImage,
-                    profile_bio: formData.profileBio,
-                    gmaps_link: formData.gmapsLink,
-                    display_name: formData.displayName,
-                    business_hours: businessHour.filter(val => val.day !== ''),
-                    business_links: formData.businessLinks.filter(val => val.label !== '')
-                });
-                if (response.status === 200) {
-                    setSuccess(true);
+                if (existing) {
+                    const response = await profileService.updateBusinessProfile({
+                        account_id: `${authRed.account_id}`,
+                        category_id: `${formData.categoryId}`,
+                        address: formData.address,
+                        profile_image: submitImage,
+                        profile_bio: formData.profileBio,
+                        gmaps_link: formData.gmapsLink,
+                        display_name: formData.displayName,
+                        business_hours: businessHour.filter(val => val.day !== ''),
+                        business_links: formData.businessLinks.filter(val => val.label !== '')
+                    });                        
+                    if (response.status === 200) {
+                        setSuccess(true);
+                    }    
+                } else {
+                    const response = await profileService.addBusinessProfile({
+                        account_id: `${authRed.account_id}`,
+                        category_id: `${formData.categoryId}`,
+                        address: formData.address,
+                        profile_image: submitImage,
+                        profile_bio: formData.profileBio,
+                        gmaps_link: formData.gmapsLink,
+                        display_name: formData.displayName,
+                        business_hours: businessHour.filter(val => val.day !== ''),
+                        business_links: formData.businessLinks.filter(val => val.label !== '')
+                    });    
+                    if (response.status === 200) {
+                        setSuccess(true);
+                    }
                 }
             } catch (err) {
                 setPanic(prevState => ({
@@ -324,14 +406,18 @@ export const SettingsBusinessProfile = () => {
                     <div className='settings-category'>
                         <Title3White title={"Category:"} />
                         <span>
-                            <CustomDropdown label={'Select Category'} items={categories.map(val => val.category_names)} locked={false} handleChange={handleChangeCategory} />
+                            {formData.categoryName != "" ? 
+                                <CustomDropdown label={formData.categoryName} items={categories.map(val => val.category_names)} locked={false} handleChange={handleChangeCategory} />
+                                :
+                                <CustomDropdown label={'Select Category'} items={categories.map(val => val.category_names)} locked={false} handleChange={handleChangeCategory} />
+                            }
                         </span>
                     </div>
 
                     <div className='open-hours'>
                         <Title3White title={"Open Hours:"} />
                         <div className='open-hours-day'>
-                            {OpenDays.map((day, i) => <CheckBox label={day} items={OpenHours} valueCB={checked[i]} onChangeCB={e => handleOnChecked(i)} handleChangeStart={e => handleChangeDropDownStart(i, e)} handleChangeEnd={e => handleChangeDropDownEnd(i, e)} />)}
+                            {OpenDays.map((day, i) => <CheckBox label={day} items={OpenHours} valueCB={checked[i]} onChangeCB={e => handleOnChecked(i)} handleChangeStart={e => handleChangeDropDownStart(i, e)} handleChangeEnd={e => handleChangeDropDownEnd(i, e)} openHourStart={`${start[i]}`} closeHourStart={`${end[i]}`}/>)}
                         </div>
                     </div>
 

@@ -18,7 +18,7 @@ import { AuthSelector } from '../../shared/selectors/Selectors'
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, postId, postLikes, setRefresh, accId, handleClickName }) => {
+export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment, postLikes, setRefresh, accId, handleClickName }) => {
   // state
   const maxLength = 280
   const [isActive, setIsActive] = useState(false)
@@ -26,7 +26,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   const [comment, setComment] = useState('')
   const [isButtonSendActive, setIsButtonSendActive] = useState(false)
   const [readMore, setReadMore] = useState(true)
-  const {timelineService} = UseDep();
+  const { timelineService } = UseDep();
   const authRed = useSelector(AuthSelector)
 
   useEffect(() => {
@@ -52,25 +52,30 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   }
 
   const handleOnClickSend = () => {
-    console.log('ceritanya send')
+    handleComment({
+      feedId: feedId,
+      comment: comment
+    })
+    setComment('')
+    // console.log('ceritanya send')
   }
 
   const handleLike = async () => {
     try {
       if (isLiked) {
         await timelineService.doDeleteTimelineLike({
-          "account_id":authRed.account_id,
-          "feed_id":postId
+          "account_id": authRed.account_id,
+          "feed_id": feedId
         })
-        setIsLiked(prevState=>false)
-        setRefresh(prevState=>!prevState)
+        setIsLiked(prevState => false)
+        setRefresh(prevState => !prevState)
       } else {
         await timelineService.doPostTimelineLike({
-          "account_id":authRed.account_id,
-          "feed_id":postId
+          "account_id": authRed.account_id,
+          "feed_id": feedId
         })
-        setIsLiked(prevState=>true)
-        setRefresh(prevState=>!prevState)
+        setIsLiked(prevState => true)
+        setRefresh(prevState => !prevState)
       }
     } catch (e) {
       console.log(e);
@@ -130,7 +135,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
               </div>
             </div>
 
-            <div className='bottom-btn' onClick={()=>handleLike()}>
+            <div className='bottom-btn' onClick={() => handleLike()}>
 
               {!isLiked ? <FontAwesomeIcon icon="fa-regular fa-heart" style={{ height: '28px', color: '#F4F4F4' }} /> : <FontAwesomeIcon icon="heart" style={{ height: '28px', color: '#F4F4F4' }} />}
 
@@ -146,10 +151,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
         </div>
 
         <div className='comment-ssn'>
-          
-
-        {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnclickSend={handleOnClickSend} maxLength={280}/> : ''}
-
+          {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnClickSend={handleOnClickSend} maxLength={280} /> : ''}
         </div>
 
       </div>

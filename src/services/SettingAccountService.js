@@ -43,7 +43,18 @@ const SettingAccountService = ({ doPut,doPost }) => {
         }
     }
 
-    return { doUpdate, doActivateBusiness, doGetAccountProduct,doGetAccountPost};
+    const doGetDetailAccount = async (accountId) => {
+        try {
+            return await doPost({
+                url: '/account/get-account',
+                data: accountId
+            });
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    return { doUpdate, doActivateBusiness, doGetAccountProduct, doGetAccountPost, doGetDetailAccount};
 }
 
 export default SettingAccountService;

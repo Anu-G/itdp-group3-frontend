@@ -21,6 +21,17 @@ export const ProfileService = ({ doPost, doGet }) => {
       }
    }
 
+   const updateNonBusinessProfile = async (account) => {
+      try {
+         return await doPost({
+            url: '/non-business-profile/update/profile',
+            data: account
+         });
+      } catch (err) {
+         throw err;
+      }
+   }
+
    const doGetBusinessProfile = async (user) => {
       try {
          return await doPost({
@@ -43,7 +54,18 @@ export const ProfileService = ({ doPost, doGet }) => {
       }
    }
 
-   return { doGetNonBusinessProfile, doGetBusinessProfile, addNonBusinessProfile, addBusinessProfile };
+   const updateBusinessProfile = async (account) => {
+      try {
+         return await doPost({
+            url: '/business-profile/update/profile',
+            data: account
+         });
+      } catch (err) {
+         throw err;
+      }
+   }
+
+   return { doGetNonBusinessProfile, doGetBusinessProfile, updateNonBusinessProfile, addNonBusinessProfile, addBusinessProfile, updateBusinessProfile };
 }
 
 export const ProfileImageService = ({ doStoreFile }) => {
