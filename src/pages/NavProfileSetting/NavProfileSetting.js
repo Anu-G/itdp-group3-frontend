@@ -100,7 +100,7 @@ const NavProfileSetting = _ => {
 
   return (
     <>
-      <HeaderBar/>
+      <HeaderBar />
       <div className='content-spc'>
         <Navbar title={"Settings"} navItems={authRed.role_id === 2 ? navItemsBusinessProfile : navItemsNonBusinessProfile} buttons={buttons} />
         <div className='inner-content'>
@@ -108,7 +108,7 @@ const NavProfileSetting = _ => {
         </div>
 
       </div>
-      
+
 
       {isLoading && <LoadingScreen />}
       {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}

@@ -5,10 +5,16 @@ import { UseDep } from '../../shared/context/ContextDep'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { AppErrorAuth } from '../../utils/AppErrors'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
+import { useNavigate } from 'react-router'
+import { AuthSelector } from '../../shared/selectors/Selectors'
+import { useSelector } from 'react-redux'
 
 export const TimelinePage = ({ categoryId = null }) => {
   // state
   const [timelines, setTimelines] = useState([])
+  const navigate = useNavigate();
+  const authRed = useSelector(AuthSelector);
+  const [refresh,setRefresh] = useState(false)
 
   useEffect(() => {
     if (categoryId == null) {
@@ -16,7 +22,7 @@ export const TimelinePage = ({ categoryId = null }) => {
     } else {
       getTimelineByCategory()
     }
-  }, [categoryId])
+  }, [categoryId,refresh])
 
   // service
   const { timelineService } = UseDep()
@@ -77,6 +83,14 @@ export const TimelinePage = ({ categoryId = null }) => {
     }));
   }
 
+  const handleClickName = (accountId) => {
+    if (accountId == authRed.account_id) {
+      navigate('/profile')
+    } else {
+      navigate(`/feeds/${accountId}`)
+    }
+  }
+
   return (
     <>
       <div className='tl-bg'>
@@ -98,7 +112,12 @@ export const TimelinePage = ({ categoryId = null }) => {
                 name={post.display_name}
                 place={post.place}
                 time={`${hour}:${minutes}`}
-                key={post.i} />
+                key={post.i}
+                postId={post.post_id}
+                postLikes={post.total_like}
+                setRefresh={setRefresh}
+                accId={post.account_id}
+                handleClickName={handleClickName} />
             )
           })}
         </div>

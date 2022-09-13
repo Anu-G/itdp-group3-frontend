@@ -8,7 +8,7 @@ import { UseDep } from '../../shared/context/ContextDep'
 import { AppErrorNoProfile } from '../../utils/AppErrors'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 
 export const NonBusinessProfile = () => {
    // state
@@ -20,6 +20,7 @@ export const NonBusinessProfile = () => {
 
    // service
    const { profileService } = UseDep()
+   const {accId} = useParams();
    const authRed = useSelector(AuthSelector)
    const navigate = useNavigate();
 
@@ -31,7 +32,7 @@ export const NonBusinessProfile = () => {
       try {
          setLoading(true);
          const response = await profileService.doGetNonBusinessProfile({
-            account_id: `${authRed.account_id}`
+            account_id: `${accId}`
          })
 
          setProfile(prevState => ({

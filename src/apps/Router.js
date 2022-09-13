@@ -71,6 +71,7 @@ const AppRouter = _ => {
             <Route index element={<TimelinePage />} />
             <Route path="category" element={<CategorizePageTimeline />} />
             <Route path="search" element={<Search />} />
+            <Route path=":accId" element={<BusinessProfile/>}/>
          </Route>
          <Route path="/profile" element={
             <RequireAuth>
