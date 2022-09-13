@@ -43,7 +43,18 @@ export const ProfileService = ({ doPost, doGet }) => {
       }
    }
 
-   return { doGetNonBusinessProfile, doGetBusinessProfile, addNonBusinessProfile, addBusinessProfile };
+   const updateBusinessProfile = async (account) => {
+      try {
+         return await doPost({
+            url: '/business-profile/update/profile',
+            data: account
+         });
+      } catch (err) {
+         throw err;
+      }
+   }
+
+   return { doGetNonBusinessProfile, doGetBusinessProfile, addNonBusinessProfile, addBusinessProfile, updateBusinessProfile };
 }
 
 export const ProfileImageService = ({ doStoreFile }) => {

@@ -1,5 +1,5 @@
 import './Dropdown.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -11,6 +11,14 @@ library.add(fas)
 export const CustomDropdown = ({ label, items, locked, handleChange }) => {
     const [value, setValue] = useState(label);
     const [active, setActive] = useState(false)
+
+    console.log(label);
+    useEffect(() => {
+        setValue(label)
+        if (label.toLowerCase().includes("select") === false) {
+            handleChange(label)
+        }
+    }, [label])
 
     const handleClick = (value) => {
         setValue(value);

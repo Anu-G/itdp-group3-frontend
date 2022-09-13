@@ -2,7 +2,8 @@ import { CustomDropdownSm } from '../Dropdown/Dropdown';
 import './CheckBox.css';
 
 //used only in profile.
-export const CheckBox = ({ label, items, valueCB, onChangeCB , handleChangeStart, handleChangeEnd}) => {
+export const CheckBox = ({ label, items, valueCB, onChangeCB , handleChangeStart, handleChangeEnd, openHourStart, closeHourStart}) => {
+    console.log(openHourStart);
     return (
         <div className={`custom-checkbox mt-2 ${valueCB ? "" : "custom-checkbox-inactive"}`}>
 
@@ -24,11 +25,19 @@ export const CheckBox = ({ label, items, valueCB, onChangeCB , handleChangeStart
 
             </label>
             <div className='dropdown-wrapper'>
-                <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeStart}/>
+                {openHourStart !== '' ? 
+                    <CustomDropdownSm label={`${openHourStart}`} items={items} locked={!valueCB} handleChange={handleChangeStart}/>
+                :
+                    <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeStart}/>
+                }
 
                 <span className='px-3'>to</span>
 
-                <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeEnd}/>
+                {closeHourStart ? 
+                    <CustomDropdownSm label={closeHourStart} items={items} locked={!valueCB} handleChange={handleChangeEnd}/>
+                :
+                    <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeEnd}/>
+                }
             </div>
         </div>
     )
