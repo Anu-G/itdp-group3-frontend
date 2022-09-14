@@ -36,14 +36,14 @@ export const AddPost = ({ isOpen, togglePopup }) => {
 
   const onSelectFile = (event) => {
     for (let i = 0; i < event.target.files.length; i++) {
+      const newImage = event.target.files[i];
+      newImage["id"] = Math.random();
       const reader = new FileReader();
-      reader.readAsDataURL(event.target.files[i])
+      reader.readAsDataURL(newImage)
       reader.addEventListener('load', () => {
-        setFileObj((prevState) => [...prevState, reader.result])
+        setFileObj((prevState) => [...prevState, { file: newImage, imgPreview: reader.result }])
       })
-      // const newImage = event.target.files[i]
-      // newImage["id"] = Math.random()
-      // setFileObj((prevState) => [...prevState, reader.result])
+
     }
   }
 
@@ -54,7 +54,7 @@ export const AddPost = ({ isOpen, togglePopup }) => {
   const saveResponse = async _ => {
     try {
       setLoading(true);
-      const responseImage = await postImageService.doPostImage(fileObj);
+      const responseImage = await postImageService.doPostImage(fileObj.map(data => data.file));
       try {
         const response = await postService.doPostData({
           account_id: authRed.account_id,
@@ -124,8 +124,8 @@ export const AddPost = ({ isOpen, togglePopup }) => {
                   {fileObj.length > 0 ?
                     <div className='file-input-card'>
                       {fileObj.length !== 1
-                        ? <ImageViewAddPostMany links={fileObj} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />
-                        : <ImagesViewAddPostOne link={fileObj} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />}
+                        ? <ImageViewAddPostMany links={fileObj.map(data => data.imgPreview)} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />
+                        : <ImagesViewAddPostOne link={fileObj.map(data => data.imgPreview)} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />}
                     </div>
                     :
                     <div className='file-input-card'>

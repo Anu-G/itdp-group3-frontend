@@ -119,7 +119,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
         </div>
 
         <>
-          <div className='img-view-ctn' onClick={handleDoubleClickImage}>
+          <div className='img-view-ctn'>
             {Array.isArray(links) && links.length !== 1 ? <ImagesViewTimelineMany links={links} /> : <ImagesViewTimeline link={links} />}
           </div>
         </>
