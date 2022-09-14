@@ -101,7 +101,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
               </div>
               : ''}
 
-            <AvatarSmall link={avatar} />
+            <AvatarSmall link={avatar} accId={accId} handleClick={handleClickName} />
             <div className='name-loc-ctn'>
               <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} />
             </div>

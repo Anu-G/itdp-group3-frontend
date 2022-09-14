@@ -24,10 +24,16 @@ export const OurLinks = ({ handleX, links }) => {
                 <div className='links-item'>
                     {
                         links.map((link) => {
+                            const regexp = new RegExp('https://')
+                            let linked = ''
+                            if (!regexp.test(link.link)) {
+                                linked = 'https://'+link.link;
+                            } else {
+                                linked = link.link
+                            }
                             return (
                                 <div>
-                                    <a href={link.link} target='_blank'><ButtonComponent label={link.label} key={link.key} /></a>
-
+                                    <a href={linked} target='_blank'><ButtonComponent label={link.label} key={link.key} /></a>
                                 </div>
                             )
                         })

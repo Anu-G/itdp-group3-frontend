@@ -17,7 +17,10 @@ export const ImagesViewAddPostOne = ({ link, handleDelete, triggerFileSelectPopu
   return (
     <div className='container-slider'>
       <div className='img-tl-ctn'>
-        {link[0].includes("video")
+        {link[0].toUpperCase().includes(".MP4") || link[0].toUpperCase().includes(".MOV") ||
+          link[0].toUpperCase().includes(".WMV") || link[0].toUpperCase().includes(".FLV") ||
+          link[0].toUpperCase().includes(".AVI") || link[0].toUpperCase().includes(".WebM") ||
+          link[0].toUpperCase().includes(".AVCHD") || link[0].toUpperCase().includes(".MKV")
           ? <video width="100%" height="344" controls>
             <source src={link[0]} type="video/mp4" />
           </video>
@@ -81,7 +84,10 @@ export const ImageViewAddPostMany = ({ links, handleDelete, triggerFileSelectPop
       {links.map((link, index) => {
         return (
           <div className={slideIndex === index + 1 ? "slide active-anim" : "slide"} key={index}>
-            {link.includes("video")
+            {link.toUpperCase().includes(".MP4") || link.toUpperCase().includes(".MOV") ||
+                link.toUpperCase().includes(".WMV") || link.toUpperCase().includes(".FLV") ||
+                link.toUpperCase().includes(".AVI") || link.toUpperCase().includes(".WebM") ||
+                link.toUpperCase().includes(".AVCHD") || link.toUpperCase().includes(".MKV")
               ? <video width="100%" height="344" controls>
                 <source src={link} type="video/mp4" />
               </video>

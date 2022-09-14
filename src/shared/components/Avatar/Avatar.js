@@ -11,10 +11,10 @@ export const Avatar = ({link}) => {
   )
 }
 
-export const AvatarSmall = ({link}) => {
+export const AvatarSmall = ({link, accId, handleClick}) => {
   return (
     <>
-        <div className='avatar-ctn small'>
+        <div className='avatar-ctn small' onClick={()=>handleClick(accId)}>
             <img className='avatar-profile' src={link}/>
         </div>
     </>

@@ -7,7 +7,14 @@ export const ImagesViewProfile = ({ link, handleClick }) => {
   return (
     <div>
       <div className='img-vw-ctn'>
-        <img className='img-vw-profile' src={link} onClick={handleClick} />
+        {link.toUpperCase().includes(".MP4") || link.toUpperCase().includes(".MOV") ||
+            link.toUpperCase().includes(".WMV") || link.toUpperCase().includes(".FLV") ||
+            link.toUpperCase().includes(".AVI") || link.toUpperCase().includes(".WebM") ||
+            link.toUpperCase().includes(".AVCHD") || link.toUpperCase().includes(".MKV") ?
+            <video className='img-vw-profile' onClick={handleClick}>
+              <source src={link} type="video/mp4" />
+            </video>
+            : <img className='img-vw-profile' src={link} onClick={handleClick}/>}
       </div>
     </div>
   )
@@ -67,7 +74,7 @@ export const ImagesViewTimelineMany = ({ links }) => {
                 <video width="100%" height="344" controls>
                   <source src={link} type="video/mp4" />
                 </video>
-                : <img src={link} />}
+                : <img className='img-vw-profile' src={link} />}
             </div>
           )
         })}
