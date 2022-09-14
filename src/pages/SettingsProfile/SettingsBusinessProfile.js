@@ -322,9 +322,13 @@ export const SettingsBusinessProfile = () => {
                     </div>
 
                     <div className='settings-category'>
+                        <div style={{paddingTop: '8px'}}>
                         <Title3White title={"Category:"} />
+
+                        </div>
                         <span>
                             <CustomDropdown label={'Select Category'} items={categories.map(val => val.category_names)} locked={false} handleChange={handleChangeCategory} />
+
                         </span>
                     </div>
 

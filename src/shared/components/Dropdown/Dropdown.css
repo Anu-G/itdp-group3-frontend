@@ -29,6 +29,10 @@
 }
 
 .dropdown-ctn{
+    /* display: block;
+    inset: 0;
+    animation: up 2s forwards; */
+
     margin-top: 4px;
     width: 100%;
     max-height: 180px;
@@ -44,6 +48,33 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
     z-index: 10;
+    box-shadow: 4px 4px 8px #1E2329;
+
+    animation: drop 0.5s forwards;
+    transition: transform 1s ease-in;
+}
+
+@keyframes drop{
+    0%{
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes up {
+    0%{
+        opacity: 1;
+        transform: translateY(0);
+
+    }
+    100%{
+        opacity: 0;
+        transform: translateY(-10%);
+    }
 }
 
 .dropdown-ctn > * {

@@ -6,8 +6,9 @@
 }
 
 .settings-account-card{
-    min-width: 464px;
-    max-width: 736px;
+    /* min-width: 464px;
+    max-width: 736px; */
+    width: 736px;
     height: 100%;
     padding: 0 2rem 2rem 2rem;
    

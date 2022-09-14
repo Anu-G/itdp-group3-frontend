@@ -1,5 +1,5 @@
 .title-2{
-    font-size: 26px;
+    font-size: 24px;
     line-height: 32px;
 }
 
@@ -8,19 +8,19 @@
 }
 
 .title-3{
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .subtitle{
-    font-size: 24px;
-}
-
-.text32 {
     font-size: 18px;
 }
 
+.text32 {
+    font-size: 14px;
+}
+
 .caption {
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .white{
@@ -47,6 +47,11 @@
     cursor: pointer;
     color: #849EB0;
     opacity: 0.8;
+}
+
+.read-more:hover{
+    text-decoration: underline;
+    transition: 0.3s ease-in-out;
 }
 
 .dark{

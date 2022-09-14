@@ -15,7 +15,7 @@
 }
 
 .button-component:hover{
-   background-color: #FEDA76;
+   background-color: #FED154;
    box-shadow: 4px 4px 8px #1E2329;
    font-weight: bolder;
 }

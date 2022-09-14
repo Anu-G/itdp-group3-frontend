@@ -46,6 +46,12 @@ export const CatalogPage = ({ }) => {
         getProducts()
     }, [])
 
+    const restring = (str) => {
+        const newStr = str.slice(0, 15);
+        newStr = newStr.concat('', '...');
+        return newStr
+    }
+
     return (
         <>
             {products.length == 0 ?
@@ -56,13 +62,22 @@ export const CatalogPage = ({ }) => {
             <div className='catalog-ctn'>
                 {products.length !== 0 && products.map(item => {
                     return (
-                        <div key={item.product_id} className='item-cell'>
-                            {item.detail_media_products
-                                ? <ImagesViewProfile link={item.detail_media_products[0]} handleClick={_ => handleFormOpen(item)} />
-                                : <ImagesViewProfile link="" handleClick={_ => handleFormOpen(item)} />
-                            }
-                            <Title3White title={item.product_name} />
-                            <Text32White text={price.format(item.price)} />
+                        <div className='item-cell-ctn'>
+                            <div key={item.product_id} className='item-cell-x'>
+                                {item.detail_media_products
+                                    ? <ImagesViewProfile link={item.detail_media_products[0]} handleClick={_ => handleFormOpen(item)} />
+                                    : <ImagesViewProfile link="" handleClick={_ => handleFormOpen(item)} />
+                                }
+
+                                <div style={{paddingRight:'4px', paddingLeft:'4px'}}>
+                                <Title3White title={item.product_name.length <  15 ? item.product_name : item.product_name.slice(0, 15).concat('', '...')} />
+                                </div>
+                                <div style={{paddingRight:'20px', paddingLeft:'20px'}}>
+
+                                <Text32White text={price.format(item.price)} />
+                                </div>
+                            </div>
+                            
                         </div>
                     )
                 })}

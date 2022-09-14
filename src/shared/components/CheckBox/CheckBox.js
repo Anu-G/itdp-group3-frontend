@@ -1,10 +1,17 @@
 import { CustomDropdownSm } from '../Dropdown/Dropdown';
 import './CheckBox.css';
+import { animated, useSpring } from 'react-spring';
 
 //used only in profile.
 export const CheckBox = ({ label, items, valueCB, onChangeCB , handleChangeStart, handleChangeEnd}) => {
+
+    const checkBoxAnimationStyle = useSpring({
+        opacity: valueCB ? "1" : '0.5'
+    })
+
     return (
-        <div className={`custom-checkbox mt-2 ${valueCB ? "" : "custom-checkbox-inactive"}`}>
+        <div 
+        className={`custom-checkbox mt-2 ${valueCB ? "" : "custom-checkbox-inactive"}`}>
 
             <label>
                 <div className='right-wrp'>
