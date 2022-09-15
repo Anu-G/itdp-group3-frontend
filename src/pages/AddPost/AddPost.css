@@ -1,9 +1,5 @@
-.wrapper{
-    position: relative;
-    width: 1440px;
-    height: 1024px;
-
-    background-color: #1E2329;
+.addpost-wrp{
+    z-index: 10;
 }
 
 .popup-box {
@@ -18,9 +14,8 @@
    
   .box {
     position: relative;
-    width: 800px;
+    width: 692px;
     margin: auto;
-    height: 820px;
     background: black;
     border-radius: 4px;
     padding: 20px;
@@ -31,19 +26,20 @@
     border-radius: 20px;
   }
    
-  .close-icon {
-    content: 'x';
+  .x-btn{
+    width: 28px;
+    height: 32px;
+    margin-left: 0px;
     cursor: pointer;
-    right: 27%;
-    top: calc(100vh - 85vh - 0px);
-    background: #3B4046;
-    border-radius: 50%;
-    line-height: 20px;
-    text-align: center;
-    border: 1px solid #999;
-    font-size: 50px;
-    color: red;
-  }
+    color: #FE5454;
+
+    float: right;
+}
+
+.x-btn:hover{
+    opacity: 0.8;
+    text-shadow: #1E2329;
+}
 
 .form{
     display: flex;
@@ -62,9 +58,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 736px;
-    height: 424px;
-    background-color: #F4F4F4;
+    width: 628px;
+    height: 344px;
     color: black;
     border-radius: 20px;
 }
@@ -72,7 +67,7 @@
 .caption-form{
     margin-top: 32px;
     margin-bottom: 32px;
-    width: 736px;
+    width: 628px;
 }
 
 .button-upload{

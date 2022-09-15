@@ -7,6 +7,7 @@
 
 .img-vw-profile{
   height: 100%;
+  max-height: 344px;
   width: 100%;
   border-radius: 20px;
   object-fit: cover;
@@ -16,7 +17,8 @@
   height: 344px;
   width: 100%;
   border-radius: 20px;
-
+  display: flex;
+  justify-content: center;
 }
 
 .img-mn-ctn{
@@ -36,6 +38,9 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .slide {
@@ -52,6 +57,9 @@
 }
 .active-anim {
   opacity: 1;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .carousel-btn{
@@ -68,6 +76,7 @@
     cursor: pointer;
 
     transition: 0.3s;
+    z-index: 2;
 }
 
 
@@ -99,6 +108,7 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  z-index: 2;
 }
 .dot {
   width: 10px;

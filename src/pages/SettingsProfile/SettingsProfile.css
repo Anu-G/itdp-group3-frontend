@@ -47,6 +47,8 @@
     display: flex;
     flex-direction: row;
     margin-top: 36px;
+    gap: 1rem;
+
 }
 
 .category-text{
@@ -136,4 +138,8 @@
 
 .address-left{
     width: 352px;
+}
+
+.category-dd{
+    position: relative;
 }

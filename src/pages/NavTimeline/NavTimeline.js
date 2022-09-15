@@ -76,14 +76,14 @@ const NavTimeline = _ => {
 
   return (
     <>
-      <HeaderBar/>
+      <HeaderBar />
       <div className='content-spc'>
         <Navbar title={"Timeline"} navItems={navItemsTimeline} buttons={buttons} />
         <div className='inner-content'>
           <Outlet />
         </div>
       </div>
-      
+
       <AddPost isOpen={openAddPost} togglePopup={togglePopup} />
 
       {isLoading && <LoadingScreen />}

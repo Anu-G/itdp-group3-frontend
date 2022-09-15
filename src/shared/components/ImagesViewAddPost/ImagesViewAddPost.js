@@ -18,7 +18,7 @@ export const ImagesViewAddPostOne = ({ link, handleDelete, triggerFileSelectPopu
     <div className='container-slider'>
       <div className='img-tl-ctn'>
         {link[0].includes("video")
-          ? <video width="100%" height="344" controls>
+          ? <video width="628" height="100%" controls>
             <source src={link[0]} type="video/mp4" />
           </video>
           : <img className='img-vw-addpost' src={link[0]} />}
@@ -82,7 +82,7 @@ export const ImageViewAddPostMany = ({ links, handleDelete, triggerFileSelectPop
         return (
           <div className={slideIndex === index + 1 ? "slide active-anim" : "slide"} key={index}>
             {link.includes("video")
-              ? <video width="100%" height="344" controls>
+              ? <video width="628" height="100%" controls>
                 <source src={link} type="video/mp4" />
               </video>
               : <img className='img-vw-addpost' src={link} />}

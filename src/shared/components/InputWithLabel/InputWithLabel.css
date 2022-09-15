@@ -12,25 +12,25 @@
 }
 
 .input-sm {
-   height: 94px;
+   height: 88px;
    width: 320px;
-   font-size: 24px;
+   font-size: 20px;
 }
 
 .input-md {
-   height: 94px;
+   height: 88px;
    width: 400px;
-   font-size: 24px;
+   font-size: 20px;
 }
 
 .input-lg {
-   height: 94px !important;
+   height: 88px !important;
    width: 484px;
-   font-size: 32px;
+   font-size: 20px;
 }
 
 .input-label {
-   font-size: 24px;
+   font-size: 20px;
    font-weight: 400;
 }
 
@@ -39,7 +39,7 @@
    height: 48px;
    border-radius: 20px;
    background-color: #f4f4f4;
-   font-size: 24px;
+   font-size: 18px;
    font-weight: 400;
    color: #3B4046;
    border: none;

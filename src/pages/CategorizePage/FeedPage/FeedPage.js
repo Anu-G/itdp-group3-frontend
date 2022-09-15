@@ -63,7 +63,7 @@ export const FeedPage = ({ }) => {
                     <Title2White title={'No Feeds Yet'} />
                 </div> : null}
 
-            <div className='catalog-ctn'>
+            {/* <div className='catalog-ctn'>
                 {feeds.length !== 0 && feeds.map(item => {
                     return (
                         <div key={item.post_id}>
@@ -73,6 +73,30 @@ export const FeedPage = ({ }) => {
                                 </div>
                             }
                         </div>
+                    )
+                })}
+            </div> */}
+
+            <div className='catalog-ctn-f ctg'>
+                {feeds.length !== 0 && feeds.map((item) => {
+                    let dt = new Date(item.created_at.replace(' ', 'T'));
+                    let date = dt.getDate()
+                    let month = dt.getMonth() + 1
+                    let year = dt.getFullYear()
+                    let hour = (dt.getHours() < 10 ? '0' : '') + dt.getHours()
+                    let minutes = (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes()
+                    
+                    return(
+                        <TimelineCard
+                            avatar={item.avatar}
+                            caption={item.caption_post}
+                            comments={item.detail_comments}
+                            date={`${date}/${month}/${year}`}
+                            links={item.detail_media_feed}
+                            name={item.display_name}
+                            place={item.place}
+                            time={`${hour}:${minutes}`}
+                            key={item.i} />
                     )
                 })}
             </div>

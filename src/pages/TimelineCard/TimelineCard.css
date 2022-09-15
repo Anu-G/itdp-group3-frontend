@@ -90,7 +90,20 @@
     float: right;
 }
 
+
+.x-btn:hover{
+    opacity: 0.8;
+    text-shadow: #1E2329;
+}
+
 .comment-ssn{
     /* padding-top: 1rem; */
     transition: 0.3s;
+}
+
+.right-btn-ctn{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 1rem;
 }

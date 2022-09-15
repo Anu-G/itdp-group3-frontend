@@ -95,11 +95,6 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
       <div className='timeline-ctn'>
         <div>
           <div className='profile-hd'>
-            {handleClick != null ?
-              <div className='x-btn' onClick={handleClick}>
-                <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
-              </div>
-              : ''}
 
             <AvatarSmall link={avatar} />
             <div className='name-loc-ctn'>
@@ -107,10 +102,20 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
             </div>
 
           </div>
-          <div className='option-btn'>
+          <div className='right-btn-ctn'>
 
-            <FontAwesomeIcon icon="fa-solid fa-ellipsis" style={{ height: '100%', color: '#f4f4f4' }} />
 
+            <div className='option-btn'>
+
+              <FontAwesomeIcon icon="fa-solid fa-ellipsis" style={{ height: '100%', color: '#f4f4f4' }} />
+
+            </div>
+
+            {handleClick != null ?
+              <div className='x-btn' onClick={handleClick}>
+                <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
+              </div>
+              : ''}
           </div>
         </div>
 

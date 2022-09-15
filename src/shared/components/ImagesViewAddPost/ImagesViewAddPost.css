@@ -8,14 +8,16 @@
 .img-vw-addpost{
     height: 100%;
     border-radius: 20px;
+    width: 628px;
+    object-fit: cover;
 }
 
 .img-tl-ctn{
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    border-radius: 20px;
-
+  height: 344px;
+  width: 100%;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .img-mn-ctn{
@@ -28,30 +30,36 @@
 }
 
 .container-slider {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 344px;
-    border-radius: 20px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  }
+  max-width: 672px;
+  height: 344px;
+  border-radius: 20px;
+  /* margin: 100px auto 0; */
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
 .slide {
-    height: 100%;
-    width: auto;
-    opacity: 0;
-    transition: opacity ease-in-out 0.4s;
-  }
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0;
+  transition: opacity ease-in-out 0.4s;
+}
 .slide img {
-    height: 100%;
-  }
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .active-anim {
-    height: 100%;
-    width: 672px;
-    opacity: 1;
-  }
+  opacity: 1;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
 
 .carousel-btn{
     background-color: transparent;
@@ -65,6 +73,9 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
+    transition: 0.3s;
+    z-index: 2;
 }
 
 

@@ -1,10 +1,17 @@
 import { CustomDropdownSm } from '../Dropdown/Dropdown';
 import './CheckBox.css';
+import { animated, useSpring } from 'react-spring';
 
 //used only in profile.
-export const CheckBox = ({ label, items, valueCB, onChangeCB , handleChangeStart, handleChangeEnd, openHourStart, closeHourStart}) => {
+export const CheckBox = ({ label, items, valueCB, onChangeCB, handleChangeStart, handleChangeEnd, openHourStart, closeHourStart }) => {
+
+    const checkBoxAnimationStyle = useSpring({
+        opacity: valueCB ? "1" : '0.5'
+    })
+
     return (
-        <div className={`custom-checkbox mt-2 ${valueCB ? "" : "custom-checkbox-inactive"}`}>
+        <div
+            className={`custom-checkbox mt-2 ${valueCB ? "" : "custom-checkbox-inactive"}`}>
 
             <label>
                 <div className='right-wrp'>
@@ -24,18 +31,18 @@ export const CheckBox = ({ label, items, valueCB, onChangeCB , handleChangeStart
 
             </label>
             <div className='dropdown-wrapper'>
-                {openHourStart !== '' ? 
-                    <CustomDropdownSm label={`${openHourStart}`} items={items} locked={!valueCB} handleChange={handleChangeStart}/>
-                :
-                    <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeStart}/>
+                {openHourStart !== '' ?
+                    <CustomDropdownSm label={`${openHourStart}`} items={items} locked={!valueCB} handleChange={handleChangeStart} />
+                    :
+                    <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeStart} />
                 }
 
                 <span className='px-3'>to</span>
 
-                {closeHourStart !== '' ? 
-                    <CustomDropdownSm label={`${closeHourStart}`} items={items} locked={!valueCB} handleChange={handleChangeEnd}/>
-                :
-                    <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeEnd}/>
+                {closeHourStart !== '' ?
+                    <CustomDropdownSm label={`${closeHourStart}`} items={items} locked={!valueCB} handleChange={handleChangeEnd} />
+                    :
+                    <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeEnd} />
                 }
             </div>
         </div>

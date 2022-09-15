@@ -21,7 +21,7 @@ export const ImagesViewTimeline = ({ link }) => {
           link[0].toUpperCase().includes(".WMV") || link[0].toUpperCase().includes(".FLV") ||
           link[0].toUpperCase().includes(".AVI") || link[0].toUpperCase().includes(".WebM") ||
           link[0].toUpperCase().includes(".AVCHD") || link[0].toUpperCase().includes(".MKV") ?
-          <video width="100%" height="344" controls>
+          <video width="628" height="100%" controls>
             <source src={link[0]} type="video/mp4" />
           </video>
           : <img className='img-vw-profile' src={link[0]} />}
@@ -64,7 +64,7 @@ export const ImagesViewTimelineMany = ({ links }) => {
                 link.toUpperCase().includes(".WMV") || link.toUpperCase().includes(".FLV") ||
                 link.toUpperCase().includes(".AVI") || link.toUpperCase().includes(".WebM") ||
                 link.toUpperCase().includes(".AVCHD") || link.toUpperCase().includes(".MKV") ?
-                <video width="100%" height="344" controls>
+                <video width="628" height="100%" controls>
                   <source src={link} type="video/mp4" />
                 </video>
                 : <img src={link} />}

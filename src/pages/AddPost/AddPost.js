@@ -111,12 +111,14 @@ export const AddPost = ({ isOpen, togglePopup }) => {
   return (
     <>
       {isOpen &&
-        <div className='wrapper'>
+        <div className='addpost-wrp'>
           <div className="popup-box">
             <div className="box">
               <div className='add-post-title'>
                 <Title2White title={"Add Post"} />
-                <span className="close-icon" onClick={togglePopup}><FontAwesomeIcon icon="fa-solid fa-xmark" style={{ width: '32px', height: '32px' }} /></span>
+                <div className='x-btn' onClick={togglePopup}>
+                  <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
+                </div>
               </div>
               <Title3White title={"Add Photos/Videos"} />
               <div className='form'>

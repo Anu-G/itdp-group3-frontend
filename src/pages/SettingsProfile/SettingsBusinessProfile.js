@@ -19,7 +19,7 @@ import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScre
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import storage from '../../shared/storage/FirebaseConfig';
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 export const SettingsBusinessProfile = () => {
     // start profile image processing
@@ -114,7 +114,7 @@ export const SettingsBusinessProfile = () => {
         checked.map((val, key) => {
             if (val) {
                 if (newOpenHour[key].day === '') {
-                    newOpenHour[key] = { day: `${key + 1}`, open_hour: '00:00', close_hour: '00:00' };                    
+                    newOpenHour[key] = { day: `${key + 1}`, open_hour: '00:00', close_hour: '00:00' };
                 }
                 // if open != '', set open + close
                 handleChangeDropDownStart()
@@ -241,9 +241,9 @@ export const SettingsBusinessProfile = () => {
                         background: `url(${response.data.data.business_profile.profile_image})`,
                         backgroundSize: "cover"
                     }));
-    
+
                     setResult(response.data.data.business_profile.profile_image)
-            
+
                     setFormData(prevState => ({
                         ...prevState,
                         address: response.data.data.business_profile.address,
@@ -252,7 +252,7 @@ export const SettingsBusinessProfile = () => {
                         displayName: response.data.data.business_profile.display_name,
                         categoryName: response.data.data.category_name
                     }))
-    
+
                     if (response.data.data.business_profile.business_links) {
                         let businessLinkTemp = [...formData.businessLinks]
                         let responseBusinessLink = response.data.data.business_profile.business_links
@@ -276,14 +276,14 @@ export const SettingsBusinessProfile = () => {
                     let newEnd = [...end]
                     for (let i = 0; i < businessHourTemp.length; i++) {
                         let day = businessHourTemp[i].day
-                        newCheck[day-1] = !newCheck[day-1];
-                        newOpenHour[day-1] = { day: `${day}`, open_hour: businessHourTemp[i].open_hour, close_hour: businessHourTemp[i].close_hour };  
-                        newStart[day-1] = businessHourTemp[i].open_hour
-                        newEnd[day-1] = businessHourTemp[i].close_hour
+                        newCheck[day - 1] = !newCheck[day - 1];
+                        newOpenHour[day - 1] = { day: `${day}`, open_hour: businessHourTemp[i].open_hour, close_hour: businessHourTemp[i].close_hour };
+                        newStart[day - 1] = businessHourTemp[i].open_hour
+                        newEnd[day - 1] = businessHourTemp[i].close_hour
 
-                        setChecked(newCheck);  
-                        setBusinessHour(newOpenHour) 
-                        setStart(newStart);    
+                        setChecked(newCheck);
+                        setBusinessHour(newOpenHour)
+                        setStart(newStart);
                         setEnd(newEnd)
                     }
                 }
@@ -320,10 +320,10 @@ export const SettingsBusinessProfile = () => {
                         display_name: formData.displayName,
                         business_hours: businessHour.filter(val => val.day !== ''),
                         business_links: formData.businessLinks.filter(val => val.label !== '')
-                    });                        
+                    });
                     if (response.status === 200) {
                         setSuccess(true);
-                    }    
+                    }
                 } else {
                     const response = await profileService.addBusinessProfile({
                         account_id: `${authRed.account_id}`,
@@ -335,7 +335,7 @@ export const SettingsBusinessProfile = () => {
                         display_name: formData.displayName,
                         business_hours: businessHour.filter(val => val.day !== ''),
                         business_links: formData.businessLinks.filter(val => val.label !== '')
-                    });    
+                    });
                     if (response.status === 200) {
                         setSuccess(true);
                     }
@@ -404,20 +404,20 @@ export const SettingsBusinessProfile = () => {
                     </div>
 
                     <div className='settings-category'>
-                        <Title3White title={"Category:"} />
+                        <div style={{ paddingTop: '8px' }}>
+                            <Title3White title={"Category:"} />
+
+                        </div>
                         <span>
-                            {formData.categoryName != "" ? 
-                                <CustomDropdown label={formData.categoryName} items={categories.map(val => val.category_names)} locked={false} handleChange={handleChangeCategory} />
-                                :
-                                <CustomDropdown label={'Select Category'} items={categories.map(val => val.category_names)} locked={false} handleChange={handleChangeCategory} />
-                            }
+                            <CustomDropdown label={'Select Category'} items={categories.map(val => val.category_names)} locked={false} handleChange={handleChangeCategory} />
+
                         </span>
                     </div>
 
                     <div className='open-hours'>
                         <Title3White title={"Open Hours:"} />
                         <div className='open-hours-day'>
-                            {OpenDays.map((day, i) => <CheckBox label={day} items={OpenHours} valueCB={checked[i]} onChangeCB={e => handleOnChecked(i)} handleChangeStart={e => handleChangeDropDownStart(i, e)} handleChangeEnd={e => handleChangeDropDownEnd(i, e)} openHourStart={`${start[i]}`} closeHourStart={`${end[i]}`}/>)}
+                            {OpenDays.map((day, i) => <CheckBox label={day} items={OpenHours} valueCB={checked[i]} onChangeCB={e => handleOnChecked(i)} handleChangeStart={e => handleChangeDropDownStart(i, e)} handleChangeEnd={e => handleChangeDropDownEnd(i, e)} openHourStart={`${start[i]}`} closeHourStart={`${end[i]}`} />)}
                         </div>
                     </div>
 
