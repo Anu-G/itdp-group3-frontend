@@ -14,6 +14,7 @@ import { CommentExtends } from '../../shared/components/CommentExtends/CommentEx
 import { UseDep } from '../../shared/context/ContextDep'
 import { useSelector } from 'react-redux'
 import { AuthSelector } from '../../shared/selectors/Selectors'
+import AppError from '../../utils/AppErrors'
 
 library.add(fas)
 library.add(far)
@@ -78,7 +79,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
         setRefresh(prevState => !prevState)
       }
     } catch (e) {
-      console.log(e);
+      AppError(e);
     }
   }
 

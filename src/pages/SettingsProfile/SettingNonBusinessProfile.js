@@ -116,7 +116,6 @@ export const SettingsNonBusinessProfile = () => {
                }))
             }
          } catch (err) {
-            console.log(err);
             AppError(err)
          }
       })()
@@ -160,7 +159,7 @@ export const SettingsNonBusinessProfile = () => {
                });
                if (response.status === 200) {
                   setSuccess(true);
-               }                  
+               }
             } else {
                const response = await profileService.addNonBusinessProfile({
                   account_id: `${authRed.account_id}`,
@@ -170,7 +169,7 @@ export const SettingsNonBusinessProfile = () => {
                });
                if (response.status === 200) {
                   setSuccess(true);
-               }   
+               }
             }
          } catch (err) {
             setPanic(prevState => ({

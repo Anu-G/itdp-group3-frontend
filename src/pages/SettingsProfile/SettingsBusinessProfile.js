@@ -288,7 +288,6 @@ export const SettingsBusinessProfile = () => {
                     }
                 }
             } catch (err) {
-                console.log(err);
                 AppError(err)
             }
         })()
