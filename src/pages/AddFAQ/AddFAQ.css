@@ -18,9 +18,9 @@
    
   .box {
     position: relative;
-    width: 800px;
+    width: fit-content;
+    height: auto;
     margin: auto;
-    height: 820px;
     background: black;
     border-radius: 4px;
     padding: 20px;
@@ -81,7 +81,7 @@
     flex-direction: row-reverse;
 }
 
-.add-faq-title {
+.add-post-title {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }

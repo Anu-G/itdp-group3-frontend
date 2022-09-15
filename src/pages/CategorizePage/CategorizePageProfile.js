@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { AuthSelector } from '../../shared/selectors/Selectors'
 import { FeedPage } from './FeedPage/FeedPage'
 
-export const CategorizePage = () => {
+export const CategorizePage = ({bisID}) => {
     // state
     const [isActive, setIsActive] = useState([false, false, false])
 
@@ -70,7 +70,7 @@ export const CategorizePage = () => {
                 </div>
                 {isActive[0] ? <FeedPage /> : ''}
                 {isActive[1] ? <CatalogPage /> : ''}
-                {isActive[2] ? <FAQPages FAQs={FAQs} /> : ''}
+                {isActive[2] ? <FAQPages bisID={bisID}/> : ''}
             </div >
         </>
     )

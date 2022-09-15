@@ -6,6 +6,7 @@ import ProductService, { ProductImageService } from "./ProductService";
 import AccountPostService from "./AccountPostService";
 import TimelineService from "./TimelineService";
 import { PostImageService, PostService } from "./PostService";
+import { FaqService } from "./FaqService";
 
 export const ServiceFactory = (apiClient) => ({
    authService: AuthService(apiClient),
@@ -15,7 +16,8 @@ export const ServiceFactory = (apiClient) => ({
    productService: ProductService(apiClient),
    accountPostService: AccountPostService(apiClient),
    timelineService: TimelineService(apiClient),
-   postService: PostService(apiClient)
+   postService: PostService(apiClient),
+   faqService: FaqService(apiClient)
 });
 
 export const ServiceImageFactory = (apiClient) => ({
