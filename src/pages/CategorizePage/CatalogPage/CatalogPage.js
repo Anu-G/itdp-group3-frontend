@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useParams } from 'react-router'
 import { ImagesViewProfile } from '../../../shared/components/ImagesViewProfile/ImagesViewProfile'
 import { Text32White, Title2White, Title3White } from '../../../shared/components/Label/Label'
 import { UseDep } from '../../../shared/context/ContextDep'
@@ -12,6 +13,7 @@ import './CatalogPage.css'
 export const CatalogPage = ({ }) => {
     // state
     const [isActive, setIsActive] = useState(false)
+    const {accId} = useParams();
     const [products, setProduct] = useState([])
     const [productOpen, setProductOpen] = useState({})
 
@@ -30,9 +32,15 @@ export const CatalogPage = ({ }) => {
     const authRed = useSelector(AuthSelector)
 
     const getProducts = async () => {
+        let useId = 0
+        if (accId) {
+            useId = parseInt(accId)
+        } else {
+            useId = authRed.account_id
+        }
         try {
             const response = await settingAccountService.doGetAccountProduct({
-                account_id: authRed.account_id
+                account_id: useId
             })
             if (response.data.data !== null) {
                 setProduct(response.data.data)

@@ -70,7 +70,6 @@ export const BusinessProfile = () => {
             const response = await profileService.doGetBusinessProfile({
                 account_id: `${useId}`
             })
-
             setProfile(prevState => ({
                 ...prevState,
                 Address: response.data.data.business_profile.address,
@@ -163,7 +162,7 @@ export const BusinessProfile = () => {
                     </div>
                 </div>
 
-                <CategorizePage />
+                <CategorizePage/>
             </div>
 
             {showOurLinks && <OurLinks handleX={handleClickLinks} links={profile.BusinessLinks} />}

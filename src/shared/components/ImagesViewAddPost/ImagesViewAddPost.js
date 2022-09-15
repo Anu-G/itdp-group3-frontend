@@ -81,11 +81,12 @@ export const ImageViewAddPostMany = ({ links, handleDelete, triggerFileSelectPop
       {links.map((link, index) => {
         return (
           <div className={slideIndex === index + 1 ? "slide active-anim" : "slide"} key={index}>
-            {link.includes("video")
-              ? <video width="628" height="100%" controls>
-                <source src={link} type="video/mp4" />
-              </video>
-              : <img className='img-vw-addpost' src={link} />}
+            {
+              link.includes("video")
+                ? <video width="628" height="100%" controls>
+                  <source src={link} type="video/mp4" />
+                </video>
+                : <img className='img-vw-addpost' src={link} />}
           </div>
         )
       })}
@@ -125,6 +126,6 @@ export const ImageViewAddPostMany = ({ links, handleDelete, triggerFileSelectPop
           ></div>
         ))}
       </div>
-    </div>
+    </div >
   )
 }

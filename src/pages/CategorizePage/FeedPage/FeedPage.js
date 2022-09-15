@@ -7,12 +7,14 @@ import { AuthSelector } from '../../../shared/selectors/Selectors'
 import './FeedPage.css'
 import { LoadingScreen } from '../../../shared/components/LoadingScreen/LoadingScreen'
 import { TimelineCard } from '../../TimelineCard/TimelineCard'
+import { useParams } from 'react-router'
 
 
 
 export const FeedPage = ({ }) => {
     // state
     const [isActive, setIsActive] = useState(false)
+    const {accId} = useParams();
     const [feeds, setFeeds] = useState([])
     const [feedsOpen, setFeedsOpen] = useState({})
 
@@ -35,12 +37,18 @@ export const FeedPage = ({ }) => {
     }, [])
 
     const handleLoad = async () => {
+        let useId = 0
+        if (accId) {
+            useId = parseInt(accId)
+        } else {
+            useId = authRed.account_id
+        }
         try {
             // set loading when hit backend
             setLoading(true);
 
             const response = await accountPostService.doGetAccount({
-                "account_id": authRed.account_id
+                "account_id": useId
             })
             if (response.data.data !== null) {
                 setFeeds(response.data.data)
