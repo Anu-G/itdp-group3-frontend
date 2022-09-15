@@ -19,7 +19,7 @@ import AppError from '../../utils/AppErrors'
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment, postLikes, setRefresh, accId, handleClickName }) => {
+export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment, postLikes, detailPostLikes=[], setRefresh, accId, handleClickName }) => {
   // state
   const maxLength = 280
   const [isActive, setIsActive] = useState(false)
@@ -39,6 +39,17 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
       setIsButtonSendActive(true)
     }
   }, [comment])
+
+  useEffect(()=>{
+    if (detailPostLikes != null) {
+      for (const like of detailPostLikes) {
+        if (like.account_id == authRed.account_id) {
+          setIsLiked(prevState=>true)
+          break
+        }
+      }
+    }
+  },[])
 
   const handleReadMore = () => {
     setReadMore(!readMore)

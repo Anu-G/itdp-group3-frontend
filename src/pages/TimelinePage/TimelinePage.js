@@ -136,6 +136,7 @@ export const TimelinePage = ({ categoryId = null }) => {
                 time={`${hour}:${minutes}`}
                 key={post.i}
                 postLikes={post.total_like}
+                detailPostLikes={post.detail_like}
                 setRefresh={setRefresh}
                 accId={post.account_id}
                 handleClickName={handleClickName}
