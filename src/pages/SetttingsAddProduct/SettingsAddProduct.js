@@ -124,7 +124,7 @@ export const SettingsAddProduct = (props) => {
                </div>
 
                <div className='description'>
-                  <BioColomn label={'Description'} maxLength={maxLength} charLength={charLength} handleChange={onChangeDescription} charLimitHandle={charLimitHandle} value={formData.description} />
+                  <BioColomn label={'Description'} maxLength={maxLength} charLength={charLength} handleChange={onChangeDescription} value={formData.description} />
                </div>
 
                <div className='add-photo-video'>

@@ -60,7 +60,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   }
 
   const handleCommentChange = (event) => {
-    setComment(event.target.value)
+    setComment(event.target.value) 
   }
 
   const handleOnClickSend = () => {
@@ -168,7 +168,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
         </div>
 
         <div className='comment-ssn'>
-          {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnClickSend={handleOnClickSend} maxLength={280} /> : ''}
+          {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnClickSend={handleOnClickSend} charLength={comment.length} maxLength={280} /> : ''}
         </div>
 
       </div>
@@ -176,11 +176,11 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   )
 }
 
-const CommentExtActive = ({ comments, handleCommentChange, maxLength, value, isButtonSendActive, buttonLabel, handleOnClickSend }) => {
+const CommentExtActive = ({ comments, handleCommentChange, maxLength, charLength, value, isButtonSendActive, buttonLabel, handleOnClickSend }) => {
   return (
     <div className='ext-cmt'>
       {comments == null ? '' : <CommentExtends comments={comments} />}
-      <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} value={value} />
+      <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} charLength={charLength} value={value} />
       <div style={{ display: 'flex', justifyContent: 'end' }}>
         <ButtonComponentSm isDisable={!isButtonSendActive} label={buttonLabel} onClick={handleOnClickSend} />
 

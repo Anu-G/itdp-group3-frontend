@@ -398,7 +398,7 @@ export const SettingsBusinessProfile = () => {
                         </div>
                         <div className='bio-column'>
                             <InputTextLabelSm id={"displayName"} label={"Display Name"} value={formData.displayName} handleOnChange={onChangeDisplayName} style={{ marginBottom: "12px", width: '400px' }} />
-                            <BioColomn label={"Bio:"} maxLength={maxBioLen} charLength={charLength} handleChange={onChangeBio} charLimitHandle={limitBio} value={formData.profileBio} />
+                            <BioColomn label={"Bio:"} maxLength={maxBioLen} charLength={charLength} handleChange={onChangeBio} value={formData.profileBio} />
                         </div>
                     </div>
 
@@ -422,7 +422,7 @@ export const SettingsBusinessProfile = () => {
 
                     <div className='address-link-gmaps'>
                         <div className='address-left'>
-                            <BioColomn label={"Address:"} maxLength={maxAddressLen} charLength={charLength} handleChange={onChangeAddress} charLimitHandle={limitAddress} value={formData.address} />
+                            <BioColomn label={"Address:"} maxLength={maxAddressLen} charLength={charLength} handleChange={onChangeAddress} value={formData.address} />
                         </div>
                         <div className='address-right'>
                             <InputTextLabelSm id={"gmaps"} label={"Google Maps Link"} value={formData.gmapsLink} handleOnChange={onChangeGmaps} />
