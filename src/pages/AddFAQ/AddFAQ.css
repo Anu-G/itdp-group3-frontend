@@ -1,5 +1,9 @@
-.addpost-wrp{
-    z-index: 10;
+.wrapper{
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+
+    background-color: #1E2329;
 }
 
 .popup-box {
@@ -14,7 +18,8 @@
    
   .box {
     position: relative;
-    width: 692px;
+    width: fit-content;
+    height: auto;
     margin: auto;
     background: black;
     border-radius: 4px;
@@ -26,20 +31,19 @@
     border-radius: 20px;
   }
    
-  .x-btn{
-    width: 28px;
-    height: 32px;
-    margin-left: 0px;
+  .close-icon {
+    content: 'x';
     cursor: pointer;
-    color: #FE5454;
-
-    float: right;
-}
-
-.x-btn:hover{
-    opacity: 0.8;
-    text-shadow: #1E2329;
-}
+    right: 27%;
+    top: calc(100vh - 85vh - 0px);
+    background: #3B4046;
+    border-radius: 50%;
+    line-height: 20px;
+    text-align: center;
+    border: 1px solid #999;
+    font-size: 50px;
+    color: red;
+  }
 
 .form{
     display: flex;
@@ -58,8 +62,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 628px;
-    height: 344px;
+    width: 736px;
+    height: 424px;
+    background-color: #F4F4F4;
     color: black;
     border-radius: 20px;
 }
@@ -67,7 +72,7 @@
 .caption-form{
     margin-top: 32px;
     margin-bottom: 32px;
-    width: 628px;
+    width: 736px;
 }
 
 .button-upload{
@@ -76,7 +81,7 @@
     flex-direction: row-reverse;
 }
 
-.add-faq-title {
+.add-post-title {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
