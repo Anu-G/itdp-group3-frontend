@@ -26,8 +26,22 @@
     gap: 1rem;
 }
 
+.QAsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .QAs{
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 1rem;
+}
+.QAsDeleteButton{
+    cursor: pointer;
+    color: red;
+    width: 32px;
+    height: 32px;
 }

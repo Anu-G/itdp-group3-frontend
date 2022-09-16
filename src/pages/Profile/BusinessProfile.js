@@ -16,6 +16,7 @@ import { useNavigate, useParams } from 'react-router'
 export const BusinessProfile = () => {
     // state
     const [profile, setProfile] = useState({
+        ID:'',
         Address: '',
         ProfileImage: '',
         ProfileBio: '',
@@ -72,6 +73,7 @@ export const BusinessProfile = () => {
             })
             setProfile(prevState => ({
                 ...prevState,
+                ID: response.data.data.business_profile.ID,
                 Address: response.data.data.business_profile.address,
                 ProfileImage: response.data.data.business_profile.profile_image,
                 ProfileBio: response.data.data.business_profile.profile_bio,
@@ -162,7 +164,7 @@ export const BusinessProfile = () => {
                     </div>
                 </div>
 
-                <CategorizePage/>
+                <CategorizePage bisID={profile.ID}/>
             </div>
 
             {showOurLinks && <OurLinks handleX={handleClickLinks} links={profile.BusinessLinks} />}
