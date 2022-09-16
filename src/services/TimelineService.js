@@ -54,7 +54,18 @@ const TimelineService = ({ doPost, doDelete }) => {
       }
    }
 
-   return { doGetTimeline, doGetTimelineByCategory, doPostTimelineLike, doDeleteTimelineLike, doPostComment };
+   const doGetAccount = async (data) => {
+      try {
+         return await doPost({
+            url: '/feed/account',
+            data: data
+         });
+      } catch (err) {
+         throw err
+      }
+   }
+
+   return { doGetTimeline, doGetTimelineByCategory, doPostTimelineLike, doDeleteTimelineLike, doPostComment, doGetAccount };
 
 }
 

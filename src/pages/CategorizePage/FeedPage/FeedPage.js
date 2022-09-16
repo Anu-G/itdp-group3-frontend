@@ -7,7 +7,8 @@ import { AuthSelector } from '../../../shared/selectors/Selectors'
 import './FeedPage.css'
 import { LoadingScreen } from '../../../shared/components/LoadingScreen/LoadingScreen'
 import { TimelineCard } from '../../TimelineCard/TimelineCard'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
+import { AppErrorAuth } from '../../../utils/AppErrors'
 
 
 
@@ -17,6 +18,8 @@ export const FeedPage = ({ }) => {
     const {accId} = useParams();
     const [feeds, setFeeds] = useState([])
     const [feedsOpen, setFeedsOpen] = useState({})
+    const navigate = useNavigate();
+    const [refresh, setRefresh] = useState(false)
 
     const handleFormClose = () => {
         setIsActive(prevState => false)
@@ -29,12 +32,12 @@ export const FeedPage = ({ }) => {
     }
 
     // service
-    const { accountPostService } = UseDep();
+    const { timelineService } = UseDep();
     const authRed = useSelector(AuthSelector)
 
     useEffect(() => {
         handleLoad()
-    }, [])
+    }, [refresh])
 
     const handleLoad = async () => {
         let useId = 0
@@ -47,14 +50,14 @@ export const FeedPage = ({ }) => {
             // set loading when hit backend
             setLoading(true);
 
-            const response = await accountPostService.doGetAccount({
+            const response = await timelineService.doGetAccount({
                 "account_id": useId
             })
             if (response.data.data !== null) {
                 setFeeds(response.data.data)
             }
         } catch (err) {
-            console.err(err);
+            console.log(err);;
         } finally {
             // remove loading screen
             setLoading(false);
@@ -63,6 +66,38 @@ export const FeedPage = ({ }) => {
 
     // screen
     const [isLoading, setLoading] = useState(false);
+    const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
+
+
+    const handleComment = async (detailComment) => {
+        try {
+            setLoading(true)
+            const response = await timelineService.doPostComment({
+                feed_id: detailComment.feedId,
+                comment_fill: detailComment.comment
+            })
+            if (response.data.data !== null) {
+                handleLoad()
+            }
+        } catch (err) {
+            if (AppErrorAuth(err)) {
+            setPanic(prevState => ({
+                ...prevState,
+                isPanic: true, errMsg: AppErrorAuth(err)
+            }));
+            }
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const handleClickName = (accountId) => {
+        if (accountId == authRed.account_id) {
+          navigate('/profile')
+        } else {
+          navigate(`/feeds/${accountId}`)
+        }
+      }
 
     return (
         <>
@@ -104,7 +139,14 @@ export const FeedPage = ({ }) => {
                             name={item.display_name}
                             place={item.place}
                             time={`${hour}:${minutes}`}
-                            key={item.i} />
+                            key={item.i} 
+                            postLikes={item.total_like}
+                            detailPostLikes={item.detail_like}
+                            accId={item.account_id}
+                            setRefresh={setRefresh}
+                            handleClickName={handleClickName}
+                            feedId={item.post_id}
+                            handleComment={handleComment}/>
                     )
                 })}
             </div>
