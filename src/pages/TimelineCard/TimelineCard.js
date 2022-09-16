@@ -19,7 +19,7 @@ import AppError from '../../utils/AppErrors'
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment, postLikes, detailPostLikes=[], setRefresh, accId, handleClickName }) => {
+export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment, postLikes, detailPostLikes = [], setRefresh, accId, handleClickName }) => {
   // state
   const maxLength = 280
   const [isActive, setIsActive] = useState(false)
@@ -40,16 +40,16 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
     }
   }, [comment])
 
-  useEffect(()=>{
+  useEffect(() => {
     if (detailPostLikes != null) {
       for (const like of detailPostLikes) {
         if (like.account_id == authRed.account_id) {
-          setIsLiked(prevState=>true)
+          setIsLiked(prevState => true)
           break
         }
       }
     }
-  },[])
+  }, [])
 
   const handleReadMore = () => {
     setReadMore(!readMore)
@@ -109,7 +109,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
           <div className='profile-hd'>
 
             <AvatarSmall link={avatar} accId={accId} handleClick={handleClickName} />
-            <div className='name-loc-ctn'>
+            <div className='name-location-ctn'>
               <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} />
             </div>
 

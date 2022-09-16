@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ButtonComponentSm } from '../../shared/components/Button/Button'
 import { SubtitleWhite, Title2Blue, Title2Green, Title2Red, Title2Yellow, TitleWhite } from '../../shared/components/Label/Label'
 import { Avatar } from '../../shared/components/Avatar/Avatar'
@@ -7,16 +7,16 @@ import { useSelector } from 'react-redux'
 import { AuthSelector } from '../../shared/selectors/Selectors'
 import { UseDep } from '../../shared/context/ContextDep'
 import { CategorizePage } from '../CategorizePage/CategorizePageProfile'
-import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { OurLinks } from '../OurLinks/OurLinks'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { AppErrorNoProfile } from '../../utils/AppErrors'
 import { useNavigate, useParams } from 'react-router'
+import SkeletonElement from '../../shared/components/Skeletons/SkeletonElement'
 
 export const BusinessProfile = () => {
     // state
     const [profile, setProfile] = useState({
-        ID:'',
+        ID: '',
         Address: '',
         ProfileImage: '',
         ProfileBio: '',
@@ -29,7 +29,7 @@ export const BusinessProfile = () => {
     })
     const [isOpen, setIsOpen] = useState(false)
     const [day, setDay] = useState()
-    const {accId} = useParams();
+    const { accId } = useParams();
     const [openHour, setOpenHour] = useState('')
     const [closeHour, setCloseHour] = useState('')
     const [showOurLinks, setShowOurLinks] = useState(false);
@@ -139,36 +139,53 @@ export const BusinessProfile = () => {
                     <div className='head-profile-left'>
                         <div className='head-profile'>
 
-                            <Avatar link={profile.ProfileImage} />
+                            <Avatar link={profile.ProfileImage} isLoading={isLoading} />
 
                             <div className='profile-text-item'>
                                 <div className='profile-text-head'>
-                                    <TitleWhite title={profile.DisplayName} />
-                                    {isOpen ? <Title2Green title={'OPEN'} /> : <Title2Red title={'Closed'} />}
+                                    {isLoading ? <>
+                                        <SkeletonElement type="profile-display-name" />
+                                        <SkeletonElement type="profile-isopen" />
+                                    </> : <>
+                                        <TitleWhite title={profile.DisplayName} />
+                                        {isOpen ? <Title2Green title={'OPEN'} /> : <Title2Red title={'Closed'} />}
+                                    </>}
                                 </div>
-                                <Title2Blue title={profile.CategoryName} />
+                                {isLoading ? <SkeletonElement type="profile-category-name" /> : <Title2Blue title={profile.CategoryName} />}
                                 <div className='open-hour'>
-                                    <SubtitleWhite title={`Today's Open hour`} />
-                                    <Title2Yellow title={`${openHour} - ${closeHour}`} />
+                                    {isLoading ? <>
+                                        <SkeletonElement type="profile-today-open-hour" />
+                                        <SkeletonElement type="profile-open-close-hour" />
+                                    </> : <>
+
+                                        <SubtitleWhite title={`Today's Open hour`} />
+                                        <Title2Yellow title={`${openHour} - ${closeHour}`} />
+                                    </>}
                                 </div>
                             </div>
                         </div>
                         <div style={{ maxWidth: '736px' }}>
-                            <SubtitleWhite subtitle={profile.ProfileBio} />
+                            {isLoading ? <SkeletonElement type="profile-bio" /> : <SubtitleWhite subtitle={profile.ProfileBio} />}
                         </div>
                     </div>
                     <div className='profile-buttons'>
-                        {profile.PhoneNumber !== '' && <ButtonComponentSm label={'Contact Us'} onClick={handleClickContact} />}
-                        {profile.BusinessLinks !== '' && <ButtonComponentSm label={'Our Link(s)'} onClick={handleClickLinks} />}
-                        {profile.GmapsLink !== '' && <ButtonComponentSm label={'Our Store'} onClick={handleClickGmaps} />}
+                        {isLoading ? <>
+                            <SkeletonElement type="button-sm" />
+                            <SkeletonElement type="button-sm" />
+                            <SkeletonElement type="button-sm" />
+                        </> : <>
+                            {profile.PhoneNumber !== '' && <ButtonComponentSm label={'Contact Us'} onClick={handleClickContact} />}
+                            {profile.BusinessLinks !== '' && <ButtonComponentSm label={'Our Link(s)'} onClick={handleClickLinks} />}
+                            {profile.GmapsLink !== '' && <ButtonComponentSm label={'Our Store'} onClick={handleClickGmaps} />}
+                        </>}
                     </div>
                 </div>
 
-                <CategorizePage bisID={profile.ID}/>
+                <CategorizePage bisID={profile.ID} />
             </div>
 
             {showOurLinks && <OurLinks handleX={handleClickLinks} links={profile.BusinessLinks} />}
-            {isLoading && <LoadingScreen />}
+            {/* {isLoading && <LoadingScreen />} */}
             {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
         </>
 

@@ -37,7 +37,7 @@ export const DetailProductCard = ({ handleClick, product }) => {
             <div className='profile-hd'>
 
               <AvatarSmall link={avatar} />
-              <div className='name-loc-ctn'>
+              <div className='name-location-ctn'>
                 <NameLocation name={name} />
               </div>
 

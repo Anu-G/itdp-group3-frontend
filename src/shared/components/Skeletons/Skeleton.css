@@ -2,7 +2,6 @@
 .skeleton {
     background: #ddd;
     overflow: hidden;
-    margin: 10px 0;
     border-radius: 4px;
   }
 
@@ -62,16 +61,19 @@
   .skeleton.profile-category-name{
     height: 26px;
     width: 200px;
+    margin-top: 10px;
   }
 
   .skeleton.profile-today-open-hour{
     height: 24px;
     width: 250px;
+    margin-top: 10px;
   }
 
   .skeleton.profile-open-close-hour{
     height: 26px;
     width: 300px;
+    margin-top: 10px;
   }
 
   .skeleton.profile-bio{
@@ -213,7 +215,7 @@
 }
 
 .category-label-btn{
-  width: 200px;
+  /* width: 200px; */
 }
 
 .category-label-btn-wrp{
@@ -237,13 +239,14 @@
   
   /* animation effects */
   .shimmer-wrapper {
-    position: absolute;
+    /* position: absolute; */
     /* parent must be relative position & overflow hidden */
-    top: 0;
-    left: 0;
+    /* top: 0; */
+    /* left: 0; */
     width: 100%;
     height: 100%;
     animation: loading 2.5s infinite;
+    z-index: 10;
   }
   .shimmer {
     width: 50%;
@@ -261,4 +264,15 @@
     0% { transform: translateX(-150%) }
     50% { transform: translateX(-60%) }
     100% { transform: translateX(150%) }
+  }
+
+
+  .skeleton-animate {
+    animation: loading-skeleton 1.5s linear infinite alternate;
+  }
+
+  @keyframes loading-skeleton {
+    0% { background: rgba(255,255,255,0.2); }
+    50% { background: rgba(255,255,255,0.4); }
+    100% { background: rgba(255,255,255,0.8); }
   }

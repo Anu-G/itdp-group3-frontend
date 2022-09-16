@@ -15,7 +15,7 @@ import { AppErrorAuth } from '../../../utils/AppErrors'
 export const FeedPage = ({ }) => {
     // state
     const [isActive, setIsActive] = useState(false)
-    const {accId} = useParams();
+    const { accId } = useParams();
     const [feeds, setFeeds] = useState([])
     const [feedsOpen, setFeedsOpen] = useState({})
     const navigate = useNavigate();
@@ -81,10 +81,10 @@ export const FeedPage = ({ }) => {
             }
         } catch (err) {
             if (AppErrorAuth(err)) {
-            setPanic(prevState => ({
-                ...prevState,
-                isPanic: true, errMsg: AppErrorAuth(err)
-            }));
+                setPanic(prevState => ({
+                    ...prevState,
+                    isPanic: true, errMsg: AppErrorAuth(err)
+                }));
             }
         } finally {
             setLoading(false)
@@ -93,11 +93,11 @@ export const FeedPage = ({ }) => {
 
     const handleClickName = (accountId) => {
         if (accountId == authRed.account_id) {
-          navigate('/profile')
+            navigate('/profile')
         } else {
-          navigate(`/feeds/${accountId}`)
+            navigate(`/feeds/${accountId}`)
         }
-      }
+    }
 
     return (
         <>
@@ -128,8 +128,8 @@ export const FeedPage = ({ }) => {
                     let year = dt.getFullYear()
                     let hour = (dt.getHours() < 10 ? '0' : '') + dt.getHours()
                     let minutes = (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes()
-                    
-                    return(
+
+                    return (
                         <TimelineCard
                             avatar={item.avatar}
                             caption={item.caption_post}
@@ -139,14 +139,14 @@ export const FeedPage = ({ }) => {
                             name={item.display_name}
                             place={item.place}
                             time={`${hour}:${minutes}`}
-                            key={item.i} 
+                            key={item.i}
                             postLikes={item.total_like}
                             detailPostLikes={item.detail_like}
                             accId={item.account_id}
                             setRefresh={setRefresh}
                             handleClickName={handleClickName}
                             feedId={item.post_id}
-                            handleComment={handleComment}/>
+                            handleComment={handleComment} />
                     )
                 })}
             </div>
@@ -170,7 +170,7 @@ export const FeedPage = ({ }) => {
                 </div>
             }
 
-            {isLoading && <LoadingScreen />}
+            {/* {isLoading && <LoadingScreen />} */}
         </>
     )
 }

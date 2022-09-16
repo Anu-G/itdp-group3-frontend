@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 import { AuthSelector } from '../../shared/selectors/Selectors'
 import { UseDep } from '../../shared/context/ContextDep'
 import { AppErrorNoProfile } from '../../utils/AppErrors'
-import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { useNavigate, useParams } from 'react-router'
 
@@ -73,22 +72,25 @@ export const NonBusinessProfile = () => {
                <div className='head-profile-left'>
                   <div className='head-profile'>
 
-                     <Avatar link={profile.ProfileImage} />
+                     <Avatar link={profile.ProfileImage} isLoading={isLoading} />
 
                      <div className='profile-text-item'>
                         <div className='profile-text-head'>
-                           <TitleWhite title={profile.DisplayName} />
+                           {isLoading ? <>
+                              <SkeletonElement type="profile-display-name" />
+                           </> : <>
+                              <TitleWhite title={profile.DisplayName} />
+                           </>}
                         </div>
                      </div>
                   </div>
                   <div style={{ maxWidth: '736px' }}>
-                     <SubtitleWhite subtitle={profile.ProfileBio} />
+                     {isLoading ? <SkeletonElement type="profile-bio" /> : <SubtitleWhite subtitle={profile.ProfileBio} />}
                   </div>
                </div>
             </div>
          </div>
 
-         {isLoading && <LoadingScreen />}
          {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
       </>
 
