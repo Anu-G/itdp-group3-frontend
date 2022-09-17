@@ -11,12 +11,12 @@ import { AuthSelector } from "../../shared/selectors/Selectors";
 import AppError from "../../utils/AppErrors";
 import './AddFAQ.css'
 
-export const AddFAQ = ({openCreate,handleOpenCreate,setRefresh}) => {
-    const [question,setQuestion] = useState('');
-    const [answer,setAnswer] = useState('');
+export const AddFAQ = ({ openCreate, handleOpenCreate, setRefresh }) => {
+    const [question, setQuestion] = useState('');
+    const [answer, setAnswer] = useState('');
     const maxLength = 280;
-    const [questionLength,setQuestionLength] = useState(0);
-    const [answerLength,setAnswerLength] = useState(0);
+    const [questionLength, setQuestionLength] = useState(0);
+    const [answerLength, setAnswerLength] = useState(0);
 
     const { faqService } = UseDep();
     const authRed = useSelector(AuthSelector);
@@ -24,7 +24,7 @@ export const AddFAQ = ({openCreate,handleOpenCreate,setRefresh}) => {
     const [isLoading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
-    
+
     const handleQuestionLimit = (e) => {
         if (questionLength >= maxLength) {
             e.preventDefault();
@@ -62,18 +62,16 @@ export const AddFAQ = ({openCreate,handleOpenCreate,setRefresh}) => {
         setLoading(true);
         try {
             const response = await faqService.doCreateFaq({
-                "account_id":`${authRed.account_id}`,
-                "question":question,
-                "answer":answer
+                "account_id": `${authRed.account_id}`,
+                "question": question,
+                "answer": answer
             })
-            console.log(response);
             if (response.status == 200) {
                 setSuccess(true)
                 handleOpenCreate()
-                setRefresh(prevState=>!prevState)
+                setRefresh(prevState => !prevState)
             }
         } catch (err) {
-            console.log(err);
             setPanic(prevState => ({
                 ...prevState,
                 isPanic: true, errMsg: AppError(err)
@@ -83,9 +81,9 @@ export const AddFAQ = ({openCreate,handleOpenCreate,setRefresh}) => {
         }
     }
 
-    return(
+    return (
         <>
-            {openCreate && 
+            {openCreate &&
                 <div className='wrapper'>
                     <div className="popup-box">
                         <div className="box">

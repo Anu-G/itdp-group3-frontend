@@ -15,11 +15,7 @@ import { UseDep } from '../../shared/context/ContextDep';
 import { useSelector } from 'react-redux';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import AppError from '../../utils/AppErrors';
-import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import storage from '../../shared/storage/FirebaseConfig';
-import { v4 as uuidv4 } from 'uuid'
 
 export const SettingsBusinessProfile = () => {
     // start profile image processing
@@ -123,7 +119,11 @@ export const SettingsBusinessProfile = () => {
             }
         })
         setBusinessHour(newOpenHour);
-    }, [checked])
+
+        if (categories.length !== 0 && formData.categoryName !== '') {
+            handleChangeCategory(formData.categoryName);
+        }
+    }, [checked, formData.categoryName, categories])
 
     const handleChangeDropDownStart = (i, value) => {
         let newStart = [...start];
@@ -390,7 +390,7 @@ export const SettingsBusinessProfile = () => {
             }
 
             <div className='wrapper'>
-                <div className='settings-profile-card'>
+                <div className={`settings-profile-card ${isLoading && 'loading-div'}`}>
                     <div className='profile-bio'>
                         <div className='profile-card' style={result ? profileImage : null}>
                             <input type={'file'} accept='image/*' ref={inputRef} style={{ display: "none" }} onChange={onSelectFile} />
@@ -408,7 +408,7 @@ export const SettingsBusinessProfile = () => {
 
                         </div>
                         <span>
-                            <CustomDropdown label={'Select Category'} items={categories.map(val => val.category_names)} locked={false} handleChange={handleChangeCategory} />
+                            <CustomDropdown label={existing ? formData.categoryName : 'Select Category'} items={categories.map(val => val.category_names)} locked={false} handleChange={handleChangeCategory} />
 
                         </span>
                     </div>
@@ -416,7 +416,7 @@ export const SettingsBusinessProfile = () => {
                     <div className='open-hours'>
                         <Title3White title={"Open Hours:"} />
                         <div className='open-hours-day'>
-                            {OpenDays.map((day, i) => <CheckBox label={day} items={OpenHours} valueCB={checked[i]} onChangeCB={e => handleOnChecked(i)} handleChangeStart={e => handleChangeDropDownStart(i, e)} handleChangeEnd={e => handleChangeDropDownEnd(i, e)} openHourStart={`${start[i]}`} closeHourStart={`${end[i]}`} />)}
+                            {OpenDays.map((day, i) => <CheckBox label={day} items={OpenHours} valueCB={checked[i]} onChangeCB={e => handleOnChecked(i)} handleChangeStart={e => handleChangeDropDownStart(i, e)} handleChangeEnd={e => handleChangeDropDownEnd(i, e)} openHourStart={start[i]} closeHourStart={end[i]} />)}
                         </div>
                     </div>
 
@@ -440,12 +440,11 @@ export const SettingsBusinessProfile = () => {
                     </div>
 
                     <div className='button-save'>
-                        <ButtonComponent label={"Save"} onClick={saveResponse} />
+                        <ButtonComponent label={"Save"} onClick={saveResponse} isLoading={isLoading} />
                     </div>
                 </div>
             </div>
 
-            {isLoading && <LoadingScreen />}
             {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
             {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
         </>

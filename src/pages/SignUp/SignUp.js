@@ -153,7 +153,7 @@ export const SignUp = () => {
     return (
         <>
             <div className='sign-up-wrp'>
-                <div className='sign-up-ctn'>
+                <div className={`sign-up-ctn ${isLoading && 'loading-div'}`}>
                     <Title2White title={'Sign Up'} />
 
                     <InputTextLabelMd handleOnChange={handleUsernameChange} id={'username'} label='Username' value={username} />
@@ -167,7 +167,7 @@ export const SignUp = () => {
                     <InputPasswordLabelMd handleOnChange={handleVerifyPasswordChange} id='verifyPassword' label={'Confirm Password'} value={verifyPassword} />
                     <ErrorForm message={verifyPasswordError} />
 
-                    <ButtonComponent isDisable={!isActive} label='Sign Up' onClick={handleSignUpClick} />
+                    <ButtonComponent isDisable={!isActive} label='Sign Up' onClick={handleSignUpClick} isLoading={isLoading} />
 
 
                     <div className='sign-in-ctn'>
@@ -180,7 +180,6 @@ export const SignUp = () => {
                 </div>
             </div>
 
-            {isLoading && <LoadingScreen />}
             {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
             {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
         </>

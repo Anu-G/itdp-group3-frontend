@@ -12,6 +12,8 @@
    text-align: center;
    color: #475264;
    transition: 0.3s;
+   display: grid;
+   place-content: center;
 }
 
 .button-component:hover{
@@ -47,4 +49,18 @@
    line-height: 25px;
 
    font-size: 1rem;
+}
+
+.loader-btn {
+   width: 30px;
+   height: 30px;
+   border-radius: 50%;
+   border: 5px solid transparent;
+   border-top-color: #475264;
+   animation: spinner-animate 1s ease infinite;
+}
+
+@keyframes spinner-animate {
+   0% {transform: rotate(0turn);}
+   100% {transform: rotate(1turn);}
 }

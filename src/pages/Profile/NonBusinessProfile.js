@@ -8,6 +8,7 @@ import { UseDep } from '../../shared/context/ContextDep'
 import { AppErrorNoProfile } from '../../utils/AppErrors'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { useNavigate, useParams } from 'react-router'
+import SkeletonElement from '../../shared/components/Skeletons/SkeletonElement'
 
 export const NonBusinessProfile = () => {
    // state

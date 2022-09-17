@@ -1,12 +1,16 @@
 .profile-page{
     color: #F4F4F4;
     padding: 2rem;
+    min-width: 600px;
+    max-width: 756px;
+    min-height: 32rem;
+    background-color: #1E2329;
 }
 
 .head-profile{
     display: flex;
     flex-direction: row;
-    gap: 2rem;
+    /* gap: 2rem; */
     margin-bottom: 1rem;
 }
 
@@ -41,4 +45,5 @@
 .profile-text-item{
     gap: 8px;
     margin-bottom: 8px;
+    max-width: 512px;
 }

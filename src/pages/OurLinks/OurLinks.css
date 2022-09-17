@@ -35,6 +35,10 @@
     gap: 1rem;
 }
 
+.links-item a {
+    text-decoration: none;
+}
+
 .links-hd{
     width: 100%;
     

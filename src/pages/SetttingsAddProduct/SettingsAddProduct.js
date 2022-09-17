@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import AppError from '../../utils/AppErrors';
 import { BioColomn } from '../../shared/components/BioColomn/BioColomn'
-import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 
 export const SettingsAddProduct = (props) => {
@@ -25,7 +24,7 @@ export const SettingsAddProduct = (props) => {
          const newImage = event.target.files[i]
          newImage["id"] = Math.random()
          setFileObj((prevState) => [...prevState, newImage])
-       }
+      }
    };
    const [formData, setFormData] = useState({
       productName: "",
@@ -117,7 +116,7 @@ export const SettingsAddProduct = (props) => {
       <>
          <div className='wrapper'>
             <Title2Yellow title={"New Product"} />
-            <div className='settings-add-product-card'>
+            <div className={`settings-add-product-card ${isLoading && 'loading-div'}`}>
                <div className='name-price'>
                   <InputTextLabelSm label={'Name'} id={"productName"} value={formData.productName} handleOnChange={onChangeProductName} style={{ minWidth: '254px' }} />
                   <InputTextLabelSm label={'Price'} id={"price"} value={formData.price} handleOnChange={onChangePrice} style={{ minWidth: '254px' }} />
@@ -141,12 +140,11 @@ export const SettingsAddProduct = (props) => {
                </div>
 
                <div className='button-upload'>
-                  <ButtonComponent label={'Upload'} onClick={saveResponse} />
+                  <ButtonComponent label={'Upload'} onClick={saveResponse} isLoading={isLoading} />
                </div>
             </div>
          </div>
 
-         {isLoading && <LoadingScreen />}
          {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
          {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
       </>

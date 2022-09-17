@@ -11,7 +11,6 @@ import AppError from '../../utils/AppErrors';
 import { useSelector } from 'react-redux';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import { InputTextLabelSm } from '../../shared/components/InputWithLabel/InputWithLabel';
-import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 
 export const SettingsNonBusinessProfile = () => {
@@ -220,7 +219,7 @@ export const SettingsNonBusinessProfile = () => {
          }
 
          <div className='wrapper'>
-            <div className='settings-profile-card'>
+            <div className={`settings-profile-card ${isLoading && 'loading-div'}`}>
                <div className='profile-bio'>
                   <div className='profile-card' style={result ? profileImage : null}>
                      <input type="file" accept='image/*' ref={inputRef} style={{ display: "none" }} onChange={onSelectFile} name="fileName" />
@@ -233,12 +232,11 @@ export const SettingsNonBusinessProfile = () => {
                </div>
 
                <div className='button-save'>
-                  <ButtonComponent label={"Save"} onClick={saveResponse} />
+                  <ButtonComponent label={"Save"} onClick={saveResponse} isLoading={isLoading} />
                </div>
             </div>
          </div>
 
-         {isLoading && <LoadingScreen />}
          {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
          {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
       </>

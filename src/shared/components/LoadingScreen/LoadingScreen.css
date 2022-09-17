@@ -50,3 +50,7 @@
 
     pointer-events: none;
 }
+
+.loading-div {
+    pointer-events: none;
+}

@@ -12,8 +12,8 @@ import AppError, { AppErrorAuth } from '../../utils/AppErrors'
 import { AddFAQ } from '../AddFAQ/AddFAQ'
 import './SettingsFaq.css'
 
-export const SettingsFaq = ({}) => {
-  const [faq,setFaq] = useState([]);
+export const SettingsFaq = ({ }) => {
+  const [faq, setFaq] = useState([]);
   const [question, setQuestion] = useState(0);
   const questionAmount = 20;
   const { faqService, profileService } = UseDep();
@@ -21,30 +21,30 @@ export const SettingsFaq = ({}) => {
   const [isLoading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
-  const [openCreate,setOpenCreate] = useState(false); 
-  const [refresh,setRefresh] = useState(false)
+  const [openCreate, setOpenCreate] = useState(false);
+  const [refresh, setRefresh] = useState(false)
 
   const FAQs = [
     [
-        1, 
-        'What is something that you learned from simply watching a stranger?', 
-        `I haven't bailed on writing. Look, I'm generating a random paragraph at this very moment in an attempt to get my writing back on track. I am making an effort. I will start writing consistently again!`
+      1,
+      'What is something that you learned from simply watching a stranger?',
+      `I haven't bailed on writing. Look, I'm generating a random paragraph at this very moment in an attempt to get my writing back on track. I am making an effort. I will start writing consistently again!`
     ],
     [
-        2,
-        `What is something that has had a big impact on your that you observed from afar?`,
-        `It's always good to bring a slower friend with you on a hike. If you happen to come across bears, the whole group doesn't have to worry. Only the slowest in the group do. That was the lesson they were about to learn that day.`
+      2,
+      `What is something that has had a big impact on your that you observed from afar?`,
+      `It's always good to bring a slower friend with you on a hike. If you happen to come across bears, the whole group doesn't have to worry. Only the slowest in the group do. That was the lesson they were about to learn that day.`
     ],
     [
-        3,
-        `What's your good luck charm?`,
-        `Yes in but got you more nothing less good bubble word knock out balloon.`
+      3,
+      `What's your good luck charm?`,
+      `Yes in but got you more nothing less good bubble word knock out balloon.`
     ]
   ]
 
-  useEffect(()=>{
+  useEffect(() => {
     getFAQ()
-  },[refresh])
+  }, [refresh])
 
   const onClickSuccess = (value) => {
     setSuccess(current => value);
@@ -55,10 +55,10 @@ export const SettingsFaq = ({}) => {
     try {
       const response = await profileService.doGetBusinessProfile({
         account_id: `${authRed.account_id}`
-      }) 
+      })
       try {
         const response2 = await faqService.doGetFaq({
-          "account_id":`${response.data.data.business_profile.ID}`
+          "account_id": `${response.data.data.business_profile.ID}`
         })
         if (response2.data.data !== null) {
           setFaq(response2.data.data)
@@ -71,7 +71,7 @@ export const SettingsFaq = ({}) => {
             isPanic: true, errMsg: AppErrorAuth(err)
           }));
         }
-      }  
+      }
     } catch (err) {
       if (AppErrorAuth(err)) {
         setPanic(prevState => ({
@@ -86,16 +86,15 @@ export const SettingsFaq = ({}) => {
 
   const delFAQ = async (id) => {
     setLoading(true)
-    try{
+    try {
       const response = await faqService.doDeleteFaq({
-        "faq_id":`${id}`
+        "faq_id": `${id}`
       })
       if (response.data.data !== null) {
         setSuccess(true)
-        setQuestion(prevState=>prevState-1)
+        setQuestion(prevState => prevState - 1)
       }
     } catch (err) {
-      console.log(err);
       if (AppError(err)) {
         setPanic(prevState => ({
           ...prevState,
@@ -104,7 +103,7 @@ export const SettingsFaq = ({}) => {
       }
     } finally {
       setLoading(false)
-      setRefresh(prevState=>!prevState)
+      setRefresh(prevState => !prevState)
     }
   }
 
@@ -116,31 +115,31 @@ export const SettingsFaq = ({}) => {
   }
 
   const handleClick = () => {
-    setOpenCreate(prevState=>!openCreate);
+    setOpenCreate(prevState => !openCreate);
   }
 
   return (
     <div className='wrapper'>
       <div className='settings-faq-card'>
         <div className='button-add-faq-question-amount'>
-            <ButtonComponentSm label={"Add Question"} onClick={handleClick}/>
-            <Title3White title={`${question}/${questionAmount}`} />
+          <ButtonComponentSm label={"Add Question"} onClick={handleClick} />
+          <Title3White title={`${question}/${questionAmount}`} />
         </div>
 
         <div className='QAs'>
-        {
-          faq.map((faq,faqi) => {
-            return  (
-              <div className='QAsContainer'>
-                <QA num={faqi+1} question={faq.question} answer={faq.answer}/>
-                <FontAwesomeIcon icon="fa-solid fa-xmark" className='QAsDeleteButton' onClick={()=>delFAQ(faq.ID)}/>
-              </div>
-            )
-          })
-        }
+          {
+            faq.map((faq, faqi) => {
+              return (
+                <div className='QAsContainer'>
+                  <QA num={faqi + 1} question={faq.question} answer={faq.answer} />
+                  <FontAwesomeIcon icon="fa-solid fa-xmark" className='QAsDeleteButton' onClick={() => delFAQ(faq.ID)} />
+                </div>
+              )
+            })
+          }
         </div>
       </div>
-      <AddFAQ openCreate={openCreate} handleOpenCreate={handleClick} setRefresh={setRefresh}/>
+      <AddFAQ openCreate={openCreate} handleOpenCreate={handleClick} setRefresh={setRefresh} />
       {isLoading && <LoadingScreen />}
       {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
       {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}

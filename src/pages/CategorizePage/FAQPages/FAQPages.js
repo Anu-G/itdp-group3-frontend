@@ -7,14 +7,14 @@ import { AuthSelector } from '../../../shared/selectors/Selectors'
 import AppError from '../../../utils/AppErrors'
 import './FAQPages.css'
 
-export const FAQPages = ({bisID}) => {
+export const FAQPages = ({ bisID }) => {
   const { faqService } = UseDep();
-  const [faq,setFaq] = useState([]);
+  const [faq, setFaq] = useState([]);
 
   const getFAQ = async () => {
     try {
       const response = await faqService.doGetFaq({
-        "account_id":`${bisID}`
+        "account_id": `${bisID}`
       })
       if (response.data.data !== null) {
         setFaq(response.data.data)
@@ -34,16 +34,17 @@ export const FAQPages = ({bisID}) => {
         <div className='catalog-ctn empty'>
           <Title2White title={'No Question(s) Yet'} />
         </div>
-        : null}
-      <div className='faq-ctn'>
-        {
-          faq.map((faq,faqi) => {
-            return <div>
-              <QA num={faqi+1} question={faq.question} answer={faq.answer} />
-            </div>
-          })
-        }
-      </div>
+        :
+        <div className='faq-ctn'>
+          {
+            faq.map((faq, faqi) => {
+              return <div>
+                <QA num={faqi + 1} question={faq.question} answer={faq.answer} />
+              </div>
+            })
+          }
+        </div>
+      }
     </>
   )
 }

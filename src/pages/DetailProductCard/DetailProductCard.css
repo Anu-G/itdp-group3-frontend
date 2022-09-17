@@ -15,7 +15,7 @@
 }
 
 .detail-product-wrp{
-    min-width: 37.5rem;
+    width: 37.5rem;
     min-height: 32rem;
     position: absolute;
     background-color: #3B4046;

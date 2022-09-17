@@ -7,7 +7,6 @@ import { UseDep } from '../../shared/context/ContextDep';
 import AppError from '../../utils/AppErrors';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import { useSelector } from 'react-redux'
-import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 
 export const SettingsAccount = () => {
@@ -133,7 +132,7 @@ export const SettingsAccount = () => {
     return (
         <>
             <div className='wrapper'>
-                <div className='settings-account-card'>
+                <div className={`settings-account-card ${isLoading && 'loading-div'}`}>
                     <form onSubmit={handleSubmit}>
                         <div className='item'>
                             <InputTextLabelMd id={'email'} label={'E-mail'} value={email} handleOnChange={handleOnChangeEmail} />
@@ -148,13 +147,12 @@ export const SettingsAccount = () => {
                         </div>
 
                         <div className='button-change'>
-                            <ButtonComponent label={"Change"} />
+                            <ButtonComponent label={"Change"} isLoading={isLoading} />
                         </div>
                     </form >
                 </div >
             </div >
 
-            {isLoading && <LoadingScreen />}
             {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
             {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
         </>

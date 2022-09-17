@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
-import { ButtonComponent } from '../../shared/components/Button/Button'
+import { ButtonComponent, ButtonLoader } from '../../shared/components/Button/Button'
 import { ErrorForm } from '../../shared/components/ErrorForm/ErrorForm'
 import { InputPasswordLabelSm, InputTextLabelSm } from '../../shared/components/InputWithLabel/InputWithLabel'
 import { SubtitleWhite, SubtitleYellow, Title2White } from '../../shared/components/Label/Label'
@@ -16,7 +16,7 @@ export const Login = () => {
     // state
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isActive, setIsActive] = useState(false);
+    const [isActive, setIsActive] = useState(true);
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const navigate = useNavigate();
@@ -97,7 +97,7 @@ export const Login = () => {
                 dispatch(UserLoginAction({
                     token: response.data.data
                 }));
-                setSuccess(true);
+                navigate('/feeds');
             }
         } catch (err) {
             setPanic(prevState => ({
@@ -111,13 +111,7 @@ export const Login = () => {
 
     // screen
     const [isLoading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
     const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
-
-    const onClickSuccess = (value) => {
-        setSuccess(current => value);
-        navigate('/feeds');
-    }
 
     const onClickPanic = (value) => {
         setPanic(prevState => ({
@@ -129,8 +123,7 @@ export const Login = () => {
     return (
         <>
             <div className='login-wrp'>
-                <div className='login-ctn'>
-
+                <div className={`login-ctn ${isLoading && 'loading-div'}`}>
                     <Title2White title={"Login"} />
                     <div className='login-form'>
 
@@ -139,8 +132,7 @@ export const Login = () => {
 
                         <InputPasswordLabelSm id={'password'} label='Password' handleOnChange={handleOnChangePass} value={password} />
                         <ErrorForm message={passwordError} />
-                        <ButtonComponent isDisable={!isActive} label='Login' onClick={handleLoginOnClick} />
-
+                        <ButtonComponent isDisable={!isActive} label='Login' onClick={handleLoginOnClick} isLoading={isLoading} />
                         <div className='sign-up2-ctn pointer' onClick={handleForgotClick}>
                             <SubtitleWhite subtitle={'Forgot Password?'} />
                         </div>
@@ -157,8 +149,6 @@ export const Login = () => {
                 </div>
             </div>
 
-            {isLoading && <LoadingScreen />}
-            {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
             {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
         </>
     )

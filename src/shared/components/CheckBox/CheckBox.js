@@ -31,19 +31,13 @@ export const CheckBox = ({ label, items, valueCB, onChangeCB, handleChangeStart,
 
             </label>
             <div className='dropdown-wrapper'>
-                {openHourStart !== '' ?
-                    <CustomDropdownSm label={`${openHourStart}`} items={items} locked={!valueCB} handleChange={handleChangeStart} />
-                    :
-                    <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeStart} />
-                }
+                {openHourStart && <CustomDropdownSm label={openHourStart} items={items} locked={!valueCB} handleChange={handleChangeStart} />}
+                {!openHourStart && <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeStart} />}
 
                 <span className='px-3'>to</span>
 
-                {closeHourStart !== '' ?
-                    <CustomDropdownSm label={`${closeHourStart}`} items={items} locked={!valueCB} handleChange={handleChangeEnd} />
-                    :
-                    <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeEnd} />
-                }
+                {closeHourStart && <CustomDropdownSm label={closeHourStart} items={items} locked={!valueCB} handleChange={handleChangeStart} />}
+                {!closeHourStart && <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeStart} />}
             </div>
         </div>
     )
