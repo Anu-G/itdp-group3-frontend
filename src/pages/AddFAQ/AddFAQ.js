@@ -92,11 +92,11 @@ export const AddFAQ = ({ openCreate, handleOpenCreate, setRefresh }) => {
                             </div>
                             <div className='caption-form'>
                                 <Title3White title={"Question"} />
-                                <CommentColomn placeholder={"Write question here ..."} handleChange={handleQuestionChange} maxLength={maxLength} value={question} charLength={questionLength} charLimitHandle={handleQuestionLimit} />
+                                <CommentColomn placeholder={"Write question here ..."} handleChange={handleQuestionChange} maxLength={maxLength} value={question} charLength={questionLength} />
                             </div>
                             <div className='caption-form'>
                                 <Title3White title={"Answer"} />
-                                <CommentColomn placeholder={"Write answer here ..."} handleChange={handleAnswerChange} maxLength={maxLength} value={answer} charLength={answerLength} charLimitHandle={handleAnswerLimit} />
+                                <CommentColomn placeholder={"Write answer here ..."} handleChange={handleAnswerChange} maxLength={maxLength} value={answer} charLength={answerLength} />
                             </div>
                             <ButtonComponent label={"Add"} onClick={handleSubmit} />
                         </div>

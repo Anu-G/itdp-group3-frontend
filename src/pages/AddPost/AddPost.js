@@ -139,7 +139,7 @@ export const AddPost = ({ isOpen, togglePopup }) => {
 
                 <div className='caption-form'>
                   <Title3White title={"Caption"} />
-                  <CommentColomn placeholder={"Write caption here ..."} handleChange={handleCaptionChange} maxLength={maxLength} value={caption} charLength={charLength} charLimitHandle={charLimitHandle} />
+                  <CommentColomn placeholder={"Write caption here ..."} handleChange={handleCaptionChange} maxLength={maxLength} value={caption} charLength={charLength} />
                 </div>
               </div>
 
