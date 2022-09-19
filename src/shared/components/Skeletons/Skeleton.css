@@ -13,10 +13,13 @@
 
   .skeleton.tl-name{
    height: 26px;
+   width: 250px;
   }
 
   .skeleton.tl-loc{
     height: 18px;
+    width: 200px;
+    margin-top: 8px;
 }
   
   .skeleton.tl-option-btn{
@@ -28,8 +31,14 @@
     height: 24px;
   }
 
+  .skeleton.tl-caption-short{
+    height: 24px;
+    margin-top: 8px;
+    width: 512px;
+  }
+
   .skeleton.tl-img-view{
-    min-height: 360px;
+    min-height: 344px;
   }
 
   .skeleton.tl-comment-btn{

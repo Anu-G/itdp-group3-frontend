@@ -27,6 +27,7 @@ import { TimelineCard } from "../pages/TimelineCard/TimelineCard";
 import { TimelinePage } from "../pages/TimelinePage/TimelinePage";
 import { LoadingScreen } from "../shared/components/LoadingScreen/LoadingScreen";
 import { PanicPopUpScreen, SuccessPopUpScreen } from "../shared/components/PopUpScreen/PopUpScreen";
+import SkeletonTimelineCard from "../shared/components/Skeletons/SkeletonTimelineCard";
 import { AuthSelector } from "../shared/selectors/Selectors";
 import AppError from "../utils/AppErrors";
 
@@ -71,7 +72,7 @@ const AppRouter = _ => {
             <Route index element={<TimelinePage />} />
             <Route path="category" element={<CategorizePageTimeline />} />
             <Route path="search" element={<Search />} />
-            <Route path=":accId" element={<BusinessProfile/>}/>
+            <Route path=":accId" element={<BusinessProfile />} />
          </Route>
          <Route path="/profile" element={
             <RequireAuth>
@@ -90,7 +91,7 @@ const AppRouter = _ => {
             <Route path="settings/catalog" element={<SettingsAddProduct />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
-         <Route path="/test" element={<SuccessPopUpScreen />} />
+         <Route path="/test" element={<SkeletonTimelineCard />} />
       </Routes>
    )
 }

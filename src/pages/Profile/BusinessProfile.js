@@ -185,7 +185,6 @@ export const BusinessProfile = () => {
             </div>
 
             {showOurLinks && <OurLinks handleX={handleClickLinks} links={profile.BusinessLinks} />}
-            {/* {isLoading && <LoadingScreen />} */}
             {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
         </>
 

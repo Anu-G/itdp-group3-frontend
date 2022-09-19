@@ -7,6 +7,7 @@ import './FeedPage.css'
 import { TimelineCard } from '../../TimelineCard/TimelineCard'
 import { useNavigate, useParams } from 'react-router'
 import { AppErrorAuth } from '../../../utils/AppErrors'
+import SkeletonTimelineCard from '../../../shared/components/Skeletons/SkeletonTimelineCard'
 
 
 
@@ -87,11 +88,11 @@ export const FeedPage = ({ }) => {
 
     return (
         <>
-            {feeds.length == 0 ?
+            {feeds.length == 0 && !isLoading ?
                 <div className='catalog-ctn empty'>
                     <Title2White title={'No Feeds Yet'} />
                 </div> : <div className='catalog-ctn-f ctg'>
-                    {feeds.length !== 0 && feeds.map((item) => {
+                    {feeds.length !== 0 && !isLoading && feeds.map((item) => {
                         let dt = new Date(item.created_at.replace(' ', 'T'));
                         let date = dt.getDate()
                         let month = dt.getMonth() + 1
@@ -116,9 +117,11 @@ export const FeedPage = ({ }) => {
                                 setRefresh={setRefresh}
                                 handleClickName={handleClickName}
                                 feedId={item.post_id}
-                                handleComment={handleComment} />
+                                handleComment={handleComment}
+                                isLoading={isLoading} />
                         )
                     })}
+                    {isLoading && <SkeletonTimelineCard />}
                 </div>}
         </>
     )

@@ -2,12 +2,12 @@ import './TimelinePage.css'
 import React, { useEffect, useState } from 'react'
 import { TimelineCard } from '../TimelineCard/TimelineCard'
 import { UseDep } from '../../shared/context/ContextDep'
-import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { AppErrorAuth } from '../../utils/AppErrors'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { useNavigate } from 'react-router'
 import { AuthSelector } from '../../shared/selectors/Selectors'
 import { useSelector } from 'react-redux'
+import SkeletonTimelineCard from '../../shared/components/Skeletons/SkeletonTimelineCard'
 
 export const TimelinePage = ({ categoryId = null }) => {
   // state
@@ -117,7 +117,7 @@ export const TimelinePage = ({ categoryId = null }) => {
     <>
       <div className='tl-bg'>
         <div className={categoryId ? 'tl-lst ctg' : 'tl-lst'}>
-          {timelines.map((post, i) => {
+          {!isLoading && timelines.map((post, i) => {
             let dt = new Date(post.created_at.replace(' ', 'T'));
             let date = dt.getDate()
             let month = dt.getMonth() + 1
@@ -145,10 +145,14 @@ export const TimelinePage = ({ categoryId = null }) => {
               />
             )
           })}
+          {isLoading &&
+            <>
+              <SkeletonTimelineCard />
+              <SkeletonTimelineCard />
+            </>}
         </div>
       </div>
 
-      {isLoading && <LoadingScreen />}
       {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
     </>
   )

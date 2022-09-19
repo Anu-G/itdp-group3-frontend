@@ -19,7 +19,7 @@ import AppError from '../../utils/AppErrors'
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment, postLikes, detailPostLikes = [], setRefresh, accId, handleClickName }) => {
+export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment, postLikes, detailPostLikes = [], setRefresh, accId, handleClickName, isLoading }) => {
   // state
   const maxLength = 280
   const [isActive, setIsActive] = useState(false)
@@ -60,7 +60,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   }
 
   const handleCommentChange = (event) => {
-    setComment(event.target.value) 
+    setComment(event.target.value)
   }
 
   const handleOnClickSend = () => {
@@ -109,9 +109,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
           <div className='profile-hd'>
 
             <AvatarSmall link={avatar} accId={accId} handleClick={handleClickName} />
-            <div className='name-location-ctn'>
-              <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} />
-            </div>
+            <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} />
 
           </div>
           <div className='right-btn-ctn'>
