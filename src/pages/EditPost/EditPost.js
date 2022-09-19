@@ -4,20 +4,23 @@ import { ButtonComponent } from '../../shared/components/Button/Button'
 import { Title2White, Title3White } from '../../shared/components/Label/Label';
 import { UseDep } from '../../shared/context/ContextDep';
 import AppError from '../../utils/AppErrors';
-import './AddPost.css'
+import './EditPost.css'
 import { useSelector } from 'react-redux';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import { CommentColomn } from '../../shared/components/CommentColomn/CommentColomn';
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
-import { ImagesViewAddPost, ImagesViewAddPostOne, ImageViewAddPostMany } from '../../shared/components/ImagesViewAddPost/ImagesViewAddPost';
+import { ImagesViewAddPostOne, ImageViewAddPostMany } from '../../shared/components/ImagesViewAddPost/ImagesViewAddPost';
 
-export const AddPost = ({ isOpen, togglePopup }) => {
+export const EditPost = ({ feedId, openEditPost, handleOpenEditPost, prevImage, prevCaption, setRefresh }) => {
   // state
   const maxLength = 280;
-  const [caption, setCaption] = useState('');
+  const [caption, setCaption] = useState(prevCaption);
   const [charLength, setCharLength] = useState(0);
-  const [fileObj, setFileObj] = useState([])
+  const [fileObj, setFileObj] = useState([]);
+  const [imagePreview, setImagePreview] = useState([...prevImage])
+  const [imageHold, setImageHold] = useState([...prevImage])
+  const [imageDelete, setImageDelete] = useState([])
   const inputRef = useRef();
 
   const triggerFileSelectPopup = () => inputRef.current.click();
@@ -25,12 +28,6 @@ export const AddPost = ({ isOpen, togglePopup }) => {
   const handleCaptionChange = (event) => {
     setCaption(event.target.value);
     setCharLength(event.target.value.length);
-  }
-
-  const charLimitHandle = (e) => {
-    if (charLength >= maxLength) {
-      e.preventDefault();
-    }
   }
 
   const onSelectFile = (event) => {
@@ -41,26 +38,53 @@ export const AddPost = ({ isOpen, togglePopup }) => {
       reader.readAsDataURL(newImage)
       reader.addEventListener('load', () => {
         setFileObj((prevState) => [...prevState, { file: newImage, imgPreview: reader.result }])
+        setImagePreview(prevState => [...prevState, reader.result])
       })
     }
   }
 
   // service
   const { postImageService, postService } = UseDep();
-  const authRed = useSelector(AuthSelector);
 
   const saveResponse = async _ => {
     try {
       setLoading(true);
-      const responseImage = await postImageService.doPostImage(fileObj.map(data => data.file));
+      let imageSend = []
+      if (imageHold.length > 0) {
+        imageSend = [...imageHold]
+      }
+      if (fileObj.length > 0) {
+        const responseImage = await postImageService.doPostImage(fileObj.map(data => data.file));
+        imageSend = [...imageSend, ...responseImage]
+      }
       try {
-        const response = await postService.doPostData({
-          account_id: authRed.account_id,
-          caption_post: caption,
-          media_links: responseImage
+        const response = await postService.doEditData({
+          "feed_ID": feedId,
+          "caption_post": caption,
+          "media_links": imageSend
         });
-        if (response.status === 200) {
-          setSuccess(true);
+        if (imageDelete.length > 0) {
+            try {
+                const response2 = await postImageService.doDeleteImage({
+                    url: imageDelete
+                })
+                if (response.status === 200) {
+                    setSuccess(true);
+                    setRefresh()
+                }
+            } catch (err) {
+                console.error(err);
+                setPanic(prevState => ({
+                  ...prevState,
+                  isPanic: true, errMsg: AppError(err)
+                }));
+                setRefresh()
+            }
+        } else {
+            if (response.status === 200) {
+                setSuccess(true);
+                setRefresh()
+            }
         }
       } catch (err) {
         console.error(err);
@@ -97,38 +121,55 @@ export const AddPost = ({ isOpen, togglePopup }) => {
   }
 
   const handleDelete = (index) => {
-    if (fileObj.length == 1) {
+    if (imagePreview.length == 1) {
+      setImagePreview(prevState => [])
+      if (imageHold.length > 0) {
+        setImageDelete(prevState => [...imageHold])
+      }
+      setImageHold(prevState => [])
       setFileObj(prevState => [])
+      
     } else {
-      const holdFileObjFront = fileObj.slice(0, index - 1);
-      const holdFileObjBack = fileObj.slice(index, fileObj.length)
-      setFileObj(prevState => [...holdFileObjFront, ...holdFileObjBack])
+      const holdImagePreviewFront = imagePreview.slice(0, index - 1);
+      const holdImagePreviewBack = imagePreview.slice(index, imagePreview.length)
+      setImagePreview(prevState => [...holdImagePreviewFront, ...holdImagePreviewBack])
+      if (index > imageHold.length) {
+        const holdFileObjFront = fileObj.slice(0, index - 1 - imageHold.length)
+        const holdFileObjBack = fileObj.slice(index - imageHold.length, fileObj.length)
+        setFileObj(prevState => [...holdFileObjFront,...holdFileObjBack])
+      } else {
+        const holdImageSendFront = imageHold.slice(0, index - 1)
+        const holdImageSendBack = imageHold.slice(index, imageHold.length)
+        const holdImageDelete = imageHold.slice(index-1)
+        setImageHold(prevState => [...holdImageSendFront,...holdImageSendBack])
+        setImageDelete(prevState=>[...prevState,holdImageDelete])
+      }
     }
   }
 
   return (
     <>
-      {isOpen &&
-        <div className='addpost-wrp'>
+      {openEditPost &&
+        <div className='editpost-wrp'>
           <div className="popup-box">
             <div className="box">
               <div className='add-post-title'>
-                <Title2White title={"Add Post"} />
-                <div className='x-btn' onClick={togglePopup}>
+                <Title2White title={"Edit Post"} />
+                <div className='x-btn' onClick={handleOpenEditPost}>
                   <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
                 </div>
               </div>
-              <Title3White title={"Add Photos/Videos"} />
+              <Title3White title={"Edit Photos/Videos"} />
               <div className='form'>
-                <div className='add-photo-video-form'>
-                  {fileObj.length > 0 ?
-                    <div className='file-input-card-post'>
-                      {fileObj.length !== 1
-                        ? <ImageViewAddPostMany links={fileObj.map(data => data.imgPreview)} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />
-                        : <ImagesViewAddPostOne link={fileObj.map(data => data.imgPreview)} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />}
+                <div className='edit-photo-video-form'>
+                  {imagePreview.length > 0 ?
+                    <div className='file-input-card-edit'>
+                      {imagePreview.length !== 1
+                        ? <ImageViewAddPostMany links={imagePreview} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />
+                        : <ImagesViewAddPostOne link={imagePreview} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />}
                     </div>
                     :
-                    <div className='file-input-card-post'>
+                    <div className='file-input-card-edit'>
                       <input multiple type="file" accept='image/*,video/*' ref={inputRef} style={{ display: "none" }} onChange={onSelectFile} name="fileName" />
                       <button onClick={triggerFileSelectPopup} style={{ borderRadius: "8px" }}>Choose Image</button>
                     </div>
@@ -142,7 +183,7 @@ export const AddPost = ({ isOpen, togglePopup }) => {
               </div>
 
               <div className='button-upload'>
-                <ButtonComponent label={"Upload"} onClick={saveResponse} />
+                <ButtonComponent label={"Update"} onClick={saveResponse} />
               </div>
             </div>
           </div>

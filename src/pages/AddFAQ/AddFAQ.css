@@ -14,9 +14,10 @@
     top: 0;
     left: 0;
     display: flex;
-  }
+    z-index: 2;
+}
    
-  .box {
+.box-faq {
     position: relative;
     width: fit-content;
     height: auto;
@@ -29,9 +30,12 @@
     color: white;
     padding: 32px;
     border-radius: 20px;
-  }
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
    
-  .close-icon {
+.close-icon {
     content: 'x';
     cursor: pointer;
     right: 27%;
@@ -43,7 +47,7 @@
     border: 1px solid #999;
     font-size: 50px;
     color: red;
-  }
+}
 
 .form{
     display: flex;
@@ -51,27 +55,7 @@
     align-items: flex-start;
 }
 
-.add-photo-video-box{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 36px;
-}
-
-.file-input-card{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 736px;
-    height: 424px;
-    background-color: #F4F4F4;
-    color: black;
-    border-radius: 20px;
-}
-
-.caption-form{
-    margin-top: 32px;
-    margin-bottom: 32px;
+.caption-form-faq{
     width: 736px;
 }
 
@@ -79,9 +63,4 @@
     display: flex;
     flex-direction: row;
     flex-direction: row-reverse;
-}
-
-.add-post-title {
-    display: flex;
-    justify-content: space-between;
 }

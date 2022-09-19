@@ -8,16 +8,17 @@
 .img-vw-addpost{
     height: 100%;
     border-radius: 20px;
-    width: 628px;
+    width: 100%;
     object-fit: cover;
 }
 
-.img-tl-ctn{
-  height: 344px;
+.img-tl-ctn-add{
+  height: 100%;
   width: 100%;
   border-radius: 20px;
   display: flex;
   justify-content: center;
+  object-fit: cover;
 }
 
 .img-mn-ctn{
@@ -29,9 +30,8 @@
     overflow: hidden;
 }
 
-.container-slider {
-  max-width: 672px;
-  height: 344px;
+.container-slider-add {
+  height: 100%;
   border-radius: 20px;
   /* margin: 100px auto 0; */
   position: relative;

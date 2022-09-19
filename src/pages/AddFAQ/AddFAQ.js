@@ -88,15 +88,15 @@ export const AddFAQ = ({openCreate,handleOpenCreate,setRefresh}) => {
             {openCreate && 
                 <div className='wrapper'>
                     <div className="popup-box">
-                        <div className="box">
+                        <div className="box-faq">
                             <div className='add-faq-title'>
                                 <span className="close-icon" onClick={handleOpenCreate}><FontAwesomeIcon icon="fa-solid fa-xmark" style={{ width: '32px', height: '32px' }} /></span>
                             </div>
-                            <div className='caption-form'>
+                            <div className='caption-form-faq'>
                                 <Title3White title={"Question"} />
                                 <CommentColomn placeholder={"Write question here ..."} handleChange={handleQuestionChange} maxLength={maxLength} value={question} charLength={questionLength} />
                             </div>
-                            <div className='caption-form'>
+                            <div className='caption-form-faq'>
                                 <Title3White title={"Answer"} />
                                 <CommentColomn placeholder={"Write answer here ..."} handleChange={handleAnswerChange} maxLength={maxLength} value={answer} charLength={answerLength} />
                             </div>

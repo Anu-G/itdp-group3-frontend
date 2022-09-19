@@ -34,12 +34,45 @@ const ProductService = ({ doPost }) => {
       }
    }
 
-   return { doGetProductByAccount, doGetProductSearch, doPostProductData };
+   const doEditProductData = async (data) => {
+      try {
+         return await doPost({
+            url: '/product/update',
+            data: data
+         })
+      } catch (err) {
+         throw (err);
+      }
+   }
+
+   const doDeleteProductData = async (data) => {
+      try {
+         return await doPost({
+            url: '/product/delete/product',
+            data: data
+         })
+      } catch (err) {
+         throw (err);
+      }
+   }
+
+   return { doGetProductByAccount, doGetProductSearch, doPostProductData, doEditProductData, doDeleteProductData };
 }
 
 export default ProductService;
 
-export const ProductImageService = ({ doStoreMultipleFiles }) => {
+export const ProductImageService = ({ doStoreMultipleFiles, doDeleteFile }) => {
+
+   const doDeleteImage = async(url) => {
+      try {
+         await doDeleteFile({
+            url: url
+         })
+      } catch (err) {
+         throw err
+      }
+   }
+
    const doPostProductImage = async (image) => {
       try {
          let folderName = uuidv4().toString()
@@ -52,5 +85,5 @@ export const ProductImageService = ({ doStoreMultipleFiles }) => {
       }
    }
 
-   return { doPostProductImage };
+   return { doPostProductImage, doDeleteImage };
 }

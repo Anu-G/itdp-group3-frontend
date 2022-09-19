@@ -1,4 +1,4 @@
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref,uploadBytesResumable } from "firebase/storage";
 import storage from "../shared/storage/FirebaseConfig";
 import { v4 as uuidv4 } from 'uuid'
 
@@ -36,6 +36,20 @@ const ApiFactory = (client) => {
          return response;
       } catch (err) {
          throw err;
+      }
+   }
+
+   const doDeleteFile = async ({url}) => {
+      try {
+         const promises = []
+         url.url.map((image) => {
+            const storageRef = ref(storage,image)
+            const deleteTask = deleteObject(storageRef)
+            promises.push(deleteTask)
+         })
+         await Promise.all(promises)
+      } catch (err) {
+         throw err
       }
    }
 
@@ -86,7 +100,7 @@ const ApiFactory = (client) => {
       }
    }
 
-   return { doPost, doGet, doGetInput, doPut, doStoreFile, doStoreMultipleFiles, doDelete }
+   return { doPost, doGet, doGetInput, doPut, doDeleteFile, doStoreFile, doStoreMultipleFiles, doDelete }
 
 }
 
