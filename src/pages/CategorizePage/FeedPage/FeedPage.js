@@ -104,7 +104,7 @@ export const FeedPage = ({ }) => {
                             <TimelineCard
                                 avatar={item.avatar}
                                 caption={item.caption_post}
-                                comments={item.detail_comments}
+                                comments={item.detail_comment}
                                 date={`${date}/${month}/${year}`}
                                 links={item.detail_media_feed}
                                 name={item.display_name}

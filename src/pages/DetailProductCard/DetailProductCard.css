@@ -31,14 +31,19 @@
     flex-direction: column;
 }
 
+.head-right-corner-container{
+    float: right;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
 .x-btn{
     width: 28px;
     height: 32px;
     margin-left: 0px;
     cursor: pointer;
     color: #FE5454;
-
-    float: right;
 }
 
 

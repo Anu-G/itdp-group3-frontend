@@ -6,7 +6,7 @@
     background-color: #1E2329;
 }
 
-.popup-box {
+.popup-box-faq {
     position: fixed;
     background: #00000050;
     width: 100%;
@@ -14,9 +14,10 @@
     top: 0;
     left: 0;
     display: flex;
-  }
+    z-index: 2;
+}
    
-  .box {
+.box-faq {
     position: relative;
     width: 692px;
     height: auto;
@@ -29,7 +30,10 @@
     color: white;
     padding: 32px;
     border-radius: 20px;
-  }
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
    
   .close-icon {
     cursor: pointer;
@@ -54,11 +58,10 @@
     align-items: flex-start;
 }
 
-.add-photo-video-box{
+.form{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 36px;
 }
 
 .file-input-card{

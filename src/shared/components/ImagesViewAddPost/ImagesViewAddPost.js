@@ -15,8 +15,8 @@ export const ImagesViewAddPost = ({ link, handleClick }) => {
 
 export const ImagesViewAddPostOne = ({ link, handleDelete, triggerFileSelectPopup, onSelectFile, inputRef }) => {
   return (
-    <div className='container-slider'>
-      <div className='img-tl-ctn'>
+    <div className='container-slider-add'>
+      <div className='img-tl-ctn-add'>
         {link[0].includes("video")
           ? <video width="628" height="100%" controls>
             <source src={link[0]} type="video/mp4" />
@@ -77,7 +77,7 @@ export const ImageViewAddPostMany = ({ links, handleDelete, triggerFileSelectPop
   }
 
   return (
-    <div className='container-slider'>
+    <div className='container-slider-add'>
       {links.map((link, index) => {
         return (
           <div className={slideIndex === index + 1 ? "slide active-anim" : "slide"} key={index}>

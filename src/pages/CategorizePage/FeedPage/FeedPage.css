@@ -9,29 +9,6 @@
     padding-bottom: 2rem;
 }
 
-/* @media (max-width: 800px){
-    .content-ctn { 
-        width: 100%;
-        grid-template-columns: repeat(2,1fr);
-    }
-} */
-
-.detail-feed-bg{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 101;
-
-}
-
 .detail-feed-wrp{
     min-width: 37.5rem;
     min-height: 32rem;

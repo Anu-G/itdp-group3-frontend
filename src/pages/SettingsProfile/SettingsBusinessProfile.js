@@ -344,14 +344,12 @@ export const SettingsBusinessProfile = () => {
                     ...prevState,
                     isPanic: true, errMsg: AppError(err)
                 }));
-                console.error(err);
             }
         } catch (err) {
             setPanic(prevState => ({
                 ...prevState,
                 isPanic: true, errMsg: AppError(err)
             }));
-            console.error(err);
         } finally {
             setLoading(false);
         }

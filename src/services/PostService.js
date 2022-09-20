@@ -12,12 +12,45 @@ export const PostService = ({ doPost }) => {
       }
    }
 
+   const doEditData = async (editData) => {
+      try {
+         return await doPost({
+            url: '/feed/update',
+            data: editData
+         })
+      } catch (err) {
+         throw err;
+      }
+   }
 
-   return { doPostData };
+   const doDeleteData = async (id) => {
+      try {
+         return await doPost({
+            url: '/feed/delete',
+            data: id
+         })
+      } catch (err) {
+         throw err;
+      }
+   }
+
+
+   return { doPostData, doEditData, doDeleteData };
 }
 
 
-export const PostImageService = ({ doStoreMultipleFiles }) => {
+export const PostImageService = ({ doStoreMultipleFiles, doDeleteFile }) => {
+
+   const doDeleteImage = async(url) => {
+      try {
+         await doDeleteFile({
+            url: url
+         })
+      } catch (err) {
+         throw err
+      }
+   }
+
    const doPostImage = async (image) => {
       try {
          let folderName = uuidv4().toString()
@@ -30,5 +63,5 @@ export const PostImageService = ({ doStoreMultipleFiles }) => {
       }
    }
 
-   return { doPostImage };
+   return { doPostImage, doDeleteImage };
 }

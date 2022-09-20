@@ -13,9 +13,10 @@ import './CatalogPage.css'
 export const CatalogPage = ({ }) => {
     // state
     const [isActive, setIsActive] = useState(false)
-    const {accId} = useParams();
+    const { accId } = useParams();
     const [products, setProduct] = useState([])
     const [productOpen, setProductOpen] = useState({})
+    const [refresh, setRefresh] = useState(false)
 
     const handleFormClose = () => {
         setIsActive(prevState => false)
@@ -52,7 +53,12 @@ export const CatalogPage = ({ }) => {
 
     useEffect(() => {
         getProducts()
+    }, [refresh])
+
+    useEffect(() => {
+        getProducts()
     }, [])
+
 
     const restring = (str) => {
         const newStr = str.slice(0, 15);
@@ -93,7 +99,7 @@ export const CatalogPage = ({ }) => {
             }
 
 
-            {isActive && <DetailProductCard handleClick={handleFormClose} product={productOpen} />}
+            {isActive && <DetailProductCard handleClick={handleFormClose} product={productOpen} setRefresh={setRefresh} />}
         </>
     )
 }

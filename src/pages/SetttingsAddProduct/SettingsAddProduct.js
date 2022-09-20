@@ -11,6 +11,7 @@ import { AuthSelector } from '../../shared/selectors/Selectors';
 import AppError from '../../utils/AppErrors';
 import { BioColomn } from '../../shared/components/BioColomn/BioColomn'
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
+import { ImagesViewAddPostOne, ImageViewAddPostMany } from '../../shared/components/ImagesViewAddPost/ImagesViewAddPost';
 
 export const SettingsAddProduct = (props) => {
    // state
@@ -55,12 +56,6 @@ export const SettingsAddProduct = (props) => {
       setCharLength(event.target.value.length)
    }
 
-   const charLimitHandle = (e) => {
-      if (charLength >= maxLength) {
-         e.preventDefault();
-      }
-   }
-
    // service
    const { productImageService, productService } = UseDep();
    const authRed = useSelector(AuthSelector);
@@ -68,7 +63,7 @@ export const SettingsAddProduct = (props) => {
    const saveResponse = async _ => {
       try {
          setLoading(true);
-         let responseImage = await productImageService.doPostProductImage(fileObj);
+         let responseImage = await productImageService.doPostProductImage(fileObj.map(data => data.file));
          try {
             const response = await productService.doPostProductData({
                account_id: `${authRed.account_id}`,
@@ -112,6 +107,16 @@ export const SettingsAddProduct = (props) => {
       }));
    }
 
+   const handleDelete = (index) => {
+      if (fileObj.length == 1) {
+         setFileObj(prevState => [])
+      } else {
+         const holdFileObjFront = fileObj.slice(0, index - 1);
+         const holdFileObjBack = fileObj.slice(index, fileObj.length)
+         setFileObj(prevState => [...holdFileObjFront, ...holdFileObjBack])
+      }
+   }
+
    return (
       <>
          <div className='wrapper'>
@@ -129,12 +134,20 @@ export const SettingsAddProduct = (props) => {
                <div className='add-photo-video'>
                   <Title3White title={"Add Photos/ Video"} />
                   <div className="form-upload">
-                     <label htmlFor={id} className="text-primary font-weight-bold">{label}</label>
-                     <div className="d-flex">
-                        <div className="d-flex">
-                           <input multiple type="file" accept='image/*' ref={inputRef} style={{ display: "none" }} onChange={onSelectFile} name="fileName" />
-                           <button onClick={triggerFileSelectPopup} style={{ borderRadius: "8px" }}>Choose Image</button>
-                        </div>
+                     <div className="file-input-card-product">
+                        {fileObj.length > 0
+                           ?
+                           <>
+                              {fileObj.length !== 1
+                                 ? <ImageViewAddPostMany links={fileObj.map(data => data.imgPreview)} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />
+                                 : <ImagesViewAddPostOne link={fileObj.map(data => data.imgPreview)} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />}
+                           </>
+                           :
+                           <>
+                              <input multiple type="file" accept='image/*' ref={inputRef} style={{ display: "none" }} onChange={onSelectFile} name="fileName" />
+                              <button onClick={triggerFileSelectPopup} style={{ borderRadius: "8px" }}>Choose Image</button>
+                           </>
+                        }
                      </div>
                   </div>
                </div>
