@@ -52,7 +52,7 @@ function Navbar({ title, navItems, buttons }) {
             })}
             {buttons && buttons.map((btn) => (
               <li key={btn.id} className={btn.className}>
-                <ButtonComponent label={btn.label} onClick={btn.onClick} />
+                <ButtonComponent label={btn.label} onClick={btn.onClick} isLoading={btn.isLoading} />
               </li>
             ))}
           </ul>

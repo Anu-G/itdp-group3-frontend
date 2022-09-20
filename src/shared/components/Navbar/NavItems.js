@@ -69,3 +69,29 @@ export const navItemsBusinessProfile = [
     sName: "sidebar-item",
   }
 ];
+
+export const buttonNavNonBusiness = (activateBusiness, onLogout, isLoadActivate, isLoadLogout) => ([
+  {
+    id: 'applyBusiness',
+    className: 'sidebar-btn',
+    label: '+ Business Account',
+    onClick: activateBusiness,
+    isLoading: isLoadActivate
+  }, {
+    id: 'logout',
+    className: 'sidebar-btn',
+    label: 'Logout',
+    onClick: onLogout,
+    isLoading: isLoadLogout
+  }
+]);
+
+export const buttonNavBusiness = (onLogout, isLoadLogout) => ([
+  {
+    id: 'logout',
+    className: 'sidebar-btn',
+    label: 'Logout',
+    onClick: onLogout,
+    isLoading: isLoadLogout
+  }
+]);

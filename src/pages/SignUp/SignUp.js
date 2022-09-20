@@ -134,6 +134,12 @@ export const SignUp = () => {
         navigate('/auth/login');
     }
 
+    const onClickEnter = (e) => {
+        if (e.which === 13 && isActive) {
+            handleSignUpClick();
+        }
+    }
+
     // screen
     const [isLoading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -153,7 +159,7 @@ export const SignUp = () => {
     return (
         <>
             <div className='sign-up-wrp'>
-                <div className={`sign-up-ctn ${isLoading && 'loading-div'}`}>
+                <div className={`sign-up-ctn ${isLoading && 'loading-div'}`} onKeyDown={onClickEnter}>
                     <Title2White title={'Sign Up'} />
 
                     <InputTextLabelMd handleOnChange={handleUsernameChange} id={'username'} label='Username' value={username} />

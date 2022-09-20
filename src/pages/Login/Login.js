@@ -109,6 +109,12 @@ export const Login = () => {
         }
     }
 
+    const onClickEnter = (e) => {
+        if (e.which === 13 && isActive) {
+            handleLoginOnClick();
+        }
+    }
+
     // screen
     const [isLoading, setLoading] = useState(false);
     const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
@@ -125,7 +131,7 @@ export const Login = () => {
             <div className='login-wrp'>
                 <div className={`login-ctn ${isLoading && 'loading-div'}`}>
                     <Title2White title={"Login"} />
-                    <div className='login-form'>
+                    <div className='login-form' onKeyDown={onClickEnter}>
 
                         <InputTextLabelSm id={'email'} label='E-mail' handleOnChange={handleOnChangeEmail} value={email} />
                         <ErrorForm message={emailError} />

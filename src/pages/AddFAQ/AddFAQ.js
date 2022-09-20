@@ -3,7 +3,7 @@ import { useReducer, useState } from "react";
 import { useSelector } from "react-redux";
 import { ButtonComponent } from "../../shared/components/Button/Button";
 import { CommentColomn } from "../../shared/components/CommentColomn/CommentColomn";
-import { Title3White } from "../../shared/components/Label/Label";
+import { Title2White, Title3White } from "../../shared/components/Label/Label";
 import { LoadingScreen } from "../../shared/components/LoadingScreen/LoadingScreen";
 import { PanicPopUpScreen, SuccessPopUpScreen } from "../../shared/components/PopUpScreen/PopUpScreen";
 import { UseDep } from "../../shared/context/ContextDep";
@@ -88,6 +88,7 @@ export const AddFAQ = ({ openCreate, handleOpenCreate, setRefresh }) => {
                     <div className="popup-box">
                         <div className="box">
                             <div className='add-faq-title'>
+                                <Title2White title={"Add FAQ"} />
                                 <span className="close-icon" onClick={handleOpenCreate}><FontAwesomeIcon icon="fa-solid fa-xmark" style={{ width: '32px', height: '32px' }} /></span>
                             </div>
                             <div className='caption-form'>

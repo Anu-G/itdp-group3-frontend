@@ -79,8 +79,8 @@ export const BusinessProfile = () => {
                 ProfileBio: response.data.data.business_profile.profile_bio,
                 GmapsLink: response.data.data.business_profile.gmaps_link,
                 DisplayName: response.data.data.business_profile.display_name,
-                BusinessHours: response.data.data.business_profile.business_hours,
-                BusinessLinks: response.data.data.business_profile.business_links,
+                BusinessHours: response.data.data.business_profile.business_hours !== null ? response.data.data.business_profile.business_hours : [],
+                BusinessLinks: response.data.data.business_profile.business_links !== null ? response.data.data.business_profile.business_links : [],
                 PhoneNumber: response.data.data.phone_number,
                 CategoryName: response.data.data.category_name
             }))
