@@ -7,28 +7,36 @@ import { AuthSelector } from '../../../shared/selectors/Selectors'
 import './FeedPage.css'
 import { LoadingScreen } from '../../../shared/components/LoadingScreen/LoadingScreen'
 import { TimelineCard } from '../../TimelineCard/TimelineCard'
-import { useNavigate, useParams } from 'react-router'
+import { Navigate, useNavigate, useParams } from 'react-router'
 import { AppErrorAuth } from '../../../utils/AppErrors'
+import { DetailPostCard } from '../../DetailPostCard/DetailPostCard'
 
 
 
 export const FeedPage = ({ }) => {
     // state
-    const [isActive, setIsActive] = useState(false)
     const {accId} = useParams();
     const [feeds, setFeeds] = useState([])
-    const [feedsOpen, setFeedsOpen] = useState({})
     const navigate = useNavigate();
+    const [detailPost, setDetailPost] = useState({
+        isActive: false,
+        id: 0,
+    })
     const [refresh, setRefresh] = useState(false)
 
-    const handleFormClose = () => {
-        setIsActive(prevState => false)
-        setFeedsOpen(prevState => { })
+    const handleClosePicture = () => {
+        setDetailPost({
+            isActive: false,
+            id:0
+        })
     }
 
-    const handleFormOpen = (value) => {
-        setIsActive(prevState => true)
-        setFeedsOpen(prevState => value)
+    const handleClickPicture = (value) => {
+        window.history.pushState(null,null,`/p/${value}`)
+        setDetailPost({
+            isActive: true,
+            id: value
+        })
     }
 
     // service
@@ -53,7 +61,6 @@ export const FeedPage = ({ }) => {
             const response = await timelineService.doGetAccount({
                 "account_id": useId
             })
-            console.log(response);
             if (response.data.data !== null) {
                 setFeeds(response.data.data)
             }
@@ -98,7 +105,9 @@ export const FeedPage = ({ }) => {
         } else {
           navigate(`/feeds/${accountId}`)
         }
-      }
+    }
+
+    
 
     return (
         <>
@@ -147,30 +156,13 @@ export const FeedPage = ({ }) => {
                             setRefresh={setRefresh}
                             handleClickName={handleClickName}
                             feedId={item.post_id}
-                            handleComment={handleComment}/>
+                            handleComment={handleComment}
+                            handleClickPicture={handleClickPicture}
+                            profileStatus={true}/>
                     )
                 })}
             </div>
-
-            {isActive &&
-                <div className='detail-feed-bg'>
-                    <div className='detail-feed-wrp'>
-                        <TimelineCard
-                            avatar={feedsOpen.avatar}
-                            caption={feedsOpen.caption_post}
-                            comments={feedsOpen.detail_comments}
-                            date={`${new Date(feedsOpen.created_at.replace(' ', 'T')).getDate()}/${new Date(feedsOpen.created_at.replace(' ', 'T')).getMonth() + 1}/${new Date(feedsOpen.created_at.replace(' ', 'T')).getFullYear()}`}
-                            links={feedsOpen.detail_media_feed}
-                            name={feedsOpen.display_name}
-                            place={feedsOpen.place}
-                            time={`${new Date(feedsOpen.created_at.replace(' ', 'T')).getHours() < 10 ? '0' + new Date(feedsOpen.created_at.replace(' ', 'T')).getHours() : new Date(feedsOpen.created_at.replace(' ', 'T')).getHours()}:${new Date(feedsOpen.created_at.replace(' ', 'T')).getMinutes() < 10 ? '0' + new Date(feedsOpen.created_at.replace(' ', 'T')).getMinutes() : new Date(feedsOpen.created_at.replace(' ', 'T')).getMinutes()}`}
-                            key={feedsOpen.account_id}
-                            handleClick={handleFormClose}
-                        />
-                    </div>
-                </div>
-            }
-
+            {detailPost.isActive && <DetailPostCard postIdFeed={detailPost.id} handleClosePicture={handleClosePicture}/>}
             {isLoading && <LoadingScreen />}
         </>
     )

@@ -16,11 +16,12 @@ import AppError from '../../utils/AppErrors'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { UseDep } from '../../shared/context/ContextDep'
+import { useParams } from 'react-router'
 
 library.add(fas)
 library.add(far)
 
-export const DetailProductCard = ({ handleClick, product, setRefresh }) => {
+export const DetailProductCard = ({ handleClick, product, setRefresh, profileStatus=false }) => {
   // state
   const avatar = product.avatar
   const name = product.profile_name
@@ -29,6 +30,7 @@ export const DetailProductCard = ({ handleClick, product, setRefresh }) => {
   const productPrice = product.price
   const caption = product.caption
   const links = product.detail_media_products
+  const param = useParams();
   const [isEdit, setIsEdit] = useState(false);
 
   const [readMore, setReadMore] = useState(true)
@@ -75,7 +77,22 @@ export const DetailProductCard = ({ handleClick, product, setRefresh }) => {
         setLoading(false)
         setRefresh()
     }
-}
+  }
+
+  const productEdit = () => {
+    if (profileStatus && !param.accId) {
+      return (
+        <>
+          <ButtonComponentSm label={"Delete"} onClick={handleDelete} />
+          <ButtonComponentSm label={"Edit"} onClick={handleEdit} />
+        </>
+      )
+    } else {
+      return (
+        <></>
+      )
+    }
+  }
 
   return (
     <div className='detail-product-bg'>
@@ -97,8 +114,7 @@ export const DetailProductCard = ({ handleClick, product, setRefresh }) => {
 
                 </div>
                 <div className='head-right-corner-container'>
-                  <ButtonComponentSm label={"Delete"} onClick={handleDelete} />
-                  <ButtonComponentSm label={"Edit"} onClick={handleEdit} />
+                  {productEdit()}
                   <div className='x-btn' onClick={handleClick}>
                     <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
                   </div>

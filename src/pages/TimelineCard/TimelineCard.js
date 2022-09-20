@@ -16,11 +16,12 @@ import { useSelector } from 'react-redux'
 import { AuthSelector } from '../../shared/selectors/Selectors'
 import AppError from '../../utils/AppErrors'
 import { PostOption } from '../PostOption/PostOption'
+import { useParams } from 'react-router'
 
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment, postLikes, detailPostLikes=[], setRefresh, accId, handleClickName }) => {
+export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment, postLikes, detailPostLikes=[], setRefresh, accId, handleClickName, handleClickPicture, profileStatus = false }) => {
   // state
   const maxLength = 280
   const [isActive, setIsActive] = useState(false)
@@ -30,6 +31,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   const [readMore, setReadMore] = useState(true)
   const [openPostOption, setOpenPostOption] = useState(false)
   const { timelineService } = UseDep();
+  const param = useParams();
   const authRed = useSelector(AuthSelector);
 
   useEffect(() => {
@@ -105,7 +107,15 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   }
 
   const handleOpenOptions = () => {
-    setOpenPostOption(prevState=>!openPostOption)
+    if (profileStatus && !param.accId) {
+      setOpenPostOption(prevState=>!openPostOption) 
+    }
+  }
+
+  const onClickPictrue = () => {
+    if (handleClickPicture) {
+      handleClickPicture(feedId)
+    }
   }
 
   return (
@@ -140,7 +150,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
         </div>
 
         <>
-          <div className='img-view-ctn'>
+          <div className='img-view-ctn' onClick={onClickPictrue}>
             {Array.isArray(links) && links.length !== 1 ? <ImagesViewTimelineMany links={links} /> : <ImagesViewTimeline link={links} />}
           </div>
         </>

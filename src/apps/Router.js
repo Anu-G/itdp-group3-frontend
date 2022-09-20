@@ -5,6 +5,7 @@ import { CatalogPage } from "../pages/CategorizePage/CatalogPage/CatalogPage";
 import { CategorizePage } from "../pages/CategorizePage/CategorizePageProfile";
 import { CategorizePageTimeline } from "../pages/CategorizePage/CategorizePageTimeline";
 import { FAQPages } from "../pages/CategorizePage/FAQPages/FAQPages";
+import { DetailPostCard } from "../pages/DetailPostCard/DetailPostCard";
 import { DetailProductCard } from "../pages/DetailProductCard/DetailProductCard";
 import { ForgotPassword } from "../pages/ForgotPassword/ForgotPassword";
 import { Login } from "../pages/Login/Login";
@@ -71,7 +72,20 @@ const AppRouter = _ => {
             <Route index element={<TimelinePage />} />
             <Route path="category" element={<CategorizePageTimeline />} />
             <Route path="search" element={<Search />} />
+         </Route>
+         <Route path="/account" element={
+            <RequireAuth>
+               <NavTimeline />
+            </RequireAuth>
+         } >
             <Route path=":accId" element={<BusinessProfile/>}/>
+         </Route>
+         <Route path="/p" element={
+            <RequireAuth>
+               <NavTimeline />
+            </RequireAuth>
+         } >
+            <Route path=":postId" element={<DetailPostCard/>}/>
          </Route>
          <Route path="/profile" element={
             <RequireAuth>

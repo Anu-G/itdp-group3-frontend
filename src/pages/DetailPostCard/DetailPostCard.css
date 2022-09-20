@@ -1,0 +1,8 @@
+.detail-feed-exopen{
+    padding: 2rem;
+    /* padding-left: 12rem; */
+    min-width: 600px;
+    max-width: 756px;
+    min-height: 32rem;
+    background-color: #1E2329;
+}
