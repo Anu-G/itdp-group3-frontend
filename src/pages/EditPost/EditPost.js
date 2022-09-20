@@ -5,11 +5,8 @@ import { Title2White, Title3White } from '../../shared/components/Label/Label';
 import { UseDep } from '../../shared/context/ContextDep';
 import AppError from '../../utils/AppErrors';
 import './EditPost.css'
-import { useSelector } from 'react-redux';
-import { AuthSelector } from '../../shared/selectors/Selectors';
 import { CommentColomn } from '../../shared/components/CommentColomn/CommentColomn';
-import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
-import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
+import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { ImagesViewAddPostOne, ImageViewAddPostMany } from '../../shared/components/ImagesViewAddPost/ImagesViewAddPost';
 
 export const EditPost = ({ feedId, openEditPost, handleOpenEditPost, prevImage, prevCaption, setRefresh }) => {
@@ -69,7 +66,6 @@ export const EditPost = ({ feedId, openEditPost, handleOpenEditPost, prevImage, 
               url: imageDelete
             })
             if (response.status === 200) {
-              setSuccess(true);
               setRefresh()
             }
           } catch (err) {
@@ -81,7 +77,6 @@ export const EditPost = ({ feedId, openEditPost, handleOpenEditPost, prevImage, 
           }
         } else {
           if (response.status === 200) {
-            setSuccess(true);
             setRefresh()
           }
         }
@@ -103,12 +98,7 @@ export const EditPost = ({ feedId, openEditPost, handleOpenEditPost, prevImage, 
 
   // screen
   const [isLoading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
-
-  const onClickSuccess = (value) => {
-    setSuccess(current => value);
-  }
 
   const onClickPanic = (value) => {
     setPanic(prevState => ({
@@ -147,7 +137,7 @@ export const EditPost = ({ feedId, openEditPost, handleOpenEditPost, prevImage, 
   return (
     <>
       {openEditPost &&
-        <div className='editpost-wrp'>
+        <div className={`editpost-wrp ${isLoading && 'loading-div'}`}>
           <div className="popup-box">
             <div className="box">
               <div className='edit-post-title'>
@@ -180,15 +170,13 @@ export const EditPost = ({ feedId, openEditPost, handleOpenEditPost, prevImage, 
               </div>
 
               <div className='button-upload'>
-                <ButtonComponent label={"Update"} onClick={saveResponse} />
+                <ButtonComponent label={"Update"} onClick={saveResponse} isLoading={isLoading} />
               </div>
             </div>
           </div>
         </div>
       }
 
-      {isLoading && <LoadingScreen />}
-      {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
       {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
     </>
   )

@@ -2,10 +2,10 @@
     position: absolute;
 
     background-color: #1E2329;
-    z-index: 100;
+    z-index: 10;
 }
 
-.popup-box {
+.popup-box-post-option {
     position: fixed;
     background: #00000050;
     width: 100%;
@@ -13,6 +13,8 @@
     top: 0;
     left: 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .box {

@@ -1,7 +1,7 @@
-import { useReducer, useState } from "react";
+import { useState } from "react";
+import OutsideClickHandler from "react-outside-click-handler";
 import { ButtonComponent } from "../../shared/components/Button/Button";
-import { LoadingScreen } from "../../shared/components/LoadingScreen/LoadingScreen";
-import { PanicPopUpScreen, SuccessPopUpScreen } from "../../shared/components/PopUpScreen/PopUpScreen";
+import { PanicPopUpScreen } from "../../shared/components/PopUpScreen/PopUpScreen";
 import { UseDep } from "../../shared/context/ContextDep";
 import AppError from "../../utils/AppErrors";
 import { EditPost } from "../EditPost/EditPost";
@@ -33,7 +33,6 @@ export const PostOption = ({ feedId, prevCaption, prevImage, openPostOption, han
             await postService.doDeleteData({
                 "feed_id": feedId
             })
-            setSuccess(true);
         } catch (err) {
             setPanic(prevState => ({
                 ...prevState,
@@ -52,18 +51,21 @@ export const PostOption = ({ feedId, prevCaption, prevImage, openPostOption, han
     return (
         <>
             {openPostOption &&
-                <div className='option-wrapper' onClick={handleOpenOptions}>
-                    <div className="popup-box">
-                        <div className="box">
-                            <ButtonComponent label={"Delete"} onClick={handleDelete} />
-                            <ButtonComponent label={"Edit"} onClick={handleOpenEditPost} />
-                        </div>
+                <div className={`option-wrapper ${isLoading && 'loading-div'}`}>
+                    <div className="popup-box-post-option">
+                        <OutsideClickHandler onOutsideClick={() => !isLoading && handleOpenOptions()}>
+                            <div className="box">
+                                <ButtonComponent label={"Delete"} onClick={handleDelete} isLoading={isLoading} />
+                                <ButtonComponent label={"Edit"} onClick={() => {
+                                    handleOpenEditPost();
+                                    handleOpenOptions();
+                                }} />
+                            </div>
+                        </OutsideClickHandler>
                     </div>
                 </div>
             }
             {openEditPost && <EditPost feedId={feedId} prevCaption={prevCaption} prevImage={prevImage} openEditPost={openEditPost} handleOpenEditPost={handleOpenEditPost} setRefresh={setRefresh} />}
-            {isLoading && <LoadingScreen />}
-            {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
             {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
         </>
     )

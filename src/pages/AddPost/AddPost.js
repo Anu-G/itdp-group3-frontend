@@ -8,7 +8,6 @@ import './AddPost.css'
 import { useSelector } from 'react-redux';
 import { AuthSelector } from '../../shared/selectors/Selectors';
 import { CommentColomn } from '../../shared/components/CommentColomn/CommentColomn';
-import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { ImagesViewAddPost, ImagesViewAddPostOne, ImageViewAddPostMany } from '../../shared/components/ImagesViewAddPost/ImagesViewAddPost';
 
@@ -60,7 +59,10 @@ export const AddPost = ({ isOpen, togglePopup }) => {
           media_links: responseImage
         });
         if (response.status === 200) {
-          setSuccess(true);
+          togglePopup();
+          setCaption('');
+          setFileObj([]);
+          setCharLength(0);
         }
       } catch (err) {
         setPanic(prevState => ({
@@ -80,12 +82,7 @@ export const AddPost = ({ isOpen, togglePopup }) => {
 
   // screen
   const [isLoading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
-
-  const onClickSuccess = (value) => {
-    setSuccess(current => value);
-  }
 
   const onClickPanic = (value) => {
     setPanic(prevState => ({
@@ -107,7 +104,7 @@ export const AddPost = ({ isOpen, togglePopup }) => {
   return (
     <>
       {isOpen &&
-        <div className='addpost-wrp'>
+        <div className={`addpost-wrp ${isLoading && 'loading-div'}`}>
           <div className="popup-box">
             <div className="box">
               <div className='add-post-title'>
@@ -140,15 +137,13 @@ export const AddPost = ({ isOpen, togglePopup }) => {
               </div>
 
               <div className='button-upload'>
-                <ButtonComponent label={"Upload"} onClick={saveResponse} />
+                <ButtonComponent label={"Upload"} onClick={saveResponse} isLoading={isLoading} />
               </div>
             </div>
           </div>
         </div>
       }
 
-      {isLoading && <LoadingScreen />}
-      {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
       {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
     </>
   )

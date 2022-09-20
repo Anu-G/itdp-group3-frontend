@@ -105,7 +105,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   }
 
   const handleOpenOptions = () => {
-    setOpenPostOption(prevState=>!openPostOption)
+    setOpenPostOption(prevState => !openPostOption)
   }
 
   return (
@@ -121,7 +121,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
           <div className='right-btn-ctn'>
 
 
-            <div className='option-btn' onClick={handleOpenOptions}>
+            <div className='option-btn' onClick={accId === authRed.account_id ? handleOpenOptions : null}>
               <FontAwesomeIcon icon="fa-solid fa-ellipsis" style={{ height: '100%', color: '#f4f4f4' }} />
             </div>
 
@@ -173,7 +173,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
           {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnClickSend={handleOnClickSend} charLength={comment.length} maxLength={280} /> : ''}
         </div>
       </div>
-      <PostOption feedId={feedId} prevCaption={caption} prevImage={links} openPostOption={openPostOption} handleOpenOptions={handleOpenOptions} setRefresh={setRefresh}/>
+      <PostOption feedId={feedId} prevCaption={caption} prevImage={links} openPostOption={openPostOption} handleOpenOptions={handleOpenOptions} setRefresh={setRefresh} />
     </div>
   )
 }
