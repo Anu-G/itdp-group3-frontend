@@ -78,15 +78,15 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
     try {
       if (isLiked) {
         await timelineService.doDeleteTimelineLike({
-          "account_id": authRed.account_id,
-          "feed_id": feedId
+          "account_id": `${authRed.account_id}`,
+          "feed_id": `${feedId}`
         })
         setIsLiked(prevState => false)
         setRefresh(prevState => !prevState)
       } else {
         await timelineService.doPostTimelineLike({
-          "account_id": authRed.account_id,
-          "feed_id": feedId
+          "account_id": `${authRed.account_id}`,
+          "feed_id": `${feedId}`
         })
         setIsLiked(prevState => true)
         setRefresh(prevState => !prevState)
