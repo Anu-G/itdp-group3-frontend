@@ -5,9 +5,10 @@ import { UseDep } from '../../../shared/context/ContextDep'
 import { AuthSelector } from '../../../shared/selectors/Selectors'
 import './FeedPage.css'
 import { TimelineCard } from '../../TimelineCard/TimelineCard'
-import { useNavigate, useParams } from 'react-router'
+import { Navigate, useNavigate, useParams } from 'react-router'
 import { AppErrorAuth } from '../../../utils/AppErrors'
 import SkeletonTimelineCard from '../../../shared/components/Skeletons/SkeletonTimelineCard'
+import { DetailPostCard } from '../../DetailPostCard/DetailPostCard'
 
 
 
@@ -16,7 +17,26 @@ export const FeedPage = ({ }) => {
     const { accId } = useParams();
     const [feeds, setFeeds] = useState([])
     const navigate = useNavigate();
+    const [detailPost, setDetailPost] = useState({
+        isActive: false,
+        id: 0,
+    })
     const [refresh, setRefresh] = useState(false)
+
+    const handleClosePicture = () => {
+        setDetailPost({
+            isActive: false,
+            id: 0
+        })
+    }
+
+    const handleClickPicture = (value) => {
+        window.history.pushState(null, null, `/p/${value}`)
+        setDetailPost({
+            isActive: true,
+            id: value
+        })
+    }
 
     // service
     const { timelineService } = UseDep();
@@ -118,11 +138,14 @@ export const FeedPage = ({ }) => {
                                 handleClickName={handleClickName}
                                 feedId={item.post_id}
                                 handleComment={handleComment}
-                                isLoading={isLoading} />
+                                isLoading={isLoading}
+                                handleClickPicture={handleClickPicture}
+                                profileStatus={true} />
                         )
                     })}
                     {isLoading && <SkeletonTimelineCard />}
                 </div>}
+            {/* {detailPost.isActive && <DetailPostCard postIdFeed={detailPost.id} handleClosePicture={handleClosePicture} />} */}
         </>
     )
 }

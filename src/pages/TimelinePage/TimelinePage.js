@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router'
 import { AuthSelector } from '../../shared/selectors/Selectors'
 import { useSelector } from 'react-redux'
 import SkeletonTimelineCard from '../../shared/components/Skeletons/SkeletonTimelineCard'
+import { DetailPostCard } from '../DetailPostCard/DetailPostCard'
 
 export const TimelinePage = ({ categoryId = null }) => {
   // state
@@ -15,6 +16,10 @@ export const TimelinePage = ({ categoryId = null }) => {
   const navigate = useNavigate();
   const authRed = useSelector(AuthSelector);
   const [refresh, setRefresh] = useState(false)
+  const [detailPost, setDetailPost] = useState({
+    isActive: false,
+    id: 0,
+  })
 
   useEffect(() => {
     if (categoryId == null) {
@@ -111,8 +116,23 @@ export const TimelinePage = ({ categoryId = null }) => {
     if (accountId == authRed.account_id) {
       navigate('/profile')
     } else {
-      navigate(`/feeds/${accountId}`)
+      navigate(`/account/${accountId}`)
     }
+  }
+
+  const handleClosePicture = () => {
+    setDetailPost({
+      isActive: false,
+      id: 0
+    })
+  }
+
+  const handleClickPicture = (value) => {
+    window.history.pushState(null, null, `/p/${value}`)
+    setDetailPost({
+      isActive: true,
+      id: value
+    });
   }
 
   return (
@@ -144,6 +164,7 @@ export const TimelinePage = ({ categoryId = null }) => {
                 handleClickName={handleClickName}
                 feedId={post.post_id}
                 handleComment={handleComment}
+                handleClickPicture={handleClickPicture}
               />
             )
           })}
@@ -155,6 +176,7 @@ export const TimelinePage = ({ categoryId = null }) => {
         </div>
       </div>
 
+      {/* {detailPost.isActive && <DetailPostCard postIdFeed={detailPost.id} handleClosePicture={handleClosePicture} />} */}
       {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
     </>
   )
