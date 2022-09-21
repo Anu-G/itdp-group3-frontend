@@ -16,11 +16,12 @@ import { useSelector } from 'react-redux'
 import { AuthSelector } from '../../shared/selectors/Selectors'
 import AppError from '../../utils/AppErrors'
 import { PostOption } from '../PostOption/PostOption'
+import { useParams } from 'react-router'
 
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment, postLikes, detailPostLikes = [], setRefresh, accId, handleClickName, isLoading }) => {
+export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment, postLikes, detailPostLikes = [], setRefresh, accId, handleClickName, handleClickPicture, profileStatus = false }) => {
   // state
   const maxLength = 280
   const [isActive, setIsActive] = useState(false)
@@ -28,8 +29,12 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   const [comment, setComment] = useState('')
   const [isButtonSendActive, setIsButtonSendActive] = useState(false)
   const [readMore, setReadMore] = useState(true)
-  const [openPostOption, setOpenPostOption] = useState(false)
+  const [openPostOption, setOpenPostOption] = useState({
+    isOpen: false,
+    type: ''
+  })
   const { timelineService } = UseDep();
+  const param = useParams();
   const authRed = useSelector(AuthSelector);
 
   useEffect(() => {
@@ -105,11 +110,35 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   }
 
   const handleOpenOptions = () => {
-    setOpenPostOption(prevState => !openPostOption)
+    if (profileStatus && !param.accId) {
+      setOpenPostOption(prevState => ({
+        ...prevState,
+        isOpen: true, type: 'admin'
+      }))
+    } else {
+      setOpenPostOption(prevState => ({
+        ...prevState,
+        isOpen: true, type: ''
+      }))
+    }
+  }
+
+  const handleCloseOptions = () => {
+    setOpenPostOption(prevState => ({
+      ...prevState,
+      isOpen: false, type: ''
+    }))
+  }
+
+  const onClickPictrue = () => {
+    if (handleClickPicture) {
+      handleClickPicture(feedId);
+    }
   }
 
   return (
     <div className='timeline-wrp'>
+      {console.log(profileStatus, '========', param.accId)}
       <div className='timeline-ctn'>
         <div>
           <div className='profile-hd'>
@@ -121,7 +150,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
           <div className='right-btn-ctn'>
 
 
-            <div className='option-btn' onClick={accId === authRed.account_id ? handleOpenOptions : null}>
+            <div className='option-btn' onClick={handleOpenOptions}>
               <FontAwesomeIcon icon="fa-solid fa-ellipsis" style={{ height: '100%', color: '#f4f4f4' }} />
             </div>
 
@@ -173,7 +202,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
           {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnClickSend={handleOnClickSend} charLength={comment.length} maxLength={280} /> : ''}
         </div>
       </div>
-      <PostOption feedId={feedId} prevCaption={caption} prevImage={links} openPostOption={openPostOption} handleOpenOptions={handleOpenOptions} setRefresh={setRefresh} />
+      <PostOption feedId={feedId} prevCaption={caption} prevImage={links} openPostOption={openPostOption.isOpen} handleOpenOptions={handleOpenOptions} handleCloseOptions={handleCloseOptions} setRefresh={setRefresh} type={openPostOption.type} />
     </div>
   )
 }

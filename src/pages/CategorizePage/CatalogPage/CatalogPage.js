@@ -99,7 +99,7 @@ export const CatalogPage = ({ }) => {
             }
 
 
-            {isActive && <DetailProductCard handleClick={handleFormClose} product={productOpen} setRefresh={setRefresh} />}
+            {isActive && <DetailProductCard handleClick={handleFormClose} product={productOpen} setRefresh={setRefresh} profileStatus={true}/>}
         </>
     )
 }

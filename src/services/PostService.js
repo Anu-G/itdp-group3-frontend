@@ -12,6 +12,17 @@ export const PostService = ({ doPost }) => {
       }
    }
 
+   const doGetDataById = async (data) => {
+      try {
+         return await doPost({
+            url: '/feed/id',
+            data: data
+         })
+      } catch (err) {
+         throw err
+      }
+   }
+
    const doEditData = async (editData) => {
       try {
          return await doPost({
@@ -35,7 +46,7 @@ export const PostService = ({ doPost }) => {
    }
 
 
-   return { doPostData, doEditData, doDeleteData };
+   return { doPostData, doEditData, doDeleteData, doGetDataById };
 }
 
 
