@@ -24,7 +24,11 @@ export const SettingsAddProduct = (props) => {
       for (let i = 0; i < event.target.files.length; i++) {
          const newImage = event.target.files[i]
          newImage["id"] = Math.random()
-         setFileObj((prevState) => [...prevState, newImage])
+         const reader = new FileReader();
+         reader.readAsDataURL(newImage)
+         reader.addEventListener('load', () => {
+            setFileObj((prevState) => [...prevState, { file: newImage, imgPreview: reader.result }])
+         })
       }
    };
    const [formData, setFormData] = useState({

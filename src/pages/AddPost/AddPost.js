@@ -54,7 +54,7 @@ export const AddPost = ({ isOpen, togglePopup }) => {
       const responseImage = await postImageService.doPostImage(fileObj.map(data => data.file));
       try {
         const response = await postService.doPostData({
-          account_id: authRed.account_id,
+          account_id: `${authRed.account_id}`,
           caption_post: caption,
           media_links: responseImage
         });
