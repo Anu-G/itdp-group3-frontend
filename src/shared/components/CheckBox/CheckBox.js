@@ -36,8 +36,8 @@ export const CheckBox = ({ label, items, valueCB, onChangeCB, handleChangeStart,
 
                 <span className='px-3'>to</span>
 
-                {closeHourStart && <CustomDropdownSm label={closeHourStart} items={items} locked={!valueCB} handleChange={handleChangeStart} />}
-                {!closeHourStart && <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeStart} />}
+                {closeHourStart && <CustomDropdownSm label={closeHourStart} items={items} locked={!valueCB} handleChange={handleChangeEnd} />}
+                {!closeHourStart && <CustomDropdownSm label={'Select'} items={items} locked={!valueCB} handleChange={handleChangeEnd} />}
             </div>
         </div>
     )

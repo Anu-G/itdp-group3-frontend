@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { set } from "react-hook-form"
 import { useSelector } from "react-redux"
 import { Navigate, useNavigate, useParams } from "react-router"
-import { LoadingScreen } from "../../shared/components/LoadingScreen/LoadingScreen"
+import SkeletonTimelineCard from "../../shared/components/Skeletons/SkeletonTimelineCard"
 import { UseDep } from "../../shared/context/ContextDep"
 import { AuthSelector } from "../../shared/selectors/Selectors"
 import { AppErrorAuth } from "../../utils/AppErrors"
@@ -16,15 +16,12 @@ export const DetailPostCard = ({ postIdFeed, handleClosePicture }) => {
     const navigate = useNavigate();
     const authRed = useSelector(AuthSelector)
 
-    const [refresh, setRefresh] = useState(false)
     const [isLoading, setLoading] = useState(false);
     const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
-    const { timelineService } = UseDep();
-
     useEffect(() => {
         handleOpen()
-    }, [refresh])
+    }, [])
 
     const handleOpen = async () => {
         let useId = 0
@@ -35,11 +32,23 @@ export const DetailPostCard = ({ postIdFeed, handleClosePicture }) => {
         }
         try {
             const response = await postService.doGetDataById({
-                "feed_id": parseInt(useId),
+                "feed_id": useId,
                 "page": 1,
                 "page_lim": 1,
             })
-            console.log(response);
+            setFeedsOpen(response.data.data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const setRefresh = async (postId) => {
+        try {
+            const response = await postService.doGetDataById({
+                "feed_id": postId,
+                "page": 1,
+                "page_lim": 1,
+            })
             setFeedsOpen(response.data.data)
         } catch (err) {
             console.log(err);
@@ -51,28 +60,6 @@ export const DetailPostCard = ({ postIdFeed, handleClosePicture }) => {
             handleClosePicture()
         }
         navigate(-1)
-    }
-
-    const handleComment = async (detailComment) => {
-        try {
-            setLoading(true)
-            const response = await timelineService.doPostComment({
-                feed_id: detailComment.feedId,
-                comment_fill: detailComment.comment
-            })
-            if (response.data.data !== null) {
-                setRefresh(prevState => !prevState)
-            }
-        } catch (err) {
-            if (AppErrorAuth(err)) {
-                setPanic(prevState => ({
-                    ...prevState,
-                    isPanic: true, errMsg: AppErrorAuth(err)
-                }));
-            }
-        } finally {
-            setLoading(false)
-        }
     }
 
     const handleClickName = (accountId) => {
@@ -104,11 +91,10 @@ export const DetailPostCard = ({ postIdFeed, handleClosePicture }) => {
                         setRefresh={setRefresh}
                         handleClickName={handleClickName}
                         feedId={feedsOpen.post_id}
-                        handleComment={handleComment}
                     />
                 }
+                {isLoading && <SkeletonTimelineCard />}
             </div>
-            {isLoading && <LoadingScreen />}
         </div>
     )
 }

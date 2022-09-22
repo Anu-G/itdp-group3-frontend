@@ -15,7 +15,6 @@ export const TimelinePage = ({ categoryId = null }) => {
   const [timelines, setTimelines] = useState([])
   const navigate = useNavigate();
   const authRed = useSelector(AuthSelector);
-  const [refresh, setRefresh] = useState(false)
   const [detailPost, setDetailPost] = useState({
     isActive: false,
     id: 0,
@@ -27,10 +26,26 @@ export const TimelinePage = ({ categoryId = null }) => {
     } else {
       getTimelineByCategory()
     }
-  }, [categoryId, refresh])
+  }, [categoryId])
 
   // service
-  const { timelineService } = UseDep()
+  const { timelineService, postService } = UseDep();
+
+  const setRefresh = async (postId) => {
+    try {
+      const response = await postService.doGetDataById({
+        "feed_id": postId,
+        "page": 1,
+        "page_lim": 1,
+      })
+      let refreshTimeline = [...timelines]
+      let i = timelines.findIndex(val => val.post_id == parseInt(postId))
+      refreshTimeline[i] = response.data.data
+      setTimelines(refreshTimeline)
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   const getTimeline = async () => {
     try {
@@ -74,28 +89,6 @@ export const TimelinePage = ({ categoryId = null }) => {
       }
     } finally {
       setLoading(false);
-    }
-  }
-
-  const handleComment = async (detailComment) => {
-    try {
-      setLoading(true)
-      const response = await timelineService.doPostComment({
-        feed_id: detailComment.feedId,
-        comment_fill: detailComment.comment
-      })
-      if (response.data.data !== null) {
-        getTimeline()
-      }
-    } catch (err) {
-      if (AppErrorAuth(err)) {
-        setPanic(prevState => ({
-          ...prevState,
-          isPanic: true, errMsg: AppErrorAuth(err)
-        }));
-      }
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -161,7 +154,6 @@ export const TimelinePage = ({ categoryId = null }) => {
                 accId={post.account_id}
                 handleClickName={handleClickName}
                 feedId={post.post_id}
-                handleComment={handleComment}
                 handleClickPicture={handleClickPicture}
               />
             )

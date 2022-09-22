@@ -6,8 +6,8 @@ export const ButtonComponent = ({ label, onClick, isDisable, isLoading }) => (
       </>
 )
 
-export const ButtonComponentSm = ({ label, onClick, isDisable }) => (
+export const ButtonComponentSm = ({ label, onClick, isDisable, isLoading }) => (
       <>
-            <button className={`button-component ${isDisable ? 'button-component-disable' : ''} btn-sm`} type="submit" onClick={onClick} disabled={isDisable}>{label}</button>
+            <button className={`button-component ${isDisable ? 'button-component-disable' : ''} btn-sm`} type="submit" onClick={onClick} disabled={isDisable}>{isLoading ? <div className='loader-btn'></div> : label}</button>
       </>
 )

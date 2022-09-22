@@ -14,14 +14,15 @@ import { CommentExtends } from '../../shared/components/CommentExtends/CommentEx
 import { UseDep } from '../../shared/context/ContextDep'
 import { useSelector } from 'react-redux'
 import { AuthSelector } from '../../shared/selectors/Selectors'
-import AppError from '../../utils/AppErrors'
+import AppError, { AppErrorAuth } from '../../utils/AppErrors'
 import { PostOption } from '../PostOption/PostOption'
 import { useParams } from 'react-router'
+import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, handleComment, postLikes, detailPostLikes = [], setRefresh, accId, handleClickName, handleClickPicture, profileStatus = false }) => {
+export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, postLikes, detailPostLikes = [], setRefresh, accId, handleClickName, handleClickPicture, profileStatus = false }) => {
   // state
   const maxLength = 280
   const [isActive, setIsActive] = useState(false)
@@ -36,6 +37,8 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   const { timelineService } = UseDep();
   const param = useParams();
   const authRed = useSelector(AuthSelector);
+  const [isLoadingComment, setLoadingComment] = useState(false);
+  const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
   useEffect(() => {
     if (comment.length == 0) {
@@ -76,22 +79,43 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
       comment: comment
     })
     setComment('')
-    // console.log('ceritanya send')
+  }
+
+  const handleComment = async (detailComment) => {
+    try {
+      setLoadingComment(true)
+      const response = await timelineService.doPostComment({
+        feed_id: `${detailComment.feedId}`,
+        comment_fill: detailComment.comment
+      })
+      if (response.data.data !== null) {
+        setRefresh(`${detailComment.feedId}`)
+      }
+    } catch (err) {
+      if (AppErrorAuth(err)) {
+        setPanic(prevState => ({
+          ...prevState,
+          isPanic: true, errMsg: AppErrorAuth(err)
+        }));
+      }
+    } finally {
+      setLoadingComment(false)
+    }
   }
 
   const handleLike = async () => {
     try {
       if (isLiked) {
         await timelineService.doDeleteTimelineLike({
-          "account_id": authRed.account_id,
-          "feed_id": feedId
+          "account_id": `${authRed.account_id}`,
+          "feed_id": `${feedId}`
         })
         setIsLiked(prevState => false)
         setRefresh(prevState => !prevState)
       } else {
         await timelineService.doPostTimelineLike({
-          "account_id": authRed.account_id,
-          "feed_id": feedId
+          "account_id": `${authRed.account_id}`,
+          "feed_id": `${feedId}`
         })
         setIsLiked(prevState => true)
         setRefresh(prevState => !prevState)
@@ -136,84 +160,93 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
     }
   }
 
+  const onClickPanic = (value) => {
+    setPanic(prevState => ({
+      ...prevState,
+      isPanic: value, errMsg: ''
+    }));
+  }
+
   return (
-    <div className='timeline-wrp'>
-      {console.log(profileStatus, '========', param.accId)}
-      <div className='timeline-ctn'>
-        <div>
-          <div className='profile-hd'>
+    <>
+      <div className={`timeline-wrp ${isLoadingComment && 'loading-div'}`}>
+        <div className='timeline-ctn'>
+          <div>
+            <div className='profile-hd'>
 
-            <AvatarSmall link={avatar} accId={accId} handleClick={handleClickName} />
-            <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} />
+              <AvatarSmall link={avatar} accId={accId} handleClick={handleClickName} />
+              <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} />
 
-          </div>
-          <div className='right-btn-ctn'>
-
-
-            <div className='option-btn' onClick={handleOpenOptions}>
-              <FontAwesomeIcon icon="fa-solid fa-ellipsis" style={{ height: '100%', color: '#f4f4f4' }} />
             </div>
+            <div className='right-btn-ctn'>
 
-            {handleClick != null ?
-              <div className='x-btn' onClick={handleClick}>
-                <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
+
+              <div className='option-btn' onClick={handleOpenOptions}>
+                <FontAwesomeIcon icon="fa-solid fa-ellipsis" style={{ height: '100%', color: '#f4f4f4' }} />
               </div>
-              : ''}
-          </div>
-        </div>
 
-        <div className='caption-ctn'>
-          <Caption text={caption} readMore={readMore} handleReadmore={handleReadMore} />
-        </div>
-
-        <>
-          <div className='img-view-ctn'>
-            {Array.isArray(links) && links.length !== 1 ? <ImagesViewTimelineMany links={links} /> : <ImagesViewTimeline link={links} />}
-          </div>
-        </>
-
-        <div className='bottom-ctn'>
-          <div className='bottom-like-comment-ctn'>
-            <div className='bottom-btn' onClick={handleCommentOnClick}>
-
-              {!isActive ? <FontAwesomeIcon icon="fa-regular fa-comment-dots" style={{ height: '28px', color: '#F4F4F4' }} /> : <FontAwesomeIcon icon="fa-solid fa-comment-dots" style={{ height: '28px', color: '#F4F4F4' }} />}
-
-              <div className='comment-count-ctn'>
-                <Text32White text={comments == null ? 0 : comments.length} />
-              </div>
-            </div>
-
-            <div className='bottom-btn' onClick={() => handleLike()}>
-
-              {!isLiked ? <FontAwesomeIcon icon="fa-regular fa-heart" style={{ height: '28px', color: '#F4F4F4' }} /> : <FontAwesomeIcon icon="heart" style={{ height: '28px', color: '#F4F4F4' }} />}
-
-              <div className='like-count-ctn'>
-                <Text32White text={postLikes == null ? 0 : postLikes} />
-              </div>
+              {handleClick != null ?
+                <div className='x-btn' onClick={handleClick}>
+                  <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
+                </div>
+                : ''}
             </div>
           </div>
 
-          <div className='time-date'>
-            <Text32White text={`${time} \t\t ${date}`} />
+          <div className='caption-ctn'>
+            <Caption text={caption} readMore={readMore} handleReadmore={handleReadMore} />
+          </div>
+
+          <>
+            <div className='img-view-ctn'>
+              {Array.isArray(links) && links.length !== 1 ? <ImagesViewTimelineMany links={links} /> : <ImagesViewTimeline link={links} />}
+            </div>
+          </>
+
+          <div className='bottom-ctn'>
+            <div className='bottom-like-comment-ctn'>
+              <div className='bottom-btn' onClick={handleCommentOnClick}>
+
+                {!isActive ? <FontAwesomeIcon icon="fa-regular fa-comment-dots" style={{ height: '28px', color: '#F4F4F4' }} /> : <FontAwesomeIcon icon="fa-solid fa-comment-dots" style={{ height: '28px', color: '#F4F4F4' }} />}
+
+                <div className='comment-count-ctn'>
+                  <Text32White text={comments == null ? 0 : comments.length} />
+                </div>
+              </div>
+
+              <div className='bottom-btn' onClick={() => handleLike()}>
+
+                {!isLiked ? <FontAwesomeIcon icon="fa-regular fa-heart" style={{ height: '28px', color: '#F4F4F4' }} /> : <FontAwesomeIcon icon="heart" style={{ height: '28px', color: '#F4F4F4' }} />}
+
+                <div className='like-count-ctn'>
+                  <Text32White text={postLikes == null ? 0 : postLikes} />
+                </div>
+              </div>
+            </div>
+
+            <div className='time-date'>
+              <Text32White text={`${time} \t\t ${date}`} />
+            </div>
+          </div>
+
+          <div className='comment-ssn'>
+            {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnClickSend={handleOnClickSend} charLength={comment.length} maxLength={280} isLoading={isLoadingComment} /> : ''}
           </div>
         </div>
-
-        <div className='comment-ssn'>
-          {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnClickSend={handleOnClickSend} charLength={comment.length} maxLength={280} /> : ''}
-        </div>
+        <PostOption feedId={feedId} prevCaption={caption} prevImage={links} openPostOption={openPostOption.isOpen} handleOpenOptions={handleOpenOptions} handleCloseOptions={handleCloseOptions} setRefresh={setRefresh} type={openPostOption.type} />
       </div>
-      <PostOption feedId={feedId} prevCaption={caption} prevImage={links} openPostOption={openPostOption.isOpen} handleOpenOptions={handleOpenOptions} handleCloseOptions={handleCloseOptions} setRefresh={setRefresh} type={openPostOption.type} />
-    </div>
+      {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
+    </>
   )
 }
 
-const CommentExtActive = ({ comments, handleCommentChange, maxLength, charLength, value, isButtonSendActive, buttonLabel, handleOnClickSend }) => {
+const CommentExtActive = ({ comments, handleCommentChange, maxLength, charLength, value, isButtonSendActive, buttonLabel, handleOnClickSend, isLoading }) => {
   return (
     <div className='ext-cmt'>
       {comments == null ? '' : <CommentExtends comments={comments} />}
       <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} charLength={charLength} value={value} />
       <div style={{ display: 'flex', justifyContent: 'end' }}>
-        <ButtonComponentSm isDisable={!isButtonSendActive} label={buttonLabel} onClick={handleOnClickSend} />
+        <ButtonComponentSm isDisable={!isButtonSendActive} label={buttonLabel} onClick={handleOnClickSend} isLoading={isLoading} />
 
       </div>
     </div>

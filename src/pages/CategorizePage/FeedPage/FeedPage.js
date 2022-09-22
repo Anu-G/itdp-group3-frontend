@@ -21,7 +21,6 @@ export const FeedPage = ({ }) => {
         isActive: false,
         id: 0,
     })
-    const [refresh, setRefresh] = useState(false)
 
     const handleClosePicture = () => {
         setDetailPost({
@@ -39,12 +38,12 @@ export const FeedPage = ({ }) => {
     }
 
     // service
-    const { timelineService } = UseDep();
+    const { timelineService, postService } = UseDep();
     const authRed = useSelector(AuthSelector)
 
     useEffect(() => {
         handleLoad()
-    }, [refresh])
+    }, [])
 
     const handleLoad = async () => {
         let useId = 0
@@ -71,32 +70,25 @@ export const FeedPage = ({ }) => {
         }
     }
 
+    const setRefresh = async (postId) => {
+        try {
+            const response = await postService.doGetDataById({
+                "feed_id": postId,
+                "page": 1,
+                "page_lim": 1,
+            })
+            let refreshTimeline = [...feeds]
+            let i = feeds.findIndex(val => val.post_id == parseInt(postId))
+            refreshTimeline[i] = response.data.data
+            setFeeds(refreshTimeline)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     // screen
     const [isLoading, setLoading] = useState(true);
     const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
-
-
-    const handleComment = async (detailComment) => {
-        try {
-            setLoading(true)
-            const response = await timelineService.doPostComment({
-                feed_id: detailComment.feedId,
-                comment_fill: detailComment.comment
-            })
-            if (response.data.data !== null) {
-                handleLoad()
-            }
-        } catch (err) {
-            if (AppErrorAuth(err)) {
-                setPanic(prevState => ({
-                    ...prevState,
-                    isPanic: true, errMsg: AppErrorAuth(err)
-                }));
-            }
-        } finally {
-            setLoading(false)
-        }
-    }
 
     const handleClickName = (accountId) => {
         if (accountId == authRed.account_id) {
@@ -137,8 +129,6 @@ export const FeedPage = ({ }) => {
                                 setRefresh={setRefresh}
                                 handleClickName={handleClickName}
                                 feedId={item.post_id}
-                                handleComment={handleComment}
-                                isLoading={isLoading}
                                 handleClickPicture={handleClickPicture}
                                 profileStatus={true} />
                         )
