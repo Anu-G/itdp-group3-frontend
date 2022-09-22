@@ -10,7 +10,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { ImagesViewTimeline, ImagesViewTimelineMany } from '../../shared/components/ImagesViewProfile/ImagesViewProfile'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { price } from '../../utils/CommonUtils'
-import { ButtonComponent, ButtonComponentSm } from '../../shared/components/Button/Button'
+import { ButtonComponent, ButtonComponentSm, ButtonComponentXsm } from '../../shared/components/Button/Button'
 import { EditProduct } from '../EditProduct/EditProduct'
 import AppError from '../../utils/AppErrors'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
@@ -30,8 +30,6 @@ export const DetailProductCard = ({ handleClick, product, setRefresh, profileSta
   const productPrice = product.price
   const caption = product.caption
   const links = product.detail_media_products
-  const param = useParams();
-  const [isEdit, setIsEdit] = useState(false);
 
   const [readMore, setReadMore] = useState(true)
 
@@ -39,7 +37,6 @@ export const DetailProductCard = ({ handleClick, product, setRefresh, profileSta
   const [success, setSuccess] = useState(false);
   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
-  const { productService } = UseDep();
 
   const onClickSuccess = (value) => {
     setSuccess(current => value);
@@ -56,73 +53,22 @@ export const DetailProductCard = ({ handleClick, product, setRefresh, profileSta
     setReadMore(!readMore)
   }
 
-  const handleEdit = () => {
-    setIsEdit(prevState => !prevState)
-  }
-
-  const handleDelete = async () => {
-    setLoading(true)
-    try {
-      await productService.doDeleteProductData({
-        "product_id": `${productId}`
-      })
-      setSuccess(true);
-    } catch (err) {
-      setPanic(prevState => ({
-        ...prevState,
-        isPanic: true, errMsg: AppError(err)
-      }));
-    } finally {
-      setLoading(false)
-      setRefresh()
-    }
-  }
-
-  const productEdit = () => {
-    if (profileStatus && !param.accId) {
-      return (
-        <>
-          <ButtonComponentSm label={"Delete"} onClick={handleDelete} />
-          <ButtonComponentSm label={"Edit"} onClick={handleEdit} />
-        </>
-      )
-    } else {
-      return (
-        <></>
-      )
-    }
-  }
-
   return (
     <div className='detail-product-bg'>
       <div className='detail-product-wrp'>
-        {isEdit
-          ?
-          <>
-            <EditProduct product={product} handleEdit={handleEdit} setRefresh={setRefresh} handleClick={handleClick} />
-          </>
-          :
           <div className='detail-product-ctn'>
             <div>
-              <div className='profile-hd'>
-
-                <AvatarSmall link={avatar} />
-                <div className='name-loc-ctn'>
-                  <NameLocation name={name} />
+              <div className='profile-hd-dp'>
+                <div className='profile-hd-content-dp'>
+                  <AvatarSmall link={avatar} profileStatus={true}/>
+                  <div className='name-loc-ctn'>
+                    <NameLocation name={name} profileStatus={true} />
+                  </div>
                 </div>
                 <div className='head-right-corner-container'>
-                  {productEdit()}
                   <div className='x-btn' onClick={handleClick}>
                     <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
                   </div>
-                </div>
-              </div>
-
-              <div className='head-right-corner-container'>
-                <ButtonComponentSm label={"Delete"} onClick={handleDelete} />
-                <ButtonComponentSm label={"Edit"} onClick={handleEdit} />
-                <div className='x-btn' onClick={handleClick}>
-                  <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ height: '100%', color: '#FE5454' }} />
                 </div>
               </div>
             </div>
@@ -142,7 +88,6 @@ export const DetailProductCard = ({ handleClick, product, setRefresh, profileSta
               </div>
             </>
           </div>
-        }
         {isLoading && <LoadingScreen />}
         {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
         {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}

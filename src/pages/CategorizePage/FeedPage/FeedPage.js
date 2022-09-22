@@ -102,7 +102,7 @@ export const FeedPage = ({ }) => {
         if (accountId == authRed.account_id) {
             navigate('/profile')
         } else {
-            navigate(`/feeds/${accountId}`)
+            navigate(`/account/${accountId}`)
         }
     }
 

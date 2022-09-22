@@ -11,3 +11,9 @@ export const ButtonComponentSm = ({ label, onClick, isDisable }) => (
             <button className={`button-component ${isDisable ? 'button-component-disable' : ''} btn-sm`} type="submit" onClick={onClick} disabled={isDisable}>{label}</button>
       </>
 )
+
+export const ButtonComponentXsm = ({ label, onClick, isDisable }) => (
+      <>
+            <button className={`button-component ${isDisable ? 'button-component-disable' : ''} btn-xsm`} type="submit" onClick={onClick} disabled={isDisable}>{label}</button>
+      </>
+)

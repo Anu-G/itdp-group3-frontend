@@ -138,17 +138,13 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
 
   return (
     <div className='timeline-wrp'>
-      {console.log(profileStatus, '========', param.accId)}
       <div className='timeline-ctn'>
         <div>
           <div className='profile-hd'>
-
-            <AvatarSmall link={avatar} accId={accId} handleClick={handleClickName} />
-            <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} />
-
+            <AvatarSmall link={avatar} accId={accId} handleClick={handleClickName} profileStatus={profileStatus}/>
+            <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} profileStatus={profileStatus}/>
           </div>
           <div className='right-btn-ctn'>
-
 
             <div className='option-btn' onClick={handleOpenOptions}>
               <FontAwesomeIcon icon="fa-solid fa-ellipsis" style={{ height: '100%', color: '#f4f4f4' }} />

@@ -11,7 +11,6 @@
     align-items: center;
     flex-direction: column;
     z-index: 102;
-
 }
 
 .detail-product-wrp{
@@ -32,7 +31,6 @@
 }
 
 .head-right-corner-container{
-    float: right;
     display: flex;
     justify-content: space-between;
     gap: 20px;
@@ -52,10 +50,16 @@
     text-shadow: #1E2329;
 }
 
-.profile-hd{
+.profile-hd-dp{
     display: flex;
     float: left;
+    width: 100%;
+    justify-content: space-between;
+}
 
+.profile-hd-content-dp{
+    display: flex;
+    flex-direction: row;
 }
 
 .img-view-ctn{

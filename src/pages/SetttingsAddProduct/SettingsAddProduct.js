@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { UseDep } from '../../shared/context/ContextDep';
 import { ProgressBar } from 'react-bootstrap'
-import { ButtonComponent } from '../../shared/components/Button/Button'
+import { ButtonComponent, ButtonComponentSm } from '../../shared/components/Button/Button'
 import { InputTextLabelSm } from '../../shared/components/InputWithLabel/InputWithLabel'
 import { Title2Yellow, Title3White } from '../../shared/components/Label/Label'
 import './SettingsAddProduct.css'
@@ -12,6 +12,7 @@ import AppError from '../../utils/AppErrors';
 import { BioColomn } from '../../shared/components/BioColomn/BioColomn'
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { ImagesViewAddPostOne, ImageViewAddPostMany } from '../../shared/components/ImagesViewAddPost/ImagesViewAddPost';
+import { useNavigate } from 'react-router';
 
 export const SettingsAddProduct = (props) => {
    // state
@@ -24,7 +25,11 @@ export const SettingsAddProduct = (props) => {
       for (let i = 0; i < event.target.files.length; i++) {
          const newImage = event.target.files[i]
          newImage["id"] = Math.random()
-         setFileObj((prevState) => [...prevState, newImage])
+         const reader = new FileReader();
+         reader.readAsDataURL(newImage)
+         reader.addEventListener('load',()=>{
+            setFileObj((prevState) => [...prevState, { file: newImage, imgPreview: reader.result }])
+         })
       }
    };
    const [formData, setFormData] = useState({
@@ -33,6 +38,7 @@ export const SettingsAddProduct = (props) => {
       description: ""
    });
    const [charLength, setCharLength] = useState(0);
+   const navigate = useNavigate();
 
    const onChangeProductName = (e) => {
       setFormData(prevState => ({
@@ -88,6 +94,7 @@ export const SettingsAddProduct = (props) => {
          }));
       } finally {
          setLoading(false);
+         handleNavigate();
       }
    }
 
@@ -117,6 +124,10 @@ export const SettingsAddProduct = (props) => {
       }
    }
 
+   const handleNavigate = () => {
+      navigate('/profile/settings/catalog');
+   }
+
    return (
       <>
          <div className='wrapper'>
@@ -138,6 +149,7 @@ export const SettingsAddProduct = (props) => {
                         {fileObj.length > 0
                            ?
                            <>
+                              {console.log(fileObj)}
                               {fileObj.length !== 1
                                  ? <ImageViewAddPostMany links={fileObj.map(data => data.imgPreview)} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />
                                  : <ImagesViewAddPostOne link={fileObj.map(data => data.imgPreview)} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />}
@@ -153,7 +165,8 @@ export const SettingsAddProduct = (props) => {
                </div>
 
                <div className='button-upload'>
-                  <ButtonComponent label={'Upload'} onClick={saveResponse} isLoading={isLoading} />
+                  <ButtonComponentSm label={'Cancel'} onClick={()=>handleNavigate()} isLoading={isLoading} />
+                  <ButtonComponentSm label={'Upload'} onClick={saveResponse} isLoading={isLoading} />
                </div>
             </div>
          </div>
