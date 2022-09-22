@@ -23,6 +23,15 @@
     justify-content: space-between;
     margin-top: 15px;
     margin-bottom: 15px;
+    padding: 15px;
+    border-bottom: 2px solid #FED154;
+}
+
+.pl-image{
+    height: 150px;
+    width: 200px;
+    border-radius: 20px;
+    object-fit: cover;
 }
 
 .pl-text{
@@ -34,5 +43,5 @@
 .pl-button{
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 15px;
 }

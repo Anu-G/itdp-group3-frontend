@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { ButtonComponent, ButtonComponentSm, ButtonComponentXsm } from "../../shared/components/Button/Button"
+import { ImagesViewTimeline } from "../../shared/components/ImagesViewProfile/ImagesViewProfile";
 import { Text32White, Text32Yellow, Title2White, Title2Yellow } from "../../shared/components/Label/Label";
 import { LoadingScreen } from "../../shared/components/LoadingScreen/LoadingScreen";
 import { PanicPopUpScreen, SuccessPopUpScreen } from "../../shared/components/PopUpScreen/PopUpScreen";
 import { UseDep } from "../../shared/context/ContextDep"
 import { AuthSelector } from "../../shared/selectors/Selectors";
 import AppError from "../../utils/AppErrors";
+import { price } from "../../utils/CommonUtils";
 import { EditProduct } from "../EditProduct/EditProduct";
 import "./SettingsCatalog.css"
 
@@ -32,7 +34,7 @@ export const SettingsCatalog = () => {
 
     useEffect(()=>{
         getProducts()
-    },[])
+    },[refresh])
 
     const onClickSuccess = (value) => {
         setSuccess(current => value);
@@ -96,11 +98,15 @@ export const SettingsCatalog = () => {
                 <div>
                     {
                         products.map((product,index) => {
+                            const links = product.detail_media_products
                             return(
                                 <div className="product-list">
                                     <div className="pl-text">
-                                        <Title2Yellow title={`${index+1}.`} />
-                                        <Title2White title={product.product_name.length < 20 ? product.product_name : product.product_name.slice(0, 15).concat('', '...')} />
+                                        {(links.length > 1) ? <img className="pl-image" src={links[0]}/> : <img className="pl-image" src={links}/>}
+                                        <div style={{display:'flex',flexDirection:'column'}}>
+                                            <Title2White title={product.product_name.length < 20 ? product.product_name : product.product_name.slice(0, 15).concat('', '...')} />
+                                            <Title2Yellow title={price.format(product.price)}/>
+                                        </div>
                                     </div>
                                     <div className="pl-button">
                                         <div style={{cursor:'pointer'}}>
