@@ -164,13 +164,12 @@ export const EditProduct = ({ product, handleEdit, setRefresh, handleClick }) =>
         } finally {
             setLoading(false);
             handleEdit()
-            setRefresh()
-            handleClick()
+            setRefresh(prevState=>!prevState)
         }
     }
 
     return (
-        <>
+        <div className='edit-product-bg'>
             <div className='settings-add-product-card'>
                 <div className='name-price'>
                     <InputTextLabelSm label={'Name'} id={"productName"} value={formData.productName} handleOnChange={onChangeProductName} style={{ minWidth: '254px' }} />
@@ -208,6 +207,6 @@ export const EditProduct = ({ product, handleEdit, setRefresh, handleClick }) =>
             {isLoading && <LoadingScreen />}
             {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
             {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
-        </>
+        </div>
     )
 }

@@ -4,7 +4,6 @@
     width: 10rem;
     border-radius: 50%;
     margin: 0 16px 0 0;
-    cursor: pointer;
 }
 
 .avatar-profile{
@@ -14,6 +13,12 @@
 }
 
 .small{
+    height: 60px;
+    width: 60px;
+    cursor: pointer;
+}
+
+.small-inactive{
     height: 60px;
     width: 60px;
 }

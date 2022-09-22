@@ -102,7 +102,8 @@ const AppRouter = _ => {
                <Route path="settings/profile" element={<SettingsBusinessProfile />} />
             }
             <Route path="settings/account" element={<SettingsAccount />} />
-            <Route path="settings/catalog" element={<SettingsAddProduct />} />
+            <Route path="settings/catalog/add" element={<SettingsAddProduct />} />
+            <Route path="settings/catalog" element={<SettingsCatalog />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
          <Route path="/test" element={<SkeletonTimelineCard />} />

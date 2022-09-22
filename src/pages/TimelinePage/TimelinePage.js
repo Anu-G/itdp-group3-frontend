@@ -54,6 +54,7 @@ export const TimelinePage = ({ categoryId = null }) => {
         page: 1,
         page_lim: 200
       })
+      console.log(response.data.data);
       if (response.data.data !== null) {
         setTimelines(response.data.data)
       }

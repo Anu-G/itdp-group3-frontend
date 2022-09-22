@@ -49,6 +49,7 @@
 .button-upload{
     display: flex;
     flex-direction: row-reverse;
+    gap: 10px;
 }
 
 .file-input-card-product{
