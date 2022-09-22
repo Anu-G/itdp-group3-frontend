@@ -111,14 +111,14 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
           "feed_id": `${feedId}`
         })
         setIsLiked(prevState => false)
-        setRefresh(prevState => !prevState)
+        setRefresh(`${feedId}`)
       } else {
         await timelineService.doPostTimelineLike({
           "account_id": `${authRed.account_id}`,
           "feed_id": `${feedId}`
         })
         setIsLiked(prevState => true)
-        setRefresh(prevState => !prevState)
+        setRefresh(`${feedId}`)
       }
     } catch (e) {
       AppError(e);
