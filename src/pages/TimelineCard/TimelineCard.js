@@ -76,6 +76,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   const handleOnClickSend = () => {
     handleComment({
       feedId: feedId,
+      accId: authRed.account_id,
       comment: comment
     })
     setComment('')
@@ -86,6 +87,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
       setLoadingComment(true)
       const response = await timelineService.doPostComment({
         feed_id: `${detailComment.feedId}`,
+        account_id: `${detailComment.accId}`,
         comment_fill: detailComment.comment
       })
       if (response.data.data !== null) {
