@@ -1,5 +1,7 @@
 .inner-content {
    padding-top: 48px;
+   border-right: solid 2px #3B4046;
+   border-left: solid 2px #3B4046;
 }
 
 .content-spc{
@@ -11,6 +13,8 @@
 
    position: relative;
    min-width: 1160px;
+   /* border-left: solid 2px #3B4046;
+   border-right: solid 2px #3B4046; */
    /* min-height: 100vh; */
    /* height: 100%; */
 }
