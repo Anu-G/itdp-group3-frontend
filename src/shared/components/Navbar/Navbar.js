@@ -7,6 +7,8 @@ import { Text32White } from "../Label/Label";
 import { ButtonComponent } from "../Button/Button";
 import { useSelector } from "react-redux";
 import { AuthSelector } from "../../selectors/Selectors";
+import { InputTextLabelMd } from "../InputWithLabel/InputWithLabel";
+import { SearchColumn } from "../SearchColumn/SearchColumn";
 
 function Navbar({ title, navItems, buttons }) {
   const [active, setActive] = useState(0);
@@ -76,11 +78,20 @@ export const HeaderBar = () => {
     navigate('/profile')
   }
 
+  const [searchValue, setSearchValue] = useState('')
+
   return (
     <>
       <div className="navbar">
         <div className="web-logo" onClick={homeClick}>
-          <img src="/logo-toktok.png" width="124px" className="d-inline-block align-top" alt="logo-toktok" />
+          <img src="/Toktok-Logo-Wide.png" height={'48px'} className="d-inline-block align-top img-logo-corner" alt="logo-toktok" />
+        </div>
+
+        <div className="search-ctn-wrp">
+          <SearchColumn value={searchValue} handleOnChange={setSearchValue} />
+          <div className="search-btn">
+          <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
+          </div>
         </div>
         <button className="btn btn-warning btn-profile" type="submit" onClick={profileClick}>
           <FontAwesomeIcon icon={faUser} />
