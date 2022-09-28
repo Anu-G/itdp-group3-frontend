@@ -18,9 +18,10 @@
     display: flex;
     flex-direction: row;
     
+    border-bottom: solid 1px #475264;
 }
 
 .categorize-ctn{
-    margin: -2rem;
+    margin: -1px;
 }
 

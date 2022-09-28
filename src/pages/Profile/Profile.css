@@ -22,7 +22,15 @@
 .profile-text-head{
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 24px;
+}
+
+.title-business-profile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
 }
 
 .open-hour{

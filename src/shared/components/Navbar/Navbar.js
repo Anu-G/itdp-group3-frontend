@@ -83,6 +83,7 @@ export const HeaderBar = () => {
   return (
     <>
       <div className="navbar">
+        <div className="navbar-ctn">
         <div className="web-logo" onClick={homeClick}>
           <img src="/Toktok-Logo-Wide.png" height={'48px'} className="d-inline-block align-top img-logo-corner" alt="logo-toktok" />
         </div>
@@ -96,6 +97,7 @@ export const HeaderBar = () => {
         <button className="btn btn-warning btn-profile" type="submit" onClick={profileClick}>
           <FontAwesomeIcon icon={faUser} />
         </button>
+        </div>
       </div>
     </>
   )
