@@ -11,3 +11,7 @@
     align-items: flex-start;
     gap: 8px;
 }
+
+.name-location-ctn:hover{
+    text-decoration: underline;
+}
