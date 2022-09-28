@@ -22,7 +22,7 @@ import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScree
 library.add(fas)
 library.add(far)
 
-export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, postLikes, detailPostLikes = [], setRefresh, accId, handleClickName, handleClickPicture, profileStatus = false }) => {
+export const TimelineCard = ({ avatar, name, place, caption, links, time, date, comments, handleClick, feedId, postLikes, detailPostLikes = [], setRefresh, accId, handleClickName, handleClickPicture, profileStatus = false, accountType }) => {
   // state
   const maxLength = 280
   const [isActive, setIsActive] = useState(false)
@@ -179,9 +179,9 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
           <div>
             <div className='profile-hd'>
 
-              <AvatarSmall link={avatar} accId={accId} handleClick={handleClickName} />
+              <AvatarSmall link={avatar} accId={accId} accType={accountType} handleClick={handleClickName} />
               {/* lempar type account nya */}
-              <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} isBusiness={true}/>
+              <NameLocation name={name} place={place} accId={accId} accType={accountType} handleClick={handleClickName} isBusiness={accountType === 2} />
 
             </div>
             <div className='right-btn-ctn'>

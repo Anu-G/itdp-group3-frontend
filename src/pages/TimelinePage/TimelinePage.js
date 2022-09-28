@@ -2,7 +2,7 @@ import './TimelinePage.css'
 import React, { useEffect, useState } from 'react'
 import { TimelineCard } from '../TimelineCard/TimelineCard'
 import { UseDep } from '../../shared/context/ContextDep'
-import { AppErrorAuth } from '../../utils/AppErrors'
+import AppError, { AppErrorAuth } from '../../utils/AppErrors'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { useNavigate } from 'react-router'
 import { AuthSelector } from '../../shared/selectors/Selectors'
@@ -43,7 +43,7 @@ export const TimelinePage = ({ categoryId = null }) => {
       refreshTimeline[i] = response.data.data
       setTimelines(refreshTimeline)
     } catch (err) {
-      console.log(err);
+      AppError(err);
     }
   }
 
@@ -54,7 +54,6 @@ export const TimelinePage = ({ categoryId = null }) => {
         page: 1,
         page_lim: 200
       })
-      console.log(response.data.data);
       if (response.data.data !== null) {
         setTimelines(response.data.data)
       }
@@ -104,11 +103,15 @@ export const TimelinePage = ({ categoryId = null }) => {
     }));
   }
 
-  const handleClickName = (accountId) => {
+  const handleClickName = (accountId, accountType) => {
     if (accountId == authRed.account_id) {
       navigate('/profile')
     } else {
-      navigate(`/account/${accountId}`)
+      navigate(`/account/${accountId}`, {
+        state: {
+          accountType: accountType
+        }
+      })
     }
   }
 
@@ -156,6 +159,7 @@ export const TimelinePage = ({ categoryId = null }) => {
                 handleClickName={handleClickName}
                 feedId={post.post_id}
                 handleClickPicture={handleClickPicture}
+                accountType={post.account_type}
               />
             )
           })}

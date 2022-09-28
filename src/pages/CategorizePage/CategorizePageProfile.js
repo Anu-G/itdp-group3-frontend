@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { AuthSelector } from '../../shared/selectors/Selectors'
 import { FeedPage } from './FeedPage/FeedPage'
 
-export const CategorizePage = ({bisID}) => {
+export const CategorizePage = ({ bisID }) => {
     // state
     const [isActive, setIsActive] = useState([false, false, false])
 
@@ -70,7 +70,22 @@ export const CategorizePage = ({bisID}) => {
                 </div>
                 {isActive[0] ? <FeedPage /> : ''}
                 {isActive[1] ? <CatalogPage /> : ''}
-                {isActive[2] ? <FAQPages bisID={bisID}/> : ''}
+                {isActive[2] ? <FAQPages bisID={bisID} /> : ''}
+            </div >
+        </>
+    )
+}
+
+export const CategorizePageNonBusiness = () => {
+    return (
+        <>
+            <div className='categorize-page-profile'>
+                <div className='category-label-btn-wrp'>
+                    <div className='category-label-btn'>
+                        {<CategoryLabelActive label={'Post'} />}
+                    </div>
+                </div>
+                <FeedPage />
             </div >
         </>
     )

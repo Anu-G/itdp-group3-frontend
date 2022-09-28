@@ -149,7 +149,6 @@ export const SettingsAddProduct = (props) => {
                         {fileObj.length > 0
                            ?
                            <>
-                              {console.log(fileObj)}
                               {fileObj.length !== 1
                                  ? <ImageViewAddPostMany links={fileObj.map(data => data.imgPreview)} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />
                                  : <ImagesViewAddPostOne link={fileObj.map(data => data.imgPreview)} handleDelete={handleDelete} inputRef={inputRef} onSelectFile={onSelectFile} triggerFileSelectPopup={triggerFileSelectPopup} />}

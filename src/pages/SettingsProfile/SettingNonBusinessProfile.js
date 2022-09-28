@@ -56,7 +56,7 @@ export const SettingsNonBusinessProfile = () => {
             backgroundSize: ""
          }));
       } catch (e) {
-         console.error(e)
+         AppError(e)
       }
    }, [croppedArea]);
 

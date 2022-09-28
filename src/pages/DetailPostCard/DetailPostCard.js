@@ -5,7 +5,7 @@ import { Navigate, useNavigate, useParams } from "react-router"
 import SkeletonTimelineCard from "../../shared/components/Skeletons/SkeletonTimelineCard"
 import { UseDep } from "../../shared/context/ContextDep"
 import { AuthSelector } from "../../shared/selectors/Selectors"
-import { AppErrorAuth } from "../../utils/AppErrors"
+import AppError, { AppErrorAuth } from "../../utils/AppErrors"
 import { TimelineCard } from "../TimelineCard/TimelineCard"
 import './DetailPostCard.css'
 
@@ -38,7 +38,7 @@ export const DetailPostCard = ({ postIdFeed, handleClosePicture }) => {
             })
             setFeedsOpen(response.data.data)
         } catch (err) {
-            console.log(err);
+            AppError(err);
         }
     }
 
@@ -51,7 +51,7 @@ export const DetailPostCard = ({ postIdFeed, handleClosePicture }) => {
             })
             setFeedsOpen(response.data.data)
         } catch (err) {
-            console.log(err);
+            AppError(err);
         }
     }
 
@@ -62,11 +62,15 @@ export const DetailPostCard = ({ postIdFeed, handleClosePicture }) => {
         navigate(-1)
     }
 
-    const handleClickName = (accountId) => {
+    const handleClickName = (accountId, accountType) => {
         if (accountId == authRed.account_id) {
             navigate('/profile')
         } else {
-            navigate(`/account/${accountId}`)
+            navigate(`/account/${accountId}`, {
+                state: {
+                    accountType: accountType
+                }
+            })
         }
     }
 
@@ -91,6 +95,7 @@ export const DetailPostCard = ({ postIdFeed, handleClosePicture }) => {
                         setRefresh={setRefresh}
                         handleClickName={handleClickName}
                         feedId={feedsOpen.post_id}
+                        accountType={feedsOpen.account_type}
                     />
                 }
                 {isLoading && <SkeletonTimelineCard />}

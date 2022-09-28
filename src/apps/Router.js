@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, Route, Routes } from "react-router"
+import { Navigate, Route, Routes, useLocation } from "react-router"
 import { AddPost } from "../pages/AddPost/AddPost";
 import { CatalogPage } from "../pages/CategorizePage/CatalogPage/CatalogPage";
 import { CategorizePage } from "../pages/CategorizePage/CategorizePageProfile";
@@ -35,6 +35,7 @@ import AppError from "../utils/AppErrors";
 const AppRouter = _ => {
    const authRed = useSelector(AuthSelector);
    const dispatch = useDispatch();
+   const location = useLocation();
 
    const RequireAuth = ({ children }) => {
       const authed = authRed.token !== '';
@@ -79,7 +80,7 @@ const AppRouter = _ => {
                <NavTimeline />
             </RequireAuth>
          } >
-            <Route path=":accId" element={<BusinessProfile />} />
+            <Route path=":accId" element={location?.state?.accountType === 1 ? <NonBusinessProfile /> : <BusinessProfile />} />
          </Route>
          <Route path="/p" element={
             <RequireAuth>

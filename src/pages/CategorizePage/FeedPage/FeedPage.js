@@ -6,7 +6,7 @@ import { AuthSelector } from '../../../shared/selectors/Selectors'
 import './FeedPage.css'
 import { TimelineCard } from '../../TimelineCard/TimelineCard'
 import { Navigate, useNavigate, useParams } from 'react-router'
-import { AppErrorAuth } from '../../../utils/AppErrors'
+import AppError, { AppErrorAuth } from '../../../utils/AppErrors'
 import SkeletonTimelineCard from '../../../shared/components/Skeletons/SkeletonTimelineCard'
 import { DetailPostCard } from '../../DetailPostCard/DetailPostCard'
 
@@ -63,7 +63,7 @@ export const FeedPage = ({ }) => {
                 setFeeds(response.data.data)
             }
         } catch (err) {
-            console.log(err);
+            AppError(err);
         } finally {
             // remove loading screen
             setLoading(false);
@@ -82,7 +82,7 @@ export const FeedPage = ({ }) => {
             refreshTimeline[i] = response.data.data
             setFeeds(refreshTimeline)
         } catch (err) {
-            console.log(err);
+            AppError(err);
         }
     }
 
@@ -90,11 +90,15 @@ export const FeedPage = ({ }) => {
     const [isLoading, setLoading] = useState(true);
     const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
-    const handleClickName = (accountId) => {
+    const handleClickName = (accountId, accountType) => {
         if (accountId == authRed.account_id) {
             navigate('/profile')
         } else {
-            navigate(`/account/${accountId}`)
+            navigate(`/account/${accountId}`, {
+                state: {
+                    accountType: accountType
+                }
+            })
         }
     }
 
@@ -130,7 +134,8 @@ export const FeedPage = ({ }) => {
                                 handleClickName={handleClickName}
                                 feedId={item.post_id}
                                 handleClickPicture={handleClickPicture}
-                                profileStatus={true} />
+                                profileStatus={true}
+                                accountType={item.account_type} />
                         )
                     })}
                     {isLoading && <SkeletonTimelineCard />}

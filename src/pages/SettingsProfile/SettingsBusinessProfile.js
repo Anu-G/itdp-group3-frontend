@@ -60,7 +60,7 @@ export const SettingsBusinessProfile = () => {
                 backgroundSize: ""
             }));
         } catch (e) {
-            console.error(e)
+            AppError(e)
         }
     }, [croppedArea]);
 

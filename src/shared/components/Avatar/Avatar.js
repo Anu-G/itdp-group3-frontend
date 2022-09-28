@@ -12,10 +12,10 @@ export const Avatar = ({ link, isLoading }) => {
   )
 }
 
-export const AvatarSmall = ({ link, accId, handleClick, profileStatus }) => {
+export const AvatarSmall = ({ link, accId, accType, handleClick, profileStatus }) => {
   return (
     <>
-      <div className={profileStatus ? 'avatar-ctn small-inactive' : 'avatar-ctn small'} onClick={() => !profileStatus && handleClick(accId)}>
+      <div className={profileStatus ? 'avatar-ctn small-inactive' : 'avatar-ctn small'} onClick={() => !profileStatus && handleClick(accId, accType)}>
         <img className='avatar-profile' src={link} />
       </div>
     </>

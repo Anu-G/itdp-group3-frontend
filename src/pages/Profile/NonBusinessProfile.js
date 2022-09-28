@@ -9,6 +9,7 @@ import { AppErrorNoProfile } from '../../utils/AppErrors'
 import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { useNavigate, useParams } from 'react-router'
 import SkeletonElement from '../../shared/components/Skeletons/SkeletonElement'
+import { CategorizePageNonBusiness } from '../CategorizePage/CategorizePageProfile'
 
 export const NonBusinessProfile = () => {
    // state
@@ -29,10 +30,16 @@ export const NonBusinessProfile = () => {
    }, profile)
 
    const getUser = async () => {
+      let useId = 0
+      if (accId) {
+         useId = accId
+      } else {
+         useId = authRed.account_id
+      }
       try {
          setLoading(true);
          const response = await profileService.doGetNonBusinessProfile({
-            account_id: `${authRed.account_id}`
+            account_id: `${useId}`
          })
 
          setProfile(prevState => ({
@@ -90,6 +97,7 @@ export const NonBusinessProfile = () => {
                   </div>
                </div>
             </div>
+            <CategorizePageNonBusiness />
          </div>
 
          {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
