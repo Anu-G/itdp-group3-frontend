@@ -167,6 +167,9 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
     }));
   }
 
+  //additional
+  const [isBusiness, setIsBusiness] = useState(false)
+
   return (
     <>
       <div className={`timeline-wrp ${isLoadingComment && 'loading-div'}`}>
@@ -175,7 +178,8 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
             <div className='profile-hd'>
 
               <AvatarSmall link={avatar} accId={accId} handleClick={handleClickName} />
-              <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} />
+              {/* lempar type account nya */}
+              <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} isBusiness={true}/>
 
             </div>
             <div className='right-btn-ctn'>
