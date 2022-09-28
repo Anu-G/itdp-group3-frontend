@@ -4,3 +4,14 @@
     flex-direction: column;
     
 }
+
+.name-loc-business{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.name-location-ctn:hover{
+    text-decoration: underline;
+}

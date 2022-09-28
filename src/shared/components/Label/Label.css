@@ -9,10 +9,12 @@
 
 .title-3{
     font-size: 20px;
+    white-space: pre-line;
 }
 
 .subtitle{
     font-size: 18px;
+    white-space: pre-line;
 }
 
 .text32 {

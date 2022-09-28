@@ -1,7 +1,7 @@
 import './TimelineCard.css'
 import React, { useEffect, useState } from 'react'
 import { AvatarSmall } from '../../shared/components/Avatar/Avatar'
-import { Caption, Text32White } from '../../shared/components/Label/Label'
+import { Caption, Text32White, Title3White } from '../../shared/components/Label/Label'
 import { NameLocation } from '../../shared/components/NameLocation/NameLocation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -169,6 +169,9 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
     }));
   }
 
+  //additional
+  const [isBusiness, setIsBusiness] = useState(false)
+
   return (
     <>
       <div className={`timeline-wrp ${isLoadingComment && 'loading-div'}`}>
@@ -177,7 +180,8 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
             <div className='profile-hd'>
 
               <AvatarSmall link={avatar} accId={accId} handleClick={handleClickName} />
-              <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} />
+              {/* lempar type account nya */}
+              <NameLocation name={name} place={place} accId={accId} handleClick={handleClickName} isBusiness={true}/>
 
             </div>
             <div className='right-btn-ctn'>
@@ -196,7 +200,8 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
           </div>
 
           <div className='caption-ctn'>
-            <Caption text={caption} readMore={readMore} handleReadmore={handleReadMore} />
+            {/* <Caption text={caption} readMore={readMore} handleReadmore={handleReadMore} /> */}
+            <Title3White title={caption} />
           </div>
 
           <>

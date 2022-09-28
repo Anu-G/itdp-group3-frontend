@@ -21,7 +21,7 @@ export const Title2Blue = ({title}) => {
 
 export const Title3White = ({title}) => {
     return (
-      <div className='title-3 white'>{title}</div>
+      <div className='title-3 white'>{`${title}`}</div>
     )
   }
 

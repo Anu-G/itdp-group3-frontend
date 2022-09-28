@@ -12,6 +12,8 @@ import { PanicPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScree
 import { AppErrorNoProfile } from '../../utils/AppErrors'
 import { useNavigate, useParams } from 'react-router'
 import SkeletonElement from '../../shared/components/Skeletons/SkeletonElement'
+import { height } from '@mui/system'
+// import closeTag from './../../../public/Closed-Tag.png'
 
 export const BusinessProfile = () => {
     // state
@@ -147,8 +149,15 @@ export const BusinessProfile = () => {
                                         <SkeletonElement type="profile-display-name" />
                                         <SkeletonElement type="profile-isopen" />
                                     </> : <>
+                                        <div className='title-business-profile'>
+                                            <img src={'/Business-Badge.svg'} style={{height: '32px'}}/>
                                         <TitleWhite title={profile.DisplayName} />
-                                        {isOpen ? <Title2Green title={'OPEN'} /> : <Title2Red title={'Closed'} />}
+                                        </div>
+                                        
+                                        <div >
+                                        {isOpen ? <img src={'/Open-Tag.svg'} style={{height: '32px'}} /> : <img src={'/Closed-Tag.svg'} style={{height: '32px'}} />} 
+                                        </div>
+                                        
                                     </>}
                                 </div>
                                 {isLoading ? <SkeletonElement type="profile-category-name" /> : <Title2Blue title={profile.CategoryName} />}

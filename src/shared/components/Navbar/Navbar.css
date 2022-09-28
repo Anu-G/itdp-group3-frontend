@@ -4,15 +4,24 @@
     background-color: #3B4046;
     right: 0;
     height: 56px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     /* font-family: 'Kirang Haerang', sans-serif; */
     padding: 0px 8rem 0px 6rem;
     position: fixed;
     /* min-width: 1160px; */
     width: 100vw;
     z-index: 5;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .navbar-ctn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 1000px;
+    /* max-width: 1000px; */
+    /* position: absolute; */
+
   }
   
   .nav-menu-icon {

@@ -1,7 +1,7 @@
 .category-label {
     max-width: 150px;
     height: 56px;
-    background-color: #3B4046;
+    /* background-color: #3B4046; */
 
     border-radius: 20px 20px 0 0;
 
@@ -10,6 +10,9 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    font-weight: bolder;
+
+    border-bottom: solid 2px #A3A8B2;
 }
 
 .label{
@@ -23,11 +26,13 @@
 }
 
 .inactive{
-    background-color: #475264;
+    /* background-color: #475264; */
     
     color: #A3A8B2;
 
     transition: 0.3s;
+    font-weight: normal;
+    border-bottom: none;
 }
 
 .inactive:hover{
