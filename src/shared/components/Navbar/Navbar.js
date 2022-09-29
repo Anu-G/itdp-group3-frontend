@@ -9,6 +9,11 @@ import { useSelector } from "react-redux";
 import { AuthSelector } from "../../selectors/Selectors";
 import { InputTextLabelMd } from "../InputWithLabel/InputWithLabel";
 import { SearchColumn } from "../SearchColumn/SearchColumn";
+import { UseDep } from "../../context/ContextDep";
+import { AppErrorAuth } from "../../../utils/AppErrors";
+import { LoadingScreenSm } from "../LoadingScreen/LoadingScreen";
+import { SearchDetail } from "../../../pages/Search/SearchDetail";
+import { DetailProductCard } from "../../../pages/DetailProductCard/DetailProductCard";
 
 function Navbar({ title, navItems, buttons }) {
   const [active, setActive] = useState(0);
@@ -78,19 +83,27 @@ export const HeaderBar = () => {
     navigate('/profile')
   }
 
-  const [searchValue, setSearchValue] = useState('')
+  const searchClick = _ =>{
+    navigate('/feeds/search')
+  }
+
+  const [value, setSearchValue] = useState('')
+
+  const handleChange = (event) => {
+    setSearchValue(event.target.value)
+  }
 
   return (
     <>
-      <div className="navbar">
+    <div className="navbar">
         <div className="navbar-ctn">
         <div className="web-logo" onClick={homeClick}>
           <img src="/Toktok-Logo-Wide.png" height={'48px'} className="d-inline-block align-top img-logo-corner" alt="logo-toktok" />
         </div>
 
         <div className="search-ctn-wrp">
-          <SearchColumn value={searchValue} handleOnChange={setSearchValue} />
-          <div className="search-btn">
+          <SearchColumn value={value} handleOnChange={handleChange} />
+          <div className="search-btn" onClick={searchClick}>
           <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
           </div>
         </div>
