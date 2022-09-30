@@ -7,3 +7,8 @@
     padding: 0.5rem 0;
     border-bottom: solid 1px #1E2329;
 }
+.avatar-comment-wrp{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
