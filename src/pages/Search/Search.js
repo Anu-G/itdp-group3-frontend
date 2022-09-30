@@ -74,10 +74,12 @@ export const Search = () => {
         }));
     }
 
+    console.log(products);
+
     return (
         <>
             <div className='categorize-page-srch'>
-                {isActive && <DetailProductCard handleClick={handleFormClose} product={product} />}
+                {isActive && <DetailProductCard handleClick={handleFormClose} product={product} profileStatus={false}/>}
                 <div className="categorize-page-lst">
                     {/* <div className="search-hd">
                         <InputOnly label={'search'} handleOnChange={handleChange} id='search' value={value} />

@@ -74,8 +74,8 @@ const AppRouter = _ => {
          } >
             <Route index element={<TimelinePage />} />
             <Route path="category" element={<CategorizePageTimeline />} />
-            {/* <Route path="search" element={<Search />} /> */}
-            <Route path="search" element={<StaticPage />} />
+            <Route path="search" element={<Search />} />
+            {/* <Route path="search" element={<StaticPage />} /> */}
 
          </Route>
          <Route path="/account" element={
