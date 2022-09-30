@@ -41,7 +41,7 @@ export const CatalogPage = ({ }) => {
         }
         try {
             const response = await settingAccountService.doGetAccountProduct({
-                account_id: useId
+                account_id: `${useId}`
             })
             if (response.data.data !== null) {
                 setProduct(response.data.data)
@@ -99,7 +99,7 @@ export const CatalogPage = ({ }) => {
             }
 
 
-            {isActive && <DetailProductCard handleClick={handleFormClose} product={productOpen} setRefresh={setRefresh} profileStatus={true}/>}
+            {isActive && <DetailProductCard handleClick={handleFormClose} product={productOpen} setRefresh={setRefresh} profileStatus={true} />}
         </>
     )
 }
