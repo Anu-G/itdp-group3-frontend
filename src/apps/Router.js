@@ -24,6 +24,7 @@ import { SettingsNonBusinessProfile } from "../pages/SettingsProfile/SettingNonB
 import { SettingsBusinessProfile } from "../pages/SettingsProfile/SettingsBusinessProfile";
 import { SettingsAddProduct } from "../pages/SetttingsAddProduct/SettingsAddProduct";
 import { SignUp } from "../pages/SignUp/SignUp";
+import { StaticPage } from "../pages/StaticPage/StaticPage";
 import { TimelineCard } from "../pages/TimelineCard/TimelineCard";
 import { TimelinePage } from "../pages/TimelinePage/TimelinePage";
 import { LoadingScreen } from "../shared/components/LoadingScreen/LoadingScreen";
@@ -72,7 +73,9 @@ const AppRouter = _ => {
          } >
             <Route index element={<TimelinePage />} />
             <Route path="category" element={<CategorizePageTimeline />} />
-            <Route path="search" element={<Search />} />
+            {/* <Route path="search" element={<Search />} /> */}
+            <Route path="search" element={<StaticPage />} />
+
          </Route>
          <Route path="/account" element={
             <RequireAuth>

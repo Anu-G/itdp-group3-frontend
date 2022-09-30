@@ -85,6 +85,7 @@ const NavTimeline = _ => {
       </div>
 
       <AddPost isOpen={openAddPost} togglePopup={togglePopup} />
+      
 
       {isLoading && <LoadingScreen />}
       {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
