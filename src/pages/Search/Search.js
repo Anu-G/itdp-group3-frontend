@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useLocation } from "react-router"
 import { CategoryLabelActive } from "../../shared/components/CategoryLabel/CategoryLabel"
 import { InputOnly } from "../../shared/components/InputWithLabel/InputWithLabel"
 import { LoadingScreenSm } from "../../shared/components/LoadingScreen/LoadingScreen"
@@ -16,6 +17,13 @@ export const Search = () => {
     const [product, setProduct] = useState({})
     const [products, setProducts] = useState([])
     const [isActive, setIsActive] = useState(false)
+    const route = useLocation();
+
+    useEffect(_ => {
+        if (route?.state !== null) {
+            handleSearchClick()
+        }
+    }, [route?.state])
 
     const handleFormClose = () => {
         setIsActive(prevState => false)
@@ -34,12 +42,13 @@ export const Search = () => {
     // service
     const { productService } = UseDep();
 
-    const handleSearchClick = async (event) => {
-        event.preventDefault()
+    const handleSearchClick = async () => {
+        let keyword = route?.state !== null ? route?.state?.keyword : value
+
         try {
             setLoading(true);
             const response = await productService.doGetProductSearch({
-                "keyword": value
+                "keyword": keyword
             })
             setProducts(prevstate => response.data.data)
         } catch (err) {
@@ -70,12 +79,12 @@ export const Search = () => {
             <div className='categorize-page-srch'>
                 {isActive && <DetailProductCard handleClick={handleFormClose} product={product} />}
                 <div className="categorize-page-lst">
-                    <div className="search-hd">
+                    {/* <div className="search-hd">
                         <InputOnly label={'search'} handleOnChange={handleChange} id='search' value={value} />
                         <div className="btn-srch" onClick={handleSearchClick}>
                             <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" style={{ height: '20px', color: '#1E2329' }} />
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="srch-ctnt">
                         <div className="srch-lbl-ctg">

@@ -83,8 +83,12 @@ export const HeaderBar = () => {
     navigate('/profile')
   }
 
-  const searchClick = _ =>{
-    navigate('/feeds/search')
+  const searchClick = _ => {
+    navigate('/feeds/search', {
+      state: {
+        keyword: value
+      }
+    })
   }
 
   const [value, setSearchValue] = useState('')
@@ -95,21 +99,21 @@ export const HeaderBar = () => {
 
   return (
     <>
-    <div className="navbar">
+      <div className="navbar">
         <div className="navbar-ctn">
-        <div className="web-logo" onClick={homeClick}>
-          <img src="/Toktok-Logo-Wide.png" height={'48px'} className="d-inline-block align-top img-logo-corner" alt="logo-toktok" />
-        </div>
-
-        <div className="search-ctn-wrp">
-          <SearchColumn value={value} handleOnChange={handleChange} />
-          <div className="search-btn" onClick={searchClick}>
-          <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
+          <div className="web-logo" onClick={homeClick}>
+            <img src="/Toktok-Logo-Wide.png" height={'48px'} className="d-inline-block align-top img-logo-corner" alt="logo-toktok" />
           </div>
-        </div>
-        <button className="btn btn-warning btn-profile" type="submit" onClick={profileClick}>
-          <FontAwesomeIcon icon={faUser} />
-        </button>
+
+          <div className="search-ctn-wrp">
+            <SearchColumn value={value} handleOnChange={handleChange} />
+            <div className="search-btn" onClick={searchClick}>
+              <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
+            </div>
+          </div>
+          <button className="btn btn-warning btn-profile" type="submit" onClick={profileClick}>
+            <FontAwesomeIcon icon={faUser} />
+          </button>
         </div>
       </div>
     </>
