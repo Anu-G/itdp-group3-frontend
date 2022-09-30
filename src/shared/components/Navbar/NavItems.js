@@ -74,7 +74,7 @@ export const buttonNavNonBusiness = (activateBusiness, onLogout, isLoadActivate,
   {
     id: 'applyBusiness',
     className: 'sidebar-btn',
-    label: '+ Business Account',
+    label: 'To Business Account',
     onClick: activateBusiness,
     isLoading: isLoadActivate
   }, {
