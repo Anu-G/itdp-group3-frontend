@@ -17,6 +17,7 @@ export const CatalogPage = ({ }) => {
     const [products, setProduct] = useState([])
     const [productOpen, setProductOpen] = useState({})
     const [refresh, setRefresh] = useState(false)
+    const [isLoading, setLoading] = useState(true);
 
     const handleFormClose = () => {
         setIsActive(prevState => false)
@@ -40,6 +41,7 @@ export const CatalogPage = ({ }) => {
             useId = authRed.account_id
         }
         try {
+            setLoading(true)
             const response = await settingAccountService.doGetAccountProduct({
                 account_id: `${useId}`
             })
@@ -48,6 +50,8 @@ export const CatalogPage = ({ }) => {
             }
         } catch (err) {
             AppError(err);
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -68,7 +72,7 @@ export const CatalogPage = ({ }) => {
 
     return (
         <>
-            {products.length == 0 ?
+            {products.length == 0 && !isLoading ?
                 <div className='catalog-ctn empty'>
                     <Title2White title={'No Product Yet'} />
                 </div> :

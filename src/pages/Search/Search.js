@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { useLocation } from "react-router"
 import { CategoryLabelActive } from "../../shared/components/CategoryLabel/CategoryLabel"
 import { InputOnly } from "../../shared/components/InputWithLabel/InputWithLabel"
-import { LoadingScreenSm } from "../../shared/components/LoadingScreen/LoadingScreen"
+import { LoadingScreenSm, LoadingSpinnerDiv } from "../../shared/components/LoadingScreen/LoadingScreen"
 import { PanicPopUpScreen } from "../../shared/components/PopUpScreen/PopUpScreen"
 import { UseDep } from "../../shared/context/ContextDep"
 import { AppErrorAuth } from "../../utils/AppErrors"
@@ -91,7 +91,7 @@ export const Search = () => {
                             <CategoryLabelActive label={'Products'} />
                         </div>
                         <div className="srch-rs">
-                            {isLoading ? <LoadingScreenSm /> :
+                            {isLoading ? <LoadingSpinnerDiv /> :
                                 <SearchDetail catalogItems={products} handleFormOpen={handleFormOpen} />
                             }
                         </div>

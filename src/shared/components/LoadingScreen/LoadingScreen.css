@@ -54,3 +54,26 @@
 .loading-div {
     pointer-events: none;
 }
+
+.loading-spinner-wrp {
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 320px;
+}
+
+.loading-spinner-spinner {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 12px solid transparent;
+    border-top-color: #475264;
+    animation: spinner-animate 1s ease infinite;
+ }
+ 
+ @keyframes spinner-animate {
+    0% {transform: rotate(0turn);}
+    100% {transform: rotate(1turn);}
+ }

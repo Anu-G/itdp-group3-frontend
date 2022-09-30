@@ -150,14 +150,14 @@ export const BusinessProfile = () => {
                                         <SkeletonElement type="profile-isopen" />
                                     </> : <>
                                         <div className='title-business-profile'>
-                                            <img src={'/Business-Badge.svg'} style={{height: '32px'}}/>
-                                        <TitleWhite title={profile.DisplayName} />
+                                            <img src={'/Business-Badge.svg'} style={{ height: '32px' }} />
+                                            <TitleWhite title={profile.DisplayName} />
                                         </div>
-                                        
+
                                         <div >
-                                        {isOpen ? <img src={'/Open-Tag.svg'} style={{height: '32px'}} /> : <img src={'/Closed-Tag.svg'} style={{height: '32px'}} />} 
+                                            {isOpen ? <img src={'/Open-Tag.svg'} style={{ height: '32px' }} /> : <img src={'/Closed-Tag.svg'} style={{ height: '32px' }} />}
                                         </div>
-                                        
+
                                     </>}
                                 </div>
                                 {isLoading ? <SkeletonElement type="profile-category-name" /> : <Title2Blue title={profile.CategoryName} />}
@@ -190,7 +190,7 @@ export const BusinessProfile = () => {
                     </div>
                 </div>
 
-                <CategorizePage bisID={profile.ID} />
+                <CategorizePage bisID={authRed.account_id} />
             </div>
 
             {showOurLinks && <OurLinks handleX={handleClickLinks} links={profile.BusinessLinks} />}

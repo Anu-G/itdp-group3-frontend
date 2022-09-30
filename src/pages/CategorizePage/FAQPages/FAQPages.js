@@ -10,9 +10,11 @@ import './FAQPages.css'
 export const FAQPages = ({ bisID }) => {
   const { faqService } = UseDep();
   const [faq, setFaq] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   const getFAQ = async () => {
     try {
+      setLoading(true)
       const response = await faqService.doGetFaq({
         "account_id": `${bisID}`
       })
@@ -21,6 +23,8 @@ export const FAQPages = ({ bisID }) => {
       }
     } catch (err) {
       AppError(err)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -30,7 +34,7 @@ export const FAQPages = ({ bisID }) => {
 
   return (
     <>
-      {faq.length == 0 ?
+      {faq.length == 0 && !isLoading ?
         <div className='catalog-ctn empty'>
           <Title2White title={'No Question(s) Yet'} />
         </div>

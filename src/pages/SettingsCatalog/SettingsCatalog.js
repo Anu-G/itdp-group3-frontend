@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { ButtonComponent, ButtonComponentSm, ButtonComponentXsm } from "../../shared/components/Button/Button"
-import { ImagesViewTimeline } from "../../shared/components/ImagesViewProfile/ImagesViewProfile";
 import { Text32White, Text32Yellow, Title2White, Title2Yellow } from "../../shared/components/Label/Label";
-import { LoadingScreen } from "../../shared/components/LoadingScreen/LoadingScreen";
+import { LoadingSpinnerDiv } from "../../shared/components/LoadingScreen/LoadingScreen";
 import { PanicPopUpScreen, SuccessPopUpScreen } from "../../shared/components/PopUpScreen/PopUpScreen";
 import { UseDep } from "../../shared/context/ContextDep"
 import { AuthSelector } from "../../shared/selectors/Selectors";
@@ -49,6 +48,7 @@ export const SettingsCatalog = () => {
 
     const getProducts = async () => {
         try {
+            setLoading(true);
             const response = await settingAccountService.doGetAccountProduct({
                 account_id: `${authRed.account_id}`
             })
@@ -57,6 +57,8 @@ export const SettingsCatalog = () => {
             }
         } catch (err) {
             AppError(err);
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -92,38 +94,41 @@ export const SettingsCatalog = () => {
     return (
         <div className="wrapper">
             <div className="settings-cat-card">
-                <div className="button-add-product">
-                    <ButtonComponentSm label={"Add Product"} onClick={() => handleAdd()} />
-                </div>
-                <div>
-                    {
-                        products.map((product, index) => {
-                            const links = product.detail_media_products
-                            return (
-                                <div className="product-list">
-                                    <div className="pl-text">
-                                        {(links.length > 1) ? <img className="pl-image" src={links[0]} /> : <img className="pl-image" src={links} />}
-                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                            <Title2White title={product.product_name.length < 20 ? product.product_name : product.product_name.slice(0, 15).concat('', '...')} />
-                                            <Title2Yellow title={price.format(product.price)} />
+                {isLoading ? <LoadingSpinnerDiv /> :
+                    <>
+                        <div className="button-add-product">
+                            <ButtonComponentSm label={"Add Product"} onClick={() => handleAdd()} />
+                        </div>
+                        <div>
+                            {
+                                products.map((product, index) => {
+                                    const links = product.detail_media_products
+                                    return (
+                                        <div className="product-list">
+                                            <div className="pl-text">
+                                                {(links.length > 1) ? <img className="pl-image" src={links[0]} /> : <img className="pl-image" src={links} />}
+                                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                    <Title2White title={product.product_name.length < 20 ? product.product_name : product.product_name.slice(0, 15).concat('', '...')} />
+                                                    <Title2Yellow title={price.format(product.price)} />
+                                                </div>
+                                            </div>
+                                            <div className="pl-button">
+                                                <div style={{ cursor: 'pointer' }}>
+                                                    <FontAwesomeIcon onClick={() => handleDelete(product.product_id)} icon="fa-solid fa-trash" style={{ color: "#FED154", fontSize: "30px" }} />
+                                                </div>
+                                                <div style={{ cursor: 'pointer' }}>
+                                                    <FontAwesomeIcon onClick={() => handleEdit(product)} icon="fa-solid fa-gear" style={{ color: "#FED154", fontSize: "30px" }} />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="pl-button">
-                                        <div style={{ cursor: 'pointer' }}>
-                                            <FontAwesomeIcon onClick={() => handleDelete(product.product_id)} icon="fa-solid fa-trash" style={{ color: "#FED154", fontSize: "30px" }} />
-                                        </div>
-                                        <div style={{ cursor: 'pointer' }}>
-                                            <FontAwesomeIcon onClick={() => handleEdit(product)} icon="fa-solid fa-gear" style={{ color: "#FED154", fontSize: "30px" }} />
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </>
+                }
             </div>
             {isEdit && <EditProduct product={openProduct} handleEdit={handleEdit} setRefresh={setRefresh} />}
-            {isLoading && <LoadingScreen />}
             {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
             {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
         </div>

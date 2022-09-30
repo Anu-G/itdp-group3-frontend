@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { ButtonComponent, ButtonComponentSm } from '../../shared/components/Button/Button'
 import { Text32White, Title2White, Title3White } from '../../shared/components/Label/Label'
-import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
+import { LoadingSpinnerDiv } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { QA } from '../../shared/components/QA/QA'
 import { UseDep } from '../../shared/context/ContextDep'
@@ -53,24 +53,12 @@ export const SettingsFaq = ({ }) => {
   const getFAQ = async () => {
     setLoading(true);
     try {
-      const response = await profileService.doGetBusinessProfile({
-        account_id: `${authRed.account_id}`
+      const response2 = await faqService.doGetFaq({
+        "account_id": `${authRed.account_id}`
       })
-      try {
-        const response2 = await faqService.doGetFaq({
-          "account_id": `${response.data.data.business_profile.ID}`
-        })
-        if (response2.data.data !== null) {
-          setFaq(response2.data.data)
-          setQuestion(response2.data.data.length)
-        }
-      } catch (err) {
-        if (AppErrorAuth(err)) {
-          setPanic(prevState => ({
-            ...prevState,
-            isPanic: true, errMsg: AppErrorAuth(err)
-          }));
-        }
+      if (response2.data.data !== null) {
+        setFaq(response2.data.data)
+        setQuestion(response2.data.data.length)
       }
     } catch (err) {
       if (AppErrorAuth(err)) {
@@ -121,10 +109,12 @@ export const SettingsFaq = ({ }) => {
   return (
     <div className='wrapper'>
       <div className='settings-faq-card'>
-        <div className='button-add-faq-question-amount'>
-          <ButtonComponentSm label={"Add Question"} onClick={handleClick} />
-          <Title3White title={`${question}/${questionAmount}`} />
-        </div>
+        {isLoading ? <LoadingSpinnerDiv /> :
+          <div className='button-add-faq-question-amount'>
+            <ButtonComponentSm label={"Add Question"} onClick={handleClick} />
+            <Title3White title={`${question}/${questionAmount}`} />
+          </div>
+        }
 
         <div className='QAs'>
           {
@@ -140,7 +130,7 @@ export const SettingsFaq = ({ }) => {
         </div>
       </div>
       <AddFAQ openCreate={openCreate} handleOpenCreate={handleClick} setRefresh={setRefresh} />
-      {isLoading && <LoadingScreen />}
+
       {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}
       {panic.isPanic && <PanicPopUpScreen onClickAnywhere={onClickPanic} errMsg={panic.errMsg} />}
     </div>

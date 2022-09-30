@@ -26,3 +26,12 @@ export const LoadingScreenSm = _ => {
         </div>
     )
 }
+
+export const LoadingSpinnerDiv = _ => {
+    return (
+        <div className="loading-spinner-wrp">
+            <div className="loading-spinner-spinner">
+            </div>
+        </div>
+    )
+}
