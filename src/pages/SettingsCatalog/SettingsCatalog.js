@@ -97,7 +97,7 @@ export const SettingsCatalog = () => {
                 {isLoading ? <LoadingSpinnerDiv /> :
                     <>
                         <div className="button-add-product">
-                            <ButtonComponentSm label={"Add Product"} onClick={() => handleAdd()} />
+                            {authRed.role_id==2 && <ButtonComponentSm label={"Add Product"} onClick={() => handleAdd()} />}
                         </div>
                         <div>
                             {

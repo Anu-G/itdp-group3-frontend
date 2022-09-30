@@ -75,10 +75,12 @@ export const Search = () => {
         }));
     }
 
+    console.log(products);
+
     return (
         <>
             <div className='categorize-page-srch'>
-                {isActive && <DetailProductCard handleClick={handleFormClose} product={product} />}
+                {isActive && <DetailProductCard handleClick={handleFormClose} product={product} profileStatus={false} />}
                 {route?.state?.keyword && <Title2White title={`Search result for "${route?.state?.keyword}"`} />}
                 <div className="categorize-page-lst">
                     {/* <div className="search-hd">

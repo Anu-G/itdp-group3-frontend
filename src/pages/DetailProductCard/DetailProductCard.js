@@ -16,7 +16,9 @@ import AppError from '../../utils/AppErrors'
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen'
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen'
 import { UseDep } from '../../shared/context/ContextDep'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
+import { useSelector } from 'react-redux'
+import { AuthSelector } from '../../shared/selectors/Selectors'
 
 library.add(fas)
 library.add(far)
@@ -30,6 +32,7 @@ export const DetailProductCard = ({ handleClick, product, setRefresh, profileSta
   const productPrice = product.price
   const caption = product.caption
   const links = product.detail_media_products
+  const taccId = product.account_id
 
   const [readMore, setReadMore] = useState(true)
 
@@ -37,6 +40,9 @@ export const DetailProductCard = ({ handleClick, product, setRefresh, profileSta
   const [success, setSuccess] = useState(false);
   const [panic, setPanic] = useState({ isPanic: false, errMsg: '' });
 
+  const authRed = useSelector(AuthSelector)
+
+  const navigate = useNavigate()
 
   const onClickSuccess = (value) => {
     setSuccess(current => value);
@@ -53,6 +59,18 @@ export const DetailProductCard = ({ handleClick, product, setRefresh, profileSta
     setReadMore(!readMore)
   }
 
+  const handleClickName = () => {
+    if (taccId == authRed.account_id) {
+        navigate('/profile')
+    } else {
+        navigate(`/account/${taccId}`, {
+            state: {
+                accountType: "2"
+            }
+        })
+    }
+  }
+
   return (
     <div className='detail-product-bg'>
       <div className='detail-product-wrp'>
@@ -60,9 +78,9 @@ export const DetailProductCard = ({ handleClick, product, setRefresh, profileSta
             <div>
               <div className='profile-hd-dp'>
                 <div className='profile-hd-content-dp'>
-                  <AvatarSmall link={avatar} profileStatus={true}/>
+                  <AvatarSmall link={avatar} profileStatus={profileStatus} handleClick={()=>handleClickName()}/>
                   <div className='name-loc-ctn'>
-                    <NameLocation name={name} profileStatus={true} />
+                    <NameLocation name={name} profileStatus={profileStatus} handleClick={handleClickName}/>
                   </div>
                 </div>
                 <div className='head-right-corner-container'>
