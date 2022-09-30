@@ -97,6 +97,12 @@ export const HeaderBar = () => {
     setSearchValue(event.target.value)
   }
 
+  const onClickEnter = (e) => {
+    if (e.which === 13) {
+      searchClick();
+    }
+  }
+
   return (
     <>
       <div className="navbar">
@@ -105,7 +111,7 @@ export const HeaderBar = () => {
             <img src="/Toktok-Logo-Wide.png" height={'48px'} className="d-inline-block align-top img-logo-corner" alt="logo-toktok" />
           </div>
 
-          <div className="search-ctn-wrp">
+          <div className="search-ctn-wrp" onKeyDown={onClickEnter}>
             <SearchColumn value={value} handleOnChange={handleChange} />
             <div className="search-btn" onClick={searchClick}>
               <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />

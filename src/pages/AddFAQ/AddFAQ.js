@@ -99,7 +99,9 @@ export const AddFAQ = ({ openCreate, handleOpenCreate, setRefresh }) => {
                                 <Title3White title={"Answer"} />
                                 <CommentColomn placeholder={"Write answer here ..."} handleChange={handleAnswerChange} maxLength={maxLength} value={answer} charLength={answerLength} />
                             </div>
-                            <ButtonComponent label={"Add"} onClick={handleSubmit} />
+                            <div className='button-add'>
+                                <ButtonComponent label={"Add"} onClick={handleSubmit} />
+                            </div>
                         </div>
                     </div>
                 </div>

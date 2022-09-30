@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useLocation } from "react-router"
 import { CategoryLabelActive } from "../../shared/components/CategoryLabel/CategoryLabel"
 import { InputOnly } from "../../shared/components/InputWithLabel/InputWithLabel"
+import { Title2White } from "../../shared/components/Label/Label"
 import { LoadingScreenSm, LoadingSpinnerDiv } from "../../shared/components/LoadingScreen/LoadingScreen"
 import { PanicPopUpScreen } from "../../shared/components/PopUpScreen/PopUpScreen"
 import { UseDep } from "../../shared/context/ContextDep"
@@ -78,6 +79,7 @@ export const Search = () => {
         <>
             <div className='categorize-page-srch'>
                 {isActive && <DetailProductCard handleClick={handleFormClose} product={product} />}
+                {route?.state?.keyword && <Title2White title={`Search result for "${route?.state?.keyword}"`} />}
                 <div className="categorize-page-lst">
                     {/* <div className="search-hd">
                         <InputOnly label={'search'} handleOnChange={handleChange} id='search' value={value} />

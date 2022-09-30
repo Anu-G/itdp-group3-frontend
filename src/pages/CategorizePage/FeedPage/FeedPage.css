@@ -36,7 +36,6 @@
 .detail-feed-wrp{
     width: 692px;
     min-height: 32rem;
-    position: absolute;
     border-radius: 20px;
     padding: 0 0 2rem 0;
     display: flex;

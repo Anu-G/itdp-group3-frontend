@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { ImagesViewProfile } from '../../../shared/components/ImagesViewProfile/ImagesViewProfile'
 import { Text32White, Title2White, Title3White } from '../../../shared/components/Label/Label'
+import { LoadingSpinnerDiv } from '../../../shared/components/LoadingScreen/LoadingScreen'
 import { UseDep } from '../../../shared/context/ContextDep'
 import { AuthSelector } from '../../../shared/selectors/Selectors'
 import AppError from '../../../utils/AppErrors'
@@ -72,6 +73,7 @@ export const CatalogPage = ({ }) => {
 
     return (
         <>
+            {isLoading && <LoadingSpinnerDiv />}
             {products.length == 0 && !isLoading ?
                 <div className='catalog-ctn empty'>
                     <Title2White title={'No Product Yet'} />
