@@ -21,3 +21,13 @@ export const AvatarSmall = ({ link, accId, accType, handleClick, profileStatus }
     </>
   )
 }
+
+export const AvatarTiny = ({ link, accId, accType, handleClick }) => {
+  return (
+    <>
+      <div className={'avatar-ctn tiny'} onClick={() => handleClick(accId, accType)}>
+        <img className='avatar-profile' src={link} />
+      </div>
+    </>
+  )
+}
