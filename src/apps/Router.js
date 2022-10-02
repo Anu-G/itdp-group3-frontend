@@ -47,7 +47,10 @@ const AppRouter = _ => {
          } else {
             return children
          }
-      } else {
+      } else if (location.pathname === '/' || location.pathname === '/feeds/' || location.pathname === '/account' || location.pathname === '/p' || location.pathname === '/feeds/category' || location.pathname === '/feeds/search') {
+         return children
+      }
+      else {
          return <Navigate to={"/auth/login"} replace />
       }
    }
@@ -78,16 +81,12 @@ const AppRouter = _ => {
 
          </Route>
          <Route path="/account" element={
-            <RequireAuth>
-               <NavTimeline />
-            </RequireAuth>
+            <NavTimeline />
          } >
             <Route path=":accId" element={location?.state?.accountType === 1 ? <NonBusinessProfile /> : <BusinessProfile />} />
          </Route>
          <Route path="/p" element={
-            <RequireAuth>
-               <NavTimeline />
-            </RequireAuth>
+            <NavTimeline />
          } >
             <Route path=":postId" element={<DetailPostCard />} />
          </Route>

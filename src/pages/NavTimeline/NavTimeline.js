@@ -25,28 +25,28 @@ const NavTimeline = _ => {
   const { profileService } = UseDep();
 
   useEffect(_ => {
-    (async () => {
-      try {
-        if (authRed.role_id === 1) {
-          await profileService.doGetNonBusinessProfile({
-            account_id: `${authRed.account_id}`
-          });
-        } else if (authRed.role_id === 2) {
-          await profileService.doGetBusinessProfile({
-            account_id: `${authRed.account_id}`
-          });
-        }
-      } catch (err) {
-        if (AppErrorAuth(err)) {
-          setPanic(prevState => ({
-            ...prevState,
-            isPanic: true, errMsg: AppErrorAuth(err)
-          }));
-        }
-      } finally {
-        setLoading(false);
-      }
-    })();
+    // (async () => {
+    //   try {
+    //     if (authRed.role_id === 1) {
+    //       await profileService.doGetNonBusinessProfile({
+    //         account_id: `${authRed.account_id}`
+    //       });
+    //     } else if (authRed.role_id === 2) {
+    //       await profileService.doGetBusinessProfile({
+    //         account_id: `${authRed.account_id}`
+    //       });
+    //     }
+    //   } catch (err) {
+    //     if (AppErrorAuth(err)) {
+    //       setPanic(prevState => ({
+    //         ...prevState,
+    //         isPanic: true, errMsg: AppErrorAuth(err)
+    //       }));
+    //     }
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // })();
 
     if (authRed.role_id === 2) {
       setButtons([{
@@ -85,7 +85,7 @@ const NavTimeline = _ => {
       </div>
 
       <AddPost isOpen={openAddPost} togglePopup={togglePopup} />
-      
+
 
       {isLoading && <LoadingScreen />}
       {success && <SuccessPopUpScreen onClickAnywhere={onClickSuccess} />}

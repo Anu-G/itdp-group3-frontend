@@ -190,7 +190,7 @@ export const BusinessProfile = () => {
                     </div>
                 </div>
 
-                <CategorizePage bisID={authRed.account_id} />
+                <CategorizePage />
             </div>
 
             {showOurLinks && <OurLinks handleX={handleClickLinks} links={profile.BusinessLinks} />}

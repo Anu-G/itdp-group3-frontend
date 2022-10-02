@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Text32White } from "../Label/Label";
-import { ButtonComponent } from "../Button/Button";
+import { ButtonComponent, ButtonComponentSm, ButtonComponentTiny } from "../Button/Button";
 import { useSelector } from "react-redux";
 import { AuthSelector } from "../../selectors/Selectors";
 import { InputTextLabelMd } from "../InputWithLabel/InputWithLabel";
@@ -75,6 +75,8 @@ export default Navbar;
 export const HeaderBar = () => {
 
   const navigate = useNavigate();
+  const authRed = useSelector(AuthSelector);
+
   const homeClick = _ => {
     navigate('/')
   }
@@ -102,6 +104,13 @@ export const HeaderBar = () => {
       searchClick();
     }
   }
+  const loginClick = _ => {
+    navigate('/auth/login')
+  }
+
+  const signUpClick = _ => {
+    navigate('/auth/register')
+  }
 
   return (
     <>
@@ -117,9 +126,16 @@ export const HeaderBar = () => {
               <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
             </div>
           </div>
-          <button className="btn btn-warning btn-profile" type="submit" onClick={profileClick}>
-            <FontAwesomeIcon icon={faUser} />
-          </button>
+          {authRed.token !== '' ?
+            <button className="btn btn-warning btn-profile" type="submit" onClick={profileClick}>
+              <FontAwesomeIcon icon={faUser} />
+            </button>
+            :
+            <div className="btn-auth">
+              <ButtonComponentTiny label={"Login"} onClick={loginClick} />
+              <ButtonComponentTiny label={"Sign Up"} onClick={signUpClick} />
+            </div>
+          }
         </div>
       </div>
     </>

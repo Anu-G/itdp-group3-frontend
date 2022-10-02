@@ -154,3 +154,9 @@
     justify-content: center;
     border-radius: 50%;
   }
+
+  .btn-auth {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }

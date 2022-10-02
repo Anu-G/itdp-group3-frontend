@@ -221,7 +221,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
                 </div>
               </div>
 
-              <div className='bottom-btn' onClick={() => handleLike()}>
+              <div className='bottom-btn' onClick={() => authRed.token !== '' ? handleLike() : null}>
 
                 {!isLiked ? <FontAwesomeIcon icon="fa-regular fa-heart" style={{ height: '28px', color: '#F4F4F4' }} /> : <FontAwesomeIcon icon="heart" style={{ height: '28px', color: '#F4F4F4' }} />}
 
@@ -237,7 +237,7 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
           </div>
 
           <div className='comment-ssn'>
-            {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnClickSend={handleOnClickSend} charLength={comment.length} maxLength={280} isLoading={isLoadingComment} /> : ''}
+            {isActive ? <CommentExtActive comments={comments} handleCommentChange={handleCommentChange} value={comment} isButtonSendActive={isButtonSendActive} buttonLabel={'Send'} handleOnClickSend={handleOnClickSend} charLength={comment.length} maxLength={280} isLoading={isLoadingComment} isLogin={authRed.token !== '' ? true : false} /> : ''}
           </div>
         </div>
         <PostOption feedId={feedId} prevCaption={caption} prevImage={links} openPostOption={openPostOption.isOpen} handleOpenOptions={handleOpenOptions} handleCloseOptions={handleCloseOptions} setRefresh={setRefresh} type={openPostOption.type} />
@@ -247,15 +247,16 @@ export const TimelineCard = ({ avatar, name, place, caption, links, time, date, 
   )
 }
 
-const CommentExtActive = ({ comments, handleCommentChange, maxLength, charLength, value, isButtonSendActive, buttonLabel, handleOnClickSend, isLoading }) => {
+const CommentExtActive = ({ comments, handleCommentChange, maxLength, charLength, value, isButtonSendActive, buttonLabel, handleOnClickSend, isLoading, isLogin }) => {
   return (
     <div className='ext-cmt'>
       {comments == null ? '' : <CommentExtends comments={comments} />}
-      <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} charLength={charLength} value={value} />
-      <div style={{ display: 'flex', justifyContent: 'end' }}>
-        <ButtonComponentSm isDisable={!isButtonSendActive} label={buttonLabel} onClick={handleOnClickSend} isLoading={isLoading} />
-
-      </div>
+      {isLogin && <>
+        <CommentColomn handleChange={handleCommentChange} maxLength={maxLength} charLength={charLength} value={value} />
+        <div style={{ display: 'flex', justifyContent: 'end' }}>
+          <ButtonComponentSm isDisable={!isButtonSendActive} label={buttonLabel} onClick={handleOnClickSend} isLoading={isLoading} />
+        </div>
+      </>}
     </div>
   )
 }
