@@ -75,8 +75,6 @@ export const Search = () => {
         }));
     }
 
-    console.log(products);
-
     return (
         <>
             <div className='categorize-page-srch'>

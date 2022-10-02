@@ -27,6 +27,7 @@ import { SignUp } from "../pages/SignUp/SignUp";
 import { StaticPage } from "../pages/StaticPage/StaticPage";
 import { TimelineCard } from "../pages/TimelineCard/TimelineCard";
 import { TimelinePage } from "../pages/TimelinePage/TimelinePage";
+import { UnderDevelopment } from "../pages/UnderDevelopment/UnderDevelopment";
 import { LoadingScreen } from "../shared/components/LoadingScreen/LoadingScreen";
 import { PanicPopUpScreen, SuccessPopUpScreen } from "../shared/components/PopUpScreen/PopUpScreen";
 import SkeletonTimelineCard from "../shared/components/Skeletons/SkeletonTimelineCard";
@@ -47,7 +48,7 @@ const AppRouter = _ => {
          } else {
             return children
          }
-      } else if (location.pathname === '/' || location.pathname === '/feeds/' || location.pathname === '/account' || location.pathname === '/p' || location.pathname === '/feeds/category' || location.pathname === '/feeds/search') {
+      } else if (location.pathname === '/feeds' || location.pathname === '/feeds/' || location.pathname === '/account' || location.pathname === '/p' || location.pathname === '/feeds/category' || location.pathname === '/feeds/search') {
          return children
       }
       else {
@@ -108,7 +109,7 @@ const AppRouter = _ => {
             <Route path="settings/catalog" element={<SettingsCatalog />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
          </Route>
-         <Route path="/test" element={<StaticPage />} />
+         <Route path="/test" element={<UnderDevelopment />} />
       </Routes>
    )
 }

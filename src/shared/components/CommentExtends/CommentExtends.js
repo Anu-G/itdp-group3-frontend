@@ -5,7 +5,6 @@ import { Text32White, Title3White } from '../Label/Label'
 import { AvatarSmall, AvatarTiny } from '../Avatar/Avatar'
 
 export const CommentExtends = ({ comments }) => {
-    console.log(comments)
     return (
         <div className='comment-ext-wrp'>
 
