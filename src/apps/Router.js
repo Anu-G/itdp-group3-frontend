@@ -48,7 +48,7 @@ const AppRouter = _ => {
          } else {
             return children
          }
-      } else if (location.pathname === '/feeds' || location.pathname === '/feeds/' || location.pathname === '/account' || location.pathname === '/p' || location.pathname === '/feeds/category' || location.pathname === '/feeds/search') {
+      } else if (location.pathname === '/feeds' || location.pathname === '/feeds/' || location.pathname === '/account' || location.pathname === '/p' || location.pathname === '/feeds/category' || location.pathname === '/feeds/search' || location.pathname === '/feeds/support') {
          return children
       }
       else {
@@ -77,9 +77,9 @@ const AppRouter = _ => {
             </RequireAuth>
          } >
             <Route index element={<TimelinePage />} />
-            <Route path="category" element={<CategorizePageTimeline />} />
+            {/* <Route path="category" element={<CategorizePageTimeline />} /> */}
             <Route path="search" element={<Search />} />
-
+            <Route path="support" element={<StaticPage />} />
          </Route>
          <Route path="/account" element={
             <NavTimeline />
@@ -108,8 +108,9 @@ const AppRouter = _ => {
             <Route path="settings/catalog/add" element={<SettingsAddProduct />} />
             <Route path="settings/catalog" element={<SettingsCatalog />} />
             <Route path="settings/faq" element={<SettingsFaq />} />
+            <Route path="support" element={<StaticPage />} />
          </Route>
-         <Route path="/test" element={<UnderDevelopment />} />
+         <Route path="ongoing" element={<UnderDevelopment />} />
       </Routes>
    )
 }

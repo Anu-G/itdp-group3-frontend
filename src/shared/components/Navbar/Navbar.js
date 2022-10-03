@@ -64,7 +64,6 @@ function Navbar({ title, navItems, buttons }) {
             ))}
           </ul>
         </div>
-
       </div>
     </>
   );

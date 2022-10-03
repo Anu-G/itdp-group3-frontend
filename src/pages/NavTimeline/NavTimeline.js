@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router';
 import { LoadingScreen } from '../../shared/components/LoadingScreen/LoadingScreen';
 import Navbar, { HeaderBar } from '../../shared/components/Navbar/Navbar';
-import { navItemsTimeline } from '../../shared/components/Navbar/NavItems';
+import { navItemsTimeline, navItemsTimelineAnon } from '../../shared/components/Navbar/NavItems';
 import { PanicPopUpScreen, SuccessPopUpScreen } from '../../shared/components/PopUpScreen/PopUpScreen';
 import { UseDep } from '../../shared/context/ContextDep';
 import { AuthSelector } from '../../shared/selectors/Selectors';
@@ -48,14 +48,12 @@ const NavTimeline = _ => {
     //   }
     // })();
 
-    if (authRed.role_id === 2) {
-      setButtons([{
-        id: 'addPostBtn',
-        className: 'sidebar-btn',
-        label: 'Add Post',
-        onClick: togglePopup
-      }]);
-    }
+    setButtons([{
+      id: 'addPostBtn',
+      className: 'sidebar-btn',
+      label: 'Add Post',
+      onClick: togglePopup
+    }]);
   }, []);
 
   // screen
@@ -78,7 +76,7 @@ const NavTimeline = _ => {
     <>
       <HeaderBar />
       <div className='content-spc'>
-        <Navbar title={"Timeline"} navItems={navItemsTimeline} buttons={buttons} />
+        <Navbar title={"Timeline"} navItems={authRed.role_id === 0 ? navItemsTimelineAnon : navItemsTimeline} buttons={buttons} />
         <div className='inner-content'>
           <Outlet />
         </div>
